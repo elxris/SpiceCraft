@@ -1,0 +1,12 @@
+name: Useless
+version: 0.01
+main: elxris.Useless.Useless
+commands:
+    tw:
+        description: Crea un warp temporal.
+        usage: /tw [minutos]
+        permission: Useless.tw
+        permission-message: No tienes permisos suficientes para hacer un warp temporal.
+permissions:
+    Useless.tw:
+        default: true
