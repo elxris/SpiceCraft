@@ -1,29 +1,35 @@
-package elxris.Useless;
+package elxris.Useless.Objects;
 
 import org.bukkit.Location;
 import org.bukkit.Server;
-import org.bukkit.configuration.MemoryConfiguration;
-import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.Configuration;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
+
+import elxris.Useless.Utils.Chat;
 
 public class Warp implements Runnable{
     Location loc;
     Player jugador;
     int tiempo;
-    MemoryConfiguration cache;
-    FileConfiguration fc;
-    Server server;
+    Configuration cache;
+    Configuration fc;
+    Chat chat;
     
-    public Warp(Location l, Player p, String t, MemoryConfiguration c, FileConfiguration fc, Server s){
-        setLocation(l);
-        setJugador(p);
-        setTiempo(t);
-        setCache(c);
-        setFC(fc);
-        setServer(s);
+    public Warp(Location location, Player jugador, String tiempo, Configuration cache, Plugin plugin){
+        setLocation(location);
+        setJugador(jugador);
+        setTiempo(tiempo);
+        setCache(cache);
+        setFC(plugin.getConfig());
+        setChat(plugin.getServer());
     }
     public void setLocation(Location l){
         loc = l;
+    }
+    
+    public Location getLocation(){
+        return loc;
     }
     
     public void setJugador(Player p){
@@ -34,16 +40,16 @@ public class Warp implements Runnable{
         tiempo = Integer.parseInt(t);
     }
     
-    public void setCache(MemoryConfiguration c){
+    public void setCache(Configuration c){
         cache = c;
     }
     
-    public void setFC(FileConfiguration f){
+    public void setFC(Configuration f){
         fc = f;
     }
     
-    public void setServer(Server s){
-        server = s;
+    public void setChat(Server s){
+        chat = new Chat(s);
     }
     @Override
     public void run() {
@@ -56,10 +62,10 @@ public class Warp implements Runnable{
             }
             Thread.sleep(t);
             for(int i = 6;i > 0;i--){
-                server.getPlayer(jugador.getName()).sendMessage(String.format(fc.getString("tw.s.remain"), i*5));
+                chat.mensaje(jugador, fc.getString("tw.s.remain"), i*5);
                 Thread.sleep(5*1000);
             }
-            server.getPlayer(jugador.getName()).sendMessage(fc.getString("tw.s.destroyed"));
+            chat.mensaje(jugador, fc.getString("tw.s.destroyed"));
             cache.set(jugador.getName()+".tw", false);
         } catch (Throwable e) {
         }

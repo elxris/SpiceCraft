@@ -1,70 +1,53 @@
 package elxris.Useless;
 
+import java.io.File;
 import java.util.logging.Logger;
 
-import org.bukkit.Location;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.Configuration;
 import org.bukkit.configuration.MemoryConfiguration;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import elxris.Useless.Utils.Experiencia;
+import elxris.Useless.Commands.CompassCommand;
+import elxris.Useless.Commands.MailBoxCommand;
+import elxris.Useless.Commands.MailBoxCreateCommand;
+import elxris.Useless.Commands.WarpCommand;
+import elxris.Useless.Listener.MailListener;
+import elxris.Useless.Objects.Mail;
  
 public class Useless extends JavaPlugin {
-    FileConfiguration fc;
-    MemoryConfiguration cache;
+    Configuration fc, warpcache, pincache;
+    Mail mail;
     Logger lggr;
-    //ArrayList warps = new ArrayList();
+    File file;
     public void onEnable(){
         fc = this.getConfig();
         lggr = this.getLogger();
         checkConfiguration();
-        cache = new MemoryConfiguration();
-    }
-    
-    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args){
-        Player jugador;
-        if(sender instanceof Player){
-            jugador = (Player) sender;
-        }else{
-            return false;
+        //Commando Tempowal Warp
+        warpcache = new MemoryConfiguration();
+        getCommand("tw").setExecutor(new WarpCommand(this, warpcache));
+        //Comando Mail
+        mail = new Mail(this);
+        getCommand("mbox").setExecutor(new MailBoxCommand(this, mail));
+        getCommand("mboxc").setExecutor(new MailBoxCreateCommand(this, mail));
+        //Listener Mail
+        new MailListener(this);
+        //Comando Compass
+        pincache = new MemoryConfiguration();
+        getCommand("tpin").setExecutor(new CompassCommand(this, pincache));
+        /*file = new File(getDataFolder(), "mail.yml");
+        mailcache = YamlConfiguration.loadConfiguration(file);
+        mailcache.set("prueba.pruebab.prueba", 123);
+        mailcache.set("prueba.pruebab.prueba2", 123);
+        mailcache.set("prueba.pruebab.prueba", null);
+        mailcache.set("prueba.pruebab.prueba2", null);
+        lggr.info(Boolean.toString(mailcache.isConfigurationSection("prueba.pruebab")));
+        try {
+            mailcache.save("mail.yml");
+            mailcache.load("mail.yml");
+        } catch (IOException | InvalidConfigurationException e) {
         }
-        if(cmd.getName().equalsIgnoreCase("tw")){
-            if(jugador.hasPermission("Useless.tw")){
-                if(!cache.isSet(jugador.getName()+".tw")){
-                    cache.set(jugador.getName()+".tw", false);
-                }
-                if(!cache.getBoolean(jugador.getName()+".tw")){
-                    String tiempo = fc.getString("tw.v.maxTime");;
-                    if(args.length > 0){
-                        if(Integer.parseInt(args[0]) <= fc.getInt("tw.v.maxTime")){
-                            tiempo = args[0];
-                            if(Integer.parseInt(args[0]) < fc.getInt("tw.v.minTime")){
-                                tiempo = fc.getString("tw.v.minTime");
-                            }
-                        }
-                    }else{
-                        return false;
-                    }
-                    int precio = fc.getInt("tw.v.price")*Integer.parseInt(tiempo);
-                    if(Experiencia.cobrarEsperiencia(jugador, precio)){
-                        Warp w = new Warp(jugador.getLocation(), jugador, tiempo, cache, fc, getServer());
-                        Thread t = new Thread(w);
-                        t.start();
-                        cache.set(jugador.getName()+".w", w.loc);
-                        jugador.sendMessage(String.format(fc.getString("tw.s.created"), Integer.parseInt(tiempo), precio));
-                    }else{
-                        jugador.sendMessage(fc.getString("tw.s.noMoney"));
-                    }
-                }else{
-                    jugador.teleport((Location)cache.get(jugador.getName()+".w"));
-                }
-            }
-            return true;
-        }
-        return false;
+        lggr.info(Boolean.toString(mailcache.isConfigurationSection("prueba.pruebab")));*/
     }
 
     public void checkConfiguration(){
@@ -72,6 +55,10 @@ public class Useless extends JavaPlugin {
         path = "version";
         if(!this.getConfig().isSet(path))
             this.getConfig().set(path, Double.parseDouble(this.getDescription().getVersion()));
+        // Warps
+        path = "tw.info";
+        if(!this.getConfig().isSet(path))
+            this.getConfig().set(path, "/tw [minutos]\nRecuerda que por cada minuto te cobrar\u00E1 10 puntos de experiencia.");
         path = "tw.s.created";
         if(!this.getConfig().isSet(path))
             this.getConfig().set(path, "Warp Temporal de %d minutos, y te costo %d puntos de experiencia.");
@@ -89,13 +76,41 @@ public class Useless extends JavaPlugin {
             this.getConfig().set(path, "No puedes pagarte un warp temporal en este momento.");
         path = "tw.v.maxTime";
         if(!this.getConfig().isSet(path))
-            this.getConfig().set(path, 15);
+            this.getConfig().set(path, 120);
         path = "tw.v.minTime";
         if(!this.getConfig().isSet(path))
             this.getConfig().set(path, 1);
         path = "tw.v.price";
         if(!this.getConfig().isSet(path))
             this.getConfig().set(path, 10);
+        // Mail
+        path = "mbox.info";
+        if(!this.getConfig().isSet(path))
+            this.getConfig().set(path, 
+                    "§l/mbox list §rListar los correos que tienes.\n" +
+            		"§l/mbox next §rLeer el siguiente correo.\n" +
+            		"§l/mbox keep §rConserva el ultimo correo leido.\n");
+        path = "mbox.list";
+        if(!this.getConfig().isSet(path))
+            this.getConfig().set(path, "Tienes (%d) mensajes.\n§l/mbox§r Ver la ayuda.");
+        path = "mbox.mail";
+        if(!this.getConfig().isSet(path))
+            this.getConfig().set(path, "De: %s\nFecha: %s\n%s\n§l/mbox§r Ver la ayuda. §l/mboxc reply§r Responder");
+        // Create mail
+        path = "mbox.info";
+        if(!this.getConfig().isSet(path))
+            this.getConfig().set(path, 
+                    "§l/mboxc list §rListar los correos que tienes.\n" +
+                    "§l/mboxc next §rLeer el siguiente correo.\n" +
+                    "§l/mboxc keep §rConserva el ultimo correo leido.\n");
+        // TODO Actualizar la información
+        path = "mboxc.noPlayerAdded";
+        if(!this.getConfig().isSet(path))
+            this.getConfig().set(path, "Ningún destinatario, por lo tanto mensaje no creado.");
+        path = "mbox.playerNotExist";
+        if(!this.getConfig().isSet(path))
+            this.getConfig().set(path, "El jugador %s no existe. No ha sido agregado.");
+        // Compass
         
         this.saveConfig();
     }

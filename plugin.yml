@@ -1,12 +1,29 @@
 name: Useless
-version: 0.01
+version: 0.02
 main: elxris.Useless.Useless
 commands:
     tw:
         description: Crea un warp temporal.
-        usage: /tw [minutos]
-        permission: Useless.tw
-        permission-message: No tienes permisos suficientes para hacer un warp temporal.
+        usage: /tw minutos
+        permission: useless.tw
+    mbox:
+        description: Revisa tu bandeja.
+        usage: /mbox ?
+        permission: useless.mail
+    mboxc:
+        description: Elimina todos los mensajes de tu bandeja de mail.
+        usage: /mboxc ?
+        permission: useless.mail.create
+    tpin:
+        description: Muestra en tu brujula la direccion que hayas marcado.
+        usage: /tpin ?
+        permission: useless.target
 permissions:
-    Useless.tw:
+    useless.tw:
+        default: true
+    useless.mail:
+        default: true
+    useless.mail.create:
+        default: true
+    useless.target:
         default: true
