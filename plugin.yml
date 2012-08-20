@@ -25,5 +25,7 @@ permissions:
         default: true
     useless.mail.create:
         default: true
+    useless.mail.massive:
+        default: true
     useless.target:
         default: true

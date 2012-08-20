@@ -10,7 +10,6 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
 import elxris.Useless.Utils.Chat;
@@ -43,6 +42,7 @@ public class Mail {
         }
     }
     public void interpreta(){
+        // TODO Corregir error al borrar todos los usuarios de un mensaje.
         List<Long> listacorreos = cache.getLongList("correos.mensajes");
         for(Long k: listacorreos){
             List<String> usuarios = cache.getStringList("correos."+k+".usuarios");
@@ -51,7 +51,7 @@ public class Mail {
                 cuenta++;
                 List<Long> lista = cache.getLongList("usuarios."+k2+"mensajes");
                 lista.add(k);
-                cache.set("usuarios."+k2+".mensajes", k);
+                cache.set("usuarios."+k2+".mensajes", lista);
             }
             if(cuenta == 0){
                 cache.set("correos."+k, null);
@@ -65,19 +65,20 @@ public class Mail {
         List<String> usuarios = cache.getStringList("correos."+mail+".usuarios");
         usuarios.remove(jugador);
         cache.set("correos."+mail+".usuarios", usuarios);
-        save();
     }
     public void noEliminar(String jugador, Long mail){
+        if(!cache.isSet("correos."+mail)){
+            return;
+        }
         List<String> usuarios = cache.getStringList("correos."+mail+".usuarios");
         usuarios.add(jugador);
         cache.set("correos."+mail+".usuarios", usuarios);
-        save();
     }
     public String getMail(Long id){
         String mail = "";
         Date fecha = new Date(id);
-        mail.concat(String.format(fc.getString("mabox.mail"), cache.getString("correos."+id+".remitente"),
-                fecha.toString(), cache.getString("correos."+id+".mensaje")));
+        mail = String.format(fc.getString("mbox.mail"), cache.getString("correos."+id+".remitente"),
+                fecha.toString(), cache.getString("correos."+id+".mensaje"));
         return mail;
     }
     public void getMailList(String jugador){
@@ -86,34 +87,40 @@ public class Mail {
     }
     public void getNextMail(String jugador){
         List<Long> mensajes = cache.getLongList("usuarios."+jugador+".mensajes");
+        if(mensajes.size() < 1){
+            chat.mensaje(jugador, fc.getString("mbox.listEnd"));
+            return;
+        }
         String mensaje = getMail(mensajes.get(0));
         chat.mensaje(jugador, mensaje);
         cache.set("usuarios."+jugador+".ultimo", mensajes.get(0));
         eliminar(jugador, mensajes.get(0));
     }
     public void keepMail(String jugador){
+        if(cache.getLong("usuarios."+jugador+".ultimo") == 0){
+            return;
+        }
         noEliminar(jugador, cache.getLong("usuarios."+jugador+".ultimo"));
     }
     public void createBorrador(String jugador, String args[]){
+        clearBorrador(jugador);
         List<String> destinatarios = new ArrayList<String>();
         for(String k: args){
-            if(plugin.getServer().matchPlayer(k).get(0) != null){
+            if(plugin.getServer().matchPlayer(k).size() >= 1){
                 destinatarios.add(k);
             }else{
-                chat.mensaje(jugador, fc.getString("mbox.playerNotExist"), k);
+                chat.mensaje(jugador, fc.getString("mboxc.playerNotExist"), k);
             }
         }
-        if(destinatarios.size() > 1){
+        if(destinatarios.size() >= 1){
             cache.set("usuarios."+jugador+".borrador.destinatarios", destinatarios);
         }else{
             chat.mensaje(jugador, fc.getString("mboxc.noPlayerAdded"));
         }
-        clearMensaje(jugador);
     }
     public void createReply(String jugador){
         String[] remitente = {cache.getString("correos."+cache.getLong("usuarios."+jugador+".ultimo")+".remitente")};
         createBorrador(jugador, remitente);
-        clearMensaje(jugador);
     }
     public void setMensaje(String jugador, String mensaje){
         cache.set("usuarios."+jugador+".borrador.mensaje", mensaje);
@@ -125,15 +132,27 @@ public class Mail {
     public void clearMensaje(String jugador){
         setMensaje(jugador, "");
     }
+    public void clearBorrador(String jugador){
+        cache.set("usuarios."+jugador+".borrador", null);
+    }
     public void sendMensaje(String jugador, List<String> destinatarios, String mensaje){
         long fecha = System.currentTimeMillis();
-        // TODO Grabar el mensaje
-        // TODO Borrar el contenido del borrador.
+        List<Long> mensajes = cache.getLongList("correos.mensajes");
+        mensajes.add(fecha);
+        cache.set("correos.mensajes", mensajes);
+        String path = "correos."+fecha+".";
+        cache.set(path+"remitente", jugador);
+        cache.set(path+"mensaje", mensaje);
+        cache.set(path+"usuarios", destinatarios);
+        for(String k: destinatarios){
+            chat.mensaje(k, fc.getString("mboxc.catched"));
+        }
+        chat.mensaje(jugador, fc.getString("mboxc.sended"));
+        clearBorrador(jugador);
     }
     public void sendMensaje(String jugador){
-        List<String> destinatarios = cache.getStringList("");
-        String mensaje = cache.getString("");
-        // TODO Terminar de poner el path
+        List<String> destinatarios = cache.getStringList("usuarios."+jugador+".borrador.destinatarios");
+        String mensaje = cache.getString("usuarios."+jugador+".borrador.mensaje");
         sendMensaje(jugador, destinatarios, mensaje);
     }
     public void sendMensajeATodos(String jugador){
@@ -141,7 +160,9 @@ public class Mail {
         for(OfflinePlayer p: plugin.getServer().getOfflinePlayers()){
             destinatarios.add(p.getName());
         }
-        // TODO Limitar a los que tienen permisos.
+        if(!plugin.getServer().getPlayer(jugador).hasPermission("useless.mail.massive")){
+            return;
+        }
         sendMensaje("Servidor", destinatarios, cache.getString("usuarios."+jugador+".borrador.mensaje"));
     }
 }

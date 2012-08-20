@@ -53,6 +53,8 @@ public class MailBoxCommand implements CommandExecutor{
             chat.mensaje(jugador, fc.getString("mbox.info"));
             return true;
         }
+        mail.save();
+        mail.load();
         return true;
     }
 }

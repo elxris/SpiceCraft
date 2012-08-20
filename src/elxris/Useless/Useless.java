@@ -96,20 +96,36 @@ public class Useless extends JavaPlugin {
         path = "mbox.mail";
         if(!this.getConfig().isSet(path))
             this.getConfig().set(path, "De: %s\nFecha: %s\n%s\n§l/mbox§r Ver la ayuda. §l/mboxc reply§r Responder");
+        path = "mbox.listEnd";
+        if(!this.getConfig().isSet(path))
+            this.getConfig().set(path, "Ya no tienes más correos.");
+        // TODO Mail Conservado
         // Create mail
-        path = "mbox.info";
+        path = "mboxc.info";
         if(!this.getConfig().isSet(path))
             this.getConfig().set(path, 
-                    "§l/mboxc list §rListar los correos que tienes.\n" +
-                    "§l/mboxc next §rLeer el siguiente correo.\n" +
-                    "§l/mboxc keep §rConserva el ultimo correo leido.\n");
-        // TODO Actualizar la información
+                    "Para crear un correo debes primero hacer Reply o Create para después agregar el mensaje.\n" +
+                    "§l/mboxc Reply §rResponde al usuario del último mensaje leido. " +
+                    "Al usar el comando se crea un borrador con destinatario igual al remitente.\n" +
+                    "§l/mboxc Create [Usuario] ... §rCrea un borrador con destinatario o destinatarios. Uno mínimo.\n" +
+                    "§l/mboxc Add [Mensaje]§rAgrega el mensaje a el correo.\n" +
+                    "§l/mboxc Clear§rBorra el mensaje." +
+                    "§l/mboxc Send§rYa que tienes listo el mensaje, este comando lo envía.\n" +
+                    "§l/mboxc SendAll§r (Solo Admins)Envía el mensaje a todos los usuarios que hayan entrado al servidor.");
+        // TODO Primero crear el correo y despues el mensaje.
         path = "mboxc.noPlayerAdded";
         if(!this.getConfig().isSet(path))
             this.getConfig().set(path, "Ningún destinatario, por lo tanto mensaje no creado.");
-        path = "mbox.playerNotExist";
+        path = "mboxc.playerNotExist";
         if(!this.getConfig().isSet(path))
             this.getConfig().set(path, "El jugador %s no existe. No ha sido agregado.");
+        path = "mboxc.catched";
+        if(!this.getConfig().isSet(path))
+            this.getConfig().set(path, "Mensaje recibido.");
+        path = "mboxc.sended";
+        if(!this.getConfig().isSet(path))
+            this.getConfig().set(path, "Mensaje enviado.");
+        
         // Compass
         
         this.saveConfig();
