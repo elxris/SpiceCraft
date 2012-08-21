@@ -48,6 +48,7 @@ public class MailBoxCreateCommand implements CommandExecutor{
             if(args.length > 1){
                 mail.createBorrador(jugador.getName(), cortarArray(1, args));              
             }
+            break;
         case "add":
             if(args.length > 1){
                 mail.addMensaje(jugador.getName(), getString(cortarArray(1, args)));
@@ -68,8 +69,7 @@ public class MailBoxCreateCommand implements CommandExecutor{
             chat.mensaje(jugador, fc.getString("mboxc.info"));
             return true;
         }
-        mail.save();
-        mail.load();
+        mail.interpreta();
         return true;
     }
     
@@ -84,8 +84,8 @@ public class MailBoxCreateCommand implements CommandExecutor{
     public String getString(String[] args){
         String string = "";
         for(String k: args){
-            string.concat(k);
-            string.concat(" ");
+            string = string.concat(k);
+            string = string.concat(" ");
         }
         return string;
     }

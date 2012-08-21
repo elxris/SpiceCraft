@@ -42,23 +42,25 @@ public class Mail {
         }
     }
     public void interpreta(){
-        // TODO Corregir error al borrar todos los usuarios de un mensaje.
         List<Long> listacorreos = cache.getLongList("correos.mensajes");
+        List<Long> remover = cache.getLongList("correos.mensajes");
+        //Quitar los mensajes anteriores.
+        for(OfflinePlayer p: plugin.getServer().getOfflinePlayers()){
+            cache.set("usuarios."+p.getName()+".mensajes", null);
+        }
         for(Long k: listacorreos){
             List<String> usuarios = cache.getStringList("correos."+k+".usuarios");
-            int cuenta = 0;
+            if(usuarios.size() == 0){
+                cache.set("correos."+k, null);
+                remover.remove(k);
+            }
             for(String k2: usuarios){
-                cuenta++;
                 List<Long> lista = cache.getLongList("usuarios."+k2+"mensajes");
                 lista.add(k);
                 cache.set("usuarios."+k2+".mensajes", lista);
             }
-            if(cuenta == 0){
-                cache.set("correos."+k, null);
-                listacorreos.remove(k);
-            }
         }
-        cache.set("correos.mensajes", listacorreos);
+        cache.set("correos.mensajes", remover);
         save();
     }
     public void eliminar(String jugador, Long mail){
@@ -75,7 +77,7 @@ public class Mail {
         cache.set("correos."+mail+".usuarios", usuarios);
     }
     public String getMail(Long id){
-        String mail = "";
+        String mail;
         Date fecha = new Date(id);
         mail = String.format(fc.getString("mbox.mail"), cache.getString("correos."+id+".remitente"),
                 fecha.toString(), cache.getString("correos."+id+".mensaje"));
@@ -87,21 +89,16 @@ public class Mail {
     }
     public void getNextMail(String jugador){
         List<Long> mensajes = cache.getLongList("usuarios."+jugador+".mensajes");
-        if(mensajes.size() < 1){
+        if(mensajes.size() == 0){
             chat.mensaje(jugador, fc.getString("mbox.listEnd"));
             return;
         }
+        cache.set("usuarios."+jugador+".ultimo", cache.getString("correos."+mensajes.get(0)+".remitente"));
         String mensaje = getMail(mensajes.get(0));
         chat.mensaje(jugador, mensaje);
-        cache.set("usuarios."+jugador+".ultimo", mensajes.get(0));
         eliminar(jugador, mensajes.get(0));
     }
-    public void keepMail(String jugador){
-        if(cache.getLong("usuarios."+jugador+".ultimo") == 0){
-            return;
-        }
-        noEliminar(jugador, cache.getLong("usuarios."+jugador+".ultimo"));
-    }
+    // TODO Crear sistema anti spam
     public void createBorrador(String jugador, String args[]){
         clearBorrador(jugador);
         List<String> destinatarios = new ArrayList<String>();
@@ -119,14 +116,22 @@ public class Mail {
         }
     }
     public void createReply(String jugador){
-        String[] remitente = {cache.getString("correos."+cache.getLong("usuarios."+jugador+".ultimo")+".remitente")};
+        String[] remitente = {cache.getString("usuarios."+jugador+".ultimo")};
+        if(remitente[0] == null){
+            return;
+        }
         createBorrador(jugador, remitente);
     }
     public void setMensaje(String jugador, String mensaje){
         cache.set("usuarios."+jugador+".borrador.mensaje", mensaje);
     }
     public void addMensaje(String jugador, String mensaje){
-        String mensajeAnterior = cache.getString("usuarios."+jugador+".borrador.mensaje");
+        String mensajeAnterior;
+        if(cache.isSet("usuarios."+jugador+".borrador.mensaje")){
+            mensajeAnterior = cache.getString("usuarios."+jugador+".borrador.mensaje");
+        }else{
+            mensajeAnterior = "";
+        }
         setMensaje(jugador, mensajeAnterior+mensaje);
     }
     public void clearMensaje(String jugador){

@@ -31,10 +31,11 @@ public class Useless extends JavaPlugin {
         getCommand("mbox").setExecutor(new MailBoxCommand(this, mail));
         getCommand("mboxc").setExecutor(new MailBoxCreateCommand(this, mail));
         //Listener Mail
-        new MailListener(this);
+        new MailListener(this, mail);
         //Comando Compass
         pincache = new MemoryConfiguration();
         getCommand("tpin").setExecutor(new CompassCommand(this, pincache));
+        
         /*file = new File(getDataFolder(), "mail.yml");
         mailcache = YamlConfiguration.loadConfiguration(file);
         mailcache.set("prueba.pruebab.prueba", 123);
@@ -88,31 +89,28 @@ public class Useless extends JavaPlugin {
         if(!this.getConfig().isSet(path))
             this.getConfig().set(path, 
                     "§l/mbox list §rListar los correos que tienes.\n" +
-            		"§l/mbox next §rLeer el siguiente correo.\n" +
-            		"§l/mbox keep §rConserva el ultimo correo leido.\n");
+            		"§l/mbox next §rLeer el siguiente correo. Se borra también.");
         path = "mbox.list";
         if(!this.getConfig().isSet(path))
-            this.getConfig().set(path, "Tienes (%d) mensajes.\n§l/mbox§r Ver la ayuda.");
+            this.getConfig().set(path, "Tienes (%d) mensajes.");
         path = "mbox.mail";
         if(!this.getConfig().isSet(path))
-            this.getConfig().set(path, "De: %s\nFecha: %s\n%s\n§l/mbox§r Ver la ayuda. §l/mboxc reply§r Responder");
+            this.getConfig().set(path, "De: %s\nFecha: %s\n§l%s§r\n§l/mbox§r Ver la ayuda. §l/mboxc reply§r Responder");
         path = "mbox.listEnd";
         if(!this.getConfig().isSet(path))
             this.getConfig().set(path, "Ya no tienes más correos.");
-        // TODO Mail Conservado
         // Create mail
         path = "mboxc.info";
         if(!this.getConfig().isSet(path))
             this.getConfig().set(path, 
                     "Para crear un correo debes primero hacer Reply o Create para después agregar el mensaje.\n" +
-                    "§l/mboxc Reply §rResponde al usuario del último mensaje leido. " +
+                    "§l/mboxc Reply §rResponde al usuario del último mensaje leido.\n" +
                     "Al usar el comando se crea un borrador con destinatario igual al remitente.\n" +
                     "§l/mboxc Create [Usuario] ... §rCrea un borrador con destinatario o destinatarios. Uno mínimo.\n" +
-                    "§l/mboxc Add [Mensaje]§rAgrega el mensaje a el correo.\n" +
-                    "§l/mboxc Clear§rBorra el mensaje." +
-                    "§l/mboxc Send§rYa que tienes listo el mensaje, este comando lo envía.\n" +
-                    "§l/mboxc SendAll§r (Solo Admins)Envía el mensaje a todos los usuarios que hayan entrado al servidor.");
-        // TODO Primero crear el correo y despues el mensaje.
+                    "§l/mboxc Add [Mensaje] §rAgrega el mensaje a el correo.\n" +
+                    "§l/mboxc Clear §rBorra el mensaje.\n" +
+                    "§l/mboxc Send §rYa que tienes listo el mensaje, este comando lo envía.\n" +
+                    "§l/mboxc SendAll §r(Solo Admins)Envía el mensaje a todos los usuarios que hayan entrado al servidor.");
         path = "mboxc.noPlayerAdded";
         if(!this.getConfig().isSet(path))
             this.getConfig().set(path, "Ningún destinatario, por lo tanto mensaje no creado.");
@@ -125,6 +123,7 @@ public class Useless extends JavaPlugin {
         path = "mboxc.sended";
         if(!this.getConfig().isSet(path))
             this.getConfig().set(path, "Mensaje enviado.");
+        // TODO Correo creado, correo no creado, mensaje añadido.
         
         // Compass
         

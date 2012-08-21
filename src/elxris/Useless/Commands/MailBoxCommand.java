@@ -44,17 +44,13 @@ public class MailBoxCommand implements CommandExecutor{
         case "next":
             mail.getNextMail(jugador.getName());
             break;
-        case "keep":
-            mail.keepMail(jugador.getName());
-            break;
         case "help":
         case "?":
         default:
             chat.mensaje(jugador, fc.getString("mbox.info"));
             return true;
         }
-        mail.save();
-        mail.load();
+        mail.interpreta();
         return true;
     }
 }

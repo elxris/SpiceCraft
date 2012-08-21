@@ -11,10 +11,10 @@ public class MailListener implements Listener{
     public Plugin plugin;
     public Mail mail;
     
-    public MailListener(Plugin p) {
+    public MailListener(Plugin p, Mail m) {
         plugin = p;
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
-        mail = new Mail(p);
+        mail = m;
     }
     
     @EventHandler
