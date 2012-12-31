@@ -33,9 +33,6 @@ public class MailBoxCreateCommand extends Comando{
             return true;
         }
         switch (args[0].toLowerCase()) {
-        case "reply":
-            mail.createReply(jugador.getName());
-            break;
         case "create":
             if(args.length > 1){
                 mail.createBorrador(jugador.getName(), cortarArray(1, args));              

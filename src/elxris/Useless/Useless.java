@@ -77,37 +77,36 @@ public class Useless extends JavaPlugin {
         path = "mbox.info";
         String[] s = {"§aAyuda /mbox§r",
                 "§l/mbox . §rListar los correos que tienes.",
-                "§l/mbox next §rLeer el siguiente correo.",
-                "§l/mbox next . §rLeer el siguiente correo, pero sin borrarlo."};
+                "§l/mbox read §rLeer el correo.",
+                "§l/mbox .. §rBorrar correo.",
+                "§l/mboxc §rAyuda para crear correos."};
         if(!this.getConfig().isSet(path))
             this.getConfig().set(path, s);
         path = "mbox.list";
         if(!this.getConfig().isSet(path))
-            this.getConfig().set(path, "Tienes (%d) mensajes.");
+            this.getConfig().set(path, "Tienes §e%d§r mensajes. §e/mbox§r Para más info.");
         path = "mbox.mail";
-        String[] s2 = {"De: %s",
-                "Fecha: %s",
+        String[] s2 = {"De: %s Fecha: %s",
                 "§l%s§r",
-                "§l/mbox§r Ver la ayuda. §l/mboxc reply§r Responder"};
+                "§e§l/mbox§r Ayuda. §e§l/mboxc create %s§r Responder"};
         if(!this.getConfig().isSet(path))
             this.getConfig().set(path, s2);
         path = "mbox.listEnd";
         if(!this.getConfig().isSet(path))
-            this.getConfig().set(path, "Ya no tienes más correos.");
+            this.getConfig().set(path, "Ya no tienes correos.");
         path = "mbox.deleted";
         if(!this.getConfig().isSet(path))
-            this.getConfig().set(path, "Mensaje eliminado.");
+            this.getConfig().set(path, "Mensajes eliminados.");
         // Create mail
         path = "mboxc.info";
         String[] s3 = {"§aAyuda /mboxc§r",
-                "Para crear un correo debes primero hacer Reply o Create para después agregar el mensaje.",
-                "§l/mboxc Reply §rResponde al usuario del último mensaje leido.",
+                "Para crear un correo debes primero hacer un §l/mboxc create§r para después agregar el mensaje.",
                 "Al usar el comando se crea un borrador con destinatario igual al remitente.",
                 "§l/mboxc Create [Usuario] ... §rCrea un borrador con destinatario o destinatarios. Uno mínimo.",
                 "§l/mboxc Add [Mensaje] §rAgrega el mensaje a el correo.",
                 "§l/mboxc Clear §rBorra el mensaje.",
                 "§l/mboxc Send §rYa que tienes listo el mensaje, este comando lo envía.",
-                "§l/mboxc SendAll §r(Solo Admins)Envía el mensaje a todos los usuarios que hayan entrado al servidor."};
+                "§l/mboxc SendAll §r(Solo Admins)Envía el mensaje a todos los usuarios."};
         if(!this.getConfig().isSet(path))
             this.getConfig().set(path, s3);
         path = "mboxc.noPlayerAdded";
@@ -128,7 +127,7 @@ public class Useless extends JavaPlugin {
         // TODO Correo creado, correo no creado, mensaje añadido.
         path = "mboxc.created";
         if(!this.getConfig().isSet(path))
-            this.getConfig().set(path, "Borrador creado.");
+            this.getConfig().set(path, "Borrador creado. §e/mboxc add <Mensaje>§r para añadir mensaje.");
         path = "mboxc.add";
         if(!this.getConfig().isSet(path))
             this.getConfig().set(path, "Mensaje añadido, recuerda que puedes añadir más.");

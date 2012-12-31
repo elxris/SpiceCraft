@@ -34,12 +34,12 @@ public class MailBoxCommand extends Comando{
         case ".":
             mail.getMailList(jugador.getName());
             break;
-        case "next":
-            Boolean eliminar = true;
-            if(args.length > 1 && args[1] == "."){
-                eliminar = false;
-            }
-            mail.getNextMail(jugador.getName(), eliminar);
+        case "read":
+            mail.getNextMail(jugador.getName(), false);
+            break;
+        case "..":
+            mail.eliminarAll(jugador.getName());
+            mensaje(jugador, "mbox.deleted");
             break;
         case "help":
         case "?":

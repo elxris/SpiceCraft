@@ -16,7 +16,7 @@ import elxris.Useless.Utils.Fecha;
 public class Mail {
     FileConfiguration cache;
     Configuration fc;
-    Plugin plugin;
+    Useless plugin;
     Chat chat;
     Archivo archivo;
     
@@ -49,9 +49,14 @@ public class Mail {
                 remover.remove(k);
             }
             for(String k2: usuarios){
-                List<Long> lista = cache.getLongList("usuarios."+k2+"mensajes");
-                lista.add(k);
-                cache.set("usuarios."+k2+".mensajes", lista);
+                List<Long> listaAnterior = new ArrayList<Long>();
+                if(cache.isSet("usuarios."+k2+".mensajes")){
+                    listaAnterior = cache.getLongList("usuarios."+k2+".mensajes");
+                    listaAnterior.add(k);
+                }else{
+                    listaAnterior.add(k);
+                }
+                cache.set("usuarios."+k2+".mensajes", listaAnterior);
             }
         }
         cache.set("correos.mensajes", remover);
@@ -62,14 +67,22 @@ public class Mail {
         usuarios.remove(jugador);
         cache.set("correos."+mail+".usuarios", usuarios);
     }
-    public void noEliminar(String jugador, Long mail){
+    public void eliminarAll(String jugador){
+        List<Long> mensajes = cache.getLongList("usuarios."+jugador+".mensajes");
+        for(Long lng: mensajes){
+            List<String> usuarios = cache.getStringList("correos."+lng+".usuarios");
+            usuarios.remove(jugador);
+            cache.set("correos."+lng+".usuarios", usuarios);
+        }
+    }
+    /*public void noEliminar(String jugador, Long mail){
         if(!cache.isSet("correos."+mail)){
             return;
         }
         List<String> usuarios = cache.getStringList("correos."+mail+".usuarios");
         usuarios.add(jugador);
         cache.set("correos."+mail+".usuarios", usuarios);
-    }
+    }*/
     public String[] getMail(Long id){
         String remitente = cache.getString("correos."+id+".remitente");
         if(cache.getBoolean("correos."+id+".servidor") == true){
@@ -77,7 +90,7 @@ public class Mail {
         }
         String[] mail = {remitente,
                 Fecha.formatoFecha(fc, id, fc.getString("f.units").split(" "), fc.getString("f.months").split(" ")),
-                cache.getString("correos."+id+".mensaje")};
+                cache.getString("correos."+id+".mensaje"), remitente};
         return mail;
     }
     public void getMailList(String jugador){
@@ -90,15 +103,14 @@ public class Mail {
             chat.mensaje(jugador, "mbox.listEnd");
             return;
         }
-        cache.set("usuarios."+jugador+".ultimo", cache.getString("correos."+mensajes.get(0)+".remitente"));
-        String[] mensaje = getMail(mensajes.get(0));
-        chat.mensaje(jugador, "mbox.mail", mensaje);
-        if(!eliminar){
-            return;
+        for(long lng: mensajes){
+            String[] mensaje = getMail(lng);
+            chat.mensaje(jugador, "mbox.mail", mensaje);
+            if(eliminar){
+                eliminar(jugador, lng);
+            }
         }
-        eliminar(jugador, mensajes.get(0));
     }
-    // TODO Crear sistema anti spam
     public void createBorrador(String jugador, String args[]){
         clearBorrador(jugador);
         List<String> destinatarios = new ArrayList<String>();
@@ -115,13 +127,6 @@ public class Mail {
         }else{
             chat.mensaje(jugador, "mboxc.noPlayerAdded");
         }
-    }
-    public void createReply(String jugador){
-        String[] remitente = {cache.getString("usuarios."+jugador+".ultimo")};
-        if(remitente[0] == null){
-            return;
-        }
-        createBorrador(jugador, remitente);
     }
     public void setMensaje(String jugador, String mensaje){
         cache.set("usuarios."+jugador+".borrador.mensaje", mensaje);
@@ -178,7 +183,7 @@ public class Mail {
         sendMensaje(jugador, destinatarios, cache.getString("usuarios."+jugador+".borrador.mensaje"), true);
     }
     
-    public void setPlugin(Plugin plugin) {
+    public void setPlugin(Useless plugin) {
         this.plugin = plugin;
     }
     public Plugin getPlugin() {

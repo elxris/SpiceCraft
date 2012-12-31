@@ -16,9 +16,7 @@ commands:
         permission: useless.mail.create
     upin:
         description: Muestra en tu brujula la direccion que hayas marcado.
-        usage:
-        - /upin ?
-        - /upin set <x> <y> <z>
+        usage: /upin set <x> <y> <z>
         permission: useless.upin
 permissions:
     useless.tw:
