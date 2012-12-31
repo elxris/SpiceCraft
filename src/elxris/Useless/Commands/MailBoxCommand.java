@@ -35,9 +35,11 @@ public class MailBoxCommand extends Comando{
             mail.getMailList(jugador.getName());
             break;
         case "read":
+        case "r":
             mail.getNextMail(jugador.getName(), false);
             break;
-        case "..":
+        case "clear":
+        case "c":
             mail.eliminarAll(jugador.getName());
             mensaje(jugador, "mbox.deleted");
             break;

@@ -130,9 +130,13 @@ public class Mail {
     }
     public void setMensaje(String jugador, String mensaje){
         cache.set("usuarios."+jugador+".borrador.mensaje", mensaje);
-        chat.mensaje(jugador, "mboxc.add");
     }
     public void addMensaje(String jugador, String mensaje){
+        if(cache.getStringList("usuarios."+jugador+".borrador.destinatarios").size() < 1){
+            chat.mensaje(jugador, "string", "§cError.");
+            chat.mensaje(jugador, "mboxc.info");
+            return;
+        }
         String mensajeAnterior;
         if(cache.isSet("usuarios."+jugador+".borrador.mensaje")){
             mensajeAnterior = cache.getString("usuarios."+jugador+".borrador.mensaje");
@@ -143,6 +147,7 @@ public class Mail {
             chat.mensaje(jugador, "mboxc.limit");
         }
         setMensaje(jugador, mensajeAnterior+" "+mensaje);
+        chat.mensaje(jugador, "mboxc.add");
     }
     public void clearMensaje(String jugador){
         setMensaje(jugador, "");
@@ -152,6 +157,11 @@ public class Mail {
         save();
     }
     public void sendMensaje(String jugador, List<String> destinatarios, String mensaje, Boolean servidor){
+        if(!cache.isSet("usuarios."+jugador+".borrador.mensaje")){
+            chat.mensaje(jugador, "string", "§cError.");
+            chat.mensaje(jugador, "mboxc.info");
+            return;
+        }
         long fecha = System.currentTimeMillis();
         List<Long> mensajes = cache.getLongList("correos.mensajes");
         mensajes.add(fecha);

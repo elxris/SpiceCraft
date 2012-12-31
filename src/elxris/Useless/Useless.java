@@ -42,6 +42,9 @@ public class Useless extends JavaPlugin {
         path = "version";
         if(!this.getConfig().isSet(path))
             this.getConfig().set(path, Double.parseDouble(this.getDescription().getVersion()));
+        path = "string";
+        if(!this.getConfig().isSet(path))
+            this.getConfig().set(path, "%s");
         // Warps
         path = "tw.info";
         if(!this.getConfig().isSet(path))
@@ -77,8 +80,8 @@ public class Useless extends JavaPlugin {
         path = "mbox.info";
         String[] s = {"§aAyuda /mbox§r",
                 "§l/mbox . §rListar los correos que tienes.",
-                "§l/mbox read §rLeer el correo.",
-                "§l/mbox .. §rBorrar correo.",
+                "§l/mbox §cR§r§lead §rLeer el correo.",
+                "§l/mbox §cC§r§llear §rBorrar correo.",
                 "§l/mboxc §rAyuda para crear correos."};
         if(!this.getConfig().isSet(path))
             this.getConfig().set(path, s);
@@ -124,13 +127,12 @@ public class Useless extends JavaPlugin {
         path = "mboxc.limit";
         if(!this.getConfig().isSet(path))
             this.getConfig().set(path, "Lo siento, ya has superado el límite de 300 caracteres.");
-        // TODO Correo creado, correo no creado, mensaje añadido.
         path = "mboxc.created";
         if(!this.getConfig().isSet(path))
             this.getConfig().set(path, "Borrador creado. §e/mboxc add <Mensaje>§r para añadir mensaje.");
         path = "mboxc.add";
         if(!this.getConfig().isSet(path))
-            this.getConfig().set(path, "Mensaje añadido, recuerda que puedes añadir más.");
+            this.getConfig().set(path, "Mensaje añadido, recuerda que puedes añadir más. §e/mboxc send§r para enviar.");
         // Compass
         path = "upin.info";
         String[] s548 = {"§aAyuda /upin§r", 
