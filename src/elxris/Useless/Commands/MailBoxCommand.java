@@ -1,25 +1,17 @@
 package elxris.Useless.Commands;
 
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.Configuration;
 import org.bukkit.entity.Player;
 
-import elxris.Useless.Useless;
 import elxris.Useless.Objects.Mail;
 import elxris.Useless.Utils.Chat;
 
-public class MailBoxCommand implements CommandExecutor{
-    private Useless plugin;
-    private Configuration fc;
-    private Chat chat;
+public class MailBoxCommand extends Comando{
     private Mail mail;
     
-    public MailBoxCommand(Useless plugin, Mail m) {
-        this.plugin = plugin;
-        fc = this.plugin.getConfig();
-        chat = new Chat(plugin.getServer());
+    public MailBoxCommand(Chat chat, Mail m) {
+        super(chat);
         mail = m;
     }
     @Override
@@ -34,20 +26,25 @@ public class MailBoxCommand implements CommandExecutor{
             return true;
         }
         if(args.length < 1){
-            chat.mensaje(jugador, fc.getString("mbox.info"));
+            mensaje(jugador, "mbox.info");
             return true;
         }
+        //TODO Crear comandos moderadores.
         switch (args[0].toLowerCase()) {
-        case "list":
+        case ".":
             mail.getMailList(jugador.getName());
             break;
         case "next":
-            mail.getNextMail(jugador.getName());
+            Boolean eliminar = true;
+            if(args.length > 1 && args[1] == "."){
+                eliminar = false;
+            }
+            mail.getNextMail(jugador.getName(), eliminar);
             break;
         case "help":
         case "?":
         default:
-            chat.mensaje(jugador, fc.getString("mbox.info"));
+            mensaje(jugador, "mbox.info");
             return true;
         }
         mail.interpreta();

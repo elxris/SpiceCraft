@@ -4,25 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.Configuration;
 import org.bukkit.entity.Player;
 
-import elxris.Useless.Useless;
 import elxris.Useless.Objects.Mail;
 import elxris.Useless.Utils.Chat;
 
-public class MailBoxCreateCommand implements CommandExecutor{
-    private Useless plugin;
-    private Configuration fc;
-    private Chat chat;
+public class MailBoxCreateCommand extends Comando{
     private Mail mail;
     
-    public MailBoxCreateCommand(Useless plugin, Mail m) {
-        this.plugin = plugin;
-        fc = this.plugin.getConfig();
-        chat = new Chat(plugin.getServer());
+    public MailBoxCreateCommand(Chat chat, Mail m) {
+        super(chat);
         mail = m;
     }
     @Override
@@ -37,7 +29,7 @@ public class MailBoxCreateCommand implements CommandExecutor{
             return true;
         }
         if(args.length < 1){
-            chat.mensaje(jugador, fc.getString("mboxc.info"));
+            mensaje(jugador, "mboxc.info");
             return true;
         }
         switch (args[0].toLowerCase()) {
@@ -66,7 +58,7 @@ public class MailBoxCreateCommand implements CommandExecutor{
         case "help":
         case "?":
         default:
-            chat.mensaje(jugador, fc.getString("mboxc.info"));
+            mensaje(jugador, "mboxc.info");
             return true;
         }
         mail.interpreta();

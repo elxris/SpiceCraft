@@ -14,10 +14,12 @@ commands:
         description: Elimina todos los mensajes de tu bandeja de mail.
         usage: /mboxc ?
         permission: useless.mail.create
-    tpin:
+    upin:
         description: Muestra en tu brujula la direccion que hayas marcado.
-        usage: /tpin ?
-        permission: useless.target
+        usage:
+        - /upin ?
+        - /upin set <x> <y> <z>
+        permission: useless.upin
 permissions:
     useless.tw:
         default: true
@@ -27,5 +29,5 @@ permissions:
         default: true
     useless.mail.massive:
         default: true
-    useless.target:
+    useless.upin:
         default: true

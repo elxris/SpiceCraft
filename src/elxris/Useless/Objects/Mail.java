@@ -1,45 +1,39 @@
 package elxris.Useless.Objects;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
 
+import elxris.Useless.Useless;
+import elxris.Useless.Utils.Archivo;
 import elxris.Useless.Utils.Chat;
+import elxris.Useless.Utils.Fecha;
 
 public class Mail {
-    File file;
     FileConfiguration cache;
     Configuration fc;
     Plugin plugin;
     Chat chat;
+    Archivo archivo;
     
-    public Mail(Plugin p){
-        plugin = p;
-        file = new File(p.getDataFolder(), "mail.yml");
-        cache = YamlConfiguration.loadConfiguration(file);
-        chat = new Chat(p.getServer());
-        fc = p.getConfig();
+    public Mail(Useless plugin){
+        setPlugin(plugin);
+        archivo = new Archivo(plugin, "mail.yml");
+        chat = plugin.getChat();
+        fc = plugin.getConfig();
         load();
     }
     
     public void load(){
-        cache = YamlConfiguration.loadConfiguration(file);
+        cache = archivo.load();
         interpreta();
     }
     public void save(){
-        try {
-            cache.save(file);
-        } catch (IOException e) {
-            plugin.getLogger().info("ERROR: No se pudo guardar mail.yml");
-        }
+        archivo.save(cache);
     }
     public void interpreta(){
         List<Long> listacorreos = cache.getLongList("correos.mensajes");
@@ -76,26 +70,32 @@ public class Mail {
         usuarios.add(jugador);
         cache.set("correos."+mail+".usuarios", usuarios);
     }
-    public String getMail(Long id){
-        String mail;
-        Date fecha = new Date(id);
-        mail = String.format(fc.getString("mbox.mail"), cache.getString("correos."+id+".remitente"),
-                fecha.toString(), cache.getString("correos."+id+".mensaje"));
+    public String[] getMail(Long id){
+        String remitente = cache.getString("correos."+id+".remitente");
+        if(cache.getBoolean("correos."+id+".servidor") == true){
+            remitente = "Servidor";
+        }
+        String[] mail = {remitente,
+                Fecha.formatoFecha(fc, id, fc.getString("f.units").split(" "), fc.getString("f.months").split(" ")),
+                cache.getString("correos."+id+".mensaje")};
         return mail;
     }
     public void getMailList(String jugador){
         List<Long> mensajes = cache.getLongList("usuarios."+jugador+".mensajes");
-        chat.mensaje(jugador, fc.getString("mbox.list"), mensajes.size());
+        chat.mensaje(jugador, "mbox.list", mensajes.size());
     }
-    public void getNextMail(String jugador){
+    public void getNextMail(String jugador, Boolean eliminar){
         List<Long> mensajes = cache.getLongList("usuarios."+jugador+".mensajes");
         if(mensajes.size() == 0){
-            chat.mensaje(jugador, fc.getString("mbox.listEnd"));
+            chat.mensaje(jugador, "mbox.listEnd");
             return;
         }
         cache.set("usuarios."+jugador+".ultimo", cache.getString("correos."+mensajes.get(0)+".remitente"));
-        String mensaje = getMail(mensajes.get(0));
-        chat.mensaje(jugador, mensaje);
+        String[] mensaje = getMail(mensajes.get(0));
+        chat.mensaje(jugador, "mbox.mail", mensaje);
+        if(!eliminar){
+            return;
+        }
         eliminar(jugador, mensajes.get(0));
     }
     // TODO Crear sistema anti spam
@@ -106,13 +106,14 @@ public class Mail {
             if(plugin.getServer().matchPlayer(k).size() >= 1){
                 destinatarios.add(k);
             }else{
-                chat.mensaje(jugador, fc.getString("mboxc.playerNotExist"), k);
+                chat.mensaje(jugador, "mboxc.playerNotExist", k);
             }
         }
         if(destinatarios.size() >= 1){
             cache.set("usuarios."+jugador+".borrador.destinatarios", destinatarios);
+            chat.mensaje(jugador, "mboxc.created");
         }else{
-            chat.mensaje(jugador, fc.getString("mboxc.noPlayerAdded"));
+            chat.mensaje(jugador, "mboxc.noPlayerAdded");
         }
     }
     public void createReply(String jugador){
@@ -124,6 +125,7 @@ public class Mail {
     }
     public void setMensaje(String jugador, String mensaje){
         cache.set("usuarios."+jugador+".borrador.mensaje", mensaje);
+        chat.mensaje(jugador, "mboxc.add");
     }
     public void addMensaje(String jugador, String mensaje){
         String mensajeAnterior;
@@ -132,42 +134,54 @@ public class Mail {
         }else{
             mensajeAnterior = "";
         }
-        setMensaje(jugador, mensajeAnterior+mensaje);
+        if(mensajeAnterior.length() > 300){
+            chat.mensaje(jugador, "mboxc.limit");
+        }
+        setMensaje(jugador, mensajeAnterior+" "+mensaje);
     }
     public void clearMensaje(String jugador){
         setMensaje(jugador, "");
     }
     public void clearBorrador(String jugador){
         cache.set("usuarios."+jugador+".borrador", null);
+        save();
     }
-    public void sendMensaje(String jugador, List<String> destinatarios, String mensaje){
+    public void sendMensaje(String jugador, List<String> destinatarios, String mensaje, Boolean servidor){
         long fecha = System.currentTimeMillis();
         List<Long> mensajes = cache.getLongList("correos.mensajes");
         mensajes.add(fecha);
         cache.set("correos.mensajes", mensajes);
         String path = "correos."+fecha+".";
         cache.set(path+"remitente", jugador);
+        cache.set(path+"servidor", servidor);
         cache.set(path+"mensaje", mensaje);
         cache.set(path+"usuarios", destinatarios);
         for(String k: destinatarios){
-            chat.mensaje(k, fc.getString("mboxc.catched"));
+            chat.mensaje(k, "mboxc.catched");
         }
-        chat.mensaje(jugador, fc.getString("mboxc.sended"));
+        chat.mensaje(jugador, "mboxc.sended");
         clearBorrador(jugador);
     }
     public void sendMensaje(String jugador){
         List<String> destinatarios = cache.getStringList("usuarios."+jugador+".borrador.destinatarios");
         String mensaje = cache.getString("usuarios."+jugador+".borrador.mensaje");
-        sendMensaje(jugador, destinatarios, mensaje);
+        sendMensaje(jugador, destinatarios, mensaje, false);
     }
     public void sendMensajeATodos(String jugador){
+        if(!plugin.getServer().getPlayer(jugador).hasPermission("useless.mail.massive")){
+            return;
+        }
         List<String> destinatarios = new ArrayList<>();
         for(OfflinePlayer p: plugin.getServer().getOfflinePlayers()){
             destinatarios.add(p.getName());
         }
-        if(!plugin.getServer().getPlayer(jugador).hasPermission("useless.mail.massive")){
-            return;
-        }
-        sendMensaje("Servidor", destinatarios, cache.getString("usuarios."+jugador+".borrador.mensaje"));
+        sendMensaje(jugador, destinatarios, cache.getString("usuarios."+jugador+".borrador.mensaje"), true);
+    }
+    
+    public void setPlugin(Plugin plugin) {
+        this.plugin = plugin;
+    }
+    public Plugin getPlugin() {
+        return plugin;
     }
 }

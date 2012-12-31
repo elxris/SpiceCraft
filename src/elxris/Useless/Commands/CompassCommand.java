@@ -1,26 +1,21 @@
 package elxris.Useless.Commands;
 
+import org.bukkit.Location;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.entity.Player;
 
-import elxris.Useless.Useless;
-import elxris.Useless.Objects.Mail;
 import elxris.Useless.Utils.Chat;
 
-public class CompassCommand implements CommandExecutor{
-    private Useless plugin;
-    private Configuration cache, fc;
-    private Chat chat;
+public class CompassCommand extends Comando{
+    private Configuration cache;
     
-    public CompassCommand(Useless plugin, Configuration cache) {
-        this.plugin = plugin;
-        fc = plugin.getConfig();
+    public CompassCommand(Chat chat, Configuration cache) {
+        super(chat);
         this.cache = cache;
-        chat = new Chat(plugin.getServer());
     }
+    
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         Player jugador;
@@ -29,18 +24,21 @@ public class CompassCommand implements CommandExecutor{
         }else{
             return true;
         }
-        if(!jugador.hasPermission("useless.target")){
+        if(!jugador.hasPermission("useless.upin")){
             return true;
         }
-        switch (args[0]) {
-        case "leer":
-            
+        String arg = "";
+        if(args.length > 0){
+            arg = args[0];
+        }
+        switch (arg) {
+        case "set":
+            jugador.setCompassTarget(new Location(jugador.getWorld(), Double.parseDouble(args[1]), Double.parseDouble(args[2]), Double.parseDouble(args[3])));
             break;
         case "help":
         case "?":
-        case "":
         default:
-            chat.mensaje(jugador, fc.getString("mbox.info"));
+            mensaje(jugador, "mbox.info");
             return true;
         }
         return true;

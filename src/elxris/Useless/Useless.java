@@ -1,6 +1,5 @@
 package elxris.Useless;
 
-import java.io.File;
 import java.util.logging.Logger;
 
 import org.bukkit.configuration.Configuration;
@@ -13,44 +12,31 @@ import elxris.Useless.Commands.MailBoxCreateCommand;
 import elxris.Useless.Commands.WarpCommand;
 import elxris.Useless.Listener.MailListener;
 import elxris.Useless.Objects.Mail;
+import elxris.Useless.Utils.Chat;
  
 public class Useless extends JavaPlugin {
-    Configuration fc, warpcache, pincache;
-    Mail mail;
-    Logger lggr;
-    File file;
+    private Configuration warpcache, pincache;
+    private Mail mail;
+    private Chat chat;
+    private static Logger lggr;
+    
     public void onEnable(){
-        fc = this.getConfig();
         lggr = this.getLogger();
         checkConfiguration();
+        chat = new Chat(this);
         //Commando Tempowal Warp
         warpcache = new MemoryConfiguration();
-        getCommand("tw").setExecutor(new WarpCommand(this, warpcache));
+        getCommand("tw").setExecutor(new WarpCommand(chat, this, warpcache));
         //Comando Mail
         mail = new Mail(this);
-        getCommand("mbox").setExecutor(new MailBoxCommand(this, mail));
-        getCommand("mboxc").setExecutor(new MailBoxCreateCommand(this, mail));
+        getCommand("mbox").setExecutor(new MailBoxCommand(chat, mail));
+        getCommand("mboxc").setExecutor(new MailBoxCreateCommand(chat, mail));
         //Listener Mail
         new MailListener(this, mail);
         //Comando Compass
         pincache = new MemoryConfiguration();
-        getCommand("tpin").setExecutor(new CompassCommand(this, pincache));
-        
-        /*file = new File(getDataFolder(), "mail.yml");
-        mailcache = YamlConfiguration.loadConfiguration(file);
-        mailcache.set("prueba.pruebab.prueba", 123);
-        mailcache.set("prueba.pruebab.prueba2", 123);
-        mailcache.set("prueba.pruebab.prueba", null);
-        mailcache.set("prueba.pruebab.prueba2", null);
-        lggr.info(Boolean.toString(mailcache.isConfigurationSection("prueba.pruebab")));
-        try {
-            mailcache.save("mail.yml");
-            mailcache.load("mail.yml");
-        } catch (IOException | InvalidConfigurationException e) {
-        }
-        lggr.info(Boolean.toString(mailcache.isConfigurationSection("prueba.pruebab")));*/
+        getCommand("upin").setExecutor(new CompassCommand(chat, pincache));
     }
-
     public void checkConfiguration(){
         String path;
         path = "version";
@@ -59,13 +45,16 @@ public class Useless extends JavaPlugin {
         // Warps
         path = "tw.info";
         if(!this.getConfig().isSet(path))
-            this.getConfig().set(path, "/tw [minutos]\nRecuerda que por cada minuto te cobrar\u00E1 10 puntos de experiencia.");
+            this.getConfig().set(path,
+                    "/tw [minutos] Recuerda que por cada minuto te cobrará %d puntos de experiencia.");
         path = "tw.s.created";
+        String[] s167 = {"Warp Temporal de %d minutos.",
+                "Usa §l/tw§r para usarlo."};
         if(!this.getConfig().isSet(path))
-            this.getConfig().set(path, "Warp Temporal de %d minutos, y te costo %d puntos de experiencia.");
+            this.getConfig().set(path, s167);
         path = "tw.s.remain";
         if(!this.getConfig().isSet(path))
-            this.getConfig().set(path, "Quedan %d segundos.");
+            this.getConfig().set(path, "Quedan §4%d§r segundos para la destrucción de el warp temporal.");
         path = "tw.s.teleported";
         if(!this.getConfig().isSet(path))
             this.getConfig().set(path, "Teleportado.");
@@ -86,31 +75,41 @@ public class Useless extends JavaPlugin {
             this.getConfig().set(path, 10);
         // Mail
         path = "mbox.info";
+        String[] s = {"§aAyuda /mbox§r",
+                "§l/mbox . §rListar los correos que tienes.",
+                "§l/mbox next §rLeer el siguiente correo.",
+                "§l/mbox next . §rLeer el siguiente correo, pero sin borrarlo."};
         if(!this.getConfig().isSet(path))
-            this.getConfig().set(path, 
-                    "§l/mbox list §rListar los correos que tienes.\n" +
-            		"§l/mbox next §rLeer el siguiente correo. Se borra también.");
+            this.getConfig().set(path, s);
         path = "mbox.list";
         if(!this.getConfig().isSet(path))
             this.getConfig().set(path, "Tienes (%d) mensajes.");
         path = "mbox.mail";
+        String[] s2 = {"De: %s",
+                "Fecha: %s",
+                "§l%s§r",
+                "§l/mbox§r Ver la ayuda. §l/mboxc reply§r Responder"};
         if(!this.getConfig().isSet(path))
-            this.getConfig().set(path, "De: %s\nFecha: %s\n§l%s§r\n§l/mbox§r Ver la ayuda. §l/mboxc reply§r Responder");
+            this.getConfig().set(path, s2);
         path = "mbox.listEnd";
         if(!this.getConfig().isSet(path))
             this.getConfig().set(path, "Ya no tienes más correos.");
+        path = "mbox.deleted";
+        if(!this.getConfig().isSet(path))
+            this.getConfig().set(path, "Mensaje eliminado.");
         // Create mail
         path = "mboxc.info";
+        String[] s3 = {"§aAyuda /mboxc§r",
+                "Para crear un correo debes primero hacer Reply o Create para después agregar el mensaje.",
+                "§l/mboxc Reply §rResponde al usuario del último mensaje leido.",
+                "Al usar el comando se crea un borrador con destinatario igual al remitente.",
+                "§l/mboxc Create [Usuario] ... §rCrea un borrador con destinatario o destinatarios. Uno mínimo.",
+                "§l/mboxc Add [Mensaje] §rAgrega el mensaje a el correo.",
+                "§l/mboxc Clear §rBorra el mensaje.",
+                "§l/mboxc Send §rYa que tienes listo el mensaje, este comando lo envía.",
+                "§l/mboxc SendAll §r(Solo Admins)Envía el mensaje a todos los usuarios que hayan entrado al servidor."};
         if(!this.getConfig().isSet(path))
-            this.getConfig().set(path, 
-                    "Para crear un correo debes primero hacer Reply o Create para después agregar el mensaje.\n" +
-                    "§l/mboxc Reply §rResponde al usuario del último mensaje leido.\n" +
-                    "Al usar el comando se crea un borrador con destinatario igual al remitente.\n" +
-                    "§l/mboxc Create [Usuario] ... §rCrea un borrador con destinatario o destinatarios. Uno mínimo.\n" +
-                    "§l/mboxc Add [Mensaje] §rAgrega el mensaje a el correo.\n" +
-                    "§l/mboxc Clear §rBorra el mensaje.\n" +
-                    "§l/mboxc Send §rYa que tienes listo el mensaje, este comando lo envía.\n" +
-                    "§l/mboxc SendAll §r(Solo Admins)Envía el mensaje a todos los usuarios que hayan entrado al servidor.");
+            this.getConfig().set(path, s3);
         path = "mboxc.noPlayerAdded";
         if(!this.getConfig().isSet(path))
             this.getConfig().set(path, "Ningún destinatario, por lo tanto mensaje no creado.");
@@ -123,10 +122,45 @@ public class Useless extends JavaPlugin {
         path = "mboxc.sended";
         if(!this.getConfig().isSet(path))
             this.getConfig().set(path, "Mensaje enviado.");
+        path = "mboxc.limit";
+        if(!this.getConfig().isSet(path))
+            this.getConfig().set(path, "Lo siento, ya has superado el límite de 300 caracteres.");
         // TODO Correo creado, correo no creado, mensaje añadido.
-        
+        path = "mboxc.created";
+        if(!this.getConfig().isSet(path))
+            this.getConfig().set(path, "Borrador creado.");
+        path = "mboxc.add";
+        if(!this.getConfig().isSet(path))
+            this.getConfig().set(path, "Mensaje añadido, recuerda que puedes añadir más.");
         // Compass
-        
+        path = "upin.info";
+        String[] s548 = {"§aAyuda /upin§r", 
+                "Para crear un "};
+        if(!this.getConfig().isSet(path))
+            this.getConfig().set(path, s548);
+        // Errores
+        path = "alert.notsaved";
+        if(!this.getConfig().isSet(path))
+            this.getConfig().set(path, "Error, no se ha podido guardar: ");
+        // Formatos
+        path = "f.units";
+        if(!this.getConfig().isSet(path))
+            this.getConfig().set(path, "mes meses dia dias hora horas minuto minutos segundo segundos");
+        path = "f.months";
+        if(!this.getConfig().isSet(path))
+            this.getConfig().set(path, "Enero Febrero Marzo Abril Mayo Junio Julio Agosto Septiembre Octubre Noviembre Diciembre");
+        path = "exp.cobrar";
+        if(!this.getConfig().isSet(path))
+            this.getConfig().set(path, "Cobrando %d puntos de experiencia.");
+        /*path = "f.";
+        if(!this.getConfig().isSet(path))
+            this.getConfig().set(path, "");*/
         this.saveConfig();
+    }
+    public Chat getChat() {
+        return chat;
+    }
+    public void log(String m){
+        lggr.info(m);
     }
 }

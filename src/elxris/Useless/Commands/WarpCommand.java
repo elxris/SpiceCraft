@@ -2,7 +2,6 @@ package elxris.Useless.Commands;
 
 import org.bukkit.Location;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.entity.Player;
@@ -12,16 +11,15 @@ import elxris.Useless.Objects.Warp;
 import elxris.Useless.Utils.Chat;
 import elxris.Useless.Utils.Experiencia;
 
-public class WarpCommand implements CommandExecutor{
+public class WarpCommand extends Comando{
     private Useless plugin;
     private Configuration cache, fc;
-    private Chat chat;
     
-    public WarpCommand(Useless plugin, Configuration cache) {
+    public WarpCommand(Chat chat, Useless plugin, Configuration cache) {
+        super(chat);
         this.plugin = plugin;
         fc = plugin.getConfig();
         this.cache = cache;
-        chat = new Chat(plugin.getServer());
     }
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -45,21 +43,22 @@ public class WarpCommand implements CommandExecutor{
                         }
                     }
                 }else{
-                    chat.mensaje(jugador, fc.getString("tw.info"));
+                    mensaje(jugador, "tw.info", fc.getInt("tw.v.price"));
                     return true;
                 }
                 int precio = fc.getInt("tw.v.price")*Integer.parseInt(tiempo);
-                if(Experiencia.cobrarEsperiencia(jugador, precio)){
+                if(Experiencia.cobrarEsperiencia(getChat(), jugador, precio)){
                     Warp w = new Warp(jugador.getLocation(), jugador, tiempo, cache, plugin);
                     Thread t = new Thread(w);
                     t.start();
                     cache.set(jugador.getName()+".w", w.getLocation());
-                    chat.mensaje(jugador, fc.getString("tw.s.created"), Integer.parseInt(tiempo), precio);
+                    mensaje(jugador, "tw.s.created", Integer.parseInt(tiempo));
                 }else{
-                    chat.mensaje(jugador, fc.getString("tw.s.noMoney"));
+                    mensaje(jugador, "tw.s.noMoney");
                 }
             }else{
                 jugador.teleport((Location)cache.get(jugador.getName()+".w"));
+                mensaje(jugador, "tw.s.teleported");
             }
         }
         return true;
