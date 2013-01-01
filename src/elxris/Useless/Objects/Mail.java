@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.OfflinePlayer;
-import org.bukkit.configuration.Configuration;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.plugin.Plugin;
 
 import elxris.Useless.Useless;
 import elxris.Useless.Utils.Archivo;
@@ -111,7 +109,7 @@ public class Mail {
         clearBorrador(jugador);
         List<String> destinatarios = new ArrayList<String>();
         for(String k: args){
-            if(plugin.getServer().matchPlayer(k).size() >= 1){
+            if(Useless.plugin().getServer().matchPlayer(k).size() >= 1){
                 destinatarios.add(k);
             }else{
                 chat.mensaje(jugador, "mboxc.playerNotExist", k);
@@ -179,20 +177,13 @@ public class Mail {
         sendMensaje(jugador, destinatarios, mensaje, false);
     }
     public void sendMensajeATodos(String jugador){
-        if(!plugin.getServer().getPlayer(jugador).hasPermission("useless.mail.massive")){
+        if(!Useless.getPlayer(jugador).hasPermission("useless.mail.massive")){
             return;
         }
         List<String> destinatarios = new ArrayList<>();
-        for(OfflinePlayer p: plugin.getServer().getOfflinePlayers()){
+        for(OfflinePlayer p: Useless.plugin().getServer().getOfflinePlayers()){
             destinatarios.add(p.getName());
         }
         sendMensaje(jugador, destinatarios, cache.getString("usuarios."+jugador+".borrador.mensaje"), true);
-    }
-    
-    public void setPlugin(Useless plugin) {
-        this.plugin = plugin;
-    }
-    public Plugin getPlugin() {
-        return plugin;
     }
 }

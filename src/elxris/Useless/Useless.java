@@ -1,8 +1,5 @@
 package elxris.Useless;
 
-import java.util.logging.Logger;
-
-import org.bukkit.Server;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.configuration.MemoryConfiguration;
 import org.bukkit.entity.Player;
@@ -22,7 +19,7 @@ public class Useless extends JavaPlugin {
     private Configuration warpcache;
     private Mail mail;
     private Chat chat;
-    private Archivo pin = new Archivo(this, "pin.yml");
+    private Archivo pin = new Archivo("pin.yml");
     private static Useless plugin;
     
     public void onEnable(){
