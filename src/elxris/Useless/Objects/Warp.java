@@ -3,6 +3,7 @@ package elxris.Useless.Objects;
 import org.bukkit.Location;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.entity.Player;
+
 import elxris.Useless.Utils.Chat;
 
 public class Warp implements Runnable{
@@ -12,20 +13,19 @@ public class Warp implements Runnable{
     Configuration cache;
     String path;
     
-    public Warp(Location location, Player jugador, String tiempo, Configuration cache, String path){
+    public Warp(Location location, Player jugador, int tiempo, Configuration cache, String path){
         setLocation(location);
         setJugador(jugador);
         setTiempo(tiempo);
         setCache(cache);
+        setPath(path);
     }
     public void setLocation(Location l){
         loc = l;
     }
-    
     public Location getLocation(){
         return loc;
     }
-    
     public void setJugador(Player p){
         jugador = p;
     }
@@ -38,20 +38,19 @@ public class Warp implements Runnable{
     public void setPath(String path) {
         this.path = path;
     }
-    public String getPath(String jugador) {
-        return String.format(path, jugador);
+    public String getPath() {
+        return path;
     }
-    public void setTiempo(String t){
-        tiempo = Integer.parseInt(t);
+    public void setTiempo(int t){
+        tiempo = t;
     }
-    
     public void setCache(Configuration c){
         cache = c;
     }
     @Override
     public void run() {
         try {
-            cache.set(getPath(getJugadorName())+".set", true);
+            cache.set(getPath()+".set", true);
             int t = tiempo*1000*60;
             t -= (1000*30);
             if(t < 1){
@@ -63,7 +62,7 @@ public class Warp implements Runnable{
                 Thread.sleep(5*1000);
             }
             Chat.mensaje(jugador, "tw.s.destroyed");
-            cache.set(getPath(getJugadorName())+".set", false);
+            cache.set(getPath(), null);
         } catch (Throwable e) {
         }
     }

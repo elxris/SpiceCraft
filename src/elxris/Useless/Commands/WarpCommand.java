@@ -1,6 +1,7 @@
 package elxris.Useless.Commands;
 
 import net.milkbowl.vault.economy.Economy;
+import net.milkbowl.vault.economy.EconomyResponse;
 
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -47,64 +48,45 @@ public class WarpCommand extends Comando{
             // Busca si hay un warp personal para el jugador.
             // Si no, muestra la info.
             if(cache.getBoolean(getPath("p.%s.set", jugador))){
-                teleport(jugador, "p.%s.w");
+                teleport(jugador, "p.%s.warp");
             }else{
-                Chat.mensaje(jugador, "tw.info", getPrecio(Strings.getDouble("tw.v.price")));
+                chatInfo(jugador);
             }
         }else
         // Si hay un argumento. Busca el warp indicado.
         if(args.length == 1){
             // Si existe el warp teleporta.
-            if(cache.isSet(getPath("g.%s.set", jugador))){
-                teleport(jugador, "g.%s.set");
+            if(cache.isSet(String.format("g.%s.set", args[0]))){
+                teleport(jugador, String.format("g.%s.warp", args[0]));
             }else{
                 //No existe el warp
                 Chat.mensaje(jugador, "tw.s.noExist");
             }
         } else
         
-        // Si son dos argumentos.
+        // Si son dos argumentos crea el warp personal.
         if(args.length == 2){
-            if(args[0] == "new" || args[0] == "n"){
-                
-            }else{
-                
+            if(args[0].contentEquals("new") || args[0].contentEquals("n")){
+                String warpName = String.format("p.%s", getPlayerName(jugador));
+                validarNewWarp(warpName, args[1], "", jugador);
+                return true;
             }
+            Chat.mensaje(jugador, "alert.error");
+            return true;
         } else
-        if (args.length == 3){
             
+        // Si son tres argumentos crea el warp general.
+        if (args.length == 3){
+            if(args[0].contentEquals("new") || args[0].contentEquals("n")){
+                String warpName = String.format("g.%s", args[1]);
+                validarNewWarp(warpName, args[2], args[1], jugador);
+                return true;
+            }
+            Chat.mensaje(jugador, "alert.error");
+            return true;
         }
         
         // Recordar que si es general, poner el nombre, si no dejar el nombre vacío. [tw.s.created]
-        // TODO Borrar esto.
-        /*if(!cache.getBoolean(jugador.getName()+".tw")){
-            String tiempo = Strings.getString("tw.v.maxTime");
-            if(args.length > 0){
-                if(Integer.parseInt(args[0]) <= Strings.getInt("tw.v.maxTime")){
-                    tiempo = args[0];
-                    if(Integer.parseInt(args[0]) < Strings.getInt("tw.v.minTime")){
-                        tiempo = Strings.getString("tw.v.minTime");
-                    }
-                }
-            }else{
-                mensaje(jugador, "tw.info", Strings.getInt("tw.v.price"));
-                return true;
-            }
-            int precio = Strings.getInt("tw.v.price")*Integer.parseInt(tiempo);
-            if(Experiencia.cobrarEsperiencia(jugador, precio)){
-                Warp w = new Warp(jugador.getLocation(), jugador, tiempo, cache, "p.%s");
-                Thread t = new Thread(w);
-                t.start();
-                cache.set(jugador.getName()+".w", w.getLocation());
-                mensaje(jugador, "tw.s.created", Integer.parseInt(tiempo));
-            }else{
-                mensaje(jugador, "tw.s.noMoney");
-            }
-        }else{
-            jugador.teleport((Location)cache.get(jugador.getName()+".w"));
-            mensaje(jugador, "tw.s.teleported");
-        }*/
-        // Hasta acá.
         return true;
     }
     public void teleport(Player jugador, String path){
@@ -117,6 +99,58 @@ public class WarpCommand extends Comando{
     public String getPlayerName(Player jugador){
         return jugador.getName();
     }
+    public void chatInfo(Player jugador){
+        Chat.mensaje(jugador, "tw.info", getPrecio(Strings.getDouble("tw.v.price")));
+    }
+    public boolean crearWarp(Player jugador, int tiempo, String path){
+        double precio = Strings.getDouble("tw.v.price")*tiempo;
+        if(econ != null){
+            if(econ.getBalance(getPlayerName(jugador)) >= precio){
+                EconomyResponse r = econ.withdrawPlayer(getPlayerName(jugador), precio);                
+                if(!r.transactionSuccess()){
+                    mensaje(jugador, "alert.error");
+                    return false;
+                }
+            }else{
+                mensaje(jugador, "tw.s.noMoney");
+                return false;
+            }
+        }else{
+            if(Experiencia.cobrarEsperiencia(jugador, (int)precio)){
+                mensaje(jugador, "tw.s.noMoney");
+                return false;
+            }
+        }
+        Chat.mensaje(jugador, "econ.cobrar", precio);
+        Warp w = new Warp(jugador.getLocation(), jugador, tiempo, cache, path);
+        Thread t = new Thread(w);
+        t.start();
+        cache.set(getPath(path, jugador)+".warp", w.getLocation());
+        return true;
+    }
+    public void validarNewWarp(String path, String tiempo, String nombreWarp, Player jugador){
+        // Si es entero.
+        if(!isInteger(tiempo)){
+            Chat.mensaje(jugador, "alert.noInteger");
+            return;
+        }
+        // Si es ya existe.
+        if(cache.isSet(path+".warp")){
+            mensaje(jugador, "tw.s.exist");
+            return;
+        }
+        int minutos = Integer.parseInt(tiempo);
+        //Si está fuera de rango.
+        if(!(minutos >= Strings.getInt("tw.v.minTime") && minutos <= Strings.getInt("tw.v.maxTime"))){
+            mensaje(jugador, "tw.s.timeLimit", Strings.getInt("tw.v.minTime"), Strings.getInt("tw.v.maxTime"));
+            return;
+        }
+        if(crearWarp(jugador, minutos, path)){            
+            mensaje(jugador, "tw.s.created", minutos, nombreWarp);
+        }
+    }
+    
+    //Economía.
     private boolean setupEconomy() {
         if (Useless.plugin().getServer().getPluginManager().getPlugin("Vault") == null) {
             return false;
@@ -130,7 +164,11 @@ public class WarpCommand extends Comando{
     }
     private String getPrecio(double precio){
         if(econ != null){
-            return econ.format(precio);
+            if(precio < 1){
+                return String.format("%s %s", econ.format(precio), econ.currencyNameSingular());                
+            }else{
+                return String.format("%s %s", econ.format(precio), econ.currencyNamePlural());
+            }
         }
         // Si no
         return String.format(Strings.getString("exp.format"), (int)precio);

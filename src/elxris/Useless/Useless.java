@@ -49,13 +49,15 @@ public class Useless extends JavaPlugin {
                 "§e/tw§r Muestra esta ayuda, o puede ser un comando rápido para un warp temporal personal."};
         setPath("tw.info", twinfo);
         String[] s167 = {"Warp Temporal de %d minutos creado.",
-        "Usa §e/tw%s§r para usarlo."};
+        "Usa §e/tw %s§r para usarlo."};
         setPath("tw.s.created", s167);
         setPath("tw.s.remain", "Quedan §4%d§r segundos para la destrucción de el warp temporal.");
-        setPath("tw.s.teleported", "Teleportado.");
+        setPath("tw.s.teleported", "Teleportando..");
         setPath("tw.s.destroyed", "Warp Destruido.");
         setPath("tw.s.noMoney", "No puedes pagarte un warp temporal en este momento.");
         setPath("tw.s.noExist", "No existe el warp. §e/tw§r Para más info.");
+        setPath("tw.s.exist", "Ya existe ese warp.");
+        setPath("tw.s.timeLimit", "No debe ser menor a %d minutos ni mayor a %d minutos.");
         setPath("tw.v.maxTime", 120);
         setPath("tw.v.minTime", 1);
         setPath("tw.v.price", 10.0);
@@ -92,6 +94,7 @@ public class Useless extends JavaPlugin {
         setPath("mboxc.limit", "Lo siento, ya has superado el límite de 300 caracteres.");
         setPath("mboxc.created", "Borrador creado. §e/mboxc add <Mensaje>§r para añadir mensaje.");
         setPath("mboxc.add", "Mensaje añadido, recuerda que puedes añadir más. §e/mboxc send§r para enviar.");
+        setPath("mboxc.noMessage", "§cPrimero debes crear un borrador. §e/mboxc para más ayuda.");
         // Compass
         String[] s548 = {"§aAyuda /upin§r", 
                 "§e/upin <nombre> <x> <y> <z>§r Para crear una posición que puede ser localizada con una brújula.",
@@ -102,6 +105,8 @@ public class Useless extends JavaPlugin {
         // Errores y alertas.
         setPath("alert.notsaved", "Error, no se ha podido guardar: ");
         setPath("alert.noEconomy", "No hay plugin de economía. Se cobrará con puntos de experiencia.");
+        setPath("alert.error", "§cError al usar el comando. Revisa la ayuda.");
+        setPath("alert.noInteger", "Tienes que ingresar valor/es enteros.");
         // Formatos
         String[] units = {"mes", "meses", "dia", "dias", "hora", "horas", "minuto", "minutos", "segundo", "segundos"};
         setPath("f.units", units);
@@ -109,7 +114,8 @@ public class Useless extends JavaPlugin {
         setPath("f.months", months);
         // Esperiencia
         setPath("exp.format", "%d puntos de experiencia");
-        setPath("exp.cobrar", "Cobrando %d puntos de experiencia.");
+        // Economía.
+        setPath("econ.cobrar", "Cobrando %s.");
         // Guarda el archivo de configuración.
         this.saveConfig();
         this.reloadConfig();

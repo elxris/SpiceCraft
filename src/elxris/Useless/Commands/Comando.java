@@ -12,4 +12,12 @@ public abstract class Comando  implements CommandExecutor{
     public void mensaje(String p, String mensaje, Object...objects){
         Chat.mensaje(p, mensaje, objects);
     }
+    public boolean isInteger(String s){
+        try {
+            Integer.parseInt(s);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }

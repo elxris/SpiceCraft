@@ -39,7 +39,6 @@ public class Experiencia {
         nextLvl = nextLvl%1;
         p.setExp(nextLvl);
         p.setLevel(lvl);
-        Chat.mensaje(p, "exp.cobrar", exp);
         return true;
     }
 }
