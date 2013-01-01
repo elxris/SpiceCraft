@@ -41,16 +41,16 @@ public class Useless extends JavaPlugin {
     public void checkConfiguration(){
         setPath("string", "%s");
         // Warps
-        String[] twinfo = {"§aAyuda /tw§r",
+        String[] twInfo = {"§aAyuda /tw",
                 "§e/tw §cn§eew [minutos]§r Para crear un warp temporal personal.",
                 "Recuerda que por cada minuto te cobrará %s.",
                 "§e/tw §cn§eew [nombre] [minutos]§r Hacer un warp temporal que cualuiera pueda usar.",
                 "§e/tw [nombre]§r Para hacer uso de un warp temporal.",
                 "§e/tw§r Muestra esta ayuda, o puede ser un comando rápido para un warp temporal personal."};
-        setPath("tw.info", twinfo);
-        String[] s167 = {"Warp Temporal de %d minutos creado.",
+        setPath("tw.info", twInfo);
+        String[] twSCreated = {"Warp Temporal de %d minutos creado.",
         "Usa §e/tw %s§r para usarlo."};
-        setPath("tw.s.created", s167);
+        setPath("tw.s.created", twSCreated);
         setPath("tw.s.remain", "Quedan §4%d§r segundos para la destrucción de el warp temporal.");
         setPath("tw.s.teleported", "Teleportando..");
         setPath("tw.s.destroyed", "Warp Destruido.");
@@ -62,31 +62,31 @@ public class Useless extends JavaPlugin {
         setPath("tw.v.minTime", 1);
         setPath("tw.v.price", 10.0);
         // Mail
-        String[] s132 = {"§aAyuda /mbox§r",
+        String[] mboxInfo = {"§aAyuda /mbox",
                 "§e/mbox . §rNumerar los correos que tienes.",
                 "§e/mbox §cr§r§eead §rLeer el correo.",
                 "§e/mbox §cc§r§elear §rBorrar correo.",
                 "§e/mboxc §rAyuda para crear correos."};
-        setPath("mbox.info", s132);
+        setPath("mbox.info", mboxInfo);
         setPath("mbox.list", "Tienes §e%d§r mensajes. §e/mbox§r Para más info.");
-        String[] s235 = {"De: §a%s§r Fecha: %s",
+        String[] mboxMail = {"De: §a%s§r Fecha: %s",
                 "§b§o%s§r",
                 "§e/mbox§r muestra ayuda. §e/mboxc new %s§r para responder"};        
-        setPath("mbox.mail", s235);
+        setPath("mbox.mail", mboxMail);
         setPath("mbox.timeago", "Hace ");
         setPath("mbox.readStart", "§c### Inicio Bandeja de Correo ###");
         setPath("mbox.readFinish", "§c### Fin Bandeja de Correo ###");
         setPath("mbox.listEnd", "Ya no tienes correos.");
         setPath("mbox.deleted", "Mensajes eliminados.");
         // Create mail
-        String[] s3 = {"§aAyuda /mboxc§r",
+        String[] mboxcInfo = {"§aAyuda /mboxc",
                 "Para crear un correo debes primero hacer un borrador para después agregar el mensaje.",
                 "§e/mboxc §cn§eew [Usuario] ... §rCrea un borrador con destinatario o destinatarios. Uno mínimo.",
                 "§e/mboxc §ca§edd [Mensaje] §rAgrega el mensaje a el correo.",
                 "§e/mboxc §cc§elear §rBorra el mensaje.",
                 "§e/mboxc §cs§eend §rYa que tienes listo el mensaje, este comando lo envía.",
                 "§e/mboxc sendall §ro §e/mboxc sa§r (Solo Admins)Envía el mensaje a todos los usuarios."};
-        setPath("mboxc.info", s3);
+        setPath("mboxc.info", mboxcInfo);
         setPath("mboxc.noPlayerAdded", "Ningún destinatario, por lo tanto mensaje no creado.");
         setPath("mboxc.playerNotExist", "El jugador %s no enontrado. No ha sido agregado.");
         setPath("mboxc.catched", "Mensaje recibido.");
@@ -96,12 +96,23 @@ public class Useless extends JavaPlugin {
         setPath("mboxc.add", "Mensaje añadido, recuerda que puedes añadir más. §e/mboxc send§r para enviar.");
         setPath("mboxc.noMessage", "§cPrimero debes crear un borrador. §e/mboxc para más ayuda.");
         // Compass
-        String[] s548 = {"§aAyuda /upin§r", 
-                "§e/upin <nombre> <x> <y> <z>§r Para crear una posición que puede ser localizada con una brújula.",
-                "§e/upin <nombre>§r Para usarla.",
-                "§e/upin §cl§eist§r Para ver tus posiciones.",
-                "§e/upin listall§r o §e/upin la§r Para ver todas las posiciones."};
-        setPath("upin.info", s548);
+        String[] upinInfo = {"§aAyuda /upin", 
+                "§e/upin [nombre] [x] [z]§r Para crear una posición que puede ser localizada con una brújula.",
+                "§e/upin [nombre]§r Para usarla.",
+                "§e/upin §cd§eel [nombre]§r Para borrarla si eres el dueño.",
+                "§e/upin §cl§eist§r Para ver todas las posiciones."};
+        setPath("upin.info", upinInfo);
+        setPath("upin.noPin", "No existe la posicion.");
+        setPath("upin.exist", "Ya existe esa posicion. Elige otra.");
+        String[] upinList = {"§a###Lista de las posiciones ###",
+                "§b%s"};
+        setPath("upin.list", upinList);
+        setPath("upin.item", "<%s> ");
+        setPath("upin.noList", "§cNo hay posiciones. Aún.");
+        setPath("upin.created", "Posición creada, úsala con §e/upin %s");
+        setPath("upin.set", "La posición ahora se mostrará en un compás.");
+        setPath("upin.nether", "§cDe nada sirve crear una posición aquí. No se mostrará.");
+        setPath("upin.del", "Borrada la posición.");
         // Errores y alertas.
         setPath("alert.notsaved", "Error, no se ha podido guardar: ");
         setPath("alert.noEconomy", "No hay plugin de economía. Se cobrará con puntos de experiencia.");

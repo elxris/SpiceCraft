@@ -18,7 +18,7 @@ public class Chat {
             for(int e = 0; e < m.size(); e++){
                 texto += m.get(e);
                 if(e + 1 < m.size()){
-                    texto += "\n";
+                    texto += "§r\n";
                 }
             }
         }else{

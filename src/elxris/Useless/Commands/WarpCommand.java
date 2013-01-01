@@ -116,12 +116,12 @@ public class WarpCommand extends Comando{
                 return false;
             }
         }else{
-            if(Experiencia.cobrarEsperiencia(jugador, (int)precio)){
+            if(!Experiencia.cobrarEsperiencia(jugador, (int)precio)){
                 mensaje(jugador, "tw.s.noMoney");
                 return false;
             }
         }
-        Chat.mensaje(jugador, "econ.cobrar", precio);
+        Chat.mensaje(jugador, "econ.cobrar", getPrecio(precio));
         Warp w = new Warp(jugador.getLocation(), jugador, tiempo, cache, path);
         Thread t = new Thread(w);
         t.start();

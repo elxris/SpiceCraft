@@ -20,4 +20,12 @@ public abstract class Comando  implements CommandExecutor{
             return false;
         }
     }
+    public boolean isDouble(String s){
+        try {
+            Double.parseDouble(s);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }
