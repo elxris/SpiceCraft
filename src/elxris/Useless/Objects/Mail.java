@@ -89,12 +89,15 @@ public class Mail {
         List<Long> mensajes = cache.getLongList("usuarios."+jugador+".mensajes");
         Chat.mensaje(jugador, "mbox.list", mensajes.size());
     }
-    public void getNextMail(String jugador, Boolean eliminar){
+    public void getNextMail(String jugador, Boolean eliminar){ //Obtiene todos los corroes.
         List<Long> mensajes = cache.getLongList("usuarios."+jugador+".mensajes");
         if(mensajes.size() == 0){
             Chat.mensaje(jugador, "mbox.listEnd");
             return;
         }
+        //
+        Chat.mensaje(jugador, "mbox.readStart");
+        // Enviando cada uno de los mensajes.
         for(long lng: mensajes){
             String[] mensaje = getMail(lng);
             Chat.mensaje(jugador, "mbox.mail", mensaje);
@@ -102,8 +105,9 @@ public class Mail {
                 eliminar(jugador, lng);
             }
         }
+        Chat.mensaje(jugador, "mbox.readFinish");
     }
-    public void createBorrador(String jugador, String args[]){
+    public void createBorrador(String jugador, String args[]){ //Inicia el borrador.
         clearBorrador(jugador);
         List<String> destinatarios = new ArrayList<String>();
         for(String k: args){

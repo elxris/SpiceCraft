@@ -52,27 +52,28 @@ public class Useless extends JavaPlugin {
         setPath("tw.v.price", 10);
         // Mail
         String[] s132 = {"§aAyuda /mbox§r",
-                "§l/mbox . §rListar los correos que tienes.",
-                "§l/mbox §cR§r§lead §rLeer el correo.",
-                "§l/mbox §cC§r§llear §rBorrar correo.",
-                "§l/mboxc §rAyuda para crear correos."};
+                "§e/mbox . §rNumerar los correos que tienes.",
+                "§e/mbox §cr§r§eead §rLeer el correo.",
+                "§e/mbox §cc§r§elear §rBorrar correo.",
+                "§e/mboxc §rAyuda para crear correos."};
         setPath("mbox.info", s132);
         setPath("mbox.list", "Tienes §e%d§r mensajes. §e/mbox§r Para más info.");
         String[] s235 = {"De: %s Fecha: %s",
                 "§l%s§r",
-                "§e§l/mbox§r Ayuda. §e§l/mboxc create %s§r Responder"};
+                "§e§l/mbox§r Ayuda. §e§l/mboxc create %s§r Responder"};        
         setPath("mbox.mail", s235);
+        setPath("mbox.readStart", "§c### Inicio Bandeja de Correo ###");
+        setPath("mbox.readFinish", "§c### Fin Bandeja de Correo ###");
         setPath("mbox.listEnd", "Ya no tienes correos.");
         setPath("mbox.deleted", "Mensajes eliminados.");
         // Create mail
         String[] s3 = {"§aAyuda /mboxc§r",
-                "Para crear un correo debes primero hacer un §l/mboxc create§r para después agregar el mensaje.",
-                "Al usar el comando se crea un borrador con destinatario igual al remitente.",
-                "§l/mboxc Create [Usuario] ... §rCrea un borrador con destinatario o destinatarios. Uno mínimo.",
-                "§l/mboxc Add [Mensaje] §rAgrega el mensaje a el correo.",
-                "§l/mboxc Clear §rBorra el mensaje.",
-                "§l/mboxc Send §rYa que tienes listo el mensaje, este comando lo envía.",
-                "§l/mboxc SendAll §r(Solo Admins)Envía el mensaje a todos los usuarios."};
+                "Para crear un correo debes primero hacer un borrador para después agregar el mensaje.",
+                "§e/mboxc §cn§eew [Usuario] ... §rCrea un borrador con destinatario o destinatarios. Uno mínimo.",
+                "§e/mboxc §ca§edd [Mensaje] §rAgrega el mensaje a el correo.",
+                "§e/mboxc §cc§elear §rBorra el mensaje.",
+                "§e/mboxc §cs§eend §rYa que tienes listo el mensaje, este comando lo envía.",
+                "§e/mboxc sendall §ro§e/mboxc sa§r (Solo Admins)Envía el mensaje a todos los usuarios."};
         setPath("mboxc.info", s3);
         setPath("mboxc.noPlayerAdded", "Ningún destinatario, por lo tanto mensaje no creado.");
         setPath("mboxc.playerNotExist", "El jugador %s no existe. No ha sido agregado.");

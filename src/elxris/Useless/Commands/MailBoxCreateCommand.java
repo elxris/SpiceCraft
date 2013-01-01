@@ -31,23 +31,28 @@ public class MailBoxCreateCommand extends Comando{
             return true;
         }
         switch (args[0].toLowerCase()) {
-        case "create":
+        case "new":
+        case "n":
             if(args.length > 1){
                 mail.createBorrador(jugador.getName(), cortarArray(1, args));              
             }
             break;
         case "add":
+        case "a":
             if(args.length > 1){
                 mail.addMensaje(jugador.getName(), getString(cortarArray(1, args)));
             }
             break;
         case "clear":
+        case "c":
             mail.clearMensaje(jugador.getName());
             break;
         case "send":
+        case "s":
             mail.sendMensaje(jugador.getName());
             break;
         case "sendall":
+        case "sa":
             mail.sendMensajeATodos(jugador.getName());
             break;
         case "help":
