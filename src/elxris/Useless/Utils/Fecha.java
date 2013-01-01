@@ -20,7 +20,9 @@ public class Fecha {
         diff %= (60);
         segundos = (int) (diff);
         //Guardar cuanto tiempo ha pasado
-        fecha += "(";
+        fecha += Calendar.HOUR+":"+Calendar.MINUTE;
+        fecha += " (";
+        fecha += Strings.getString("mbox.timeago");
         fecha += unidadFecha(semanas, h, primero);
         h += 2;
         fecha += unidadFecha(dias, h, primero);

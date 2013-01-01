@@ -35,11 +35,16 @@ public class Useless extends JavaPlugin {
         //Comando Compass
         pin = new Archivo("pin.yml");
         getCommand("upin").setExecutor(new CompassCommand(pin));
+        // Cargar strings
+        new Strings(this.getConfig());
     }
     public void checkConfiguration(){
         setPath("string", "%s");
         // Warps
-        setPath("tw.info", "/tw [minutos] Recuerda que por cada minuto te cobrará %d puntos de experiencia.");
+        String[] twinfo = {"§aAyuda /tw§r",
+                "§e/tw [minutos]§r Recuerda que por cada minuto te cobrará %d puntos de experiencia.",
+                "§e/tw [nombre] [minutos]§r Hacer un warp temporal que cualuiera pueda entrar."};
+        setPath("tw.info", twinfo);
         String[] s167 = {"Warp Temporal de %d minutos.",
         "Usa §l/tw§r para usarlo."};
         setPath("tw.s.created", s167);
@@ -58,10 +63,11 @@ public class Useless extends JavaPlugin {
                 "§e/mboxc §rAyuda para crear correos."};
         setPath("mbox.info", s132);
         setPath("mbox.list", "Tienes §e%d§r mensajes. §e/mbox§r Para más info.");
-        String[] s235 = {"De: %s Fecha: %s",
-                "§l%s§r",
-                "§e§l/mbox§r Ayuda. §e§l/mboxc create %s§r Responder"};        
+        String[] s235 = {"De: §a%s§r Fecha: %s",
+                "§b§o%s§r",
+                "§e§l/mbox§r muestra ayuda. §e§l/mboxc new %s§r para responder"};        
         setPath("mbox.mail", s235);
+        setPath("mbox.timeago", "Hace ");
         setPath("mbox.readStart", "§c### Inicio Bandeja de Correo ###");
         setPath("mbox.readFinish", "§c### Fin Bandeja de Correo ###");
         setPath("mbox.listEnd", "Ya no tienes correos.");
@@ -73,10 +79,10 @@ public class Useless extends JavaPlugin {
                 "§e/mboxc §ca§edd [Mensaje] §rAgrega el mensaje a el correo.",
                 "§e/mboxc §cc§elear §rBorra el mensaje.",
                 "§e/mboxc §cs§eend §rYa que tienes listo el mensaje, este comando lo envía.",
-                "§e/mboxc sendall §ro§e/mboxc sa§r (Solo Admins)Envía el mensaje a todos los usuarios."};
+                "§e/mboxc sendall §ro §e/mboxc sa§r (Solo Admins)Envía el mensaje a todos los usuarios."};
         setPath("mboxc.info", s3);
         setPath("mboxc.noPlayerAdded", "Ningún destinatario, por lo tanto mensaje no creado.");
-        setPath("mboxc.playerNotExist", "El jugador %s no existe. No ha sido agregado.");
+        setPath("mboxc.playerNotExist", "El jugador %s no enontrado. No ha sido agregado.");
         setPath("mboxc.catched", "Mensaje recibido.");
         setPath("mboxc.sended", "Mensaje enviado.");
         setPath("mboxc.limit", "Lo siento, ya has superado el límite de 300 caracteres.");
@@ -100,8 +106,7 @@ public class Useless extends JavaPlugin {
         setPath("exp.cobrar", "Cobrando %d puntos de experiencia.");
         // Guarda el archivo de configuración.
         this.saveConfig();
-        // Carga los strings.
-        new Strings(this.getConfig());
+        this.reloadConfig();
     }
     private void setPath(String path, Object v){
         if(!this.getConfig().isSet(path))
