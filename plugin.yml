@@ -1,22 +1,22 @@
 name: Useless
-version: 0.0.6.3.3
+version: 0.0.6.3
 main: elxris.Useless.Useless
 commands:
     tw:
         description: Crea un warp temporal.
-        usage: /tw minutos
+        usage: /tw
         permission: useless.tw
     mbox:
         description: Revisa tu bandeja.
-        usage: /mbox ?
+        usage: /mbox
         permission: useless.mail
     mboxc:
         description: Elimina todos los mensajes de tu bandeja de mail.
-        usage: /mboxc ?
+        usage: /mboxc
         permission: useless.mail.create
     upin:
         description: Muestra en tu brujula la direccion que hayas marcado.
-        usage: /upin set <x> <y> <z>
+        usage: /upin
         permission: useless.upin
 permissions:
     useless.tw:

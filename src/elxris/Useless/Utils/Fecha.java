@@ -7,9 +7,10 @@ public class Fecha {
         long diff = (System.currentTimeMillis() - time);
         diff /= 1000;
         String fecha = "";
-        boolean[] primero = {false};
+        Boolean primero = false;
         //Calcular cuanto tiempo ha pasado.
-        int semanas, dias, horas, minutos, segundos, h = 0;
+        int semanas, dias, horas, minutos, segundos, count, h = 0;
+        count = 0;
         semanas = (int) (diff/(7*24*60*60));
         diff %= (7*24*60*60);
         dias = (int) (diff/(24*60*60));
@@ -23,27 +24,42 @@ public class Fecha {
         fecha += Calendar.HOUR+":"+Calendar.MINUTE;
         fecha += " (";
         fecha += Strings.getString("mbox.timeago");
-        fecha += unidadFecha(semanas, h, primero);
+        if(semanas != 0){
+            fecha += unidadFecha(semanas, h, primero);
+            count++;
+        }
         h += 2;
-        fecha += unidadFecha(dias, h, primero);
+        if(dias != 0){
+            fecha += unidadFecha(dias, h, primero);
+            count++;
+        }
         h += 2;
-        fecha += unidadFecha(horas, h, primero);
+        if(horas != 0 && count < 2){
+            fecha += unidadFecha(horas, h, primero);
+            count++;
+        }
         h += 2;
-        fecha += unidadFecha(minutos, h, primero);
+        if(minutos != 0 && count < 2){
+            fecha += unidadFecha(minutos, h, primero);
+            count++;
+        }
         h += 2;
-        fecha += unidadFecha(segundos, h, primero);
+        if(segundos != 0 && count < 2){
+            fecha += unidadFecha(segundos, h, primero);
+            count++;
+        }
         //Fecha
         fecha += ") ";
         fecha += Calendar.DAY_OF_MONTH+"/"+Strings.getStringList("f.months").get(Calendar.MONTH);
         return fecha;
     }
-    public static String unidadFecha(int tiempo, int h, boolean[] primero){
+    public static String unidadFecha(int tiempo, int h, Boolean primero){
         String fecha = "";
         if(tiempo > 0){
-            if(primero[0]){
+            if(primero){
                 fecha = " ";
             }
-            primero[0] = true;
+            primero = true;
             if(tiempo == 1){
                 fecha += tiempo+" "+Strings.getStringList("f.units").get(h);
             }else{

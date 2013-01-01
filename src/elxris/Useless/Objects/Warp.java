@@ -10,8 +10,9 @@ public class Warp implements Runnable{
     Player jugador;
     int tiempo;
     Configuration cache;
+    String path;
     
-    public Warp(Location location, Player jugador, String tiempo, Configuration cache){
+    public Warp(Location location, Player jugador, String tiempo, Configuration cache, String path){
         setLocation(location);
         setJugador(jugador);
         setTiempo(tiempo);
@@ -28,7 +29,18 @@ public class Warp implements Runnable{
     public void setJugador(Player p){
         jugador = p;
     }
-    
+    public Player getJugador() {
+        return jugador;
+    }
+    public String getJugadorName() {
+        return getJugador().getName();
+    }
+    public void setPath(String path) {
+        this.path = path;
+    }
+    public String getPath(String jugador) {
+        return String.format(path, jugador);
+    }
     public void setTiempo(String t){
         tiempo = Integer.parseInt(t);
     }
@@ -39,7 +51,7 @@ public class Warp implements Runnable{
     @Override
     public void run() {
         try {
-            cache.set(jugador.getName()+".tw", true);
+            cache.set(getPath(getJugadorName())+".set", true);
             int t = tiempo*1000*60;
             t -= (1000*30);
             if(t < 1){
@@ -51,20 +63,8 @@ public class Warp implements Runnable{
                 Thread.sleep(5*1000);
             }
             Chat.mensaje(jugador, "tw.s.destroyed");
-            cache.set(jugador.getName()+".tw", false);
+            cache.set(getPath(getJugadorName())+".set", false);
         } catch (Throwable e) {
         }
-    }
-    
-    public Player toPlayer(){
-        return jugador;
-    }
-    
-    public Location usar(){
-        try {
-            this.finalize();
-        } catch (Throwable e) {
-        }
-        return loc;
     }
 }
