@@ -19,7 +19,7 @@ public class Useless extends JavaPlugin {
     private Configuration warpcache;
     private Mail mail;
     private Chat chat;
-    private Archivo pin = new Archivo("pin.yml");
+    private Archivo pin;
     private static Useless plugin;
     
     public void onEnable(){
@@ -36,10 +36,11 @@ public class Useless extends JavaPlugin {
         //Listener Mail
         new MailListener(this, mail);
         //Comando Compass
+        pin = new Archivo("pin.yml");
         getCommand("upin").setExecutor(new CompassCommand(chat, pin));
     }
     public void checkConfiguration(){
-        setPath("version", Double.parseDouble(this.getDescription().getVersion()));
+        setPath("version", this.getDescription().getVersion());
         setPath("string", "%s");
         // Warps
         setPath("tw.info", "/tw [minutos] Recuerda que por cada minuto te cobrará %d puntos de experiencia.");
@@ -119,6 +120,6 @@ public class Useless extends JavaPlugin {
         return plugin.getServer().getPlayer(playerName);
     }
     public static Useless plugin(){
-        return plugin();
+        return plugin;
     }
 }
