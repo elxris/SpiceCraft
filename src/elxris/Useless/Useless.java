@@ -12,35 +12,31 @@ import elxris.Useless.Commands.WarpCommand;
 import elxris.Useless.Listener.MailListener;
 import elxris.Useless.Objects.Mail;
 import elxris.Useless.Utils.Archivo;
-import elxris.Useless.Utils.Chat;
 import elxris.Useless.Utils.Strings;
  
 public class Useless extends JavaPlugin {
     private Configuration warpcache;
     private Mail mail;
-    private Chat chat;
     private Archivo pin;
     private static Useless plugin;
     
     public void onEnable(){
         plugin = this;
         checkConfiguration();
-        chat = new Chat();
         //Commando Tempowal Warp
         warpcache = new MemoryConfiguration();
-        getCommand("tw").setExecutor(new WarpCommand(chat, this, warpcache));
+        getCommand("tw").setExecutor(new WarpCommand(warpcache));
         //Comando Mail
         mail = new Mail();
-        getCommand("mbox").setExecutor(new MailBoxCommand(chat, mail));
-        getCommand("mboxc").setExecutor(new MailBoxCreateCommand(chat, mail));
+        getCommand("mbox").setExecutor(new MailBoxCommand(mail));
+        getCommand("mboxc").setExecutor(new MailBoxCreateCommand(mail));
         //Listener Mail
-        new MailListener(this, mail);
+        new MailListener(mail);
         //Comando Compass
         pin = new Archivo("pin.yml");
-        getCommand("upin").setExecutor(new CompassCommand(chat, pin));
+        getCommand("upin").setExecutor(new CompassCommand(pin));
     }
     public void checkConfiguration(){
-        setPath("version", this.getDescription().getVersion());
         setPath("string", "%s");
         // Warps
         setPath("tw.info", "/tw [minutos] Recuerda que por cada minuto te cobrará %d puntos de experiencia.");
@@ -110,9 +106,6 @@ public class Useless extends JavaPlugin {
         if(!this.getConfig().isSet(path))
             this.getConfig().set(path, v);
     }
-    public Chat getChat() {
-        return chat;
-    }
     public static void log(String m){
         plugin.getLogger().info(m);
     }
@@ -121,5 +114,8 @@ public class Useless extends JavaPlugin {
     }
     public static Useless plugin(){
         return plugin;
+    }
+    public static String getVersion(){
+        return Useless.getVersion();
     }
 }

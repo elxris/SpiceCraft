@@ -3,7 +3,6 @@ package elxris.Useless.Objects;
 import org.bukkit.Location;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.entity.Player;
-import elxris.Useless.Useless;
 import elxris.Useless.Utils.Chat;
 
 public class Warp implements Runnable{
@@ -11,14 +10,12 @@ public class Warp implements Runnable{
     Player jugador;
     int tiempo;
     Configuration cache;
-    Chat chat;
     
-    public Warp(Location location, Player jugador, String tiempo, Configuration cache, Useless plugin){
+    public Warp(Location location, Player jugador, String tiempo, Configuration cache){
         setLocation(location);
         setJugador(jugador);
         setTiempo(tiempo);
         setCache(cache);
-        setChat(plugin);
     }
     public void setLocation(Location l){
         loc = l;
@@ -39,13 +36,6 @@ public class Warp implements Runnable{
     public void setCache(Configuration c){
         cache = c;
     }
-    
-    public void setChat(Useless plugin){
-        chat = plugin.getChat();
-    }
-    public Chat getChat() {
-        return chat;
-    }
     @Override
     public void run() {
         try {
@@ -57,10 +47,10 @@ public class Warp implements Runnable{
             }
             Thread.sleep(t);
             for(int i = 6;i > 0;i--){
-                getChat().mensaje(jugador, "tw.s.remain", i*5);
+                Chat.mensaje(jugador, "tw.s.remain", i*5);
                 Thread.sleep(5*1000);
             }
-            getChat().mensaje(jugador, "tw.s.destroyed");
+            Chat.mensaje(jugador, "tw.s.destroyed");
             cache.set(jugador.getName()+".tw", false);
         } catch (Throwable e) {
         }

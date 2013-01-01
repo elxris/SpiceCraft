@@ -29,7 +29,7 @@ public class Experiencia {
         return (e+((exp - i)/expLvl)); //Regla de tres más los niveles de experiencia.
     }
     
-    public static boolean cobrarEsperiencia(Chat c, Player p, int exp){
+    public static boolean cobrarEsperiencia(Player p, int exp){
         float nextLvl = getExperiencia(p.getLevel(), p.getExp());
         if(nextLvl < exp){
             return false;
@@ -39,7 +39,7 @@ public class Experiencia {
         nextLvl = nextLvl%1;
         p.setExp(nextLvl);
         p.setLevel(lvl);
-        c.mensaje(p, "exp.cobrar", exp);
+        Chat.mensaje(p, "exp.cobrar", exp);
         return true;
     }
 }

@@ -6,21 +6,15 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.entity.Player;
 
-import elxris.Useless.Useless;
 import elxris.Useless.Objects.Warp;
 import elxris.Useless.Objects.Warps;
-import elxris.Useless.Utils.Chat;
 import elxris.Useless.Utils.Experiencia;
 
 public class WarpCommand extends Comando{
-    private Useless plugin;
     private Configuration cache, fc;
     private Warps w;
     
-    public WarpCommand(Chat chat, Useless plugin, Configuration cache) {
-        super(chat);
-        this.plugin = plugin;
-        fc = plugin.getConfig();
+    public WarpCommand(Configuration cache) {
         this.cache = cache;
     }
     @Override
@@ -51,8 +45,8 @@ public class WarpCommand extends Comando{
                 return true;
             }
             int precio = fc.getInt("tw.v.price")*Integer.parseInt(tiempo);
-            if(Experiencia.cobrarEsperiencia(getChat(), jugador, precio)){
-                Warp w = new Warp(jugador.getLocation(), jugador, tiempo, cache, plugin);
+            if(Experiencia.cobrarEsperiencia(jugador, precio)){
+                Warp w = new Warp(jugador.getLocation(), jugador, tiempo, cache);
                 Thread t = new Thread(w);
                 t.start();
                 cache.set(jugador.getName()+".w", w.getLocation());

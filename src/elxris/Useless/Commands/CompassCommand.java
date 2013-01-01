@@ -7,14 +7,12 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import elxris.Useless.Utils.Archivo;
-import elxris.Useless.Utils.Chat;
 
 public class CompassCommand extends Comando{
     private Archivo file;
     private FileConfiguration cache;
     
-    public CompassCommand(Chat chat, Archivo file) {
-        super(chat);
+    public CompassCommand(Archivo file) {
         setFile(file);
     }
     

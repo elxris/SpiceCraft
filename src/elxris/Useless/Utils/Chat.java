@@ -6,13 +6,11 @@ import org.bukkit.entity.Player;
 
 import elxris.Useless.Useless;
 
-public class Chat {    
-    public Chat(){
-    }
-    private void enviar(Player p, String mensaje, Object... i){
+public class Chat {
+    private static void enviar(Player p, String mensaje, Object... i){
         p.sendMessage(String.format(mensaje, i));
     }
-    public void mensaje(Player p, String path, Object... i){
+    public static void mensaje(Player p, String path, Object... i){
         String texto = "";
         if(Strings.isList(path)){
             List<String> m = getList(path);
@@ -28,16 +26,16 @@ public class Chat {
         }
         enviar(p, texto, i);
     }
-    public void mensaje(String p, String m, Object... i){
+    public static void mensaje(String p, String m, Object... i){
         if(Useless.getPlayer(p) == null){
             return;
         }
         mensaje(Useless.getPlayer(p), m, i);
     }
-    private List<String> getList(String path){
+    private static List<String> getList(String path){
         return Strings.getStringList(path);
     }
-    private String get(String path){
+    private static String get(String path){
         return Strings.getString(path);
     }
 }

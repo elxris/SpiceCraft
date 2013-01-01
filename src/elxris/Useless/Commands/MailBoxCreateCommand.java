@@ -8,13 +8,11 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import elxris.Useless.Objects.Mail;
-import elxris.Useless.Utils.Chat;
 
 public class MailBoxCreateCommand extends Comando{
     private Mail mail;
     
-    public MailBoxCreateCommand(Chat chat, Mail m) {
-        super(chat);
+    public MailBoxCreateCommand(Mail m) {
         mail = m;
     }
     @Override

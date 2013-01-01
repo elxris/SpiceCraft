@@ -3,17 +3,14 @@ package elxris.Useless.Listener;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.plugin.Plugin;
-
+import elxris.Useless.Useless;
 import elxris.Useless.Objects.Mail;
 
 public class MailListener implements Listener{
-    public Plugin plugin;
     public Mail mail;
     
-    public MailListener(Plugin p, Mail m) {
-        plugin = p;
-        plugin.getServer().getPluginManager().registerEvents(this, plugin);
+    public MailListener(Mail m) {
+        Useless.plugin().getServer().getPluginManager().registerEvents(this, Useless.plugin());
         mail = m;
     }
     
