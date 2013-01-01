@@ -1,5 +1,5 @@
 name: Useless
-version: 0.0.7.1
+version: 0.0.7
 main: elxris.Useless.Useless
 commands:
     tw:
@@ -26,6 +26,6 @@ permissions:
     useless.mail.create:
         default: true
     useless.mail.massive:
-        default: true
+        default: false
     useless.upin:
         default: true

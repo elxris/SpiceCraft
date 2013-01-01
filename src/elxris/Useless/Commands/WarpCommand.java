@@ -66,7 +66,7 @@ public class WarpCommand extends Comando{
         
         // Si son dos argumentos crea el warp personal.
         if(args.length == 2){
-            if(args[0].contentEquals("new") || args[0].contentEquals("n")){
+            if(isCommand("comm.tw.new", args[0])){
                 String warpName = String.format("p.%s", getPlayerName(jugador));
                 validarNewWarp(warpName, args[1], "", jugador);
                 return true;
@@ -77,7 +77,7 @@ public class WarpCommand extends Comando{
             
         // Si son tres argumentos crea el warp general.
         if (args.length == 3){
-            if(args[0].contentEquals("new") || args[0].contentEquals("n")){
+            if(isCommand("comm.tw.new", args[0])){
                 String warpName = String.format("g.%s", args[1]);
                 validarNewWarp(warpName, args[2], args[1], jugador);
                 return true;
@@ -85,8 +85,6 @@ public class WarpCommand extends Comando{
             Chat.mensaje(jugador, "alert.error");
             return true;
         }
-        
-        // Recordar que si es general, poner el nombre, si no dejar el nombre vacío. [tw.s.created]
         return true;
     }
     public void teleport(Player jugador, String path){
@@ -104,24 +102,26 @@ public class WarpCommand extends Comando{
     }
     public boolean crearWarp(Player jugador, int tiempo, String path){
         double precio = Strings.getDouble("tw.v.price")*tiempo;
-        if(econ != null){
-            if(econ.getBalance(getPlayerName(jugador)) >= precio){
-                EconomyResponse r = econ.withdrawPlayer(getPlayerName(jugador), precio);                
-                if(!r.transactionSuccess()){
-                    mensaje(jugador, "alert.error");
+        if(precio == 0){
+            if(econ != null){
+                if(econ.getBalance(getPlayerName(jugador)) >= precio){
+                    EconomyResponse r = econ.withdrawPlayer(getPlayerName(jugador), precio);                
+                    if(!r.transactionSuccess()){
+                        mensaje(jugador, "alert.error");
+                        return false;
+                    }
+                }else{
+                    mensaje(jugador, "tw.s.noMoney");
                     return false;
                 }
             }else{
-                mensaje(jugador, "tw.s.noMoney");
-                return false;
+                if(!Experiencia.cobrarEsperiencia(jugador, (int)precio)){
+                    mensaje(jugador, "tw.s.noMoney");
+                    return false;
+                }
             }
-        }else{
-            if(!Experiencia.cobrarEsperiencia(jugador, (int)precio)){
-                mensaje(jugador, "tw.s.noMoney");
-                return false;
-            }
+            Chat.mensaje(jugador, "econ.cobrar", getPrecio(precio));
         }
-        Chat.mensaje(jugador, "econ.cobrar", getPrecio(precio));
         Warp w = new Warp(jugador.getLocation(), jugador, tiempo, cache, path);
         Thread t = new Thread(w);
         t.start();
@@ -143,6 +143,14 @@ public class WarpCommand extends Comando{
         //Si está fuera de rango.
         if(!(minutos >= Strings.getInt("tw.v.minTime") && minutos <= Strings.getInt("tw.v.maxTime"))){
             mensaje(jugador, "tw.s.timeLimit", Strings.getInt("tw.v.minTime"), Strings.getInt("tw.v.maxTime"));
+            return;
+        }
+        // Si excede a los máximos por usuario.
+        if(!cache.isSet("user."+getPlayerName(jugador))){
+            cache.set("user."+getPlayerName(jugador), 0);
+        }
+        if(Strings.getInt("tw.v.maxPerUser") <= cache.getInt("user."+getPlayerName(jugador))){
+            mensaje(jugador, "tw.s.warpLimit");
             return;
         }
         if(crearWarp(jugador, minutos, path)){            

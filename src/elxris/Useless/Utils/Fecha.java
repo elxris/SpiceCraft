@@ -7,7 +7,7 @@ public class Fecha {
         long diff = (System.currentTimeMillis() - time);
         diff /= 1000;
         String fecha = "";
-        Boolean primero = false;
+        boolean[] primero = {false};
         //Calcular cuanto tiempo ha pasado.
         int semanas, dias, horas, minutos, segundos, count, h = 0;
         count = 0;
@@ -53,13 +53,13 @@ public class Fecha {
         fecha += Calendar.DAY_OF_MONTH+"/"+Strings.getStringList("f.months").get(Calendar.MONTH);
         return fecha;
     }
-    public static String unidadFecha(int tiempo, int h, Boolean primero){
+    public static String unidadFecha(int tiempo, int h, boolean[] primero){
         String fecha = "";
         if(tiempo > 0){
-            if(primero){
+            if(primero[0]){
                 fecha = " ";
             }
-            primero = true;
+            primero[0] = true;
             if(tiempo == 1){
                 fecha += tiempo+" "+Strings.getStringList("f.units").get(h);
             }else{

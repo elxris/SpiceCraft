@@ -51,6 +51,7 @@ public class Warp implements Runnable{
     public void run() {
         try {
             cache.set(getPath()+".set", true);
+            cache.set("user."+jugador.getName(), cache.getInt("user."+jugador.getName())+1);
             int t = tiempo*1000*60;
             t -= (1000*30);
             if(t < 1){
@@ -63,6 +64,7 @@ public class Warp implements Runnable{
             }
             Chat.mensaje(jugador, "tw.s.destroyed");
             cache.set(getPath(), null);
+            cache.set("user."+jugador.getName(), cache.getInt("user."+jugador.getName())-1);
         } catch (Throwable e) {
         }
     }

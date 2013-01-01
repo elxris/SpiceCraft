@@ -41,22 +41,21 @@ public class CompassCommand extends Comando{
         }
         // Localiza el pin.
         if(args.length == 1){
-            if(args[0].contentEquals("l") || args[0].contentEquals("list")){
+            if(isCommand("comm.upin.list", args[0])){
                 listaPin(jugador);
-                return true;
+            }else{
+                localizaPin(jugador, args[0]);                
             }
-            localizaPin(jugador, args[0]);
         }else
         // Borra el pin.
         if(args.length == 2){
-            if(args[0].contentEquals("del") || args[0].contentEquals("d") || args[0].contentEquals("delete")){
+            if(isCommand("comm.upin.del", args[0])){
                 borraPin(jugador, args[1]);
             }
         } else
         // Crea el pin.
         if(args.length == 3){
             creaPin(args[1], args[2], args[0], jugador);
-            return true;
         }
         return true;
     }

@@ -28,24 +28,15 @@ public class MailBoxCommand extends Comando{
             return true;
         }
         //TODO Crear comandos moderadores.
-        switch (args[0].toLowerCase()) {
-        case ".":
+        if(isCommand("comm.mbox.count", args[0])){
             mail.getMailList(jugador.getName());
-            break;
-        case "read":
-        case "r":
+        }else
+        if(isCommand("comm.mbox.read", args[0])){
             mail.getNextMail(jugador.getName(), false);
-            break;
-        case "clear":
-        case "c":
+        }else
+        if(isCommand("comm.mbox.clear", args[0])){
             mail.eliminarAll(jugador.getName());
             mensaje(jugador, "mbox.deleted");
-            break;
-        case "help":
-        case "?":
-        default:
-            mensaje(jugador, "mbox.info");
-            return true;
         }
         mail.interpreta();
         return true;

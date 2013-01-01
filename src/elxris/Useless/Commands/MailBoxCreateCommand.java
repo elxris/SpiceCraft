@@ -30,36 +30,21 @@ public class MailBoxCreateCommand extends Comando{
             mensaje(jugador, "mboxc.info");
             return true;
         }
-        switch (args[0].toLowerCase()) {
-        case "new":
-        case "n":
+        
+        if(isCommand("comm.mboxc.new", args[0])){
             if(args.length > 1){
                 mail.createBorrador(jugador.getName(), cortarArray(1, args));              
             }
-            break;
-        case "add":
-        case "a":
+        }else if(isCommand("comm.mboxc.add", args[0])){
             if(args.length > 1){
                 mail.addMensaje(jugador.getName(), getString(cortarArray(1, args)));
             }
-            break;
-        case "clear":
-        case "c":
+        }else if(isCommand("comm.mboxc.clear", args[0])){
             mail.clearMensaje(jugador.getName());
-            break;
-        case "send":
-        case "s":
-            mail.sendMensaje(jugador.getName());
-            break;
-        case "sendall":
-        case "sa":
+        }else if(isCommand("comm.mboxc.send", args[0])){
+            mail.sendMensaje(jugador.getName());            
+        }else if(isCommand("comm.mboxc.sendall", args[0])){
             mail.sendMensajeATodos(jugador.getName());
-            break;
-        case "help":
-        case "?":
-        default:
-            mensaje(jugador, "mboxc.info");
-            return true;
         }
         mail.interpreta();
         return true;

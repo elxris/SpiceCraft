@@ -12,17 +12,13 @@ public class Chat {
     }
     public static void mensaje(Player p, String path, Object... i){
         String texto = "";
-        if(Strings.isList(path)){
-            List<String> m = getList(path);
-            texto = "";
-            for(int e = 0; e < m.size(); e++){
-                texto += m.get(e);
-                if(e + 1 < m.size()){
-                    texto += "§r\n";
-                }
+        List<String> m = Strings.getStringList(path);
+        texto = "";
+        for(int e = 0; e < m.size(); e++){
+            texto += m.get(e);
+            if(e + 1 < m.size()){
+                texto += "§r\n";
             }
-        }else{
-            texto = get(path);
         }
         enviar(p, texto, i);
     }
@@ -31,11 +27,5 @@ public class Chat {
             return;
         }
         mensaje(Useless.getPlayer(p), m, i);
-    }
-    private static List<String> getList(String path){
-        return Strings.getStringList(path);
-    }
-    private static String get(String path){
-        return Strings.getString(path);
     }
 }

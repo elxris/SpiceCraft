@@ -40,17 +40,30 @@ public class Useless extends JavaPlugin {
     }
     public void checkConfiguration(){
         setPath("string", "%s");
+        //Comandos tw
+        setPath("comm.tw.new", "nuevo", "n");
+        // Comandos mbox
+        setPath("comm.mbox.count", ".");
+        setPath("comm.mbox.read", "leer", "l", "read", "r");
+        setPath("comm.mbox.clear", "borrar", "b", "clear", "c");
+        // Comandos mboxc
+        setPath("comm.mboxc.new", "nuevo", "n", "crear", "c", "new");
+        setPath("comm.mboxc.add", "agregar", "añadir", "a", "add");
+        setPath("comm.mboxc.send", "enviar", "e", "send", "s");
+        setPath("comm.mboxc.sendall", "atodos", "t", "sendall", "sa");
+        setPath("comm.mboxc.clear", "limpiar", "l", "clear", "cl");
+        // Comandos upin
+        setPath("comm.upin.del", "delete", "del", "delete", "borrar", "b");
+        setPath("comm.upin.list", "listar", "l", "list");
         // Warps
-        String[] twInfo = {"§aAyuda /tw",
-                "§e/tw §cn§eew [minutos]§r Para crear un warp temporal personal.",
+        setPath("tw.info", "§aAyuda /tw",
+                "§e/tw §cn§euevo [minutos]§r Para crear un warp temporal personal.",
                 "Recuerda que por cada minuto te cobrará %s.",
-                "§e/tw §cn§eew [nombre] [minutos]§r Hacer un warp temporal que cualuiera pueda usar.",
+                "§e/tw §cn§euevo [nombre] [minutos]§r Hacer un warp temporal que cualuiera pueda usar.",
                 "§e/tw [nombre]§r Para hacer uso de un warp temporal.",
-                "§e/tw§r Muestra esta ayuda, o puede ser un comando rápido para un warp temporal personal."};
-        setPath("tw.info", twInfo);
-        String[] twSCreated = {"Warp Temporal de %d minutos creado.",
-        "Usa §e/tw %s§r para usarlo."};
-        setPath("tw.s.created", twSCreated);
+                "§e/tw§r Muestra esta ayuda, o puede ser un comando rápido para un warp temporal personal.");
+        setPath("tw.s.created", "Warp Temporal de %d minutos creado.",
+        "Usa §e/tw %s§r para usarlo.");
         setPath("tw.s.remain", "Quedan §4%d§r segundos para la destrucción de el warp temporal.");
         setPath("tw.s.teleported", "Teleportando..");
         setPath("tw.s.destroyed", "Warp Destruido.");
@@ -58,55 +71,52 @@ public class Useless extends JavaPlugin {
         setPath("tw.s.noExist", "No existe el warp. §e/tw§r Para más info.");
         setPath("tw.s.exist", "Ya existe ese warp.");
         setPath("tw.s.timeLimit", "No debe ser menor a %d minutos ni mayor a %d minutos.");
+        setPath("tw.s.warpLimit", "No puedes hacer otro warp, ya tienes muchos.");
         setPath("tw.v.maxTime", 120);
         setPath("tw.v.minTime", 1);
+        setPath("tw.v.maxPerUser", 2);
         setPath("tw.v.price", 10.0);
         // Mail
-        String[] mboxInfo = {"§aAyuda /mbox",
+        setPath("mbox.info", "§aAyuda /mbox",
                 "§e/mbox . §rNumerar los correos que tienes.",
-                "§e/mbox §cr§r§eead §rLeer el correo.",
-                "§e/mbox §cc§r§elear §rBorrar correo.",
-                "§e/mboxc §rAyuda para crear correos."};
-        setPath("mbox.info", mboxInfo);
+                "§e/mbox §cl§eeer §rLeer el correo.",
+                "§e/mbox §cb§eorrar §rBorrar correo.",
+                "§e/mboxc §rAyuda para crear correos.");
         setPath("mbox.list", "Tienes §e%d§r mensajes. §e/mbox§r Para más info.");
-        String[] mboxMail = {"De: §a%s§r Fecha: %s",
+        setPath("mbox.mail", "De: §a%s§r Fecha: %s",
                 "§b§o%s§r",
-                "§e/mbox§r muestra ayuda. §e/mboxc new %s§r para responder"};        
-        setPath("mbox.mail", mboxMail);
+                "§e/mbox§r muestra ayuda. §e/mboxc §cn§euevo %s§r para responder");
         setPath("mbox.timeago", "Hace ");
         setPath("mbox.readStart", "§c### Inicio Bandeja de Correo ###");
         setPath("mbox.readFinish", "§c### Fin Bandeja de Correo ###");
         setPath("mbox.listEnd", "Ya no tienes correos.");
         setPath("mbox.deleted", "Mensajes eliminados.");
         // Create mail
-        String[] mboxcInfo = {"§aAyuda /mboxc",
+        setPath("mboxc.info", "§aAyuda /mboxc",
                 "Para crear un correo debes primero hacer un borrador para después agregar el mensaje.",
-                "§e/mboxc §cn§eew [Usuario] ... §rCrea un borrador con destinatario o destinatarios. Uno mínimo.",
-                "§e/mboxc §ca§edd [Mensaje] §rAgrega el mensaje a el correo.",
-                "§e/mboxc §cc§elear §rBorra el mensaje.",
-                "§e/mboxc §cs§eend §rYa que tienes listo el mensaje, este comando lo envía.",
-                "§e/mboxc sendall §ro §e/mboxc sa§r (Solo Admins)Envía el mensaje a todos los usuarios."};
-        setPath("mboxc.info", mboxcInfo);
+                "§e/mboxc §cn§eevo [Usuario] ... §rCrea un borrador con destinatario o destinatarios. Uno mínimo.",
+                "§e/mboxc §ca§egregar [Mensaje] §rAgrega el mensaje a el correo.",
+                "§e/mboxc §cb§eorrar §rBorra el mensaje.",
+                "§e/mboxc §ce§eviar §rYa que tienes listo el mensaje, este comando lo envía.",
+                "§e/mboxc a§ct§eodos§r (Solo Admins)Envía el mensaje a todos los usuarios.");
         setPath("mboxc.noPlayerAdded", "Ningún destinatario, por lo tanto mensaje no creado.");
         setPath("mboxc.playerNotExist", "El jugador %s no enontrado. No ha sido agregado.");
         setPath("mboxc.catched", "Mensaje recibido.");
         setPath("mboxc.sended", "Mensaje enviado.");
         setPath("mboxc.limit", "Lo siento, ya has superado el límite de 300 caracteres.");
-        setPath("mboxc.created", "Borrador creado. §e/mboxc add <Mensaje>§r para añadir mensaje.");
-        setPath("mboxc.add", "Mensaje añadido, recuerda que puedes añadir más. §e/mboxc send§r para enviar.");
+        setPath("mboxc.created", "Borrador creado. §e/mboxc §ca§egregar <Mensaje>§r para añadir mensaje.");
+        setPath("mboxc.add", "Mensaje añadido, recuerda que puedes añadir más. §e/mboxc §ce§enviar§r para enviar.");
         setPath("mboxc.noMessage", "§cPrimero debes crear un borrador. §e/mboxc para más ayuda.");
         // Compass
-        String[] upinInfo = {"§aAyuda /upin", 
+        setPath("upin.info", "§aAyuda /upin", 
                 "§e/upin [nombre] [x] [z]§r Para crear una posición que puede ser localizada con una brújula.",
                 "§e/upin [nombre]§r Para usarla.",
-                "§e/upin §cd§eel [nombre]§r Para borrarla si eres el dueño.",
-                "§e/upin §cl§eist§r Para ver todas las posiciones."};
-        setPath("upin.info", upinInfo);
+                "§e/upin §cb§eborrar [nombre]§r Para borrarla si eres el dueño.",
+                "§e/upin §cl§eistar§r Para ver todas las posiciones.");
         setPath("upin.noPin", "No existe la posicion.");
         setPath("upin.exist", "Ya existe esa posicion. Elige otra.");
-        String[] upinList = {"§a###Lista de las posiciones ###",
-                "§b%s"};
-        setPath("upin.list", upinList);
+        setPath("upin.list", "§a###Lista de las posiciones ###",
+                "§b%s");
         setPath("upin.item", "<%s> ");
         setPath("upin.noList", "§cNo hay posiciones. Aún.");
         setPath("upin.created", "Posición creada, úsala con §e/upin %s");
@@ -119,10 +129,9 @@ public class Useless extends JavaPlugin {
         setPath("alert.error", "§cError al usar el comando. Revisa la ayuda.");
         setPath("alert.noInteger", "Tienes que ingresar valor/es enteros.");
         // Formatos
-        String[] units = {"mes", "meses", "dia", "dias", "hora", "horas", "minuto", "minutos", "segundo", "segundos"};
-        setPath("f.units", units);
-        String[] months = {"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"};
-        setPath("f.months", months);
+        setPath("f.units", "mes", "meses", "dia", "dias", "hora", "horas", "minuto", "minutos", "segundo", "segundos");
+        setPath("f.months", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", 
+                "Octubre", "Noviembre", "Diciembre");
         // Esperiencia
         setPath("exp.format", "%d puntos de experiencia");
         // Economía.
@@ -131,7 +140,7 @@ public class Useless extends JavaPlugin {
         this.saveConfig();
         this.reloadConfig();
     }
-    private void setPath(String path, Object v){
+    private void setPath(String path, Object... v){
         if(!this.getConfig().isSet(path))
             this.getConfig().set(path, v);
     }
