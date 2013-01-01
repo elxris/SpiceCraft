@@ -1,12 +1,9 @@
 package elxris.Useless.Utils;
 
-import java.util.Date;
-
-import org.bukkit.configuration.Configuration;
+import java.util.Calendar;
 
 public class Fecha {
-    public static String formatoFecha(Configuration fc, long time, String[] unidades, String[] meses){
-        Date oldFecha = new Date(time);
+    public static String formatoFecha(long time){
         long diff = (System.currentTimeMillis() - time);
         diff /= 1000;
         String fecha = "";
@@ -24,21 +21,21 @@ public class Fecha {
         segundos = (int) (diff);
         //Guardar cuanto tiempo ha pasado
         fecha += "(";
-        fecha += unidadFecha(semanas, unidades, h, primero);
+        fecha += unidadFecha(semanas, h, primero);
         h += 2;
-        fecha += unidadFecha(dias, unidades, h, primero);
+        fecha += unidadFecha(dias, h, primero);
         h += 2;
-        fecha += unidadFecha(horas, unidades, h, primero);
+        fecha += unidadFecha(horas, h, primero);
         h += 2;
-        fecha += unidadFecha(minutos, unidades, h, primero);
+        fecha += unidadFecha(minutos, h, primero);
         h += 2;
-        fecha += unidadFecha(segundos, unidades, h, primero);
+        fecha += unidadFecha(segundos, h, primero);
         //Fecha
         fecha += ") ";
-        fecha += oldFecha.getDate()+"/"+meses[oldFecha.getMonth()];
+        fecha += Calendar.DAY_OF_MONTH+"/"+Strings.getStringList("f.months").get(Calendar.MONTH);
         return fecha;
     }
-    public static String unidadFecha(int tiempo, String[] unidades, int h, boolean[] primero){
+    public static String unidadFecha(int tiempo, int h, boolean[] primero){
         String fecha = "";
         if(tiempo > 0){
             if(primero[0]){
@@ -46,9 +43,9 @@ public class Fecha {
             }
             primero[0] = true;
             if(tiempo == 1){
-                fecha += tiempo+" "+unidades[h];
+                fecha += tiempo+" "+Strings.getStringList("f.units").get(h);
             }else{
-                fecha += tiempo+" "+unidades[h+1];
+                fecha += tiempo+" "+Strings.getStringList("f.units").get(h+1);
             }
         }
         return fecha;

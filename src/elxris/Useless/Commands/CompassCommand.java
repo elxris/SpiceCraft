@@ -3,17 +3,21 @@ package elxris.Useless.Commands;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.Configuration;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
+import com.avaje.ebeaninternal.server.cluster.mcast.Message;
+
+import elxris.Useless.Utils.Archivo;
 import elxris.Useless.Utils.Chat;
 
 public class CompassCommand extends Comando{
-    private Configuration cache;
+    private Archivo file;
+    private FileConfiguration cache;
     
-    public CompassCommand(Chat chat, Configuration cache) {
+    public CompassCommand(Chat chat, Archivo file) {
         super(chat);
-        this.cache = cache;
+        setFile(file);
     }
     
     @Override
@@ -27,20 +31,26 @@ public class CompassCommand extends Comando{
         if(!jugador.hasPermission("useless.upin")){
             return true;
         }
-        String arg = "";
-        if(args.length > 0){
-            arg = args[0];
-        }
-        switch (arg) {
-        case "set":
-            jugador.setCompassTarget(new Location(jugador.getWorld(), Double.parseDouble(args[1]), Double.parseDouble(args[2]), Double.parseDouble(args[3])));
-            break;
-        case "help":
-        case "?":
-        default:
+        if(args.length < 0){
             mensaje(jugador, "mbox.info");
-            return true;
+            return false;
         }
+        jugador.setCompassTarget(new Location(jugador.getWorld(), Double.parseDouble(args[1]), Double.parseDouble(args[2]), Double.parseDouble(args[3])));
         return true;
+    }
+    private void setFile(Archivo file) {
+        this.file = file;
+    }
+    private Archivo getFile() {
+        return file;
+    }
+    private FileConfiguration getCache(){
+        return cache;
+    }
+    private void loadCache(){
+        cache = file.load();
+    }
+    private void saveCache(){
+        file.save(cache);
     }
 }

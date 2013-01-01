@@ -5,35 +5,27 @@ import java.io.IOException;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.plugin.Plugin;
+import elxris.Useless.Useless;
 
 public class Archivo {
     private File file;
     private String name;
-    private Plugin p;
     
-    public Archivo(Plugin p, String nombre){
-        setPlugin(p);
+    public Archivo(String nombre){
         setFile(nombre);
     }
-    public String getName(){
+    private String getName(){
         return name;
     }
-    public void setName(String nombre){
+    private void setName(String nombre){
         name = nombre;
     }
-    public File getFile(){
+    private File getFile(){
         return file;
     }
     public void setFile(String name){
         setName(name);
-        file = new File(getPlugin().getDataFolder(), getName());
-    }
-    public Plugin getPlugin(){
-        return p;
-    }
-    public void setPlugin(Plugin pl){
-        p = pl;
+        file = new File(Useless.plugin().getDataFolder(), getName());
     }
     public FileConfiguration load(){
         return YamlConfiguration.loadConfiguration(getFile());
@@ -42,7 +34,7 @@ public class Archivo {
         try {
             fc.save(getFile());
         } catch (IOException e) {
-            getPlugin().getLogger().info(getPlugin().getConfig().getString("alert.notsaved")+getName());
+            Useless.log(Strings.getString("alert.notsaved")+getName());
         }
     }
 }

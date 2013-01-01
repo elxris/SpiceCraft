@@ -15,16 +15,12 @@ import elxris.Useless.Utils.Fecha;
 
 public class Mail {
     FileConfiguration cache;
-    Configuration fc;
-    Useless plugin;
     Chat chat;
     Archivo archivo;
     
-    public Mail(Useless plugin){
-        setPlugin(plugin);
-        archivo = new Archivo(plugin, "mail.yml");
-        chat = plugin.getChat();
-        fc = plugin.getConfig();
+    public Mail(){
+        archivo = new Archivo("mail.yml");
+        chat = new Chat();
         load();
     }
     
@@ -39,7 +35,7 @@ public class Mail {
         List<Long> listacorreos = cache.getLongList("correos.mensajes");
         List<Long> remover = cache.getLongList("correos.mensajes");
         //Quitar los mensajes anteriores.
-        for(OfflinePlayer p: plugin.getServer().getOfflinePlayers()){
+        for(OfflinePlayer p: Useless.plugin().getServer().getOfflinePlayers()){
             cache.set("usuarios."+p.getName()+".mensajes", null);
         }
         for(Long k: listacorreos){
@@ -89,7 +85,7 @@ public class Mail {
             remitente = "Servidor";
         }
         String[] mail = {remitente,
-                Fecha.formatoFecha(fc, id, fc.getString("f.units").split(" "), fc.getString("f.months").split(" ")),
+                Fecha.formatoFecha(id),
                 cache.getString("correos."+id+".mensaje"), remitente};
         return mail;
     }
