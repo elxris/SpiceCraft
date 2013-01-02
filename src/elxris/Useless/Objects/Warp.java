@@ -59,7 +59,7 @@ public class Warp implements Runnable{
             }
             Thread.sleep(t);
             for(int i = 6;i > 0;i--){
-                if(cache.isSet(getPath()+".set")){
+                if(!cache.isSet(getPath()+".set")){
                     break;
                 }
                 Chat.mensaje(jugador, "tw.s.remain", i*5);

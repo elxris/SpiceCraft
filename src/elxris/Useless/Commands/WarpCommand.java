@@ -102,7 +102,7 @@ public class WarpCommand extends Comando{
     }
     public boolean crearWarp(Player jugador, int tiempo, String path){
         double precio = Strings.getDouble("tw.v.price")*tiempo;
-        if(precio == 0){
+        if(precio > 0){
             if(econ != null){
                 if(econ.getBalance(getPlayerName(jugador)) >= precio){
                     EconomyResponse r = econ.withdrawPlayer(getPlayerName(jugador), precio);                

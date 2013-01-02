@@ -124,6 +124,8 @@ public class Useless extends JavaPlugin {
         setPath("upin.set", "La posición ahora se mostrará en un compás.");
         setPath("upin.nether", "§cDe nada sirve crear una posición aquí. No se mostrará.");
         setPath("upin.del", "Borrada la posición.");
+        setPath("upin.v.maxPerUser", 3);
+        setPath("upin.limitPin", "Ya tienes demaciadas posiciones, ya no puedes hacer más.");
         // Errores y alertas.
         setPath("alert.notsaved", "Error, no se ha podido guardar: ");
         setPath("alert.noEconomy", "No hay plugin de economía. Se cobrará con puntos de experiencia.");

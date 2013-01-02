@@ -95,13 +95,20 @@ public class CompassCommand extends Comando{
             mensaje(jugador, "alert.error");
             return;
         }
+        if(!addNumPinUsuario(jugador)){
+            mensaje(jugador, "upin.limitPin");
+            return;
+        }
         getCache().set("pin."+name+".loc.world", jugador.getWorld().getName());
         getCache().set("pin."+name+".loc.x", x);
         getCache().set("pin."+name+".loc.z", z);
         getCache().set("pin."+name+".player", jugador.getName());
+        
+        //Añade a la lista el nombre del pin.
         List<String> pinNames = getCache().getStringList("pins");
         pinNames.add(name);
         getCache().set("pins", pinNames);
+        
         saveCache();
         mensaje(jugador, "upin.created", name);
     }
@@ -110,7 +117,9 @@ public class CompassCommand extends Comando{
             List<String> pinNames = getCache().getStringList("pins");
             pinNames.remove(name);
             getCache().set("pins", pinNames);
-            getCache().set("pin."+name, null);
+            getCache().set("pin."+name, null);            
+            //Quita uno al jugador.
+            removeNumPinUsuario(jugador);
             saveCache();
             Chat.mensaje(jugador, "upin.del");
             return;
@@ -122,8 +131,8 @@ public class CompassCommand extends Comando{
         for(String s: getCache().getStringList("pins")){
             String item = "";
             item += getCache().getString("pin."+s+".loc.world").toUpperCase();
-            item += " "+s;
-            item += " "+getCache().getString("pin."+s+".loc.x");
+            item += " ["+s;
+            item += "] "+getCache().getString("pin."+s+".loc.x");
             item += " "+getCache().getString("pin."+s+".loc.z");
             list += String.format(Strings.getString("upin.item"), item);
         }
@@ -132,6 +141,35 @@ public class CompassCommand extends Comando{
             return;
         }
         Chat.mensaje(jugador, "upin.list", list);
+    }
+    private boolean setNumPinUsuario(Player jugador, int num){
+        if(Strings.getInt("upin.v.maxPerUser") == 0){
+            return true;
+        }
+        if(jugador.hasPermission("useless.upin.noLimit")){
+            return true;
+        }
+        String path = "users."+jugador.getName();
+        if(!getCache().isSet(path)){
+            getCache().set(path, 0);
+        }
+        int numero = getCache().getInt(path);
+        if(numero+num <= Strings.getInt("upin.v.maxPerUser")){
+            if(numero+num < 0){
+                getCache().set(path, 0);
+                return true;
+            }
+            getCache().set(path, numero+num);
+            return true;
+        }else{
+            return false;
+        }
+    }
+    private boolean addNumPinUsuario(Player jugador){
+        return setNumPinUsuario(jugador, 1);
+    }
+    private void removeNumPinUsuario(Player jugador){
+        setNumPinUsuario(jugador, -1);
     }
     private void setFile(Archivo file) {
         this.file = file;

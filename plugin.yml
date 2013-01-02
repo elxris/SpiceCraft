@@ -1,5 +1,5 @@
 name: Useless
-version: 0.0.7
+version: 0.0.7.4
 main: elxris.Useless.Useless
 commands:
     tw:
@@ -35,3 +35,5 @@ permissions:
         default: false
     useless.upin:
         default: true
+    useless.upin.noLimit:
+        default: false

@@ -104,7 +104,7 @@ public class Mail {
         clearBorrador(jugador);
         List<String> destinatarios = new ArrayList<String>();
         for(String k: args){
-            if(Useless.plugin().getServer().matchPlayer(k).size() != 1){
+            if(Useless.plugin().getServer().matchPlayer(k).size() > 0){
                 destinatarios.add(k);
             }else{
                 if(Useless.plugin().getServer().getOfflinePlayer(k).getFirstPlayed() != 0){
