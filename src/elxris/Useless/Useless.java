@@ -39,9 +39,10 @@ public class Useless extends JavaPlugin {
         // Cargar strings
     }
     public void checkConfiguration(){
-        setPath("string", "%s");
         //Comandos tw
         setPath("comm.tw.new", "nuevo", "n");
+        setPath("comm.tw.destroy", "destruir", "d", "eliminar", "e", "borrar", "b");
+        setPath("comm.tw.list", "listar", "lista", "list", "li", "l");
         // Comandos mbox
         setPath("comm.mbox.count", ".");
         setPath("comm.mbox.read", "leer", "l", "read", "r");
@@ -61,6 +62,8 @@ public class Useless extends JavaPlugin {
                 "Recuerda que por cada minuto te cobrará %s.",
                 "§e/tw §cn§euevo [nombre] [minutos]§r Hacer un warp temporal que cualuiera pueda usar.",
                 "§e/tw [nombre]§r Para hacer uso de un warp temporal.",
+                "§e/tw §cb§eorrar§r o §e/tw §cb§eorrar [nombre]§r Borra un warp personal o público si eres el dueño.",
+                "§e/tw list§r Lista los warps públicos.",
                 "§e/tw§r Muestra esta ayuda, o puede ser un comando rápido para un warp temporal personal.");
         setPath("tw.s.created", "Warp Temporal de %d minutos creado.",
         "Usa §e/tw %s§r para usarlo.");
@@ -72,6 +75,9 @@ public class Useless extends JavaPlugin {
         setPath("tw.s.exist", "Ya existe ese warp.");
         setPath("tw.s.timeLimit", "No debe ser menor a %d minutos ni mayor a %d minutos.");
         setPath("tw.s.warpLimit", "No puedes hacer otro warp, ya tienes muchos.");
+        setPath("tw.s.noOwner", "No puedes borrar este warp, no es tuyo.");
+        setPath("tw.s.listHeader", "### Lista de warps públicos ###", "%s");
+        setPath("tw.s.listItem", "<%s:%s>");
         setPath("tw.v.maxTime", 120);
         setPath("tw.v.minTime", 1);
         setPath("tw.v.maxPerUser", 2);
@@ -80,15 +86,16 @@ public class Useless extends JavaPlugin {
         setPath("mbox.info", "§aAyuda /mbox",
                 "§e/mbox . §rNumerar los correos que tienes.",
                 "§e/mbox §cl§eeer §rLeer el correo.",
-                "§e/mbox §cb§eorrar §rBorrar correo.",
+                "§e/mbox §cb§eorrar §rBorrar la bandeja de entrada.",
                 "§e/mboxc §rAyuda para crear correos.");
         setPath("mbox.list", "Tienes §e%d§r mensajes. §e/mbox§r Para más info.");
         setPath("mbox.mail", "De: §a%s§r Fecha: %s",
                 "§b§o%s§r",
-                "§e/mbox§r muestra ayuda. §e/mboxc §cn§euevo %s§r para responder");
+                "§e/mboxc §cn§euevo %s§r para responder");
         setPath("mbox.timeago", "Hace ");
         setPath("mbox.readStart", "§c### Inicio Bandeja de Correo ###");
-        setPath("mbox.readFinish", "§c### Fin Bandeja de Correo ###");
+        setPath("mbox.readFinish", "§c### Fin Bandeja de Correo ###",
+                "Escribe §e/mbox §cb§eorrar§r para borrar la bandeja de entrada.");
         setPath("mbox.listEnd", "Ya no tienes correos.");
         setPath("mbox.deleted", "Mensajes eliminados.");
         // Create mail
@@ -105,7 +112,7 @@ public class Useless extends JavaPlugin {
         setPath("mboxc.sended", "Mensaje enviado.");
         setPath("mboxc.limit", "Lo siento, ya has superado el límite de 300 caracteres.");
         setPath("mboxc.created", "Borrador creado. §e/mboxc §ca§egregar <Mensaje>§r para añadir mensaje.");
-        setPath("mboxc.add", "Mensaje añadido, recuerda que puedes añadir más. §e/mboxc §ce§enviar§r para enviar.");
+        setPath("mboxc.add", "Mensaje añadido añade más con §e/mboxc a [mensaje] §e/mboxc §ce§enviar§r para enviar.");
         setPath("mboxc.noMessage", "§cPrimero debes crear un borrador. §e/mboxc para más ayuda.");
         setPath("mboxc.v.maxChar", 200);
         // Compass
@@ -118,7 +125,7 @@ public class Useless extends JavaPlugin {
         setPath("upin.exist", "Ya existe esa posicion. Elige otra.");
         setPath("upin.list", "§a###Lista de las posiciones ###",
                 "§b%s");
-        setPath("upin.item", "<%s> ");
+        setPath("upin.item", "<%s: %s [%s][%s]> ");
         setPath("upin.noList", "§cNo hay posiciones. Aún.");
         setPath("upin.created", "Posición creada, úsala con §e/upin %s");
         setPath("upin.set", "La posición ahora se mostrará en un compás.");

@@ -1,5 +1,7 @@
 package elxris.Useless.Commands;
 
+import java.util.List;
+
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.economy.EconomyResponse;
 
@@ -53,15 +55,20 @@ public class WarpCommand extends Comando{
                 chatInfo(jugador);
             }
         }else
-        // Si hay un argumento. Busca el warp indicado.
+        // Si hay un argumento. Busca el warp indicado. O si llamó a destruir, destruye.
         if(args.length == 1){
             // Si existe el warp teleporta.
             if(cache.isSet(String.format("g.%s.set", args[0]))){
                 teleport(jugador, String.format("g.%s.warp", args[0]));
-            }else{
-                //No existe el warp
-                Chat.mensaje(jugador, "tw.s.noExist");
+                return true;
+            }else if(isCommand("comm.tw.destroy", args[0])){
+                borrarWarp(jugador, getPath("p.%s", jugador));
+                return true;
+            }else if(isCommand("comm.tw.list", args[0])){
+                mensaje(jugador, "tw.s.listHeader", getlistaWarps());
+                return true;
             }
+            Chat.mensaje(jugador, "tw.s.noExist");
         } else
         
         // Si son dos argumentos crea el warp personal.
@@ -69,6 +76,9 @@ public class WarpCommand extends Comando{
             if(isCommand("comm.tw.new", args[0])){
                 String warpName = String.format("p.%s", getPlayerName(jugador));
                 validarNewWarp(warpName, args[1], "", jugador);
+                return true;
+            }else if(isCommand("comm.tw.destroy", args[0])){
+                borrarWarp(jugador, "g."+args[1]);
                 return true;
             }
             Chat.mensaje(jugador, "alert.error");
@@ -83,7 +93,6 @@ public class WarpCommand extends Comando{
                 return true;
             }
             Chat.mensaje(jugador, "alert.error");
-            return true;
         }
         return true;
     }
@@ -125,7 +134,8 @@ public class WarpCommand extends Comando{
         Warp w = new Warp(jugador.getLocation(), jugador, tiempo, cache, path);
         Thread t = new Thread(w);
         t.start();
-        cache.set(getPath(path, jugador)+".warp", w.getLocation());
+        cache.set(path+".warp", jugador.getLocation());
+        cache.set(path+".owner", jugador.getName());
         return true;
     }
     public void validarNewWarp(String path, String tiempo, String nombreWarp, Player jugador){
@@ -160,9 +170,42 @@ public class WarpCommand extends Comando{
         }
         if(crearWarp(jugador, minutos, path)){            
             mensaje(jugador, "tw.s.created", minutos, nombreWarp);
+            // Añadir el warp a la lista de warps
+            if(nombreWarp != ""){
+                addListaWarps(nombreWarp);                
+            }
         }
     }
+    private void borrarWarp(Player jugador, String path){
+        if(cache.isSet(path)){
+            if(cache.getString(path+".owner").contentEquals(jugador.getName())
+                    || jugador.hasPermission("useless.tw.master")){
+                cache.set(path, null);
+                cache.set("user."+jugador.getName(), cache.getInt("user."+jugador.getName())-1);
+                Chat.mensaje(jugador, "tw.s.destroyed");
+                return;
+            }else{
+                mensaje(jugador, "tw.s.noOwner");
+                return;
+            }
+        }
+        mensaje(jugador, "tw.s.noExist");
+    }
     
+    private void addListaWarps(String s){
+        List<String> l = cache.getStringList("list");
+        l.add(s);
+        cache.set("list", l);
+    }
+    private String getlistaWarps(){
+        String r = "";
+        for(String s: cache.getStringList("list")){
+            if(cache.isSet("g."+s)){
+                r += String.format(Strings.getString("tw.s.listItem"), s, cache.getString("g."+s+".owner"));
+            }
+        }
+        return r;
+    }
     //Economía.
     private boolean setupEconomy() {
         if (Useless.plugin().getServer().getPluginManager().getPlugin("Vault") == null) {

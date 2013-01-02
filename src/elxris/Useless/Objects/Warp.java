@@ -65,9 +65,11 @@ public class Warp implements Runnable{
                 Chat.mensaje(jugador, "tw.s.remain", i*5);
                 Thread.sleep(5*1000);
             }
-            Chat.mensaje(jugador, "tw.s.destroyed");
-            cache.set(getPath(), null);
-            cache.set("user."+jugador.getName(), cache.getInt("user."+jugador.getName())-1);
+            if(cache.isSet(getPath()+".set")){
+                Chat.mensaje(jugador, "tw.s.destroyed");
+                cache.set(getPath(), null);
+                cache.set("user."+jugador.getName(), cache.getInt("user."+jugador.getName())-1);
+            }
         } catch (Throwable e) {
         }
     }

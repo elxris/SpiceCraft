@@ -1,5 +1,5 @@
 name: Useless
-version: 0.0.7.4
+version: 0.0.7.4.1
 main: elxris.Useless.Useless
 commands:
     tw:
@@ -24,6 +24,8 @@ permissions:
     useless.tw.noMaxTime:
         default: false
     useless.tw.noWarpLimit:
+        default: false
+    useless.tw.master:
         default: false
     useless.mail:
         default: true

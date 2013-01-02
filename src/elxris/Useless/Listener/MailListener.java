@@ -8,14 +8,19 @@ import elxris.Useless.Objects.Mail;
 
 public class MailListener implements Listener{
     public Mail mail;
-    
     public MailListener(Mail m) {
         Useless.plugin().getServer().getPluginManager().registerEvents(this, Useless.plugin());
-        mail = m;
+        setMail(m);
     }
     
     @EventHandler
     public void onLogin(PlayerJoinEvent event){
-        mail.getMailList(event.getPlayer().getName());
+        new MessageDelay(event.getPlayer(), getMail());
+    }
+    public void setMail(Mail mail) {
+        this.mail = mail;
+    }
+    public Mail getMail() {
+        return mail;
     }
 }
