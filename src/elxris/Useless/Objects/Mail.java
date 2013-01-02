@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Player;
 
 import elxris.Useless.Useless;
 import elxris.Useless.Utils.Archivo;
@@ -104,8 +105,9 @@ public class Mail {
         clearBorrador(jugador);
         List<String> destinatarios = new ArrayList<String>();
         for(String k: args){
-            if(Useless.plugin().getServer().matchPlayer(k).size() > 0){
-                destinatarios.add(k);
+            List<Player> l =Useless.plugin().getServer().matchPlayer(k);
+            if(l.size() == 1){
+                destinatarios.add(l.get(0).getName());
             }else{
                 if(Useless.plugin().getServer().getOfflinePlayer(k).getFirstPlayed() != 0){
                     destinatarios.add(k);
