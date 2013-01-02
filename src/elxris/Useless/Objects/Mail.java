@@ -10,6 +10,7 @@ import elxris.Useless.Useless;
 import elxris.Useless.Utils.Archivo;
 import elxris.Useless.Utils.Chat;
 import elxris.Useless.Utils.Fecha;
+import elxris.Useless.Utils.Strings;
 
 public class Mail {
     FileConfiguration cache;
@@ -67,14 +68,6 @@ public class Mail {
             cache.set("correos."+lng+".usuarios", usuarios);
         }
     }
-    /*public void noEliminar(String jugador, Long mail){
-        if(!cache.isSet("correos."+mail)){
-            return;
-        }
-        List<String> usuarios = cache.getStringList("correos."+mail+".usuarios");
-        usuarios.add(jugador);
-        cache.set("correos."+mail+".usuarios", usuarios);
-    }*/
     public String[] getMail(Long id){
         String remitente = cache.getString("correos."+id+".remitente");
         if(cache.getBoolean("correos."+id+".servidor") == true){
@@ -136,16 +129,17 @@ public class Mail {
             Chat.mensaje(jugador, "mboxc.noMessage");
             return;
         }
-        String mensajeAnterior;
+        String mensajeAnterior = "";
         if(cache.isSet("usuarios."+jugador+".borrador.mensaje")){
             mensajeAnterior = cache.getString("usuarios."+jugador+".borrador.mensaje");
-        }else{
-            mensajeAnterior = "";
-        }
-        if(mensajeAnterior.length() > 300){
-            Chat.mensaje(jugador, "mboxc.limit");
         }
         setMensaje(jugador, mensajeAnterior+" "+mensaje);
+        if(mensaje.length() > Strings.getInt("mboxc.v.maxChar")){
+            if(!Useless.getPlayer(jugador).hasPermission("useless.mail.noCharLimit")){
+                Chat.mensaje(jugador, "mboxc.limit");
+                return;
+            }
+        }
         Chat.mensaje(jugador, "mboxc.add");
     }
     public void clearMensaje(String jugador){

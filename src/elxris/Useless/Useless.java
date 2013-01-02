@@ -107,11 +107,12 @@ public class Useless extends JavaPlugin {
         setPath("mboxc.created", "Borrador creado. §e/mboxc §ca§egregar <Mensaje>§r para añadir mensaje.");
         setPath("mboxc.add", "Mensaje añadido, recuerda que puedes añadir más. §e/mboxc §ce§enviar§r para enviar.");
         setPath("mboxc.noMessage", "§cPrimero debes crear un borrador. §e/mboxc para más ayuda.");
+        setPath("mboxc.v.maxChar", 200);
         // Compass
         setPath("upin.info", "§aAyuda /upin", 
                 "§e/upin [nombre] [x] [z]§r Para crear una posición que puede ser localizada con una brújula.",
                 "§e/upin [nombre]§r Para usarla.",
-                "§e/upin §cb§eborrar [nombre]§r Para borrarla si eres el dueño.",
+                "§e/upin §cb§eorrar [nombre]§r Para borrarla si eres el dueño.",
                 "§e/upin §cl§eistar§r Para ver todas las posiciones.");
         setPath("upin.noPin", "No existe la posicion.");
         setPath("upin.exist", "Ya existe esa posicion. Elige otra.");

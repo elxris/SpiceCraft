@@ -21,11 +21,17 @@ commands:
 permissions:
     useless.tw:
         default: true
+    useless.tw.noMaxTime:
+        default: false
+    useless.tw.noWarpLimit:
+        default: false
     useless.mail:
         default: true
     useless.mail.create:
         default: true
     useless.mail.massive:
+        default: false
+    useless.mail.noCharLimit:
         default: false
     useless.upin:
         default: true

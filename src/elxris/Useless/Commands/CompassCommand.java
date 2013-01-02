@@ -120,7 +120,12 @@ public class CompassCommand extends Comando{
     private void listaPin(Player jugador){
         String list = "";
         for(String s: getCache().getStringList("pins")){
-            list += String.format(Strings.getString("upin.item"), s);
+            String item = "";
+            item += getCache().getString("pin."+s+".loc.world").toUpperCase();
+            item += " "+s;
+            item += " "+getCache().getString("pin."+s+".loc.x");
+            item += " "+getCache().getString("pin."+s+".loc.z");
+            list += String.format(Strings.getString("upin.item"), item);
         }
         if(list == ""){
             Chat.mensaje(jugador, "upin.noList");

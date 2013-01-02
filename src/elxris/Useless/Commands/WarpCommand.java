@@ -142,16 +142,21 @@ public class WarpCommand extends Comando{
         int minutos = Integer.parseInt(tiempo);
         //Si está fuera de rango.
         if(!(minutos >= Strings.getInt("tw.v.minTime") && minutos <= Strings.getInt("tw.v.maxTime"))){
-            mensaje(jugador, "tw.s.timeLimit", Strings.getInt("tw.v.minTime"), Strings.getInt("tw.v.maxTime"));
-            return;
+            if(!jugador.hasPermission("useless.tw.noMaxTime")){
+                mensaje(jugador, "tw.s.timeLimit", Strings.getInt("tw.v.minTime"), Strings.getInt("tw.v.maxTime"));
+                return;                
+            }
         }
-        // Si excede a los máximos por usuario.
+        // Asegura que exista el numero de warps.
         if(!cache.isSet("user."+getPlayerName(jugador))){
             cache.set("user."+getPlayerName(jugador), 0);
         }
+        // Si excede a los máximos por usuario.
         if(Strings.getInt("tw.v.maxPerUser") <= cache.getInt("user."+getPlayerName(jugador))){
-            mensaje(jugador, "tw.s.warpLimit");
-            return;
+            if(!jugador.hasPermission("useless.tw.noWarpLimit")){
+                mensaje(jugador, "tw.s.warpLimit");
+                return;                
+            }
         }
         if(crearWarp(jugador, minutos, path)){            
             mensaje(jugador, "tw.s.created", minutos, nombreWarp);
