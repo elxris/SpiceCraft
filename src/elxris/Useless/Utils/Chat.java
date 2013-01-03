@@ -32,8 +32,9 @@ public class Chat {
             return;
         }
         Player jugador = Useless.getPlayer(p);
-        if(Strings.getStringList(m) != null){
+        if(Strings.getStringList(m) == null){
             enviar(jugador, m);
+            return;
         }
         mensaje(jugador, m, i);
     }
