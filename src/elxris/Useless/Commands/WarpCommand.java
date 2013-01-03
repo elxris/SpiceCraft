@@ -96,20 +96,20 @@ public class WarpCommand extends Comando{
         }
         return true;
     }
-    public void teleport(Player jugador, String path){
+    private void teleport(Player jugador, String path){
         jugador.teleport((Location)cache.get(getPath(path, jugador)));
         mensaje(jugador, "tw.s.teleported");
     }
-    public String getPath(String path, Player jugador) {
+    private String getPath(String path, Player jugador) {
         return String.format(path, getPlayerName(jugador));
     }
-    public String getPlayerName(Player jugador){
+    private String getPlayerName(Player jugador){
         return jugador.getName();
     }
-    public void chatInfo(Player jugador){
+    private void chatInfo(Player jugador){
         Chat.mensaje(jugador, "tw.info", getPrecio(Strings.getDouble("tw.v.price")));
     }
-    public boolean crearWarp(Player jugador, int tiempo, String path){
+    private boolean crearWarp(Player jugador, int tiempo, String path){
         double precio = Strings.getDouble("tw.v.price")*tiempo;
         if(precio > 0){
             if(econ != null){
@@ -136,9 +136,11 @@ public class WarpCommand extends Comando{
         t.start();
         cache.set(path+".warp", jugador.getLocation());
         cache.set(path+".owner", jugador.getName());
+        cache.set(path+".date", System.currentTimeMillis());
+        cache.set(path+".time", tiempo*60*1000);
         return true;
     }
-    public void validarNewWarp(String path, String tiempo, String nombreWarp, Player jugador){
+    private void validarNewWarp(String path, String tiempo, String nombreWarp, Player jugador){
         // Si es entero.
         if(!isInteger(tiempo)){
             Chat.mensaje(jugador, "alert.noInteger");
@@ -201,7 +203,14 @@ public class WarpCommand extends Comando{
         String r = "";
         for(String s: cache.getStringList("list")){
             if(cache.isSet("g."+s)){
-                r += String.format(Strings.getString("tw.s.listItem"), s, cache.getString("g."+s+".owner"));
+                r += String.format(
+                        Strings.getString("tw.s.listItem"), 
+                        s,
+                        cache.getString("g."+s+".owner"),
+                        (cache.getLong("g."+s+".date")+cache.getLong("g."+s+".time")-System.currentTimeMillis())/1000
+                        
+                        // TODO
+                        );
             }
         }
         return r;

@@ -38,7 +38,8 @@ public class Mail {
         }
         for(Long k: listacorreos){
             List<String> usuarios = cache.getStringList("correos."+k+".usuarios");
-            if(usuarios.size() == 0){
+            if(usuarios.size() == 0 || System.currentTimeMillis()-k >= 1296000000){
+                // Los correos mayores a 15 días (15*24*60*60*1000) milisegundos, se eliminan.
                 cache.set("correos."+k, null);
                 remover.remove(k);
             }

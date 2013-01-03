@@ -8,24 +8,33 @@ import elxris.Useless.Useless;
 
 public class Chat {
     private static void enviar(Player p, String mensaje, Object... i){
+        if(mensaje == null){
+            return;
+        }
         p.sendMessage(String.format(mensaje, i));
     }
-    public static void mensaje(Player p, String path, Object... i){
+    public static void mensaje(Player p, List<String> list, Object... i){
         String texto = "";
-        List<String> m = Strings.getStringList(path);
         texto = "";
-        for(int e = 0; e < m.size(); e++){
-            texto += m.get(e);
-            if(e + 1 < m.size()){
+        for(int e = 0; e < list.size(); e++){
+            texto += list.get(e);
+            if(e + 1 < list.size()){
                 texto += "§r\n";
             }
         }
         enviar(p, texto, i);
     }
+    public static void mensaje(Player p, String path, Object... i){
+        mensaje(p, Strings.getStringList(path), i);
+    }
     public static void mensaje(String p, String m, Object... i){
         if(Useless.getPlayer(p) == null){
             return;
         }
-        mensaje(Useless.getPlayer(p), m, i);
+        Player jugador = Useless.getPlayer(p);
+        if(Strings.getStringList(m) != null){
+            enviar(jugador, m);
+        }
+        mensaje(jugador, m, i);
     }
 }
