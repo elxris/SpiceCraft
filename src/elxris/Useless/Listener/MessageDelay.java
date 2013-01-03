@@ -1,27 +1,50 @@
 package elxris.Useless.Listener;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.bukkit.entity.Player;
 
-import elxris.Useless.Objects.Mail;
+import elxris.Useless.Useless;
+import elxris.Useless.Utils.Chat;
 
 public class MessageDelay implements Runnable{
     private Player jugador;
-    private Mail mail;
-    public MessageDelay(Player jugador, Mail mail) {
+    private List<String> mensaje;
+    private long tiempo;
+    private Thread hilo;
+    public MessageDelay(Player jugador, List<String> mensaje, long tiempo) {
         setJugador(jugador);
-        setMail(mail);
-        Thread hilo = new Thread(this);
-        hilo.start();
+        setMensaje(mensaje);
+        setTiempo(tiempo);
+        setHilo(new Thread(this));
+    }
+    public MessageDelay(Player jugador, String mensaje, long tiempo) {
+        setJugador(jugador);
+        List<String> m = new ArrayList<String>();
+        m.add(mensaje);
+        setMensaje(m);
+        setTiempo(tiempo);
+        setHilo(new Thread(this));
     }
     @Override
     public void run() {
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+        for(String s: getMensaje()){
+            sleep();
+            if(s != ""){
+                Chat.mensaje(getJugador(), s);
+            }
         }
-        getMail().getMailList(getJugador().getName());
+    }
+    public void sleep(){
+        try {
+            Thread.sleep(getTiempo());
+        } catch (InterruptedException e) {
+            Useless.log(":");
+        }
+    }
+    public void start(){
+        getHilo().start();
     }
     public void setJugador(Player jugador) {
         this.jugador = jugador;
@@ -29,10 +52,22 @@ public class MessageDelay implements Runnable{
     public Player getJugador() {
         return jugador;
     }
-    public void setMail(Mail mail) {
-        this.mail = mail;
+    public void setHilo(Thread hilo) {
+        this.hilo = hilo;
     }
-    public Mail getMail() {
-        return mail;
+    public Thread getHilo() {
+        return hilo;
+    }
+    public void setMensaje(List<String> mensaje) {
+        this.mensaje = mensaje;
+    }
+    public List<String> getMensaje() {
+        return mensaje;
+    }
+    public void setTiempo(long tiempo) {
+        this.tiempo = tiempo;
+    }
+    public long getTiempo() {
+        return tiempo;
     }
 }

@@ -8,12 +8,15 @@ import elxris.Useless.Useless;
 
 public class Chat {
     private static void enviar(Player p, String mensaje, Object... i){
-        if(mensaje == null){
+        if(mensaje == null || mensaje == ""){
             return;
         }
         p.sendMessage(String.format(mensaje, i));
     }
     public static void mensaje(Player p, List<String> list, Object... i){
+        if(list == null || list.size() == 0){
+            return;
+        }
         String texto = "";
         texto = "";
         for(int e = 0; e < list.size(); e++){
