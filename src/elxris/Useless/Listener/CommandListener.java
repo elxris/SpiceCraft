@@ -6,6 +6,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.Listener;
 
+import elxris.Useless.Useless;
 import elxris.Useless.Utils.Archivo;
 import elxris.Useless.Utils.Chat;
 
@@ -33,8 +34,7 @@ public class CommandListener implements Listener{
             if(!getFc().isSet(s)){
                 setPath("root."+s, "Mensaje sin argumentos.");
                 setPath(s+".1", "Mensaje con argumento '1'.");
-                setPath(s+".dos", "Mensaje con argumento 'dos'.");
-                setPath(s+".pastel.moras", "Mensaje con argumentos 'pastel moras'");
+                setPath(s+".1.dos", "Mensaje con argumento '1 dos'.");
                 save();
             }
         }
@@ -49,8 +49,10 @@ public class CommandListener implements Listener{
         }
         if(s[0].contains("/uselessreload")){
             if(p.hasPermission("useless.cmd.reload")){
+                Useless.reload();
                 reload();
                 Chat.mensaje((Player) p, "cmd.reload");
+                return true;
             }
         }
         if(s.length == 1){

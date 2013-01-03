@@ -98,7 +98,7 @@ public class CheckConfiguration {
         setPath("upin.v.maxPerUser", 3);
         setPath("upin.limitPin", "Ya tienes demaciadas posiciones, ya no puedes hacer más.");
         // Comandos
-        setPath("cmd.reload", "Reload de comandos completo!");
+        setPath("cmd.reload", "Reload de comandos y configuraciones completo!");
         // Errores y alertas.
         setPath("alert.notsaved", "Error, no se ha podido guardar: ");
         setPath("alert.noEconomy", "No hay plugin de economía. Se cobrará con puntos de experiencia.");

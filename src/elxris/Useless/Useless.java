@@ -52,4 +52,8 @@ public class Useless extends JavaPlugin {
     public static String getVersion(){
         return Useless.getVersion();
     }
+    public static void reload(){
+        plugin.reloadConfig();
+        new CheckConfiguration();
+    }
 }

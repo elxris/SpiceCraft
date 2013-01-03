@@ -56,7 +56,6 @@ public class Mail {
             }
         }
         cache.set("correos.mensajes", remover);
-        save();
     }
     public void eliminar(String jugador, Long mail){
         List<String> usuarios = cache.getStringList("correos."+mail+".usuarios");

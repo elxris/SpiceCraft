@@ -1,5 +1,5 @@
 name: Useless
-version: 0.7.5.2
+version: 0.7.5.3
 main: elxris.Useless.Useless
 commands:
     tw:
