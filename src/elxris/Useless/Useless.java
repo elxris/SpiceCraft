@@ -39,7 +39,6 @@ public class Useless extends JavaPlugin {
         //Comando Compass
         pin = new Archivo("pin.yml");
         getCommand("upin").setExecutor(new CompassCommand(pin));
-        // Cargar strings
     }
     public static void log(String m){
         plugin.getLogger().info(m);

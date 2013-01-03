@@ -44,6 +44,15 @@ public class CommandListener implements Listener{
         String[] s = command.split(" ");
         command = command.replace(' ', '.');
         command = command.substring(1);
+        if(s[0].contains("/root")){
+            return false;            
+        }
+        if(s[0].contains("/uselessreload")){
+            if(p.hasPermission("useless.cmd.reload")){
+                reload();
+                Chat.mensaje((Player) p, "cmd.reload");
+            }
+        }
         if(s.length == 1){
             return mensaje(p, "root."+command);
         }

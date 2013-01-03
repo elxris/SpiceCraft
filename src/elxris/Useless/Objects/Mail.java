@@ -21,13 +21,14 @@ public class Mail {
         archivo = new Archivo("mail.yml");
         load();
     }
-    
     public void load(){
         cache = archivo.load();
         interpreta();
     }
     public void save(){
+        cache.set("usuarios", null);
         archivo.save(cache);
+        load();
     }
     public void interpreta(){
         List<Long> listacorreos = cache.getLongList("correos.mensajes");
