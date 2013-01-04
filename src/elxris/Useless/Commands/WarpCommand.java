@@ -2,31 +2,22 @@ package elxris.Useless.Commands;
 
 import java.util.List;
 
-import net.milkbowl.vault.economy.Economy;
-import net.milkbowl.vault.economy.EconomyResponse;
-
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.RegisteredServiceProvider;
-
-import elxris.Useless.Useless;
 import elxris.Useless.Objects.Warp;
 import elxris.Useless.Utils.Chat;
-import elxris.Useless.Utils.Experiencia;
+import elxris.Useless.Utils.Econ;
 import elxris.Useless.Utils.Strings;
 
 public class WarpCommand extends Comando{
     private Configuration cache;
-    private static Economy econ = null;
-    
+    private Econ econ;
     public WarpCommand(Configuration cache) {
         this.cache = cache;
-        if (!setupEconomy() ) {
-            Useless.log(Strings.getString("alert.noEconomy"));
-        }
+        this.econ = new Econ();
         return;
     }
     @Override
@@ -107,30 +98,12 @@ public class WarpCommand extends Comando{
         return jugador.getName();
     }
     private void chatInfo(Player jugador){
-        Chat.mensaje(jugador, "tw.info", getPrecio(Strings.getDouble("tw.v.price")));
+        Chat.mensaje(jugador, "tw.info", econ.getPrecio(Strings.getDouble("tw.v.price")));
     }
     private boolean crearWarp(Player jugador, int tiempo, String path){
         double precio = Strings.getDouble("tw.v.price")*tiempo;
-        if(precio > 0){
-            if(econ != null){
-                if(econ.getBalance(getPlayerName(jugador)) >= precio){
-                    EconomyResponse r = econ.withdrawPlayer(getPlayerName(jugador), precio);                
-                    if(!r.transactionSuccess()){
-                        mensaje(jugador, "alert.error");
-                        return false;
-                    }
-                }else{
-                    mensaje(jugador, "tw.s.noMoney");
-                    return false;
-                }
-            }else{
-                if(!Experiencia.cobrarEsperiencia(jugador, (int)precio)){
-                    mensaje(jugador, "tw.s.noMoney");
-                    return false;
-                }
-            }
-            Chat.mensaje(jugador, "econ.cobrar", getPrecio(precio));
-        }
+        econ.setJugador(jugador);
+        econ.cobrar(precio);
         Warp w = new Warp(jugador.getLocation(), jugador, tiempo, cache, path);
         Thread t = new Thread(w);
         t.start();
@@ -215,27 +188,5 @@ public class WarpCommand extends Comando{
         }
         return r;
     }
-    //Economía.
-    private boolean setupEconomy() {
-        if (Useless.plugin().getServer().getPluginManager().getPlugin("Vault") == null) {
-            return false;
-        }
-        RegisteredServiceProvider<Economy> rsp = Useless.plugin().getServer().getServicesManager().getRegistration(Economy.class);
-        if (rsp == null) {
-            return false;
-        }
-        econ = rsp.getProvider();
-        return econ != null;
-    }
-    private String getPrecio(double precio){
-        if(econ != null){
-            if(precio < 1){
-                return String.format("%s %s", econ.format(precio), econ.currencyNameSingular());                
-            }else{
-                return String.format("%s %s", econ.format(precio), econ.currencyNamePlural());
-            }
-        }
-        // Si no
-        return String.format(Strings.getString("exp.format"), (int)precio);
-    }
+
 }

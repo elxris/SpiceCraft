@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.bukkit.entity.Player;
 
-import elxris.Useless.Useless;
 import elxris.Useless.Utils.Chat;
 
 public class MessageDelay implements Runnable{
@@ -40,7 +39,6 @@ public class MessageDelay implements Runnable{
         try {
             Thread.sleep(getTiempo());
         } catch (InterruptedException e) {
-            Useless.log(":");
         }
     }
     public void start(){
