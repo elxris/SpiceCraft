@@ -18,6 +18,10 @@ commands:
         description: Muestra en tu brujula la direccion que hayas marcado.
         usage: /upin
         permission: useless.upin
+    lib:
+        description: Funciona como una librería.
+        usage: /lib
+        premission: useless.lib
 permissions:
     useless.tw:
         default: true
@@ -41,3 +45,7 @@ permissions:
         default: false
     useless.cmd.reload:
         default: false
+    useless.lib.buy:
+        defualt: true
+    useless.lib.sell:
+        defualt: true

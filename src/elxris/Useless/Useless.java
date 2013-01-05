@@ -10,6 +10,7 @@ import elxris.Useless.Commands.MailBoxCommand;
 import elxris.Useless.Commands.MailBoxCreateCommand;
 import elxris.Useless.Commands.WarpCommand;
 import elxris.Useless.Listener.CommandListener;
+import elxris.Useless.Listener.CompassListener;
 import elxris.Useless.Listener.MailListener;
 import elxris.Useless.Objects.Mail;
 import elxris.Useless.Utils.Archivo;
@@ -34,8 +35,10 @@ public class Useless extends JavaPlugin {
         getCommand("mboxc").setExecutor(new MailBoxCreateCommand(mail));
         //Listener Mail
         this.getServer().getPluginManager().registerEvents(new MailListener(mail), this);
-        //Listener Help
+        //Listener Command
         this.getServer().getPluginManager().registerEvents(new CommandListener(), this);
+        //Listiener Compass
+        this.getServer().getPluginManager().registerEvents(new CompassListener(), this);
         //Comando Compass
         pin = new Archivo("pin.yml");
         getCommand("upin").setExecutor(new CompassCommand(pin));
