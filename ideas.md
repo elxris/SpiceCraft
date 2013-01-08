@@ -28,28 +28,28 @@ Borra de la tienda el libro indicado.
 ###/lib payme
 Paga las retribuciones.
 ##Permisos
-*Comprar
-*Vender
+-Comprar
+-Vender
 ##Configuraciones
 ###Valores
-*Porcentaje de comisión
-*Costo publicación
+-Porcentaje de comisión
+-Costo publicación
 ###Strings
-*Ayuda
-*Has comprado un libro. Gracias.
-*No tienes suficiente dinero para comprar.
-*No tienes ningún libro en la mano.
-*No tienes suficiente dinero para publicar.
-*No eres el autor del libro.
-*No puedes borrar ese libro.
-*Los libros [%s], te han generado %s ganancias.
-*Lista de libros. %s
-*Elemento de lista color verde. (Propio).
-*Elemento de lista color azul.
-*Top de libros. %s
-*Info de libro. Título, numero de páginas, costo, autor.
+-Ayuda
+-Has comprado un libro. Gracias.
+-No tienes suficiente dinero para comprar.
+-No tienes ningún libro en la mano.
+-No tienes suficiente dinero para publicar.
+-No eres el autor del libro.
+-No puedes borrar ese libro.
+-Los libros [%s], te han generado %s ganancias.
+-Lista de libros. %s
+-Elemento de lista color verde. (Propio).
+-Elemento de lista color azul.
+-Top de libros. %s
+-Info de libro. Título, numero de páginas, costo, autor.
 ##Estructura datos.
-libros:
+`libros:
     -id1
     -id2
 libro:
@@ -59,4 +59,4 @@ libro:
         text:
         cost:
         count:
-        payed:
+        payed:`
