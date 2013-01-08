@@ -1,7 +1,7 @@
 package elxris.Useless.Commands;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -12,9 +12,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BookMeta;
 
 import elxris.Useless.Utils.Archivo;
-import elxris.Useless.Utils.Chat;
-import elxris.Useless.Utils.Strings;
 import elxris.Useless.Utils.Econ;
+import elxris.Useless.Utils.Strings;
 
 public class LibCommand extends Comando{
     Archivo file;
@@ -38,7 +37,7 @@ public class LibCommand extends Comando{
         }
         // Muestra la ayuda.
         if(args.length == 0){
-            Chat.mensaje(jugador, "lib.info");
+            mensaje(jugador, "lib.info");
         }
         // Listar, Top, paga.
         if(args.length == 1){
@@ -53,7 +52,7 @@ public class LibCommand extends Comando{
                         lista = lista.concat(item(k));
                     }
                 }
-                Chat.mensaje(jugador, "lib.list", listaYo+lista);
+                mensaje(jugador, "lib.list", listaYo+lista);
             }else if(isCommand("comm.lib.top", args[0])){
                 List<Integer> top = getCache().getIntegerList("top");
                 String list = "";
@@ -63,7 +62,7 @@ public class LibCommand extends Comando{
                             Strings.getString("lib.topItem"),
                             contador, item(jugador, k)));
                 }
-                Chat.mensaje(jugador, "lib.top", list);
+                mensaje(jugador, "lib.top", list);
             }else if(isCommand("comm.lib.pay", args[0])){
                 List<Integer> libros = getCache().getIntegerList("libros");
                 String list = "";
@@ -78,38 +77,84 @@ public class LibCommand extends Comando{
                     }
                 }
                 if(getEcon().pagar(jugador, dinero)){
-                    String.format(Strings.getString("lib.pay"));
+                    mensaje(jugador, "lib.pay", list, getEcon().getPrecio(dinero));
+                }else{
+                    mensaje(jugador, "lib.noPay");
                 }
             }
         }
         // Comprar, Info, Vender, Borrar
         if(isCommand("comm.lib.buy", args[0])){
             if(!jugador.hasPermission("useless.lib.buy")){
-                Chat.mensaje(jugador, "alert.permission");
+                mensaje(jugador, "alert.permission");
                 return true;
             }
             if(!hasBook(args[0])){
-                Chat.mensaje(jugador, "lib.noBook");
+                mensaje(jugador, "lib.noBook");
                 return true;
             }
             if(getEcon().cobrar(jugador, getCache().getDouble("libro."+args[0]+".cost"))){
                 buyBook(jugador, Integer.parseInt(args[0]));
-                Chat.mensaje(jugador, "lib.buy");
-                Chat.mensaje(getCache().getString("libro."+args[0]+".autor"), "lib.sell");
+                mensaje(jugador, "lib.buy");
+                mensaje(getCache().getString("libro."+args[0]+".autor"), "lib.sell");
+            }else{
+                mensaje(jugador, "lib.noMoney");
             }
         }else if(isCommand("comm.lib.info", args[0])){
             if(!hasBook(args[0])){
-                Chat.mensaje(jugador, "lib.noBook");
+                mensaje(jugador, "lib.noBook");
                 return true;
             }
-            
+            // Autor, Título, Páginas, Precio, Ventas
+            BookMeta book = getBookMeta(args[0]);
+            mensaje(jugador, "lib.bookInfo",
+                    book.getAuthor(),
+                    book.getTitle(),
+                    book.getPageCount(),
+                    getEcon().getPrecio(getCache().getDouble("libro."+args[0]+".cost")),
+                    getCache().getInt("libro."+args[0]+".count"));
+        }else if(isCommand("comm.lib.sell", args[0])){
+            if(!jugador.hasPermission("useless.lib.sell")){
+                mensaje(jugador, "alert.permission");
+                return true;
+            }
+            // Si el precio no es adecuado
+            if(Double.parseDouble(args[0]) < 0){
+                mensaje(jugador, "alert.positive");
+                return true;
+            }
+            if(jugador.getItemInHand() == null){
+                mensaje(jugador, "lib.noHand");
+                return true;
+            }
+            // Si no es el autor del libro.
+            if(((BookMeta)jugador.getItemInHand().getItemMeta()).getAuthor().contentEquals(jugador.getName())){
+                mensaje(jugador, "lib.wrongAuthor");
+                return true;
+            }
+            setBook((BookMeta)(jugador.getItemInHand().getItemMeta()), Double.parseDouble(args[0]));
+            mensaje(jugador, "lib.send");
+            save();
+        }else if(isCommand("comm.lib.del", args[0])){
+            if(!hasBook(args[0])){
+                mensaje(jugador, "lib.noBook");
+                return true;
+            }
+            // Si no es el autor del libro.
+            if(((BookMeta)jugador.getItemInHand().getItemMeta()).getAuthor().contentEquals(jugador.getName())){
+                mensaje(jugador, "lib.wrongAuthor");
+                return true;
+            }
+            getCache().set("libro."+args[0], null);
+            mensaje(jugador, "lib.del");
+            save();
         }
         return true;
     }
     private String item(String path, int id){
         return String.format(Strings.getString(path), id,
-                Strings.getString("libro."+id+".title"),
-                Strings.getString("libro."+id+".autor"));
+                getCache().getString("libro."+id+".title"),
+                getCache().getString("libro."+id+".autor"));
     }
     private String item(int id){
         return item("lib.item", id);
@@ -129,8 +174,9 @@ public class LibCommand extends Comando{
         }
         return false;
     }
-    private void top(int id, int ventas){
+    private void top(int id){
         List<Integer> top = getCache().getIntegerList("top");
+        int ventas = getCache().getInt("libro."+id+".count");
         boolean save = false;
         for(int i = 0; i < top.size(); i++){
             // Si las ventas del top son más pequeñas.
@@ -168,14 +214,45 @@ public class LibCommand extends Comando{
     private void buyBook(Player jugador, int id){
         jugador.getInventory().addItem(getBook(id));
         addCount(id, 1);
+        top(id);
     }
-    private ItemStack getBook(int id){
+    private ItemStack setBook(String autor, String title, List<String> pages){
         ItemStack book = new ItemStack(Material.WRITTEN_BOOK);
         BookMeta meta = (BookMeta) book.getItemMeta();
-        meta.setAuthor(getCache().getString("libro."+id+".autor"));
-        meta.setPages(getCache().getStringList("libro."+id+".text"));
-        meta.setTitle(getCache().getString("libro."+id+".title"));
+        meta.setAuthor(autor);
+        meta.setTitle(title);
+        meta.setDisplayName(title);
+        meta.setPages(pages);
+        book.setItemMeta(meta);
         return book;
+    }
+    private boolean setBook(BookMeta book, double price){
+        int id = 0;
+        for(boolean n = false; !n;){
+            id = new Random().nextInt(1000);
+            if(!hasBook(id)){
+                n = true;
+            }
+        }
+        String path = "libro."+id;
+        getCache().set(path+".autor", book.getAuthor());
+        getCache().set(path+".title", book.getTitle());
+        getCache().set(path+".text", book.getPages());
+        getCache().set(path+".cost", price);
+        getCache().set(path+".count", 0);
+        getCache().set(path+".payed", 0);
+        return true;
+    }
+    private ItemStack getBook(int id){
+        return setBook(getCache().getString("libro."+id+".autor"), 
+                getCache().getString("libro."+id+".title"), 
+                getCache().getStringList("libro."+id+".text"));
+    }
+    private BookMeta getBookMeta(int id){
+        return (BookMeta) getBook(id).getItemMeta();
+    }
+    private BookMeta getBookMeta(String id){
+        return getBookMeta(Integer.parseInt(id));
     }
     private void setCount(int id, int v){
         getCache().set("libro."+id+".count", v);

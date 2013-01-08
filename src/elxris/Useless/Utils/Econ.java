@@ -51,12 +51,10 @@ public class Econ {
                     return false;
                 }
             }else{
-                mensaje(getJugador(), "tw.s.noMoney");
                 return false;
             }
         }else{
             if(!Experiencia.cobrarExperiencia(getJugador(), (int)cantidad)){
-                mensaje(getJugador(), "tw.s.noMoney");
                 return false;
             }
         }

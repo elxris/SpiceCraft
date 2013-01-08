@@ -116,17 +116,19 @@ public class CheckConfiguration {
                 "§e/lib §cp§eaga§r Cobra las retribuciones.");
         setPath("lib.sell", "Haz vendido un libro.");
         setPath("lib.buy", "Haz comprado un libro. Gracias.");
+        setPath("lib.send", "Haz enviado satisfactoriamente tu libro. Pronto ganarás dinero con tus habilidades retóricas.");
         setPath("lib.noBook", "No existe el libro.");
         setPath("lib.bookInfo", "§aFICHA DEL LIBRO",
                 "§bAutor: §c%s",
                 "§bTítulo: §c%S",
-                "§bPáginas: §c%s",
+                "§bPáginas: §c%d",
                 "§bPrecio: §c%s",
-                "§bVentas: §c%s");
+                "§bVentas: §c%d");
         setPath("lib.noMoney", "No tienes suficiente dinero para comprar un libro.");
         setPath("lib.noHand", "No tienes un libro en la mano para vender.");
         setPath("lib.wrongAuthor", "No eres el autor del libro.");
         setPath("lib.pay", "§eCon los libros [%s§e], haz ganado §a%s.");
+        setPath("lib.noPay", "No tienes retribuciones.");
         setPath("lib.itemMe", "§d-[%d] ::%s:: <%s>-");
         setPath("lib.item", "§b-[%d] ::%s:: <%s>-");
         setPath("lib.list", "###Lista de libros###",
@@ -134,6 +136,7 @@ public class CheckConfiguration {
         setPath("lib.top", "###Top Libros###",
                 "%s");
         setPath("lib.topItem", "%d.- %s");
+        setPath("lib.del", "Haz borrado el libro satisfactoriamente.");
         setPath("lib.topSize", 3);
         setPath("lib.percent", 50);
         // Comandos
@@ -144,6 +147,7 @@ public class CheckConfiguration {
         setPath("alert.error", "§cError al usar el comando. Revisa la ayuda.");
         setPath("alert.noInteger", "Tienes que ingresar valor/es enteros.");
         setPath("alert.permission", "No tienes permiso de usar este comando.");
+        setPath("alert.positive", "Sólo son admitidos valores positivos.");
         // Formatos
         setPath("f.units", "mes", "meses", "dia", "dias", "hora", "horas", "minuto", "minutos", "segundo", "segundos");
         setPath("f.months", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", 
