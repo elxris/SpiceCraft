@@ -184,8 +184,8 @@ public class LibCommand extends Comando{
                 }
                 // Si no es el autor del libro.
                 if(!getCache().getString("libro."+args[1]+".autor").contentEquals(jugador.getName())
-                        || jugador.hasPermission("useless.lib.master")){
-                    mensaje(jugador, "lib.wrongAuthor");
+                        && !jugador.hasPermission("useless.lib.master")){
+                    mensaje(jugador, "lib.wrongAuthor");                        
                     return true;
                 }
                 getCache().set("libro."+args[1], null);
