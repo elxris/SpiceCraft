@@ -104,7 +104,7 @@ public class WarpCommand extends Comando{
     private boolean crearWarp(Player jugador, int tiempo, String path){
         double precio = Strings.getDouble("tw.v.price")*tiempo;
         econ.setJugador(jugador);
-        if(econ.cobrar(jugador, precio)){
+        if(!econ.cobrar(jugador, precio)){
             mensaje(jugador, "tw.s.noMoney");
             return false;
         }
