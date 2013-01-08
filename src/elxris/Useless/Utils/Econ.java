@@ -40,8 +40,10 @@ public class Econ {
     }
     public boolean cobrar(Player jugador, double cantidad) {
         setJugador(jugador);
-        if(cantidad <= 0){
+        if(cantidad < 0){
             return false;
+        }else if(cantidad == 0){
+            return true;
         }
         if(econ != null){
             if(econ.getBalance(getNombre()) >= cantidad){
