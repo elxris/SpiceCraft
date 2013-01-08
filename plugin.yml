@@ -1,5 +1,5 @@
 name: Useless
-version: 0.7.5.3
+version: 0.7.6
 main: elxris.Useless.Useless
 commands:
     tw:
@@ -19,7 +19,7 @@ commands:
         usage: /upin
         permission: useless.upin
     lib:
-        description: Funciona como una librería.
+        description: Funciona como una libreria.
         usage: /lib
         premission: useless.lib
 permissions:
@@ -47,7 +47,9 @@ permissions:
         default: false
     useless.lib:
         default: true
+    useless.lib.master:
+        default: false
     useless.lib.buy:
-        defualt: true
+        default: true
     useless.lib.sell:
-        defualt: true
+        default: true

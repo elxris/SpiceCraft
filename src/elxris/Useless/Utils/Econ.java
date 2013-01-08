@@ -80,7 +80,7 @@ public class Econ {
     }
     public String getPrecio(double precio){
         if(econ != null){
-            if(precio < 1){
+            if(precio == 1){
                 return String.format("%s %s", econ.format(precio), econ.currencyNameSingular());                
             }else{
                 return String.format("%s %s", econ.format(precio), econ.currencyNamePlural());

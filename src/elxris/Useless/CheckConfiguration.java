@@ -106,7 +106,7 @@ public class CheckConfiguration {
         setPath("upin.v.maxPerUser", 3);
         setPath("upin.limitPin", "Ya tienes demaciadas posiciones, ya no puedes hacer más.");
         // Librería
-        setPath("lib.info", "§aAyuda /upin",
+        setPath("lib.info", "§aAyuda /lib",
                 "§e/lib §cc§eomprar [id]§r Compra el libro indicado.",
                 "§e/lib §ci§enfo [id]§r Muestra la información del libro indicado.",
                 "§e/lib §cl§eistar§r Muestra una lista de los libros disponibles.",
@@ -133,10 +133,11 @@ public class CheckConfiguration {
         setPath("lib.item", "§b-[%d] ::%s:: <%s>-");
         setPath("lib.list", "###Lista de libros###",
                 "%s");
-        setPath("lib.top", "###Top Libros###",
-                "%s");
+        setPath("lib.top", "###Top Libros###");
         setPath("lib.topItem", "%d.- %s");
         setPath("lib.del", "Haz borrado el libro satisfactoriamente.");
+        setPath("lib.repeated", "Está repetido. ¿Acaso quieres engañar a tus lectores?");
+        setPath("lib.isNotABook", "Lo que tienes en tu mano no es un libro.");
         setPath("lib.topSize", 3);
         setPath("lib.percent", 50);
         // Comandos

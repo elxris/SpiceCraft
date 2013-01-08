@@ -1,5 +1,7 @@
 package elxris.Useless.Commands;
 
+import java.util.List;
+
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.entity.Player;
 
@@ -11,6 +13,9 @@ public abstract class Comando  implements CommandExecutor{
         Chat.mensaje(p, mensaje, objects);
     }
     public void mensaje(String p, String mensaje, Object...objects){
+        Chat.mensaje(p, mensaje, objects);
+    }
+    public void mensaje(Player p, List<String> mensaje, Object...objects){
         Chat.mensaje(p, mensaje, objects);
     }
     public boolean isInteger(String s){

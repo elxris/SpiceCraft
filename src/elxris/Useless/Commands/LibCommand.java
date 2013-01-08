@@ -38,10 +38,13 @@ public class LibCommand extends Comando{
         // Muestra la ayuda.
         if(args.length == 0){
             mensaje(jugador, "lib.info");
-        }
+        }else
         // Listar, Top, paga.
         if(args.length == 1){
             if(isCommand("comm.lib.list", args[0])){
+                if(!getCache().isSet("libros")){
+                    return true;
+                }
                 List<Integer> libros = getCache().getIntegerList("libros");
                 String lista = "";
                 String listaYo = "";
@@ -54,16 +57,22 @@ public class LibCommand extends Comando{
                 }
                 mensaje(jugador, "lib.list", listaYo+lista);
             }else if(isCommand("comm.lib.top", args[0])){
+                if(!getCache().isSet("top")){
+                    return true;
+                }
                 List<Integer> top = getCache().getIntegerList("top");
-                String list = "";
+                List<String> list = Strings.getStringList("lib.top");
                 int contador = 1;
                 for(int k: top){
-                    list = list.concat(String.format(
+                    list.add(String.format(
                             Strings.getString("lib.topItem"),
-                            contador, item(jugador, k)));
+                            contador++, item(jugador, k)));
                 }
-                mensaje(jugador, "lib.top", list);
+                mensaje(jugador, list);
             }else if(isCommand("comm.lib.pay", args[0])){
+                if(!getCache().isSet("libros")){
+                    return true;
+                }
                 List<Integer> libros = getCache().getIntegerList("libros");
                 String list = "";
                 double dinero = 0;
@@ -72,7 +81,7 @@ public class LibCommand extends Comando{
                         if(getRetributions(k) > 0){
                             dinero += getRetributions(k);
                             setRetributions(k);
-                            list.concat(item(k));
+                            list = list.concat(item(k));
                         }
                     }
                 }
@@ -82,73 +91,105 @@ public class LibCommand extends Comando{
                     mensaje(jugador, "lib.noPay");
                 }
             }
-        }
+        }else
         // Comprar, Info, Vender, Borrar
-        if(isCommand("comm.lib.buy", args[0])){
-            if(!jugador.hasPermission("useless.lib.buy")){
-                mensaje(jugador, "alert.permission");
-                return true;
+        if(args.length == 2){
+            if(isCommand("comm.lib.buy", args[0])){
+                if(!jugador.hasPermission("useless.lib.buy")){
+                    mensaje(jugador, "alert.permission");
+                    return true;
+                }
+                if(!isInteger(args[1])){
+                    mensaje(jugador, "alert.noInteger");
+                    return true;
+                }
+                if(!hasBook(args[1])){
+                    mensaje(jugador, "lib.noBook");
+                    return true;
+                }
+                if(getEcon().cobrar(jugador, getCache().getDouble("libro."+args[1]+".cost"))){
+                    buyBook(jugador, Integer.parseInt(args[1]));
+                    mensaje(jugador, "lib.buy");
+                    mensaje(getCache().getString("libro."+args[1]+".autor"), "lib.sell");
+                }else{
+                    mensaje(jugador, "lib.noMoney");
+                }
+            }else if(isCommand("comm.lib.info", args[0])){
+                if(!isInteger(args[1])){
+                    mensaje(jugador, "alert.noInteger");
+                    return true;
+                }
+                if(!hasBook(args[1])){
+                    mensaje(jugador, "lib.noBook");
+                    return true;
+                }
+                // Autor, Título, Páginas, Precio, Ventas
+                BookMeta book = getBookMeta(args[1]);
+                mensaje(jugador, "lib.bookInfo",
+                        book.getAuthor(),
+                        book.getTitle(),
+                        book.getPageCount(),
+                        getEcon().getPrecio(getCache().getDouble("libro."+args[1]+".cost")),
+                        getCache().getInt("libro."+args[1]+".count"));
+            }else if(isCommand("comm.lib.sell", args[0])){
+                if(!jugador.hasPermission("useless.lib.sell")){
+                    mensaje(jugador, "alert.permission");
+                    return true;
+                }
+                if(!isDouble(args[1])){
+                    mensaje(jugador, "alert.noInteger");
+                    return true;
+                }
+                // Si el precio no es adecuado
+                if(Double.parseDouble(args[1]) < 0){
+                    mensaje(jugador, "alert.positive");
+                    return true;
+                }
+                if(jugador.getItemInHand() == null){
+                    mensaje(jugador, "lib.noHand");
+                    return true;
+                }
+                if(jugador.getItemInHand().getType() != Material.WRITTEN_BOOK){
+                    mensaje(jugador, "lib.isNotABook");
+                    return true;
+                }
+                // Si no es el autor del libro.
+                BookMeta book = ((BookMeta)jugador.getItemInHand().getItemMeta());
+                if(!book.getAuthor().contentEquals(jugador.getName())){
+                    mensaje(jugador, "lib.wrongAuthor");
+                    return true;
+                }
+                // Está repetido
+                if(isRepeated(book)){
+                    mensaje(jugador, "lib.repeated");
+                    return true;
+                }
+                sellBook((BookMeta)(jugador.getItemInHand().getItemMeta()), Double.parseDouble(args[1]));
+                mensaje(jugador, "lib.send");
+                save();
+            }else if(isCommand("comm.lib.del", args[0])){
+                if(!isInteger(args[1])){
+                    mensaje(jugador, "alert.noInteger");
+                    return true;
+                }
+                if(!hasBook(args[1])){
+                    mensaje(jugador, "lib.noBook");
+                    return true;
+                }
+                // Si no es el autor del libro.
+                if(!getCache().getString("libro."+args[1]+".autor").contentEquals(jugador.getName())
+                        || !jugador.hasPermission("useless.lib.master")){
+                    mensaje(jugador, "lib.wrongAuthor");
+                    return true;
+                }
+                getCache().set("libro."+args[1], null);
+                List<Integer> libros = getCache().getIntegerList("libros");
+                libros.remove((Object)Integer.parseInt(args[1]));
+                getCache().set("libros", libros);
+                mensaje(jugador, "lib.del");
+                save();
             }
-            if(!hasBook(args[0])){
-                mensaje(jugador, "lib.noBook");
-                return true;
-            }
-            if(getEcon().cobrar(jugador, getCache().getDouble("libro."+args[0]+".cost"))){
-                buyBook(jugador, Integer.parseInt(args[0]));
-                mensaje(jugador, "lib.buy");
-                mensaje(getCache().getString("libro."+args[0]+".autor"), "lib.sell");
-            }else{
-                mensaje(jugador, "lib.noMoney");
-            }
-        }else if(isCommand("comm.lib.info", args[0])){
-            if(!hasBook(args[0])){
-                mensaje(jugador, "lib.noBook");
-                return true;
-            }
-            // Autor, Título, Páginas, Precio, Ventas
-            BookMeta book = getBookMeta(args[0]);
-            mensaje(jugador, "lib.bookInfo",
-                    book.getAuthor(),
-                    book.getTitle(),
-                    book.getPageCount(),
-                    getEcon().getPrecio(getCache().getDouble("libro."+args[0]+".cost")),
-                    getCache().getInt("libro."+args[0]+".count"));
-        }else if(isCommand("comm.lib.sell", args[0])){
-            if(!jugador.hasPermission("useless.lib.sell")){
-                mensaje(jugador, "alert.permission");
-                return true;
-            }
-            // Si el precio no es adecuado
-            if(Double.parseDouble(args[0]) < 0){
-                mensaje(jugador, "alert.positive");
-                return true;
-            }
-            if(jugador.getItemInHand() == null){
-                mensaje(jugador, "lib.noHand");
-                return true;
-            }
-            // Si no es el autor del libro.
-            if(((BookMeta)jugador.getItemInHand().getItemMeta()).getAuthor().contentEquals(jugador.getName())){
-                mensaje(jugador, "lib.wrongAuthor");
-                return true;
-            }
-            setBook((BookMeta)(jugador.getItemInHand().getItemMeta()), Double.parseDouble(args[0]));
-            mensaje(jugador, "lib.send");
-            save();
-        }else if(isCommand("comm.lib.del", args[0])){
-            if(!hasBook(args[0])){
-                mensaje(jugador, "lib.noBook");
-                return true;
-            }
-            // Si no es el autor del libro.
-            if(((BookMeta)jugador.getItemInHand().getItemMeta()).getAuthor().contentEquals(jugador.getName())){
-                mensaje(jugador, "lib.wrongAuthor");
-                return true;
-            }
-            getCache().set("libro."+args[0], null);
-            mensaje(jugador, "lib.del");
-            save();
-        }
+        } // Fin if
         return true;
     }
     private String item(String path, int id){
@@ -194,8 +235,13 @@ public class LibCommand extends Comando{
             }
         }
         //Si no ha alacanzado el tamaño, y si es de más de un elemento, y cambió.
-        if(top.size() < Strings.getInt("lib.topSize") && top.size() > 1 && save){
+        if(top.size() <= Strings.getInt("lib.topSize") && !save){
             top.add(id);
+            save = true;
+        }
+        if(top.size() == 0){
+            top.add(id);
+            save = true;
         }
         if(save){
             getCache().set("top", top);
@@ -209,12 +255,11 @@ public class LibCommand extends Comando{
         return price*(percent/100.0)*diff;
     }
     private void setRetributions(int id){
-        getCache().set("libro."+id+".count", getCache().getInt("libro."+id+".count"));
+        getCache().set("libro."+id+".payed", getCache().getInt("libro."+id+".count"));
     }
     private void buyBook(Player jugador, int id){
         jugador.getInventory().addItem(getBook(id));
         addCount(id, 1);
-        top(id);
     }
     private ItemStack setBook(String autor, String title, List<String> pages){
         ItemStack book = new ItemStack(Material.WRITTEN_BOOK);
@@ -226,7 +271,7 @@ public class LibCommand extends Comando{
         book.setItemMeta(meta);
         return book;
     }
-    private boolean setBook(BookMeta book, double price){
+    private boolean sellBook(BookMeta book, double price){
         int id = 0;
         for(boolean n = false; !n;){
             id = new Random().nextInt(1000);
@@ -241,6 +286,9 @@ public class LibCommand extends Comando{
         getCache().set(path+".cost", price);
         getCache().set(path+".count", 0);
         getCache().set(path+".payed", 0);
+        List<Integer> libros = getCache().getIntegerList("libros");
+        libros.add(id);
+        getCache().set("libros", libros);
         return true;
     }
     private ItemStack getBook(int id){
@@ -256,6 +304,8 @@ public class LibCommand extends Comando{
     }
     private void setCount(int id, int v){
         getCache().set("libro."+id+".count", v);
+        top(id);
+        save();
     }
     private int getCount(int id){
         return getCache().getInt("libro."+id+".count");
@@ -269,6 +319,14 @@ public class LibCommand extends Comando{
     private boolean hasBook(String id){
         return hasBook(Integer.parseInt(id));
     }
+    private boolean isRepeated(BookMeta book){
+        for(int k: getCache().getIntegerList("libros")){
+            if(getBookMeta(k).getPages().toString().contentEquals(book.getPages().toString())){
+                return true;
+            }
+        }
+        return false;
+    }
     // Getters
     private void setFile(Archivo file) {
         this.file = file;
@@ -280,11 +338,13 @@ public class LibCommand extends Comando{
         this.cache = cache;
     }
     private FileConfiguration getCache() {
+        if(cache == null){
+            load();
+        }
         return cache;
     }
     private void save(){
         getFile().save(getCache());
-        load();
     }
     private void load(){
         setCache(getFile().load());
