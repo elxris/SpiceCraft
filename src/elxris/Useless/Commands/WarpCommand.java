@@ -182,8 +182,6 @@ public class WarpCommand extends Comando{
                         s,
                         cache.getString("g."+s+".owner"),
                         (cache.getLong("g."+s+".date")+cache.getLong("g."+s+".time")-System.currentTimeMillis())/1000
-                        
-                        // TODO
                         );
             }
         }

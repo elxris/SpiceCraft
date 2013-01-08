@@ -3,10 +3,13 @@ package elxris.Useless.Commands;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.BookMeta;
 
 import elxris.Useless.Utils.Archivo;
 import elxris.Useless.Utils.Chat;
@@ -64,26 +67,45 @@ public class LibCommand extends Comando{
             }else if(isCommand("comm.lib.pay", args[0])){
                 List<Integer> libros = getCache().getIntegerList("libros");
                 String list = "";
-                boolean paga = false;
                 double dinero = 0;
                 for(int k: libros){
                     if(isMyBook(jugador, k)){
                         if(getRetributions(k) > 0){
                             dinero += getRetributions(k);
+                            setRetributions(k);
                             list.concat(item(k));
-                            paga = true;
                         }
                     }
                 }
-                if(paga){
-                    getEcon().pagar(jugador, dinero);
+                if(getEcon().pagar(jugador, dinero)){
                     String.format(Strings.getString("lib.pay"));
                 }
             }
         }
+        // Comprar, Info, Vender, Borrar
+        if(isCommand("comm.lib.buy", args[0])){
+            if(!jugador.hasPermission("useless.lib.buy")){
+                Chat.mensaje(jugador, "alert.permission");
+                return true;
+            }
+            if(!hasBook(args[0])){
+                Chat.mensaje(jugador, "lib.noBook");
+                return true;
+            }
+            if(getEcon().cobrar(jugador, getCache().getDouble("libro."+args[0]+".cost"))){
+                buyBook(jugador, Integer.parseInt(args[0]));
+                Chat.mensaje(jugador, "lib.buy");
+                Chat.mensaje(getCache().getString("libro."+args[0]+".autor"), "lib.sell");
+            }
+        }else if(isCommand("comm.lib.info", args[0])){
+            if(!hasBook(args[0])){
+                Chat.mensaje(jugador, "lib.noBook");
+                return true;
+            }
+            
+        }
         return true;
     }
-    
     private String item(String path, int id){
         return String.format(Strings.getString(path), id,
                 Strings.getString("libro."+id+".title"),
@@ -135,8 +157,40 @@ public class LibCommand extends Comando{
         }
     }
     private double getRetributions(int id){
-        int diff = getCache().getInt("libro."+k+".count")-getCache().getInt("libro."+k+".payed");
-        
+        double diff = getCache().getInt("libro."+id+".count")-getCache().getInt("libro."+id+".payed");
+        double percent = Strings.getInt("lib.percent");
+        double price = getCache().getInt("libro."+id+".cost");
+        return price*(percent/100.0)*diff;
+    }
+    private void setRetributions(int id){
+        getCache().set("libro."+id+".count", getCache().getInt("libro."+id+".count"));
+    }
+    private void buyBook(Player jugador, int id){
+        jugador.getInventory().addItem(getBook(id));
+        addCount(id, 1);
+    }
+    private ItemStack getBook(int id){
+        ItemStack book = new ItemStack(Material.WRITTEN_BOOK);
+        BookMeta meta = (BookMeta) book.getItemMeta();
+        meta.setAuthor(getCache().getString("libro."+id+".autor"));
+        meta.setPages(getCache().getStringList("libro."+id+".text"));
+        meta.setTitle(getCache().getString("libro."+id+".title"));
+        return book;
+    }
+    private void setCount(int id, int v){
+        getCache().set("libro."+id+".count", v);
+    }
+    private int getCount(int id){
+        return getCache().getInt("libro."+id+".count");
+    }
+    private void addCount(int id, int v){
+        setCount(id, getCount(id)+v);
+    }
+    private boolean hasBook(int id){
+        return getCache().isSet("libro."+id+".autor");
+    }
+    private boolean hasBook(String id){
+        return hasBook(Integer.parseInt(id));
     }
     // Getters
     private void setFile(Archivo file) {

@@ -20,7 +20,7 @@ public class CheckConfiguration {
         // Comandos upin
         setPath("comm.upin.del", "delete", "del", "delete", "borrar", "b");
         setPath("comm.upin.list", "listar", "l", "list");
-        // COmandos lib
+        // Comandos lib
         setPath("comm.lib.del", "delete", "del", "delete", "borrar", "b");
         setPath("comm.lib.buy", "compra", "buy", "c");
         setPath("comm.lib.info", "info", "i");
@@ -135,6 +135,7 @@ public class CheckConfiguration {
                 "%s");
         setPath("lib.topItem", "%d.- %s");
         setPath("lib.topSize", 3);
+        setPath("lib.percent", 50);
         // Comandos
         setPath("cmd.reload", "Reload de comandos y configuraciones completo!");
         // Errores y alertas.
@@ -142,6 +143,7 @@ public class CheckConfiguration {
         setPath("alert.noEconomy", "No hay plugin de economía. Se cobrará con puntos de experiencia.");
         setPath("alert.error", "§cError al usar el comando. Revisa la ayuda.");
         setPath("alert.noInteger", "Tienes que ingresar valor/es enteros.");
+        setPath("alert.permission", "No tienes permiso de usar este comando.");
         // Formatos
         setPath("f.units", "mes", "meses", "dia", "dias", "hora", "horas", "minuto", "minutos", "segundo", "segundos");
         setPath("f.months", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", 

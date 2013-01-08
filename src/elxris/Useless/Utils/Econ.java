@@ -41,7 +41,7 @@ public class Econ {
     public boolean cobrar(Player jugador, double cantidad) {
         setJugador(jugador);
         if(cantidad <= 0){
-            return true;
+            return false;
         }
         if(econ != null){
             if(econ.getBalance(getNombre()) >= cantidad){
@@ -65,6 +65,9 @@ public class Econ {
     }
     public boolean pagar(Player jugador, double cantidad){
         setJugador(jugador);
+        if(cantidad <= 0){
+            return false;
+        }
         if(econ != null){
             EconomyResponse r = econ.depositPlayer(getNombre(), cantidad);
             if(!r.transactionSuccess()){
