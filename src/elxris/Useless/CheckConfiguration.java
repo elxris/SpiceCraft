@@ -114,6 +114,7 @@ public class CheckConfiguration {
                 "§e/lib §cv§eender [precio]§r Vende el libro que tienes en mano.",
                 "§e/lib §cb§eorrar [id]§r Borra el libro indicado",
                 "§e/lib §cp§eaga§r Cobra las retribuciones.");
+        setPath("lib.sell", "Haz vendido un libro.");
         setPath("lib.buy", "Haz comprado un libro. Gracias.");
         setPath("lib.noBook", "No existe el libro.");
         setPath("lib.bookInfo", "§aFICHA DEL LIBRO",
@@ -126,12 +127,14 @@ public class CheckConfiguration {
         setPath("lib.noHand", "No tienes un libro en la mano para vender.");
         setPath("lib.wrongAuthor", "No eres el autor del libro.");
         setPath("lib.pay", "§eCon los libros [%s§e], haz ganado §a%s.");
-        setPath("lib.itemMe", "§d-[%s] ::%s:: <%s>-");
-        setPath("lib.item", "§b-[%s] ::%s:: <%s>-");
+        setPath("lib.itemMe", "§d-[%d] ::%s:: <%s>-");
+        setPath("lib.item", "§b-[%d] ::%s:: <%s>-");
         setPath("lib.list", "###Lista de libros###",
                 "%s");
         setPath("lib.top", "###Top Libros###",
                 "%s");
+        setPath("lib.topItem", "%d.- %s");
+        setPath("lib.topSize", 3);
         // Comandos
         setPath("cmd.reload", "Reload de comandos y configuraciones completo!");
         // Errores y alertas.
@@ -147,6 +150,7 @@ public class CheckConfiguration {
         setPath("exp.format", "%d puntos de experiencia");
         // Economía.
         setPath("econ.cobrar", "Cobrando %s.");
+        setPath("econ.pagar", "Pagando %s.");
         // Guarda el archivo de configuración.
         isChanged();
     }

@@ -60,3 +60,5 @@ libro:
         cost:
         count:
         payed:`
+##Top
+Para hacer el top mucho más facil, hay que hacer el top siempre. Con una función que lo haga automáticamente con solo ingresar el id, y el numero de ventas.

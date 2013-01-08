@@ -104,7 +104,7 @@ public class WarpCommand extends Comando{
     private boolean crearWarp(Player jugador, int tiempo, String path){
         double precio = Strings.getDouble("tw.v.price")*tiempo;
         econ.setJugador(jugador);
-        econ.cobrar(precio);
+        econ.cobrar(jugador, precio);
         Warp w = new Warp(jugador.getLocation(), jugador, tiempo, cache, path);
         Thread t = new Thread(w);
         t.start();

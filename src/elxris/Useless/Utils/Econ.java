@@ -12,12 +12,18 @@ public class Econ {
     private static boolean setup = false;
     private Player jugador;
     public Econ() {
-        if (!setupEconomy() && !setup) {
+        if (!setup && !setupEconomy()) {
             Useless.log(Strings.getString("alert.noEconomy"));
         }
     }
     public void setJugador(Player jugador) {
         this.jugador = jugador;
+    }
+    public Player getJugador() {
+        return jugador;
+    }
+    public String getNombre(){
+        return getJugador().getName();
     }
     //Economía.
     private boolean setupEconomy() {
@@ -32,27 +38,43 @@ public class Econ {
         econ = rsp.getProvider();
         return econ != null;
     }
-    public boolean cobrar(double precio) {
-        if(precio > 0){
-            if(econ != null){
-                if(econ.getBalance(getPlayerName(jugador)) >= precio){
-                    EconomyResponse r = econ.withdrawPlayer(getPlayerName(jugador), precio);                
-                    if(!r.transactionSuccess()){
-                        mensaje(jugador, "alert.error");
-                        return false;
-                    }
-                }else{
-                    mensaje(jugador, "tw.s.noMoney");
+    public boolean cobrar(Player jugador, double cantidad) {
+        setJugador(jugador);
+        if(cantidad <= 0){
+            return true;
+        }
+        if(econ != null){
+            if(econ.getBalance(getNombre()) >= cantidad){
+                EconomyResponse r = econ.withdrawPlayer(getNombre(), cantidad);                
+                if(!r.transactionSuccess()){
+                    mensaje(getJugador(), "alert.error");
                     return false;
                 }
             }else{
-                if(!Experiencia.cobrarEsperiencia(jugador, (int)precio)){
-                    mensaje(jugador, "tw.s.noMoney");
-                    return false;
-                }
+                mensaje(getJugador(), "tw.s.noMoney");
+                return false;
             }
-            Chat.mensaje(jugador, "econ.cobrar", getPrecio(precio));
+        }else{
+            if(!Experiencia.cobrarExperiencia(getJugador(), (int)cantidad)){
+                mensaje(getJugador(), "tw.s.noMoney");
+                return false;
+            }
         }
+        Chat.mensaje(getJugador(), "econ.cobrar", getPrecio(cantidad));
+        return true;
+    }
+    public boolean pagar(Player jugador, double cantidad){
+        setJugador(jugador);
+        if(econ != null){
+            EconomyResponse r = econ.depositPlayer(getNombre(), cantidad);
+            if(!r.transactionSuccess()){
+                mensaje(getJugador(), "alert.error");
+                return false;
+            }
+        }else{
+            Experiencia.pagarExperiencia(getJugador(), (int)cantidad);
+        }
+        Chat.mensaje(getJugador(), "econ.pagar", getPrecio(cantidad));
         return true;
     }
     public String getPrecio(double precio){
@@ -65,9 +87,6 @@ public class Econ {
         }
         // Si no
         return String.format(Strings.getString("exp.format"), (int)precio);
-    }
-    private String getPlayerName(Player jugador){
-        return jugador.getName();
     }
     private void mensaje(Player p, String mensaje, Object...objects){
         Chat.mensaje(p, mensaje, objects);
