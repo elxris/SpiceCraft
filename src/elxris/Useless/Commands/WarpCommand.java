@@ -6,6 +6,7 @@ import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.Configuration;
+import org.bukkit.configuration.MemoryConfiguration;
 import org.bukkit.entity.Player;
 import elxris.Useless.Objects.Warp;
 import elxris.Useless.Utils.Chat;
@@ -15,8 +16,8 @@ import elxris.Useless.Utils.Strings;
 public class WarpCommand extends Comando{
     private Configuration cache;
     private Econ econ;
-    public WarpCommand(Configuration cache) {
-        this.cache = cache;
+    public WarpCommand() {
+        this.cache = new MemoryConfiguration();
         this.econ = new Econ();
         return;
     }

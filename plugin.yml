@@ -45,6 +45,8 @@ permissions:
         default: false
     useless.cmd.reload:
         default: false
+    useless.lib:
+        default: true
     useless.lib.buy:
         defualt: true
     useless.lib.sell:

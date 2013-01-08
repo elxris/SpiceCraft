@@ -20,6 +20,14 @@ public class CheckConfiguration {
         // Comandos upin
         setPath("comm.upin.del", "delete", "del", "delete", "borrar", "b");
         setPath("comm.upin.list", "listar", "l", "list");
+        // COmandos lib
+        setPath("comm.lib.del", "delete", "del", "delete", "borrar", "b");
+        setPath("comm.lib.buy", "compra", "buy", "c");
+        setPath("comm.lib.info", "info", "i");
+        setPath("comm.lib.top", "top", "t");
+        setPath("comm.lib.list", "list", "listar", "l");
+        setPath("comm.lib.sell", "vender", "vende", "sell", "v", "s");
+        setPath("comm.lib.pay", "paga", "pay", "p");
         // Warps
         setPath("tw.info", "§aAyuda /tw",
                 "§e/tw §cn§euevo [minutos]§r Para crear un warp temporal personal.",
@@ -97,6 +105,33 @@ public class CheckConfiguration {
         setPath("upin.del", "Borrada la posición.");
         setPath("upin.v.maxPerUser", 3);
         setPath("upin.limitPin", "Ya tienes demaciadas posiciones, ya no puedes hacer más.");
+        // Librería
+        setPath("lib.info", "§aAyuda /upin",
+                "§e/lib §cc§eomprar [id]§r Compra el libro indicado.",
+                "§e/lib §ci§enfo [id]§r Muestra la información del libro indicado.",
+                "§e/lib §cl§eistar§r Muestra una lista de los libros disponibles.",
+                "§e/lib §ct§eop§r Muestra una lista de los 3 libros más vendidos.",
+                "§e/lib §cv§eender [precio]§r Vende el libro que tienes en mano.",
+                "§e/lib §cb§eorrar [id]§r Borra el libro indicado",
+                "§e/lib §cp§eaga§r Cobra las retribuciones.");
+        setPath("lib.buy", "Haz comprado un libro. Gracias.");
+        setPath("lib.noBook", "No existe el libro.");
+        setPath("lib.bookInfo", "§aFICHA DEL LIBRO",
+                "§bAutor: §c%s",
+                "§bTítulo: §c%S",
+                "§bPáginas: §c%s",
+                "§bPrecio: §c%s",
+                "§bVentas: §c%s");
+        setPath("lib.noMoney", "No tienes suficiente dinero para comprar un libro.");
+        setPath("lib.noHand", "No tienes un libro en la mano para vender.");
+        setPath("lib.wrongAuthor", "No eres el autor del libro.");
+        setPath("lib.pay", "§eCon los libros [%s§e], haz ganado §a%s.");
+        setPath("lib.itemMe", "§d-[%s] ::%s:: <%s>-");
+        setPath("lib.item", "§b-[%s] ::%s:: <%s>-");
+        setPath("lib.list", "###Lista de libros###",
+                "%s");
+        setPath("lib.top", "###Top Libros###",
+                "%s");
         // Comandos
         setPath("cmd.reload", "Reload de comandos y configuraciones completo!");
         // Errores y alertas.

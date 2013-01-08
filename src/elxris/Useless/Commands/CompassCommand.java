@@ -20,8 +20,8 @@ public class CompassCommand extends Comando{
     private Archivo file;
     private FileConfiguration cache;
     
-    public CompassCommand(Archivo file) {
-        setFile(file);
+    public CompassCommand() {
+        setFile(new Archivo("pin.yml"));
     }
     
     @Override

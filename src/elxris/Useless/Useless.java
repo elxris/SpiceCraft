@@ -1,11 +1,10 @@
 package elxris.Useless;
 
-import org.bukkit.configuration.Configuration;
-import org.bukkit.configuration.MemoryConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import elxris.Useless.Commands.CompassCommand;
+import elxris.Useless.Commands.LibCommand;
 import elxris.Useless.Commands.MailBoxCommand;
 import elxris.Useless.Commands.MailBoxCreateCommand;
 import elxris.Useless.Commands.WarpCommand;
@@ -13,13 +12,10 @@ import elxris.Useless.Listener.CommandListener;
 import elxris.Useless.Listener.CompassListener;
 import elxris.Useless.Listener.MailListener;
 import elxris.Useless.Objects.Mail;
-import elxris.Useless.Utils.Archivo;
 import elxris.Useless.Utils.Strings;
  
 public class Useless extends JavaPlugin {
-    private Configuration warpcache;
     private Mail mail;
-    private Archivo pin;
     private static Useless plugin;
     
     public void onEnable(){
@@ -27,8 +23,7 @@ public class Useless extends JavaPlugin {
         new CheckConfiguration();
         new Strings(this.getConfig());
         //Commando Tempowal Warp
-        warpcache = new MemoryConfiguration();
-        getCommand("tw").setExecutor(new WarpCommand(warpcache));
+        getCommand("tw").setExecutor(new WarpCommand());
         //Comando Mail
         mail = new Mail();
         getCommand("mbox").setExecutor(new MailBoxCommand(mail));
@@ -40,8 +35,9 @@ public class Useless extends JavaPlugin {
         //Listiener Compass
         this.getServer().getPluginManager().registerEvents(new CompassListener(), this);
         //Comando Compass
-        pin = new Archivo("pin.yml");
-        getCommand("upin").setExecutor(new CompassCommand(pin));
+        getCommand("upin").setExecutor(new CompassCommand());
+        //Comando Librería
+        getCommand("lib").setExecutor(new LibCommand());
     }
     public static void log(String m){
         plugin.getLogger().info(m);
