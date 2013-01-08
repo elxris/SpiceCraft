@@ -61,13 +61,19 @@ public class LibCommand extends Comando{
                     return true;
                 }
                 List<Integer> top = getCache().getIntegerList("top");
+                List<Integer> topTmp = getCache().getIntegerList("top");
                 List<String> list = Strings.getStringList("lib.top");
                 int contador = 1;
                 for(int k: top){
+                    if(!hasBook(k)){
+                        topTmp.remove((Object)k);
+                        continue;
+                    }
                     list.add(String.format(
                             Strings.getString("lib.topItem"),
                             contador++, item(jugador, k)));
                 }
+                getCache().set("top", topTmp);
                 mensaje(jugador, list);
             }else if(isCommand("comm.lib.pay", args[0])){
                 if(!getCache().isSet("libros")){
@@ -178,7 +184,7 @@ public class LibCommand extends Comando{
                 }
                 // Si no es el autor del libro.
                 if(!getCache().getString("libro."+args[1]+".autor").contentEquals(jugador.getName())
-                        || !jugador.hasPermission("useless.lib.master")){
+                        || jugador.hasPermission("useless.lib.master")){
                     mensaje(jugador, "lib.wrongAuthor");
                     return true;
                 }
