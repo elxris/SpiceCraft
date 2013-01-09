@@ -69,6 +69,7 @@ public class Mail {
             usuarios.remove(jugador);
             cache.set("correos."+lng+".usuarios", usuarios);
         }
+        save();
     }
     public String[] getMail(Long id){
         String remitente = cache.getString("correos."+id+".remitente");

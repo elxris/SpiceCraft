@@ -230,6 +230,10 @@ public class LibCommand extends Comando{
         boolean save = false;
         for(int i = 0; i < top.size(); i++){
             // Si las ventas del top son más pequeñas.
+            if(top.get(i) == id){
+                save = true;
+                continue;
+            }
             if(getCache().getInt("libro."+top.get(i)+".count") < ventas){
                 int idTemp;
                 // Guarda temporalmente el id del top.
