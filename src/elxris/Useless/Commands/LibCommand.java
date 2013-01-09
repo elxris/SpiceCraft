@@ -1,5 +1,6 @@
 package elxris.Useless.Commands;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -46,16 +47,17 @@ public class LibCommand extends Comando{
                     return true;
                 }
                 List<Integer> libros = getCache().getIntegerList("libros");
-                String lista = "";
-                String listaYo = "";
+                List<String> lista = new ArrayList<String>();
+                List<String> listaYo = Strings.getStringList("lib.list");
                 for(int k: libros){
                     if(isMyBook(jugador, k)){
-                        listaYo = listaYo.concat(itemMe(k));
+                        listaYo.add(itemMe(k));
                     }else{
-                        lista = lista.concat(item(k));
+                        lista.add(item(k));
                     }
                 }
-                mensaje(jugador, "lib.list", listaYo+lista);
+                listaYo.addAll(lista);
+                mensaje(jugador, listaYo);
             }else if(isCommand("comm.lib.top", args[0])){
                 if(!getCache().isSet("top")){
                     return true;
@@ -201,7 +203,8 @@ public class LibCommand extends Comando{
     private String item(String path, int id){
         return String.format(Strings.getString(path), id,
                 getCache().getString("libro."+id+".title"),
-                getCache().getString("libro."+id+".autor"));
+                getCache().getString("libro."+id+".autor"),
+                econ.getPrecio(getCache().getDouble("libro."+id+".cost")));
     }
     private String item(int id){
         return item("lib.item", id);
@@ -242,10 +245,6 @@ public class LibCommand extends Comando{
         }
         //Si no ha alacanzado el tamaño, y si es de más de un elemento, y cambió.
         if(top.size() <= Strings.getInt("lib.topSize") && !save){
-            top.add(id);
-            save = true;
-        }
-        if(top.size() == 0){
             top.add(id);
             save = true;
         }

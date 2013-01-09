@@ -181,7 +181,7 @@ public class WarpCommand extends Comando{
         for(String s: cache.getStringList("list")){
             if(cache.isSet("g."+s)){
                 r += String.format(
-                        Strings.getString("tw.s.listItem"), 
+                        Strings.getString("tw.s.listItem")+"\n", 
                         s,
                         cache.getString("g."+s+".owner"),
                         (cache.getLong("g."+s+".date")+cache.getLong("g."+s+".time")-System.currentTimeMillis())/1000

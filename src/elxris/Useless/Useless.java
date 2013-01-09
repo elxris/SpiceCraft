@@ -49,7 +49,7 @@ public class Useless extends JavaPlugin {
         return plugin;
     }
     public static String getVersion(){
-        return Useless.getVersion();
+        return plugin.getDescription().getVersion();
     }
     public static void reload(){
         plugin.reloadConfig();

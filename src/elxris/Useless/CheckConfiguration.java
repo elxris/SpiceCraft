@@ -3,6 +3,7 @@ package elxris.Useless;
 public class CheckConfiguration {
     private boolean changed = false;
     public CheckConfiguration() {
+        update();
         //Comandos tw
         setPath("comm.tw.new", "nuevo", "n");
         setPath("comm.tw.destroy", "destruir", "d", "eliminar", "e", "borrar", "b");
@@ -32,7 +33,7 @@ public class CheckConfiguration {
         setPath("tw.info", "§aAyuda /tw",
                 "§e/tw §cn§euevo [minutos]§r Para crear un warp temporal personal.",
                 "Recuerda que por cada minuto te cobrará %s.",
-                "§e/tw §cn§euevo [nombre] [minutos]§r Hacer un warp temporal que cualuiera pueda usar.",
+                "§e/tw §cn§euevo [nombre] [minutos]§r Hacer un warp temporal que cualquiera pueda usar.",
                 "§e/tw [nombre]§r Para hacer uso de un warp temporal.",
                 "§e/tw §cb§eorrar§r o §e/tw §cb§eorrar [nombre]§r Borra un warp personal o público si eres el dueño.",
                 "§e/tw list§r Lista los warps públicos.",
@@ -79,7 +80,7 @@ public class CheckConfiguration {
                 "§e/mboxc §ce§eviar §rYa que tienes listo el mensaje, este comando lo envía.",
                 "§e/mboxc a§ct§eodos§r (Solo Admins)Envía el mensaje a todos los usuarios.");
         setPath("mboxc.noPlayerAdded", "Ningún destinatario, por lo tanto mensaje no creado.");
-        setPath("mboxc.playerNotExist", "El jugador %s no enontrado. No ha sido agregado.");
+        setPath("mboxc.playerNotExist", "El jugador %s no encontrado. No ha sido agregado.");
         setPath("mboxc.catched", "Mensaje recibido.");
         setPath("mboxc.sended", "Mensaje enviado.");
         setPath("mboxc.limit", "Lo siento, ya has superado el límite de 300 caracteres.");
@@ -95,7 +96,7 @@ public class CheckConfiguration {
                 "§e/upin §cl§eistar§r Para ver todas las posiciones.");
         setPath("upin.noPin", "No existe la posicion.");
         setPath("upin.exist", "Ya existe esa posicion. Elige otra.");
-        setPath("upin.list", "§a###Lista de las posiciones ###",
+        setPath("upin.list", "§a### Lista de las posiciones ###",
                 "§b%s");
         setPath("upin.item", "<%s: %s [%s][%s]> ");
         setPath("upin.noList", "§cNo hay posiciones. Aún.");
@@ -104,7 +105,7 @@ public class CheckConfiguration {
         setPath("upin.nether", "§cDe nada sirve crear una posición aquí. No se mostrará.");
         setPath("upin.del", "Borrada la posición.");
         setPath("upin.v.maxPerUser", 3);
-        setPath("upin.limitPin", "Ya tienes demaciadas posiciones, ya no puedes hacer más.");
+        setPath("upin.limitPin", "Ya tienes demasiadas posiciones, ya no puedes hacer más.");
         // Librería
         setPath("lib.info", "§aAyuda /lib",
                 "§e/lib §cc§eomprar [id]§r Compra el libro indicado.",
@@ -129,10 +130,9 @@ public class CheckConfiguration {
         setPath("lib.wrongAuthor", "No eres el autor del libro.");
         setPath("lib.pay", "§eCon los libros [%s§e], has ganado §a%s.");
         setPath("lib.noPay", "No tienes retribuciones.");
-        setPath("lib.itemMe", "§d-[%d] ::%s:: <%s>-");
-        setPath("lib.item", "§b-[%d] ::%s:: <%s>-");
-        setPath("lib.list", "###Lista de libros###",
-                "%s");
+        setPath("lib.list", "###Lista de libros###");
+        setPath("lib.itemMe", "§d[%d] ::%s:: <%s>{%s}");
+        setPath("lib.item", "§b[%d] ::%s:: <%s>{%s}");
         setPath("lib.top", "###Top Libros###");
         setPath("lib.topItem", "%d.- %s");
         setPath("lib.del", "Has borrado el libro satisfactoriamente.");
@@ -160,6 +160,24 @@ public class CheckConfiguration {
         setPath("econ.pagar", "Pagando %s.");
         // Guarda el archivo de configuración.
         isChanged();
+    }
+    private void update() {
+        String prev;
+        if(!p().getConfig().isSet("v")){
+            prev = "0.7.6";
+        }else{
+            prev = Useless.getVersion();
+        }
+        if(prev == "0.7.6"){
+            setPath("lib.list", null);
+            setPath("lib.item", null);
+            setPath("lib.itemMe", null);
+            prev = "0.7.7";
+        }
+        if(prev == "0.7.7"){
+            
+        }
+        setPath("v", Useless.getVersion());
     }
     private void setPath(String path, Object... v){
         if(!p().getConfig().isSet(path)){
