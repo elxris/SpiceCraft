@@ -114,9 +114,9 @@ public class CheckConfiguration {
                 "§e/lib §cv§eender [precio]§r Vende el libro que tienes en mano.",
                 "§e/lib §cb§eorrar [id]§r Borra el libro indicado",
                 "§e/lib §cp§eaga§r Cobra las retribuciones.");
-        setPath("lib.sell", "Haz vendido un libro.");
-        setPath("lib.buy", "Haz comprado un libro. Gracias.");
-        setPath("lib.send", "Haz enviado satisfactoriamente tu libro. Pronto ganarás dinero con tus habilidades retóricas.");
+        setPath("lib.sell", "Has vendido un libro.");
+        setPath("lib.buy", "Has comprado un libro. Gracias.");
+        setPath("lib.send", "Has enviado satisfactoriamente tu libro. Pronto ganarás dinero con tus habilidades retóricas.");
         setPath("lib.noBook", "No existe el libro.");
         setPath("lib.bookInfo", "§aFICHA DEL LIBRO",
                 "§bAutor: §c%s",
@@ -127,7 +127,7 @@ public class CheckConfiguration {
         setPath("lib.noMoney", "No tienes suficiente dinero para comprar un libro.");
         setPath("lib.noHand", "No tienes un libro en la mano para vender.");
         setPath("lib.wrongAuthor", "No eres el autor del libro.");
-        setPath("lib.pay", "§eCon los libros [%s§e], haz ganado §a%s.");
+        setPath("lib.pay", "§eCon los libros [%s§e], has ganado §a%s.");
         setPath("lib.noPay", "No tienes retribuciones.");
         setPath("lib.itemMe", "§d-[%d] ::%s:: <%s>-");
         setPath("lib.item", "§b-[%d] ::%s:: <%s>-");
@@ -135,7 +135,7 @@ public class CheckConfiguration {
                 "%s");
         setPath("lib.top", "###Top Libros###");
         setPath("lib.topItem", "%d.- %s");
-        setPath("lib.del", "Haz borrado el libro satisfactoriamente.");
+        setPath("lib.del", "Has borrado el libro satisfactoriamente.");
         setPath("lib.repeated", "Está repetido. ¿Acaso quieres engañar a tus lectores?");
         setPath("lib.isNotABook", "Lo que tienes en tu mano no es un libro.");
         setPath("lib.topSize", 3);
