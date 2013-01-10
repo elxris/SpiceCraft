@@ -105,19 +105,7 @@ public class Mail {
     }
     public void createBorrador(String jugador, String args[]){ //Inicia el borrador.
         clearBorrador(jugador);
-        List<String> destinatarios = new ArrayList<String>();
-        for(String k: args){
-            List<Player> l =Useless.plugin().getServer().matchPlayer(k);
-            if(l.size() == 1){
-                destinatarios.add(l.get(0).getName());
-            }else{
-                if(Useless.plugin().getServer().getOfflinePlayer(k).getFirstPlayed() != 0){
-                    destinatarios.add(k);
-                    continue;
-                }
-                Chat.mensaje(jugador, "mboxc.playerNotExist", k);
-            }
-        }
+        List<String> destinatarios = checkDestinatarios(jugador, args);
         if(destinatarios.size() >= 1){
             cache.set("usuarios."+jugador+".borrador.destinatarios", destinatarios);
             Chat.mensaje(jugador, "mboxc.created");
@@ -154,8 +142,8 @@ public class Mail {
         save();
     }
     public void sendMensaje(String jugador, List<String> destinatarios, String mensaje, Boolean servidor){
-        if(!cache.isSet("usuarios."+jugador+".borrador.mensaje")){
-            Chat.mensaje(jugador, "mboxc.noMessage");
+        destinatarios = checkDestinatarios(jugador, destinatarios.toArray(new String[0]));
+        if(destinatarios.size() < 1){
             return;
         }
         long fecha = System.currentTimeMillis();
@@ -174,6 +162,9 @@ public class Mail {
         clearBorrador(jugador);
     }
     public void sendMensaje(String jugador){
+        if(!hasMensaje(jugador)){
+            return;
+        }
         List<String> destinatarios = cache.getStringList("usuarios."+jugador+".borrador.destinatarios");
         String mensaje = cache.getString("usuarios."+jugador+".borrador.mensaje");
         sendMensaje(jugador, destinatarios, mensaje, false);
@@ -182,10 +173,43 @@ public class Mail {
         if(!Useless.getPlayer(jugador).hasPermission("useless.mail.massive")){
             return;
         }
+        if(!hasMensaje(jugador)){
+            return;
+        }
         List<String> destinatarios = new ArrayList<>();
         for(OfflinePlayer p: Useless.plugin().getServer().getOfflinePlayers()){
             destinatarios.add(p.getName());
         }
         sendMensaje(jugador, destinatarios, cache.getString("usuarios."+jugador+".borrador.mensaje"), true);
+    }
+    public String isDestinatario(String player){
+        List<Player> l = Useless.plugin().getServer().matchPlayer(player);
+        if(l.size() == 1){
+            return l.get(0).getName();
+        }else{
+            if(Useless.plugin().getServer().getOfflinePlayer(player).hasPlayedBefore()){
+                return player;
+            }
+        }
+        return null;
+    }
+    public boolean hasMensaje(String jugador){
+        if(!cache.isSet("usuarios."+jugador+".borrador.mensaje")){
+            Chat.mensaje(jugador, "mboxc.noMessage");
+            return false;
+        }
+        return true;
+    }
+    public List<String> checkDestinatarios(String jugador, String[] destinatarios){
+        List<String> checked = new ArrayList<String>();
+        for(String s: destinatarios){
+            String destinatario = isDestinatario(s);
+            if(destinatario != null){
+                checked.add(destinatario);
+            }else{
+                Chat.mensaje(jugador, "mboxc.playerNotExist", s);
+            }
+        }        
+        return checked;
     }
 }

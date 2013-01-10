@@ -42,9 +42,19 @@ public class MailBoxCreateCommand extends Comando{
         }else if(isCommand("comm.mboxc.clear", args[0])){
             mail.clearMensaje(jugador.getName());
         }else if(isCommand("comm.mboxc.send", args[0])){
-            mail.sendMensaje(jugador.getName());            
+            if(args.length == 1){
+                mail.sendMensaje(jugador.getName());                
+            }else if(args.length >= 3){
+                List<String> destinatario = new ArrayList<String>();
+                destinatario.add(args[1]);
+                mail.sendMensaje(jugador.getName(), destinatario, getString(cortarArray(2, args)), false);
+            }
+            return true;
         }else if(isCommand("comm.mboxc.sendall", args[0])){
             mail.sendMensajeATodos(jugador.getName());
+        }else{
+            mensaje(jugador, "mboxc.info");
+            return true;
         }
         mail.interpreta();
         return true;

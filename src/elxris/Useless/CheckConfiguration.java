@@ -64,7 +64,7 @@ public class CheckConfiguration {
         setPath("mbox.list", "Tienes §e%d§r mensajes. §e/mbox§r Para más info.");
         setPath("mbox.mail", "De: §a%s§r Fecha: %s",
                 "§b§o%s§r",
-                "§e/mboxc §cn§euevo %s§r para responder");
+                "§e/mboxc §ce§enviar %s [Mensaje]§r para responder");
         setPath("mbox.timeago", "Hace ");
         setPath("mbox.readStart", "§c### Inicio Bandeja de Correo ###");
         setPath("mbox.readFinish", "§c### Fin Bandeja de Correo ###",
@@ -77,7 +77,8 @@ public class CheckConfiguration {
                 "§e/mboxc §cn§eevo [Usuario] ... §rCrea un borrador con destinatario o destinatarios. Uno mínimo.",
                 "§e/mboxc §ca§egregar [Mensaje] §rAgrega el mensaje a el correo.",
                 "§e/mboxc §cb§eorrar §rBorra el mensaje.",
-                "§e/mboxc §ce§eviar §rYa que tienes listo el mensaje, este comando lo envía.",
+                "§e/mboxc §ce§enviar §rYa que tienes listo el mensaje, este comando lo envía.",
+                "§e/mboxc §ce§enviar [Usuario] [Mensaje] §rComando rápido para enviar un mensaje.",
                 "§e/mboxc a§ct§eodos§r (Solo Admins)Envía el mensaje a todos los usuarios.");
         setPath("mboxc.noPlayerAdded", "Ningún destinatario, por lo tanto mensaje no creado.");
         setPath("mboxc.playerNotExist", "El jugador %s no encontrado. No ha sido agregado.");
