@@ -166,17 +166,15 @@ public class CheckConfiguration {
         if(!p().getConfig().isSet("v")){
             prev = "0.7.6";
         }else{
-            prev = Useless.getVersion();
+            prev = p().getConfig().getString("v");
         }
-        if(prev == "0.7.6"){
-            setPath("lib.list", null);
-            setPath("lib.item", null);
-            setPath("lib.itemMe", null);
-            prev = "0.7.7";
+        if(prev.contains("0.7.6") || prev.contains("0.7.7") || prev.contains("0.7.7b")){
+            delPath("lib.list");
+            delPath("lib.item");
+            delPath("lib.itemMe");
+            prev = "0.7.7b";
         }
-        if(prev == "0.7.7"){
-            
-        }
+        delPath("v");
         setPath("v", Useless.getVersion());
     }
     private void setPath(String path, Object... v){
@@ -184,6 +182,9 @@ public class CheckConfiguration {
             p().getConfig().set(path, v);
             changed();
         }
+    }
+    private void delPath(String path){
+        p().getConfig().set(path, null);
     }
     private Useless p(){
         return Useless.plugin();
