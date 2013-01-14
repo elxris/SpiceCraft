@@ -5,7 +5,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.Listener;
-
 import elxris.Useless.Useless;
 import elxris.Useless.Utils.Archivo;
 import elxris.Useless.Utils.Chat;
@@ -45,7 +44,7 @@ public class CommandListener implements Listener{
         command = command.replace(' ', '.');
         command = command.substring(1);
         if(s[0].contains("/root")){
-            return false;            
+            return false;
         }
         if(s[0].contains("/uselessreload")){
             if(p.hasPermission("useless.cmd.reload")){

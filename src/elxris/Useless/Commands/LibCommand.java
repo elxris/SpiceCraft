@@ -12,6 +12,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BookMeta;
 
+import com.google.common.collect.Lists;
+
 import elxris.Useless.Utils.Archivo;
 import elxris.Useless.Utils.Econ;
 import elxris.Useless.Utils.Strings;
@@ -60,7 +62,7 @@ public class LibCommand extends Comando{
                 mensaje(jugador, listaYo);
             }else if(isCommand("comm.lib.top", args[0])){
                 if(!getCache().isSet("top")){
-                    return true;
+                    top();
                 }
                 List<Integer> top = getCache().getIntegerList("top");
                 List<Integer> topTmp = getCache().getIntegerList("top");
@@ -224,38 +226,30 @@ public class LibCommand extends Comando{
         }
         return false;
     }
-    private void top(int id){
-        List<Integer> top = getCache().getIntegerList("top");
-        int ventas = getCache().getInt("libro."+id+".count");
-        boolean save = false;
-        for(int i = 0; i < top.size(); i++){
-            // Si las ventas del top son más pequeñas.
-            if(top.get(i) == id){
-                save = true;
-                continue;
+    private void top(){
+        List<Integer> libros = getCache().getIntegerList("libros");
+        List<Integer> top = new ArrayList<Integer>();
+        boolean a = false;
+        for(int i = 0; i < libros.size(); i++){
+            int ventas = getCache().getInt("libro."+libros.get(i)+".count");
+            for(int e = 0; e < top.size(); e++){
+                if(ventas < getCache().getInt("libro."+top.get(e)+".count")){
+                    top.add(e, libros.get(i));
+                    e = top.size();
+                    a = true;
+                }
             }
-            if(getCache().getInt("libro."+top.get(i)+".count") < ventas){
-                int idTemp;
-                // Guarda temporalmente el id del top.
-                idTemp = top.get(i);
-                // Sobrescribe el id
-                top.set(i, id);
-                // El id cambia.
-                id = idTemp;
-                // Cambia las ventas, para hacer en cadena los cambios.
-                ventas = getCache().getInt("libro."+id+".count");
-                save = true;
+            if(!a){
+                top.add(libros.get(i));
             }
         }
-        //Si no ha alacanzado el tamaño, y si es de más de un elemento, y cambió.
-        if(top.size() <= Strings.getInt("lib.topSize") && !save){
-            top.add(id);
-            save = true;
+        top = Lists.reverse(top);
+        int index = Strings.getInt("lib.topSize");
+        if(top.size() > index){
+            index = top.size();
         }
-        if(save){
-            getCache().set("top", top);
-            save();
-        }
+        top = top.subList(0, index-1);
+        getCache().set("top", top);
     }
     private double getRetributions(int id){
         double diff = getCache().getInt("libro."+id+".count")-getCache().getInt("libro."+id+".payed");
@@ -267,7 +261,9 @@ public class LibCommand extends Comando{
         getCache().set("libro."+id+".payed", getCache().getInt("libro."+id+".count"));
     }
     private void buyBook(Player jugador, int id){
-        jugador.getInventory().addItem(getBook(id));
+        for(ItemStack item: jugador.getInventory().addItem(getBook(id)).values()){
+            jugador.getWorld().dropItemNaturally(jugador.getLocation(), item);
+        }
         addCount(id, 1);
     }
     private ItemStack setBook(String autor, String title, List<String> pages){
@@ -313,7 +309,6 @@ public class LibCommand extends Comando{
     }
     private void setCount(int id, int v){
         getCache().set("libro."+id+".count", v);
-        top(id);
         save();
     }
     private int getCount(int id){
@@ -353,6 +348,7 @@ public class LibCommand extends Comando{
         return cache;
     }
     private void save(){
+        getCache().set("top", null);
         getFile().save(getCache());
     }
     private void load(){

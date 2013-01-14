@@ -29,6 +29,7 @@ public class CheckConfiguration {
         setPath("comm.lib.list", "list", "listar", "l");
         setPath("comm.lib.sell", "vender", "vende", "sell", "v", "s");
         setPath("comm.lib.pay", "paga", "pay", "p");
+        //setPath("comm.lib.comment", "comentar", "com", "comment");
         // Warps
         setPath("tw.info", "§aAyuda /tw",
                 "§e/tw §cn§euevo [minutos]§r Para crear un warp temporal personal.",
@@ -111,6 +112,7 @@ public class CheckConfiguration {
         setPath("lib.info", "§aAyuda /lib",
                 "§e/lib §cc§eomprar [id]§r Compra el libro indicado.",
                 "§e/lib §ci§enfo [id]§r Muestra la información del libro indicado.",
+                //"§e/lib §ccom§eentar [comentario]§r Comenta el libro que tienes en mano.",
                 "§e/lib §cl§eistar§r Muestra una lista de los libros disponibles.",
                 "§e/lib §ct§eop§r Muestra una lista de los 3 libros más vendidos.",
                 "§e/lib §cv§eender [precio]§r Vende el libro que tienes en mano.",
