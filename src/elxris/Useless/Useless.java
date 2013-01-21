@@ -1,5 +1,9 @@
 package elxris.Useless;
 
+import java.io.IOException;
+import org.bukkit.configuration.InvalidConfigurationException;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -7,6 +11,7 @@ import elxris.Useless.Commands.CompassCommand;
 import elxris.Useless.Commands.LibCommand;
 import elxris.Useless.Commands.MailBoxCommand;
 import elxris.Useless.Commands.MailBoxCreateCommand;
+import elxris.Useless.Commands.ShopCommand;
 import elxris.Useless.Commands.WarpCommand;
 import elxris.Useless.Listener.CommandListener;
 import elxris.Useless.Listener.CompassListener;
@@ -38,6 +43,8 @@ public class Useless extends JavaPlugin {
         getCommand("upin").setExecutor(new CompassCommand());
         //Comando Librería
         getCommand("lib").setExecutor(new LibCommand());
+        //Comando Tienda
+        getCommand("shop").setExecutor(new ShopCommand());
     }
     public static void log(String m){
         plugin.getLogger().info(m);
@@ -54,5 +61,14 @@ public class Useless extends JavaPlugin {
     public static void reload(){
         plugin.reloadConfig();
         new CheckConfiguration();
+    }
+    public static FileConfiguration getConfig(String path){
+        FileConfiguration fc = new YamlConfiguration();
+        try {
+            fc.load(plugin.getResource(path));
+            return fc;
+        } catch (IOException | InvalidConfigurationException e) {
+        }
+        return null;
     }
 }

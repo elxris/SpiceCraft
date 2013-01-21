@@ -1,0 +1,357 @@
+# Useles by elxris
+# Fork me on github: https://github.com/elxris/Useless
+comm:
+  tw:
+    new:
+    - nuevo
+    - n
+    destroy:
+    - destruir
+    - d
+    - eliminar
+    - e
+    - borrar
+    - b
+    list:
+    - listar
+    - lista
+    - list
+    - li
+    - l
+  mbox:
+    count:
+    - .
+    read:
+    - leer
+    - l
+    - read
+    - r
+    clear:
+    - borrar
+    - b
+    - clear
+    - c
+  mboxc:
+    new:
+    - nuevo
+    - n
+    - crear
+    - c
+    - new
+    add:
+    - agregar
+    - añadir
+    - a
+    - add
+    send:
+    - enviar
+    - e
+    - send
+    - s
+    sendall:
+    - atodos
+    - t
+    - sendall
+    - sa
+    clear:
+    - limpiar
+    - l
+    - clear
+    - cl
+  upin:
+    del:
+    - delete
+    - del
+    - delete
+    - borrar
+    - b
+    list:
+    - listar
+    - l
+    - list
+  lib:
+    del:
+    - delete
+    - del
+    - delete
+    - borrar
+    - b
+    buy:
+    - compra
+    - buy
+    - c
+    info:
+    - info
+    - i
+    top:
+    - top
+    - t
+    list:
+    - list
+    - listar
+    - l
+    sell:
+    - vender
+    - vende
+    - sell
+    - v
+    - s
+    pay:
+    - paga
+    - pay
+    - p
+  shop:
+    sell:
+    - sell
+    - s
+    - vender
+    - v
+tw:
+  info:
+  - §aAyuda /tw
+  - §e/tw §cn§euevo [minutos]§r Para crear un warp temporal personal.
+  - Recuerda que por cada minuto te cobrará %s.
+  - §e/tw §cn§euevo [nombre] [minutos]§r Hacer un warp temporal que cualquiera pueda usar.
+  - §e/tw [nombre]§r Para hacer uso de un warp temporal.
+  - §e/tw §cb§eorrar§r o §e/tw §cb§eorrar [nombre]§r Borra un warp personal o público si eres el dueño.
+  - §e/tw list§r Lista los warps públicos.
+  - §e/tw§r Muestra esta ayuda, o puede ser un comando rápido para un warp temporal personal.
+  s:
+    created:
+    - Warp Temporal de %d minutos creado.
+    - Usa §e/tw %s§r para usarlo.
+    remain:
+    - Quedan §4%d§r segundos para la destrucción de el warp temporal.
+    teleported:
+    - Teleportando..
+    destroyed:
+    - Warp Destruido.
+    noMoney:
+    - No puedes pagarte un warp temporal en este momento.
+    noExist:
+    - No existe el warp. §e/tw§r Para más info.
+    exist:
+    - Ya existe ese warp.
+    timeLimit:
+    - No debe ser menor a %d minutos ni mayor a %d minutos.
+    warpLimit:
+    - No puedes hacer otro warp, ya tienes muchos.
+    noOwner:
+    - No puedes borrar este warp, no es tuyo.
+    listHeader:
+    - '### Lista de warps públicos ###'
+    - '%s'
+    listItem:
+    - <%s:%s %s segundos restantes>
+  v:
+    maxTime:
+    - 120
+    minTime:
+    - 1
+    maxPerUser:
+    - 2
+    price:
+    - 10.0
+mbox:
+  info:
+  - §aAyuda /mbox
+  - §e/mbox . §rNumerar los correos que tienes.
+  - §e/mbox §cl§eeer §rLeer el correo.
+  - §e/mbox §cb§eorrar §rBorrar la bandeja de entrada.
+  - §e/mboxc §rAyuda para crear correos.
+  list:
+  - Tienes §e%d§r mensajes. §e/mbox§r Para más info.
+  mail:
+  - 'De: §a%s§r Fecha: %s'
+  - §b§o%s§r
+  - §e/mboxc §ce§enviar %s [Mensaje]§r para responder
+  timeago:
+  - 'Hace '
+  readStart:
+  - '§c### Inicio Bandeja de Correo ###'
+  readFinish:
+  - '§c### Fin Bandeja de Correo ###'
+  - Escribe §e/mbox §cb§eorrar§r para borrar la bandeja de entrada.
+  listEnd:
+  - Ya no tienes correos.
+  deleted:
+  - Mensajes eliminados.
+mboxc:
+  info:
+  - §aAyuda /mboxc
+  - Para crear un correo debes primero hacer un borrador para después agregar el mensaje.
+  - §e/mboxc §cn§eevo [Usuario] ... §rCrea un borrador con destinatario o destinatarios. Uno mínimo.
+  - §e/mboxc §ca§egregar [Mensaje] §rAgrega el mensaje a el correo.
+  - §e/mboxc §cb§eorrar §rBorra el mensaje.
+  - §e/mboxc §ce§enviar §rYa que tienes listo el mensaje, este comando lo envía.
+  - §e/mboxc §ce§enviar [Usuario] [Mensaje] §rComando rápido para enviar un mensaje.
+  - §e/mboxc a§ct§eodos§r (Solo Admins)Envía el mensaje a todos los usuarios.
+  noPlayerAdded:
+  - Ningún destinatario, por lo tanto mensaje no creado.
+  playerNotExist:
+  - El jugador %s no encontrado. No ha sido agregado.
+  catched:
+  - Mensaje recibido.
+  sended:
+  - Mensaje enviado.
+  limit:
+  - Lo siento, ya has superado el límite de 300 caracteres.
+  created:
+  - Borrador creado. §e/mboxc §ca§egregar <Mensaje>§r para añadir mensaje.
+  add:
+  - Mensaje añadido añade más con §e/mboxc a [mensaje] §e/mboxc §ce§enviar§r para enviar.
+  noMessage:
+  - §cPrimero debes crear un borrador. §e/mboxc para más ayuda.
+  v:
+    maxChar:
+    - 200
+upin:
+  info:
+  - §aAyuda /upin
+  - §e/upin [nombre] [x] [z]§r Para crear una posición que puede ser localizada con una brújula.
+  - §e/upin [nombre]§r Para usarla.
+  - §e/upin §cb§eorrar [nombre]§r Para borrarla si eres el dueño.
+  - §e/upin §cl§eistar§r Para ver todas las posiciones.
+  noPin:
+  - No existe la posicion.
+  exist:
+  - Ya existe esa posicion. Elige otra.
+  list:
+  - '§a### Lista de las posiciones ###'
+  - §b%s
+  item:
+  - '<%s: %s [%s][%s]> '
+  noList:
+  - §cNo hay posiciones. Aún.
+  created:
+  - Posición creada, úsala con §e/upin %s
+  set:
+  - La posición ahora se mostrará en un compás.
+  nether:
+  - §cDe nada sirve crear una posición aquí. No se mostrará.
+  del:
+  - Borrada la posición.
+  v:
+    maxPerUser:
+    - 3
+  limitPin:
+  - Ya tienes demasiadas posiciones, ya no puedes hacer más.
+lib:
+  info:
+  - §b[§cLIB§b] §aAYUDA
+  - §e/lib §cc§eomprar [id]§r Compra el libro indicado.
+  - §e/lib §ci§enfo [id]§r Muestra la información del libro indicado.
+  - §e/lib §cl§eistar§r Muestra una lista de los libros disponibles.
+  - §e/lib §ct§eop§r Muestra una lista de los 3 libros más vendidos.
+  - §e/lib §cv§eender [precio]§r Vende el libro que tienes en mano.
+  - §e/lib §cb§eorrar [id]§r Borra el libro indicado
+  - §e/lib §cp§eaga§r Cobra las retribuciones.
+  sell:
+  - Has vendido un libro.
+  buy:
+  - Has comprado un libro. Gracias.
+  send:
+  - Has enviado satisfactoriamente tu libro. Pronto ganarás dinero con tus habilidades retóricas.
+  noBook:
+  - No existe el libro.
+  bookInfo:
+  - §aFICHA DEL LIBRO
+  - '§bAutor: §c%s'
+  - '§bTítulo: §c%S'
+  - '§bPáginas: §c%d'
+  - '§bPrecio: §c%s'
+  - '§bVentas: §c%d'
+  noMoney:
+  - No tienes suficiente dinero para comprar un libro.
+  noHand:
+  - No tienes un libro en la mano para vender.
+  wrongAuthor:
+  - No eres el autor del libro.
+  pay:
+  - §eCon los libros [%s§e], has ganado §a%s.
+  noPay:
+  - No tienes retribuciones.
+  list:
+  - '###Lista de libros###'
+  itemMe:
+  - '§d[%d] ::%s:: <%s>{%s}'
+  item:
+  - '§b[%d] ::%s:: <%s>{%s}'
+  top:
+  - '###Top Libros###'
+  topItem:
+  - '%d.- %s'
+  del:
+  - Has borrado el libro satisfactoriamente.
+  repeated:
+  - Está repetido. ¿Acaso quieres engañar a tus lectores?
+  isNotABook:
+  - Lo que tienes en tu mano no es un libro.
+  topSize:
+  - 3
+  percent:
+  - 50
+shop:
+  info:
+  - "§b[§cSHOP§b] §aAYUDA"
+  - "§e/shop [item] §rMuestra la información de un item."
+  itemInfo:
+  - "§aInfo §d%s"
+  - "§bPrecio: §a%s §ela unidad."
+  - "§bProducción: §a%s"
+  - "§bID: §a%s"
+  shoped:
+  - "§aGracias por tu compra."
+  notExist:
+  - "§cNo existe el item en la tienda."
+  noMoney:
+  - "§cNo tienes suficiente dinero para comprar."
+cmd:
+  reload:
+  - Reload de comandos y configuraciones completo!
+alert:
+  notsaved:
+  - 'Error, no se ha podido guardar: '
+  noEconomy:
+  - No hay plugin de economía. Se cobrará con puntos de experiencia.
+  error:
+  - §cError al usar el comando. Revisa la ayuda.
+  noInteger:
+  - Tienes que ingresar valor/es enteros.
+  permission:
+  - No tienes permiso de usar este comando.
+  positive:
+  - Sólo son admitidos valores positivos.
+f:
+  units:
+  - mes
+  - meses
+  - dia
+  - dias
+  - hora
+  - horas
+  - minuto
+  - minutos
+  - segundo
+  - segundos
+  months:
+  - Enero
+  - Febrero
+  - Marzo
+  - Abril
+  - Mayo
+  - Junio
+  - Julio
+  - Agosto
+  - Septiembre
+  - Octubre
+  - Noviembre
+  - Diciembre
+exp:
+  format:
+  - '%d puntos de experiencia'
+econ:
+  cobrar:
+  - Cobrando %s.
+  pagar:
+  - Pagando %s.

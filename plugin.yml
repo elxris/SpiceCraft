@@ -1,5 +1,5 @@
 name: Useless
-version: 0.7.8
+version: 0.8
 main: elxris.Useless.Useless
 commands:
     tw:
@@ -22,6 +22,10 @@ commands:
         description: Funciona como una libreria.
         usage: /lib
         premission: useless.lib
+    shop:
+        description: Funciona como una libreria.
+        usage: /shop
+        premission: useless.shop
 permissions:
     useless.tw:
         default: true
@@ -52,4 +56,6 @@ permissions:
     useless.lib.buy:
         default: true
     useless.lib.sell:
+        default: true
+    useless.shop:
         default: true

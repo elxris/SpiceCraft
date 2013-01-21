@@ -1,0 +1,318 @@
+full: 1728
+vel: 8
+freq: 60
+item:
+  Stone:
+    id: 1
+    price: 1
+  Grass:
+    id: 2
+    price: 1
+  Dirt:
+    id: 3
+    price: 1
+  Cobblestone:
+    id: 4
+    price: 1
+  OakPlank:
+    id: 5
+    price: 1
+    data: 0
+  SprucePlank:
+    id: 5
+    price: 1
+    data: 1
+  BirchPlank:
+    id: 5
+    price: 1
+    data: 2
+  JunglePlank:
+    id: 5
+    price: 1
+    data: 3
+  OakSapling:
+    id: 6
+    price: 1
+    data: 0
+  SpruceSapling:
+    id: 6
+    price: 1
+    data: 1
+  BirchSapling:
+    id: 6
+    price: 1
+    data: 2
+  JungleSapling:
+    id: 6
+    price: 1
+    data: 3
+  Sand:
+    id: 12
+    price: 3
+  Gravel:
+    id: 13
+    price: 1
+  OackWood:
+    id: 17
+    price: 1
+    data: 0
+  SpruceWood:
+    id: 17
+    price: 1
+    data: 1
+  BirchWood:
+    id: 17
+    price: 1
+    data: 2
+  JungleWood:
+    id: 17
+    price: 1
+    data: 3
+  Sponge:
+    id: 19
+    price: 8000
+  Glass:
+    id: 20
+    price: 8
+  Dispenser:
+    id: 23
+    price: 30
+  Sandstone:
+    id: 24
+    price: 15
+    data: 0
+  SandstoneChiseled:
+    id: 24
+    price: 15
+    data: 1
+  SandstoneSmooth:
+    id: 24
+    price: 15
+    data: 2
+  NoteBlock:
+    id: 25
+    price: 100
+  Piston:
+    id: 33
+    price: 200
+  StickyPiston:
+    id: 29
+    price: 250
+  Cobweb:
+    id: 30
+    price: 30
+  Wool:
+    id: 35
+    price: 5
+    data: 0
+  OrangeWool:
+    id: 35
+    price: 5
+    data: 1
+  MagentaWool:
+    id: 35
+    price: 5
+    data: 2
+  LightBlueWool:
+    id: 35
+    price: 5
+    data: 3
+  YellowWool:
+    id: 35
+    price: 5
+    data: 4
+  LimeWool:
+    id: 35
+    price: 5
+    data: 5
+  PinkWool:
+    id: 35
+    price: 5
+    data: 6
+  GrayWool:
+    id: 35
+    price: 5
+    data: 7
+  LightGrayWool:
+    id: 35
+    price: 5
+    data: 8
+  CyanWool:
+    id: 35
+    price: 5
+    data: 9
+  PurpleWool:
+    id: 35
+    price: 5
+    data: 10
+  BlueWool:
+    id: 35
+    price: 5
+    data: 11
+  BrownWool:
+    id: 35
+    price: 5
+    data: 12
+  GreenWool:
+    id: 35
+    price: 5
+    data: 13
+  RedWool:
+    id: 35
+    price: 5
+    data: 14
+  BlackWool:
+    id: 35
+    price: 5
+    data: 15
+  YellowFlower:
+    id: 37
+    price: 3
+    data: 0
+  RedFlower:
+    id: 38
+    price: 3
+  BrownMushroom:
+    id: 39
+    price: 5
+  RedMushroom:
+    id: 40
+    price: 5
+  BrickWall:
+    id: 45
+    price: 15
+  Bookshelf:
+    id: 47
+    price: 100
+  MossStone:
+    id: 48
+    price: 100
+  Obsidian:
+    id: 49
+    price: 100
+  Torch:
+    id: 50
+    price: 4
+  Chest:
+    id: 54
+    price: 8
+  Ladders:
+    id: 65
+    price: 5
+  RedstoneTorch:
+    id: 76
+    price: 20
+  Ice:
+    id: 79
+    price: 15
+  SnowBlock:
+    id: 80
+    price: 15
+  Cactus:
+    id: 81
+    price: 20
+  JukeBox:
+    id: 84
+    price: 900
+  Fence:
+    id: 85
+    price: 10
+  Pumpkin:
+    id: 86
+    price: 50
+  Netherrack:
+    id: 87
+    price: 10
+  SoulSand:
+    id: 88
+    price: 15
+  GlowstoneBlock:
+    id: 89
+    price: 30
+  StoneBrick:
+    id: 98
+    price: 2
+  IronBars:
+    id: 101
+    price: 150
+  Glasspane:
+    id: 102
+    price: 5
+  Melon:
+    id: 103
+    price: 12
+  Vines:
+    id: 106
+    price: 10
+  Mycelium:
+    id: 110
+    price: 600
+  LilyPad:
+    id: 111
+    price: 50
+  NetherBrick:
+    id: 112
+    price: 50
+  NetherFence:
+    id: 113
+    price: 50
+  EnchantmentTable:
+    id: 116
+    price: 3000
+  EndPortalFrame:
+    id: 120
+    price: 400
+  EndStone:
+    id: 121
+    price: 50
+  DragonEgg:
+    id: 122
+    price: 12000
+  RedstoneLamp:
+    id: 123
+    price: 50
+  Beacon:
+    id: 138
+    price: 8000
+  CobblestoneWall:
+    id: 139
+    price: 10
+alt:
+  Piedra: "Stone"
+  Pasto: "Grass"
+  Tierra: "Dirt"
+  Plank: "OakPlank"
+  Sapling: "SpruceSapling"
+  Arena: "Sand"
+  Grava: "Gravel"
+  Wood: "OackWood"
+  Esponja: "Sponge"
+  Vidrio: "Glass"
+  Dispensador: "Dispenser"
+  Sandstone2: "SandstoneChiseled"
+  Sandstone3: "SandstoneSmooth"
+  Nota: "NoteBlock"
+  Telaraña: "Cobweb"
+  Lana: "Wool"
+  LanaNaranja: "OrangeWool"
+  LanaMagenta: "MagentaWool"
+  LanaAzulCielo: "LightBlueWool"
+  LanaAmarilla: "YellowWool"
+  LanaLima: "LimeWool"
+  LanaRosa: "PinkWool"
+  LanaGris: "GrayWool"
+  LanaGrisClaro: "LightGrayWool"
+  LanaCian: "CyanWool"
+  LanaPurpura: "PurpleWool"
+  LanaAzul: "BlueWool"
+  LanaCafe: "BrownWool"
+  LanaVerde: "GreenWool"
+  LanaRoja: "RedWool"
+  LanaNegra: "BlackWool"
+  Flower: "YellowFlower"
+  Flor: "YellowFlower"
+  Rose: "RedFlower"
+  Rosa: "RedFlower"
+  Mushroom: "BrownMushroom"
+  HongoCafe: "BrownMushroom"
+  HongoRojo: "RedMushroom"  
