@@ -1,5 +1,7 @@
 package elxris.Useless;
 
+import java.util.List;
+
 import org.bukkit.configuration.file.FileConfiguration;
 
 import elxris.Useless.Utils.Archivo;
@@ -8,7 +10,6 @@ public class CheckConfiguration {
     private boolean changed = false;
     public CheckConfiguration() {
         init();
-        update();
         // Guarda el archivo de configuración.
         isChanged();
     }
@@ -19,8 +20,14 @@ public class CheckConfiguration {
             file.save(defaults);
             p().reloadConfig();
         }
-        // TODO Procesar los default de distinta manera para iniciarlos si no existen.
-        p().getConfig().setDefaults(defaults);
+        update();
+        register(defaults);
+    }
+    // Registra las configuraciones que no existan en el config.yml del cliente.
+    private void register(FileConfiguration fc){
+        for(String s: fc.getKeys(true)){
+            setDef(s, fc.get(s));
+        }
     }
     private void update() {
         String prev;
@@ -34,14 +41,21 @@ public class CheckConfiguration {
             delPath("lib.item");
             delPath("lib.itemMe");
             prev = "0.7.7b";
+            delPath("v");
         }
-        delPath("v");
         setPath("v", Useless.getVersion());
     }
     private void setPath(String path, Object... v){
         if(!p().getConfig().isSet(path)){
             p().getConfig().set(path, v);
             changed();
+        }
+    }
+    private void setDef(String path, Object v){
+        if(v instanceof List){
+            setPath(path, ((List<?>) v).toArray());
+        }else{
+            setPath(path, v);
         }
     }
     private void delPath(String path){
