@@ -278,7 +278,7 @@ item:
     price: 1
   IronBars:
     id: 101
-    price: 150
+    price: 100
   Glasspane:
     id: 102
     price: 1.2
@@ -329,15 +329,15 @@ item:
     price: 9300
   FlintAndSteel:
     id: 259
-    price: 1
+    price: 300
   Apple:
     id: 260
-    price: 1
+    price: 10
   Arrow:
     id: 262
-    price: 1
+    price: 5
   Coal:
-    id: 
+    id: 263
     price: 1
   Diamond:
     id: 264
@@ -367,7 +367,7 @@ item:
     id: 296
     price: 8
   Bread:
-    id: 
+    id: 297
     price: 24
   ChainHelmet:
     id: 302
@@ -386,402 +386,393 @@ item:
     price: 8
   RawPorkchop:
     id: 319
-    price: 1
+    price: 4
   CookedPorckchop:
     id: 320
-    price: 1
+    price: 5
   Painting:
     id: 321
-    price: 1
+    price: 10
   GoldenApple:
     id: 322
-    price: 1
+    price: 4800
   Sign:
     id: 323
-    price: 1
+    price: 2
   WoodenDoor:
     id: 324
-    price: 1
+    price: 2
   Bucket:
     id: 325
-    price: 1
+    price: 900
   WaterBucket:
     id: 326
-    price: 1
+    price: 900
   LavaBucket:
     id: 327
-    price: 1
+    price: 900
   Minecart:
     id: 328
-    price: 1
+    price: 1800
   Saddle:
     id: 329
-    price: 1
+    price: 25
   IronDoor:
     id: 330
-    price: 1
+    price: 1800
   Redstone:
     id: 331
-    price: 1
+    price: 50
   Snowball:
     id: 332
     price: 1
   Boat:
     id: 333 
-    price: 1
+    price: 2
   Leather:
     id: 334
-    price: 1
+    price: 15
   Milk:
     id: 335
-    price: 1
+    price: 900
   Brick:
     id: 336
-    price: 1
+    price: 4
   Clay:
     id: 337
-    price: 1
+    price: 4
   SugarCanes:
     id: 338
-    price: 1
+    price: 3
   Paper:
     id: 339
-    price: 1
+    price: 9
   Book:
     id: 340
-    price: 1
+    price: 40
   Slimeball:
     id: 341
-    price: 1
+    price: 15
   Egg:
     id: 344
-    price: 1
+    price: 50
   Compass:
     id: 345
-    price: 1
+    price: 1000
   FishingRod:
     id: 346
-    price: 1
+    price: 60
   Clock:
     id: 347 
-    price: 1
+    price: 1300
   GlowtoneDust:
     id: 348
-    price: 1
+    price: 10
   RawFish:
     id: 349
-    price: 1
+    price: 15
   CookedFish:
     id: 350
-    price: 1
+    price: 17
   InkSac:
     id: 351
-    price: 1
+    price: 30
     data: 0
   RoseRed:
     id: 351
-    price: 1
+    price: 30
     data: 1
   CactusGreen:
     id: 351
-    price: 1
+    price: 30
     data: 2
   CocoaBeans:
     id: 351
-    price: 1
+    price: 30
     data: 3
   LapisLazuli:
     id: 351
-    price: 1
+    price: 30
     data: 4
   PurpleDye:
     id: 351
-    price: 1
+    price: 30
     data: 5
   CyanDye:
     id: 351
-    price: 1
+    price: 30
     data: 6
   LightGrayDye:
     id: 351
-    price: 1
+    price: 30
     data: 7
   GrayDye:
     id: 351
-    price: 1
+    price: 30
     data: 8
   PinkDye:
     id: 351
-    price: 1
+    price: 30
     data: 9
   LimeDye:
     id: 351
-    price: 1
+    price: 30
     data: 10
   DandelionYellow:
     id: 351
-    price: 1
+    price: 30
     data: 11
   LightBlueDye:
     id: 351
-    price: 1
+    price: 30
     data: 12
   MagentaDye:
     id: 351
-    price: 1
+    price: 30
     data: 13
   OrangeDye:
     id: 351
-    price: 1
+    price: 30
     data: 14
   BoneMeal:
     id: 351
-    price: 1
+    price: 30
     data: 15
   Bone:
     id: 352
-    price: 1
+    price: 10
   Sugar:
     id: 353 
-    price: 1
+    price: 10
   Cake:
     id: 354
-    price: 1
+    price: 100
   Bed:
     id: 355
-    price: 1
+    price: 15
   RedstoneRepeater:
     id: 356
-    price: 1
+    price: 150
   Cookie:
     id: 357
-    price: 1
-  Map:
-    id: 358
-    price: 1
+    price: 10
   Shears:
     id: 359
-    price: 1
+    price: 800
   MelonSlice:
     id: 360
-    price: 1
+    price: 
   PumpkinSeeds:
     id: 361
-    price: 1
+    price: 10
   MelonSeeds:
     id: 362
-    price: 1
+    price: 10
   RawBeef:
     id: 363
-    price: 1
+    price: 10
   Steak:
     id: 364
-    price: 1
+    price: 11
   RawChicken:
     id: 365
-    price: 1
+    price: 15
   CookedChiken:
     id: 366
-    price: 1
+    price: 16
   RottenFlesh:
     id: 367
-    price: 1
+    price: .5
   EnderPearl:
     id: 368
-    price: 1
+    price: 500
   BlazeRod:
     id: 369
-    price: 1
+    price: 75
   GhastTear:
     id: 370
-    price: 1
+    price: 75
   GoldNugget:
     id: 371
-    price: 1
+    price: 40
   NetherWart:
     id: 372
-    price: 1
+    price: 50
   GlassBottle:
     id: 374
-    price: 1
+    price: 25
   SpiderEye:
     id: 375
-    price: 1
+    price: 70
   FermentedSpiderEye:
     id: 376
-    price: 1
-  BlazePowder:
-    id: 377
-    price: 1
+    price: 71
   MagmaCream:
     id: 378
-    price: 1
+    price: 75
   BrewingStand:
     id: 379
-    price: 1
+    price: 80
   Cauldron:
     id: 380
-    price: 1
+    price: 2100
   EyeEnder:
     id: 381
-    price: 1
+    price: 200
   GlisteringMelon:
     id: 382
-    price: 1
+    price: 60
   CreeperEgg:
     id: 383
-    price: 1
+    price: 150
     data: 50
   SkeletonEgg:
     id: 383
-    price: 1
+    price: 150
     data: 51
   SpiderEgg:
     id: 383
-    price: 1
+    price: 150
     data: 52
   ZombieEgg:
     id: 383
-    price: 1
+    price: 150
     data: 54
   SlimeEgg:
     id: 383
-    price: 1
+    price: 150
     data: 55
   GhastEgg:
     id: 383
-    price: 1
+    price: 150
     data: 56
   ZombiePigmanEgg:
     id: 383
-    price: 1
+    price: 150
     data: 57
   EndermanEgg:
     id: 383
-    price: 1
+    price: 150
     data: 58
   CaveSpiderEgg:
     id: 383
-    price: 1
+    price: 150
     data: 59
   SilverfishEgg:
     id: 383
-    price: 1
+    price: 150
     data: 60
   BlazeEgg:
     id: 383
-    price: 1
+    price: 150
     data: 61
   MagmaCubeEgg:
     id: 383
-    price: 1
+    price: 150
     data: 62
   WitchEgg:
     id: 383
-    price: 1
+    price: 150
     data: 66
   BatEgg:
     id: 383
-    price: 1
+    price: 150
     data: 65
   PigEgg:
     id: 383
-    price: 1
+    price: 150
     data: 90
   SheepEgg:
     id: 383
-    price: 1
+    price: 150
     data: 91
   CowEgg:
     id: 383
-    price: 1
+    price: 150
     data: 92
   ChickenEgg:
     id: 383
-    price: 1
+    price: 150
     data: 93
   SquidEgg:
     id: 383
-    price: 1
+    price: 150
     data: 94
   WolfEgg:
     id: 383
-    price: 1
+    price: 150
     data: 95
   MooshroomEgg:
     id: 383
-    price: 1
+    price: 150
     data: 96
   OcelotEgg:
     id: 383
-    price: 1
+    price: 150
     data: 98
   VillagerEgg:
     id: 383
-    price: 1
+    price: 150
     data: 120
   BookAndQuill:
     id: 386
-    price: 1
+    price: 150
   Book:
     id: 387
-    price: 1
+    price: 400
   Emerald:
     id: 388
-    price: 1
+    price: 1000
   ItemFrame:
     id: 389
-    price: 1
+    price: 70
   FlowerPot:
     id: 390
-    price: 1
+    price: 30
   Carrot:
     id: 391
-    price: 1
+    price: 7
   Potato:
     id: 392
-    price: 1
+    price: 8
   BakedPotato:
     id: 393
-    price: 1
+    price: 8.25
   EmptyMap:
     id: 395
-    price: 1
+    price: 600
   GoldenCarrot:
     id: 396
-    price: 1
+    price: 1200
   SkeletonHead:
     id: 397
-    price: 1
+    price: 600
     data: 0
   WitherHead:
     id: 397
-    price: 1
+    price: 600
     data: 1
   ZombieHead:
     id: 397
-    price: 1
+    price: 600
     data: 2
   HumanHead:
     id: 397
-    price: 1
+    price: 600
     data: 3
   CreeperHead:
     id: 397
-    price: 1
+    price: 600
     data: 4
   CarrotOnAStick:
     id: 398
-    price: 1
+    price: 100
   NetherStar:
     id: 399
-    price: 1
+    price: 15000
   PumpkinPie:
     id: 400
-    price: 1
-  Rocket:
-    id: 401
-    price: 1
+    price: 400
 alt:
   Piedra: "Stone"
   Pasto: "Grass"
@@ -820,4 +811,65 @@ alt:
   Rosa: "RedFlower"
   Mushroom: "BrownMushroom"
   HongoCafe: "BrownMushroom"
-  HongoRojo: "RedMushroom"  
+  HongoRojo: "RedMushroom"
+  BloqueOro: "BlockGold"
+  BloqueHierro: "BlockIron"
+  Pared: "BrickWall"
+  Libreria: "Bookshelf"
+  Obsidiana: "Obsidian"
+  Antorcha: "Torch"
+  Cofre: "Chest"
+  BloqueDiamante: "BlockDiamond"
+  Horno: "Funrnance"
+  Esalera: "Ladders"
+  Vias: "Rails"
+  AntorchaRedstone: "RedstoneTorch"
+  Nieve: "Snow"
+  Hielo: "Ice"
+  BloqueNieve: "SnowBlock"
+  Arcilla: "Clay"
+  Calabaza: "Pumpkin"
+  RejaHierro: "IronBars"
+  PanelVidrio: "Glasspane"
+  Manzana: "Apple"
+  Flecha: "Arrow"
+  Carbon: "Coal"
+  Diamante: "Diamond"
+  Hierro: "Iron"
+  Oro: "Gold"
+  Stew: "MushroomStew"
+  Sopa: "MushroomStew"
+  Hilo: "String"
+  Pluma: "Feather"
+  Polvora: "Gunpowder"
+  Semillas: "Seeds"
+  Trigo: "Wheat"
+  Pan: "Bread"
+  ManzanaOro: "GoldenApple"
+  Cubeta: "Bucket"
+  Water: "WaterBucket"
+  Lava: "LavaBucket"
+  BolaNieve: "Snowball"
+  Bote: "Boat"
+  Caña: "SugarCanes"
+  Papel: "Paper"
+  Libro: "Book"
+  Huevo: "Egg"
+  Pescado: "RawFish"
+  Hueso: "Bone"
+  Azucar: "Sugar"
+  Paste: "Cake"
+  Cama: "Bed"
+  Galleta: "Cookie"
+  Tijeras: "Shears"
+  Carne: "Steak"
+  PolloCrudo: "RawChicken"
+  PolloRostizado: "CookedChiken"
+  Lagrima: "GhastTear"
+  OjoAraña: "SpiderEye"
+  Esmeralda: "Emerald"
+  Zanahoria: "Carrot"
+  Patata: "Potato"
+  Papa: "Potato"
+  MapaVacio: "EmptyMap"
+  

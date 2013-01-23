@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -200,6 +201,10 @@ public class Factory {
         String name = searchItem(String.valueOf(p.getItemInHand().getTypeId())); 
         if(name == null){
             Chat.mensaje(p, "shop.notExist");
+            return;
+        }
+        if(p.getGameMode() == GameMode.CREATIVE){
+            Chat.mensaje(p, "shop.creative");
             return;
         }
         addCount(name, p.getItemInHand().getAmount());

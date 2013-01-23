@@ -319,6 +319,8 @@ shop:
   - "§cNo existe el item en la tienda."
   noMoney:
   - "§cNo tienes suficiente dinero para comprar."
+  creative:
+  - "§cEstás en creativo, eso es tampa."
   sellRate:
   - .9
 cmd:
