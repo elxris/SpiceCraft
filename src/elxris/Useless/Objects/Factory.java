@@ -14,6 +14,7 @@ import elxris.Useless.Useless;
 import elxris.Useless.Utils.Archivo;
 import elxris.Useless.Utils.Chat;
 import elxris.Useless.Utils.Econ;
+import elxris.Useless.Utils.Strings;
 
 public class Factory {
     private static Archivo file;
@@ -109,14 +110,12 @@ public class Factory {
     public int getData(String item){
         return getCache().getInt("item."+item+".data");
     }
-    public String searchItem(Player p, String s){
+    public String searchItem(String s){
         makePaths();
         if(getCache().isSet("paths."+s.toLowerCase())){
             String res = getCache().getString("paths."+s.toLowerCase());
             update(res);
             return res;
-        }else{
-            Chat.mensaje(p, "shop.notExist");
         }
         return null;
     }
@@ -168,7 +167,8 @@ public class Factory {
     }
     // Comandos de la tienda.
     public void shop(Player p, String item, int cantidad){
-        if(searchItem(p, item) == null){
+        if(searchItem(item) == null){
+            Chat.mensaje(p, "shop.notExist");
             return;
         }
         Econ econ = new Econ();
@@ -185,6 +185,27 @@ public class Factory {
         for(ItemStack item: p.getInventory().addItem(itemsArray).values()){
             p.getWorld().dropItemNaturally(p.getLocation(), item);
         }
+    }
+    public List<String> lookItems(String item){
+        List<String> items = new ArrayList<String>();
+        makePaths();
+        for(String s: getCache().getConfigurationSection("paths").getKeys(false)){
+            if(s.matches("(.*)("+item.toLowerCase()+")(.*)")){
+                items.add(s);
+            }
+        }
+        return items;
+    }
+    public void sell(Player p){
+        String name = searchItem(String.valueOf(p.getItemInHand().getTypeId())); 
+        if(name == null){
+            Chat.mensaje(p, "shop.notExist");
+            return;
+        }
+        addCount(name, p.getItemInHand().getAmount());
+        new Econ().pagar(p, getPrecio(name, p.getItemInHand().getAmount())*Strings.getDouble("shop.sellRate"));
+        p.setItemInHand(null);
+        save();
     }
     // Gestion de archivos.
     private static void setFile(String path){

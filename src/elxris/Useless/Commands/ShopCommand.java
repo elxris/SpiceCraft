@@ -1,11 +1,14 @@
 package elxris.Useless.Commands;
 
+import java.util.List;
+
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import elxris.Useless.Objects.Factory;
 import elxris.Useless.Utils.Econ;
+import elxris.Useless.Utils.Strings;
 
 public class ShopCommand extends Comando{
     public Factory f;
@@ -18,23 +21,37 @@ public class ShopCommand extends Comando{
             return false;
         }
         Player p = (Player)player;
-        if(args.length == 0){
-            mensaje(p, "shop.info");
+        if(args.length == 0){ // Info
+            mensaje(p, "shop.info", Strings.getDouble("shop.sellRate")*100+"%");
         }else
         if(args.length == 1){
-            String item = f.searchItem(p, args[0]);
-            if(item != null){
-                mensaje(p, "shop.itemInfo", item, new Econ().getPrecio(f.getPrecio(item)),
-                        f.getVel(item), f.getId(item));
-            }else{
-                mensaje(p, "shop.noExist");
+            if(isCommand("comm.shop.sell", args[0])){ // Vender
+                f.sell(p);
+            }else{ // Item info.
+                String item = f.searchItem(args[0]);
+                if(item != null){
+                    showItemInfo(p, item);
+                }else{
+                    mensaje(p, "shop.notExist");
+                }
             }
         }else
         if(args.length == 2){
-            if(isCommand("comm.shop.sell", args[0])){
-                // TODO comando venta.
+            if(isCommand("comm.shop.search", args[0])){ // Buscar
+                List<String> items = f.lookItems(args[1]);
+                if(items.size() == 0){
+                    mensaje(p, "shop.notExist");
+                }else if(items.size() == 1){
+                    showItemInfo(p, f.searchItem(items.get(0)));
+                }else{
+                    for(int i = 0; i < items.size(); i++){
+                        items.set(i, String.format(Strings.getString("shop.searchItem"), items.get(i)));
+                    }
+                    mensaje(p, "shop.searchHead", args[1]);
+                    mensaje(p, items);
+                }
             }else{
-                String item = f.searchItem(p, args[0]);
+                String item = f.searchItem(args[0]);
                 if(item != null){
                     if(!isInteger(args[1])){
                         mensaje(p, "alert.noInteger");
@@ -43,11 +60,14 @@ public class ShopCommand extends Comando{
                     f.shop(p, item, Integer.parseInt(args[1]));
                     mensaje(p, "shop.shoped");
                 }else{
-                    mensaje(p, "shop.noExist");
+                    mensaje(p, "shop.notExist");
                 }
             }
         }
         return true;
     }
-
+    public void showItemInfo(Player p, String item){
+        mensaje(p, "shop.itemInfo", item, new Econ().getPrecio(f.getPrecio(item)),
+                f.getVel(item), f.getId(item));
+    }
 }

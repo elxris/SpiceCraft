@@ -7,100 +7,118 @@ item:
     price: 1
   Grass:
     id: 2
-    price: 1
+    price: 10
   Dirt:
     id: 3
     price: 1
   Cobblestone:
     id: 4
-    price: 1
+    price: 2
   OakPlank:
     id: 5
-    price: 1
+    price: 1.2
     data: 0
   SprucePlank:
     id: 5
-    price: 1
+    price: 1.2
     data: 1
   BirchPlank:
     id: 5
-    price: 1
+    price: 1.2
     data: 2
   JunglePlank:
     id: 5
-    price: 1
+    price: 0.8
     data: 3
   OakSapling:
     id: 6
-    price: 1
+    price: 2
     data: 0
   SpruceSapling:
     id: 6
-    price: 1
+    price: 2
     data: 1
   BirchSapling:
     id: 6
-    price: 1
+    price: 2
     data: 2
   JungleSapling:
     id: 6
-    price: 1
+    price: 2
     data: 3
   Sand:
     id: 12
-    price: 3
+    price: 5
   Gravel:
     id: 13
-    price: 1
+    price: 8
   OackWood:
     id: 17
-    price: 1
+    price: 4.8
     data: 0
   SpruceWood:
     id: 17
-    price: 1
+    price: 4.8
     data: 1
   BirchWood:
     id: 17
-    price: 1
+    price: 4.8
     data: 2
   JungleWood:
     id: 17
-    price: 1
+    price: 3.2
     data: 3
+  Leaves:
+    id: 18
+    price: 1
   Sponge:
     id: 19
-    price: 8000
+    price: 10
   Glass:
     id: 20
-    price: 8
+    price: 7.5
+  LapisBlock:
+    id: 22
+    price: 900
   Dispenser:
     id: 23
-    price: 30
+    price: 20
   Sandstone:
     id: 24
-    price: 15
+    price: 21
     data: 0
   SandstoneChiseled:
     id: 24
-    price: 15
+    price: 22
     data: 1
   SandstoneSmooth:
     id: 24
-    price: 15
+    price: 23
     data: 2
   NoteBlock:
     id: 25
-    price: 100
+    price: 5
+  PoweredRail:
+    id: 27
+    price: 800
+  DetectorRail:
+    id: 28
+    price: 400
   Piston:
     id: 33
-    price: 200
+    price: 300
   StickyPiston:
     id: 29
-    price: 250
+    price: 400
   Cobweb:
     id: 30
-    price: 30
+    price: 100
+  TallGrass:
+    id: 31
+    price: 50
+  DeadBush:
+    id: 32
+    price: 50
   Wool:
     id: 35
     price: 5
@@ -168,40 +186,60 @@ item:
   YellowFlower:
     id: 37
     price: 3
-    data: 0
   RedFlower:
     id: 38
-    price: 3
+    price: 4
   BrownMushroom:
     id: 39
     price: 5
   RedMushroom:
     id: 40
     price: 5
+  BlockGold:
+    id: 41
+    price: 7200
+  BlockIron:
+    id: 42
+    price: 2700
   BrickWall:
     id: 45
-    price: 15
+    price: 16
+  TNT:
+    id: 46
+    price: 100
   Bookshelf:
     id: 47
-    price: 100
+    price: 300
   MossStone:
     id: 48
-    price: 100
+    price: 350
   Obsidian:
     id: 49
-    price: 100
+    price: 300
   Torch:
     id: 50
-    price: 4
+    price: 1.3
   Chest:
     id: 54
-    price: 8
+    price: 10
+  BlockDiamond:
+    id: 57
+    price: 9000
+  Furnance:
+    id: 61
+    price: 7
   Ladders:
     id: 65
-    price: 5
+    price: 0.6
+  Rails:
+    id: 66
+    price: 300
   RedstoneTorch:
     id: 76
-    price: 20
+    price: 75
+  Snow:
+    id: 78
+    price: 1
   Ice:
     id: 79
     price: 15
@@ -211,12 +249,15 @@ item:
   Cactus:
     id: 81
     price: 20
+  Clay:
+    id: 82
+    price: 15
   JukeBox:
     id: 84
-    price: 900
+    price: 1000
   Fence:
     id: 85
-    price: 10
+    price: 7
   Pumpkin:
     id: 86
     price: 50
@@ -228,28 +269,31 @@ item:
     price: 15
   GlowstoneBlock:
     id: 89
-    price: 30
-  StoneBrick:
+    price: 40
+  MonsterEgg:
+    id: 97
+    price: 800
+  StoneBricks:
     id: 98
-    price: 2
+    price: 1
   IronBars:
     id: 101
     price: 150
   Glasspane:
     id: 102
-    price: 5
+    price: 1.2
   Melon:
     id: 103
-    price: 12
+    price: 15
   Vines:
     id: 106
-    price: 10
+    price: 2
   Mycelium:
     id: 110
-    price: 600
+    price: 800
   LilyPad:
     id: 111
-    price: 50
+    price: 20
   NetherBrick:
     id: 112
     price: 50
@@ -258,25 +302,486 @@ item:
     price: 50
   EnchantmentTable:
     id: 116
-    price: 3000
+    price: 1500
   EndPortalFrame:
     id: 120
-    price: 400
+    price: 16000
   EndStone:
     id: 121
-    price: 50
+    price: 100
   DragonEgg:
     id: 122
     price: 12000
   RedstoneLamp:
     id: 123
     price: 50
+  BlockEmerald:
+    id: 133
+    price: 13500
   Beacon:
     id: 138
     price: 8000
   CobblestoneWall:
     id: 139
-    price: 10
+    price: 2
+  Anvil:
+    id: 145
+    price: 9300
+  FlintAndSteel:
+    id: 259
+    price: 1
+  Apple:
+    id: 260
+    price: 1
+  Arrow:
+    id: 262
+    price: 1
+  Coal:
+    id: 
+    price: 1
+  Diamond:
+    id: 264
+    price: 1000
+  Iron:
+    id: 265
+    price: 300
+  Gold:
+    id: 266
+    price: 600
+  MushroomStew:
+    id: 282 
+    price: 3
+  String:
+    id: 287
+    price: 2
+  Feather:
+    id: 288
+    price: 3
+  Gunpowder:
+    id: 289
+    price: 12
+  Seeds:
+    id: 295
+    price: 1
+  Wheat:
+    id: 296
+    price: 8
+  Bread:
+    id: 
+    price: 24
+  ChainHelmet:
+    id: 302
+    price: 1300
+  ChainChestplate:
+    id: 303
+    price: 2300
+  ChainLeggings:
+    id: 304
+    price: 1300
+  ChainBoots:
+    id: 305
+    price: 1000
+  Flint:
+    id: 318
+    price: 8
+  RawPorkchop:
+    id: 319
+    price: 1
+  CookedPorckchop:
+    id: 320
+    price: 1
+  Painting:
+    id: 321
+    price: 1
+  GoldenApple:
+    id: 322
+    price: 1
+  Sign:
+    id: 323
+    price: 1
+  WoodenDoor:
+    id: 324
+    price: 1
+  Bucket:
+    id: 325
+    price: 1
+  WaterBucket:
+    id: 326
+    price: 1
+  LavaBucket:
+    id: 327
+    price: 1
+  Minecart:
+    id: 328
+    price: 1
+  Saddle:
+    id: 329
+    price: 1
+  IronDoor:
+    id: 330
+    price: 1
+  Redstone:
+    id: 331
+    price: 1
+  Snowball:
+    id: 332
+    price: 1
+  Boat:
+    id: 333 
+    price: 1
+  Leather:
+    id: 334
+    price: 1
+  Milk:
+    id: 335
+    price: 1
+  Brick:
+    id: 336
+    price: 1
+  Clay:
+    id: 337
+    price: 1
+  SugarCanes:
+    id: 338
+    price: 1
+  Paper:
+    id: 339
+    price: 1
+  Book:
+    id: 340
+    price: 1
+  Slimeball:
+    id: 341
+    price: 1
+  Egg:
+    id: 344
+    price: 1
+  Compass:
+    id: 345
+    price: 1
+  FishingRod:
+    id: 346
+    price: 1
+  Clock:
+    id: 347 
+    price: 1
+  GlowtoneDust:
+    id: 348
+    price: 1
+  RawFish:
+    id: 349
+    price: 1
+  CookedFish:
+    id: 350
+    price: 1
+  InkSac:
+    id: 351
+    price: 1
+    data: 0
+  RoseRed:
+    id: 351
+    price: 1
+    data: 1
+  CactusGreen:
+    id: 351
+    price: 1
+    data: 2
+  CocoaBeans:
+    id: 351
+    price: 1
+    data: 3
+  LapisLazuli:
+    id: 351
+    price: 1
+    data: 4
+  PurpleDye:
+    id: 351
+    price: 1
+    data: 5
+  CyanDye:
+    id: 351
+    price: 1
+    data: 6
+  LightGrayDye:
+    id: 351
+    price: 1
+    data: 7
+  GrayDye:
+    id: 351
+    price: 1
+    data: 8
+  PinkDye:
+    id: 351
+    price: 1
+    data: 9
+  LimeDye:
+    id: 351
+    price: 1
+    data: 10
+  DandelionYellow:
+    id: 351
+    price: 1
+    data: 11
+  LightBlueDye:
+    id: 351
+    price: 1
+    data: 12
+  MagentaDye:
+    id: 351
+    price: 1
+    data: 13
+  OrangeDye:
+    id: 351
+    price: 1
+    data: 14
+  BoneMeal:
+    id: 351
+    price: 1
+    data: 15
+  Bone:
+    id: 352
+    price: 1
+  Sugar:
+    id: 353 
+    price: 1
+  Cake:
+    id: 354
+    price: 1
+  Bed:
+    id: 355
+    price: 1
+  RedstoneRepeater:
+    id: 356
+    price: 1
+  Cookie:
+    id: 357
+    price: 1
+  Map:
+    id: 358
+    price: 1
+  Shears:
+    id: 359
+    price: 1
+  MelonSlice:
+    id: 360
+    price: 1
+  PumpkinSeeds:
+    id: 361
+    price: 1
+  MelonSeeds:
+    id: 362
+    price: 1
+  RawBeef:
+    id: 363
+    price: 1
+  Steak:
+    id: 364
+    price: 1
+  RawChicken:
+    id: 365
+    price: 1
+  CookedChiken:
+    id: 366
+    price: 1
+  RottenFlesh:
+    id: 367
+    price: 1
+  EnderPearl:
+    id: 368
+    price: 1
+  BlazeRod:
+    id: 369
+    price: 1
+  GhastTear:
+    id: 370
+    price: 1
+  GoldNugget:
+    id: 371
+    price: 1
+  NetherWart:
+    id: 372
+    price: 1
+  GlassBottle:
+    id: 374
+    price: 1
+  SpiderEye:
+    id: 375
+    price: 1
+  FermentedSpiderEye:
+    id: 376
+    price: 1
+  BlazePowder:
+    id: 377
+    price: 1
+  MagmaCream:
+    id: 378
+    price: 1
+  BrewingStand:
+    id: 379
+    price: 1
+  Cauldron:
+    id: 380
+    price: 1
+  EyeEnder:
+    id: 381
+    price: 1
+  GlisteringMelon:
+    id: 382
+    price: 1
+  CreeperEgg:
+    id: 383
+    price: 1
+    data: 50
+  SkeletonEgg:
+    id: 383
+    price: 1
+    data: 51
+  SpiderEgg:
+    id: 383
+    price: 1
+    data: 52
+  ZombieEgg:
+    id: 383
+    price: 1
+    data: 54
+  SlimeEgg:
+    id: 383
+    price: 1
+    data: 55
+  GhastEgg:
+    id: 383
+    price: 1
+    data: 56
+  ZombiePigmanEgg:
+    id: 383
+    price: 1
+    data: 57
+  EndermanEgg:
+    id: 383
+    price: 1
+    data: 58
+  CaveSpiderEgg:
+    id: 383
+    price: 1
+    data: 59
+  SilverfishEgg:
+    id: 383
+    price: 1
+    data: 60
+  BlazeEgg:
+    id: 383
+    price: 1
+    data: 61
+  MagmaCubeEgg:
+    id: 383
+    price: 1
+    data: 62
+  WitchEgg:
+    id: 383
+    price: 1
+    data: 66
+  BatEgg:
+    id: 383
+    price: 1
+    data: 65
+  PigEgg:
+    id: 383
+    price: 1
+    data: 90
+  SheepEgg:
+    id: 383
+    price: 1
+    data: 91
+  CowEgg:
+    id: 383
+    price: 1
+    data: 92
+  ChickenEgg:
+    id: 383
+    price: 1
+    data: 93
+  SquidEgg:
+    id: 383
+    price: 1
+    data: 94
+  WolfEgg:
+    id: 383
+    price: 1
+    data: 95
+  MooshroomEgg:
+    id: 383
+    price: 1
+    data: 96
+  OcelotEgg:
+    id: 383
+    price: 1
+    data: 98
+  VillagerEgg:
+    id: 383
+    price: 1
+    data: 120
+  BookAndQuill:
+    id: 386
+    price: 1
+  Book:
+    id: 387
+    price: 1
+  Emerald:
+    id: 388
+    price: 1
+  ItemFrame:
+    id: 389
+    price: 1
+  FlowerPot:
+    id: 390
+    price: 1
+  Carrot:
+    id: 391
+    price: 1
+  Potato:
+    id: 392
+    price: 1
+  BakedPotato:
+    id: 393
+    price: 1
+  EmptyMap:
+    id: 395
+    price: 1
+  GoldenCarrot:
+    id: 396
+    price: 1
+  SkeletonHead:
+    id: 397
+    price: 1
+    data: 0
+  WitherHead:
+    id: 397
+    price: 1
+    data: 1
+  ZombieHead:
+    id: 397
+    price: 1
+    data: 2
+  HumanHead:
+    id: 397
+    price: 1
+    data: 3
+  CreeperHead:
+    id: 397
+    price: 1
+    data: 4
+  CarrotOnAStick:
+    id: 398
+    price: 1
+  NetherStar:
+    id: 399
+    price: 1
+  PumpkinPie:
+    id: 400
+    price: 1
+  Rocket:
+    id: 401
+    price: 1
 alt:
   Piedra: "Stone"
   Pasto: "Grass"

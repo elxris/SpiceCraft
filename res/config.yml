@@ -106,6 +106,11 @@ comm:
     - s
     - vender
     - v
+    search:
+    - search
+    - h
+    - buscar
+    - b
 tw:
   info:
   - §aAyuda /tw
@@ -294,18 +299,28 @@ lib:
 shop:
   info:
   - "§b[§cSHOP§b] §aAYUDA"
-  - "§e/shop [item] §rMuestra la información de un item."
+  - "§e/shop [item] §rMuestra la información de un item. Nombre o id."
+  - "§e/shop [item] [cantidad]§r Compra un item."
+  - "§bConsultar precios ya que varían."
+  - "§e/shop §cb§euscar [búsqueda] §rBusca item que contiene la [búsqueda] en el nombre."
+  - "§e/shop §cv§eender §rVende el stack que tienes en mano al %s del precio que tiene actualmente."
   itemInfo:
-  - "§aInfo §d%s"
+  - "§b[§cSHOP§b] §aInfo §d%s"
   - "§bPrecio: §a%s §ela unidad."
   - "§bProducción: §a%s"
   - "§bID: §a%s"
   shoped:
   - "§aGracias por tu compra."
+  searchHead:
+  - "§b[§cSHOP§b]§a=== §cBuscando: §e%s §a==="
+  searchItem:
+  - "§b%s"
   notExist:
   - "§cNo existe el item en la tienda."
   noMoney:
   - "§cNo tienes suficiente dinero para comprar."
+  sellRate:
+  - .9
 cmd:
   reload:
   - Reload de comandos y configuraciones completo!

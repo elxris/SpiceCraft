@@ -3,7 +3,6 @@ package elxris.Useless.Commands;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -11,8 +10,6 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BookMeta;
-
-import com.google.common.collect.Lists;
 
 import elxris.Useless.Utils.Archivo;
 import elxris.Useless.Utils.Econ;
@@ -227,29 +224,34 @@ public class LibCommand extends Comando{
         return false;
     }
     private void top(){
-        List<Integer> libros = getCache().getIntegerList("libros");
-        List<Integer> top = new ArrayList<Integer>();
-        boolean a = false;
-        for(int i = 0; i < libros.size(); i++){
-            int ventas = getCache().getInt("libro."+libros.get(i)+".count");
-            for(int e = 0; e < top.size(); e++){
-                if(ventas < getCache().getInt("libro."+top.get(e)+".count")){
-                    top.add(e, libros.get(i));
-                    e = top.size();
-                    a = true;
+        String[] libros = getCache().getConfigurationSection("libro").getKeys(false).toArray(new String[0]);
+        if(libros.length < 1){
+            return;
+        }
+        int[] compras = new int[libros.length];
+        for(int i = 0; i < compras.length; i++){
+            compras[i] = getCount(Integer.parseInt(libros[i]));
+        }
+        
+        List<Integer> ordered = new ArrayList<>();
+        List<Object> result = new ArrayList<>();
+        int n = 0;
+        for(int e: compras){
+            int i;
+            for(i = 0; i < ordered.size(); i++){
+                if(ordered.get(i) < e){
+                    break;
                 }
             }
-            if(!a){
-                top.add(libros.get(i));
-            }
+            ordered.add(i, e);
+            result.add(i, libros[n]);
+            n++;
         }
-        top = Lists.reverse(top);
         int index = Strings.getInt("lib.topSize");
-        if(top.size() > index){
-            index = top.size();
+        if(result.size() > index){
+            index = result.size();
         }
-        top = top.subList(0, index-1);
-        getCache().set("top", top);
+        getCache().set("top", result.subList(0, index));
     }
     private double getRetributions(int id){
         double diff = getCache().getInt("libro."+id+".count")-getCache().getInt("libro."+id+".payed");
