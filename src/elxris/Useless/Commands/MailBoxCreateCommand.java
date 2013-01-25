@@ -51,7 +51,12 @@ public class MailBoxCreateCommand extends Comando{
             }
             return true;
         }else if(isCommand("comm.mboxc.sendall", args[0])){
-            mail.sendMensajeATodos(jugador.getName());
+        	if(args.length == 1){
+        		mail.sendMensajeATodos(jugador.getName());
+        	}else if(args.length > 1){
+        		String mess = getString(cortarArray(1, args));
+        		mail.sendMensajeATodos(jugador.getName(), mess);
+        	}
         }else{
             mensaje(jugador, "mboxc.info");
             return true;

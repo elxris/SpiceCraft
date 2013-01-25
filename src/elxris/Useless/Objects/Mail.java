@@ -170,17 +170,20 @@ public class Mail {
         sendMensaje(jugador, destinatarios, mensaje, false);
     }
     public void sendMensajeATodos(String jugador){
-        if(!Useless.getPlayer(jugador).hasPermission("useless.mail.massive")){
+    	if(!hasMensaje(jugador)){
             return;
         }
-        if(!hasMensaje(jugador)){
+        sendMensajeATodos(jugador, cache.getString("usuarios."+jugador+".borrador.mensaje"));
+    }
+    public void sendMensajeATodos(String jugador, String mensaje){
+    	if(!Useless.getPlayer(jugador).hasPermission("useless.mail.massive")){
             return;
         }
         List<String> destinatarios = new ArrayList<>();
         for(OfflinePlayer p: Useless.plugin().getServer().getOfflinePlayers()){
             destinatarios.add(p.getName());
         }
-        sendMensaje(jugador, destinatarios, cache.getString("usuarios."+jugador+".borrador.mensaje"), true);
+        sendMensaje(jugador, destinatarios, mensaje, true);
     }
     public String isDestinatario(String player){
         List<Player> l = Useless.plugin().getServer().matchPlayer(player);
