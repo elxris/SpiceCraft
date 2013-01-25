@@ -22,7 +22,7 @@ public class Chat {
         for(int e = 0; e < list.size(); e++){
             texto += list.get(e);
             if(e + 1 < list.size()){
-                texto += "§r\n";
+                texto += "Â§r\n";
             }
         }
         enviar(p, texto, i);

@@ -1,5 +1,5 @@
 name: Useless
-version: 0.8
+version: 0.8.1
 main: elxris.Useless.Useless
 commands:
     tw:
@@ -23,9 +23,13 @@ commands:
         usage: /lib
         premission: useless.lib
     shop:
-        description: Funciona como una libreria.
+        description: A Shop.
         usage: /shop
         premission: useless.shop
+    uselesslang:
+        description: Cambia el idioma del plugin.
+        usage: /uselesslang
+        premission: useless.lang
 permissions:
     useless.tw:
         default: true
@@ -59,3 +63,5 @@ permissions:
         default: true
     useless.shop:
         default: true
+    useless.lang:
+        default: false

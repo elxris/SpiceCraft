@@ -1,13 +1,16 @@
 package elxris.Useless.Utils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.configuration.file.FileConfiguration;
 
 public class Strings{
     private static FileConfiguration fc;
+    private static List<String> s = new ArrayList<String>();
     public Strings(FileConfiguration fc) {
         setFc(fc);
+        s.add("%s");
     }
     private static void setFc(FileConfiguration fc) {
         Strings.fc = fc;
@@ -17,9 +20,12 @@ public class Strings{
     }
     // GETTERS
     public static String getString(String path){
-        return getFc().getStringList(path).get(0);
+    	return getFc().getStringList(path).get(0);
     }
     public static List<String> getStringList(String path){
+    	if(path.contentEquals("s")){
+    		return s;
+    	}
         return getFc().getStringList(path);
     }
     public static int getInt(String path){

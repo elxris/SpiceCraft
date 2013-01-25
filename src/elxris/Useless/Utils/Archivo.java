@@ -12,7 +12,8 @@ public class Archivo {
     private String name;
     
     public Archivo(String nombre){
-        setFile(nombre);
+    	setName(nombre);
+        setFile();
     }
     private String getName(){
         return name;
@@ -23,9 +24,11 @@ public class Archivo {
     private File getFile(){
         return file;
     }
-    public void setFile(String name){
-        setName(name);
+    public void setFile(){
         file = new File(Useless.plugin().getDataFolder(), getName());
+    }
+    public boolean exist(){
+    	return getFile().exists();
     }
     public FileConfiguration load(){
         return YamlConfiguration.loadConfiguration(getFile());
