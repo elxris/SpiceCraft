@@ -229,7 +229,7 @@ public class Factory {
         if(fc == null){
             setCache(getFile().load());
             if(!fc.isSet("vel")){
-                fc = Useless.getConfig("res/shop.yml");
+                fc = Useless.getConfig("shop.yml");
             }
         }
         return fc;

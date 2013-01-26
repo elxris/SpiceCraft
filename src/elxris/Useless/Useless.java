@@ -1,15 +1,9 @@
 package elxris.Useless;
 
-import java.io.InputStream;
-import java.util.Scanner;
-
-import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import com.google.common.base.Charsets;
 
 import elxris.Useless.Commands.CompassCommand;
 import elxris.Useless.Commands.LibCommand;
@@ -21,6 +15,7 @@ import elxris.Useless.Listener.CommandListener;
 import elxris.Useless.Listener.CompassListener;
 import elxris.Useless.Listener.MailListener;
 import elxris.Useless.Objects.Mail;
+import elxris.Useless.Utils.Archivo;
 import elxris.Useless.Utils.Strings;
  
 public class Useless extends JavaPlugin {
@@ -70,15 +65,10 @@ public class Useless extends JavaPlugin {
     }
     public static FileConfiguration getConfig(String path){
         FileConfiguration fc = new YamlConfiguration();
-        InputStream is;
-        is = plugin.getResource(path);
-        if(is == null){
-        	return null;
-        }
-        Scanner s = new Scanner(is, Charsets.ISO_8859_1.displayName()).useDelimiter("\\A");
-        try {
-			fc.loadFromString(s.next());
-		} catch (InvalidConfigurationException e1) {}
+        Archivo file = new Archivo("-"+path);
+        file.loadResourse(path);
+        fc = file.load();
+        file.getFile().delete();
         return fc;
     }
 }

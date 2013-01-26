@@ -14,7 +14,7 @@ public class CheckConfiguration {
         isChanged();
     }
     private void init(){
-        FileConfiguration defaults = Useless.getConfig("res/config.yml");
+        FileConfiguration defaults = Useless.getConfig("config.yml");
         if(p().getConfig().getKeys(false).size() == 0){
             Archivo file = new Archivo("config.yml");
             file.save(defaults);
@@ -22,7 +22,7 @@ public class CheckConfiguration {
         }
         update();
         register(defaults);
-        register(Useless.getConfig("res/lang-"+getString("lang")+".yml"));
+        register(Useless.getConfig("lang-"+getString("lang")+".yml"));
     }
     private void update() {
         String prev;
@@ -36,10 +36,12 @@ public class CheckConfiguration {
             delPath("lib.item");
             delPath("lib.itemMe");
             prev = "0.8";
-            delPath("v");
             changed();
         }
-        setPath("v", Useless.getVersion());
+        if(!prev.contentEquals(Useless.getVersion())){
+        	delPath("v");
+        	setPath("v", Useless.getVersion());
+        }
     }
     // Registra las configuraciones que no existan en el config.yml del cliente.
 	private void register(FileConfiguration fc){
@@ -67,7 +69,7 @@ public class CheckConfiguration {
     	p().getConfig().set(path, null);
     }
     private String getString(String path){
-    	return p().getConfig().getString(path);
+    	return p().getConfig().getStringList(path).get(0);
     }
     private Useless p(){
         return Useless.plugin();
@@ -84,7 +86,7 @@ public class CheckConfiguration {
         changed = true;
     }
     public boolean changeLang(String s){
-    	FileConfiguration fc = Useless.getConfig("res/lang-"+s+".yml");
+    	FileConfiguration fc = Useless.getConfig("lang-"+s+".yml");
     	if(fc == null){
     		return false;
     	}
