@@ -34,29 +34,29 @@ permissions:
     useless.tw:
         default: true
     useless.tw.noMaxTime:
-        default: false
+        default: op
     useless.tw.noWarpLimit:
-        default: false
+        default: op
     useless.tw.master:
-        default: false
+        default: op
     useless.mail:
         default: true
     useless.mail.create:
         default: true
     useless.mail.massive:
-        default: false
+        default: op
     useless.mail.noCharLimit:
-        default: false
+        default: op
     useless.upin:
         default: true
     useless.upin.noLimit:
-        default: false
+        default: op
     useless.cmd.reload:
-        default: false
+        default: op
     useless.lib:
         default: true
     useless.lib.master:
-        default: false
+        default: op
     useless.lib.buy:
         default: true
     useless.lib.sell:
@@ -64,4 +64,4 @@ permissions:
     useless.shop:
         default: true
     useless.lang:
-        default: false
+        default: op
