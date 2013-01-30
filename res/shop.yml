@@ -5,370 +5,795 @@ item:
   Stone:
     id: 1
     price: 1
+    alias:
+    - Piedra
   Grass:
     id: 2
     price: 10
+    alias:
+    - Pasto
+    - BloqueHierba
   Dirt:
     id: 3
     price: 1
+    alias:
+    - Tierra
   Cobblestone:
     id: 4
-    price: 2
+    price: 1
+    alias:
+    - Roca
   OakPlank:
     id: 5
-    price: 1.2
+    price: 0
+    depend:
+      Stick: 2
     data: 0
+    alias:
+    - Plank
+    - TablaRoble
+    - Tabla
   SprucePlank:
     id: 5
-    price: 1.2
+    price: 0
+    depend:
+      OakPlank: 1
     data: 1
+    alias:
+    - TablaAbeto
   BirchPlank:
     id: 5
-    price: 1.2
+    price: 0
+    depend:
+      OakPlank: 1
     data: 2
+    alias:
+    - TablaAbedul
   JunglePlank:
     id: 5
-    price: 0.8
+    price: 0
+    depend:
+      OakPlank: 1
     data: 3
+    alias:
+    - TablaSelva
   OakSapling:
     id: 6
     price: 2
     data: 0
+    alias:
+    - Sapling
+    - Oak
+    - BroteRoble
+    - Roble
   SpruceSapling:
     id: 6
-    price: 2
+    price: 0
+    depend:
+      OakSapling: 1
     data: 1
+    alias:
+    - Spruce
+    - BroteAbeto
+    - Abeto
   BirchSapling:
     id: 6
-    price: 2
+    price: 0
+    depend:
+      OakSapling: 1
     data: 2
+    alias:
+    - Birch
+    - BroteAbedul
+    - Abedul
   JungleSapling:
     id: 6
-    price: 2
+    price: 0
+    depend:
+      OakSapling: 1
     data: 3
+    alias:
+    - Jungle
+    - BroteSelva
+    - Selva
   Sand:
     id: 12
     price: 5
+    alias:
+    - Arena
   Gravel:
     id: 13
     price: 8
-  OackWood:
+    alias:
+    - Grava
+  OakWood:
     id: 17
-    price: 4.8
+    price: 0
+    depend:
+      OakPlank: 4
     data: 0
+    alias:
+    - Wood
+    - MaderaRoble
   SpruceWood:
     id: 17
-    price: 4.8
+    price: 0
+    depend:
+      OakWood: 1
     data: 1
+    alias:
+    - MaderaAbeto
   BirchWood:
     id: 17
-    price: 4.8
+    price: 0
+    depend:
+      OakWood: 1
     data: 2
+    alias:
+    - MaderaAbedul
   JungleWood:
     id: 17
-    price: 3.2
+    price: 0
+    depend:
+      OakWood: 1
     data: 3
+    alias:
+    - MaderaSelva
   Leaves:
     id: 18
     price: 1
+    alias:
+    - Hojas
   Sponge:
     id: 19
-    price: 10
+    price: 50
+    alias:
+    - Esponja
   Glass:
     id: 20
-    price: 7.5
+    price: 0
+    depend:
+      Sand: 1
+    alias:
+    - Vidrio
   LapisBlock:
     id: 22
-    price: 900
+    price: 0
+    depend:
+      LapisLazuli: 9
+    alias:
+    - BloqueLapis
   Dispenser:
     id: 23
-    price: 20
+    price: 0
+    depend:
+      Cobblestone: 7
+      Redstone: 1
+      String: 3
+      Stick: 3
+    alias:
+    - Dispensador
   Sandstone:
     id: 24
-    price: 21
+    price: 0
+    depend:
+      Sand: 4
     data: 0
+    alias:
+    - Arenisca
   SandstoneChiseled:
     id: 24
-    price: 22
+    price: 0
+    depend:
+      Sandstone: 1
     data: 1
+    alias:
+    - Arenisca Cincelada
   SandstoneSmooth:
     id: 24
-    price: 23
+    price: 0
+    depend:
+      Sandstone: 1
     data: 2
+    alias:
+    - Arenisca Suave
   NoteBlock:
     id: 25
-    price: 5
+    price: 0
+    depend:
+      OakPlank: 8
+      Redstone: 1
+    alias:
+    - BloqueMusical
   PoweredRail:
     id: 27
-    price: 800
+    price: 0
+    depend:
+      Gold: 1
+      Redstone: 1
+    alias:
+    - RailPropulsor
   DetectorRail:
     id: 28
-    price: 400
+    price: 0
+    depend:
+      Rail: 1
+      Redstone: 1
+    alias:
+    - RailDetector
   Piston:
     id: 33
-    price: 300
+    price: 0
+    depend:
+      OakPlank: 3
+      Cobblestone: 4
+      Iron: 1
+      Redstone: 1
   StickyPiston:
     id: 29
-    price: 400
+    price: 0
+    depend:
+      Piston: 1
+      Slimeball: 1
+    alias:
+    - PistonPegajoso
   Cobweb:
     id: 30
-    price: 100
+    price: 0
+    depend:
+      String: 1
+    alias:
+    - Telaraña
   TallGrass:
     id: 31
-    price: 50
+    price: 5
+    alias:
+    - Hierba
   DeadBush:
     id: 32
-    price: 50
+    price: 5
+    alias:
+    - ArbustoMuerto
   Wool:
     id: 35
-    price: 5
+    price: 1
+    depend:
+      String: 4
     data: 0
+    alias:
+    - WhiteWool
+    - Lana
   OrangeWool:
     id: 35
-    price: 5
+    price: 0
+    depend:
+      Wool: 1
     data: 1
+    alias:
+    - LanaNaranja
   MagentaWool:
     id: 35
-    price: 5
+    price: 0
+    depend:
+      Wool: 1
     data: 2
+    alias:
+    - LanaMagenta
   LightBlueWool:
     id: 35
-    price: 5
+    price: 0
+    depend:
+      Wool: 1
     data: 3
+    alias:
+    - LanaAzulClaro
   YellowWool:
     id: 35
-    price: 5
+    price: 0
+    depend:
+      Wool: 1
     data: 4
+    alias:
+    - LanaAmarilla
   LimeWool:
     id: 35
-    price: 5
+    price: 0
+    depend:
+      Wool: 1
     data: 5
+    alias:
+    - LanaLima
   PinkWool:
     id: 35
-    price: 5
+    price: 0
+    depend:
+      Wool: 1
     data: 6
+    alias:
+    - LanaRosa
   GrayWool:
     id: 35
-    price: 5
+    price: 0
+    depend:
+      Wool: 1
     data: 7
+    alias:
+    - LanaGris
   LightGrayWool:
     id: 35
-    price: 5
+    price: 0
+    depend:
+      Wool: 1
     data: 8
+    alias:
+    - LanaGrisClaro
   CyanWool:
     id: 35
-    price: 5
+    price: 0
+    depend:
+      Wool: 1
     data: 9
+    alias:
+    - LanaCian
   PurpleWool:
     id: 35
-    price: 5
+    price: 0
+    depend:
+      Wool: 1
     data: 10
+    alias:
+    - LanaMorada
   BlueWool:
     id: 35
-    price: 5
+    price: 0
+    depend:
+      Wool: 1
     data: 11
+    alias:
+    - LanaAzul
   BrownWool:
     id: 35
-    price: 5
+    price: 0
+    depend:
+      Wool: 1
     data: 12
+    alias:
+    - LanaCafe
   GreenWool:
     id: 35
-    price: 5
+    price: 0
+    depend:
+      Wool: 1
     data: 13
+    alias:
+    - LanaVerde
   RedWool:
     id: 35
-    price: 5
+    price: 0
+    depend:
+      Wool: 1
     data: 14
+    alias:
+    - LanaRoja
   BlackWool:
     id: 35
-    price: 5
+    price: 0
+    depend:
+      Wool: 1
     data: 15
+    alias:
+    - LanaNegra
   YellowFlower:
     id: 37
     price: 3
+    alias:
+    - Flower
+    - Flor
   RedFlower:
     id: 38
     price: 4
+    alias:
+    - Rose
+    - Rosa
   BrownMushroom:
     id: 39
     price: 5
+    alias:
+    - Mushroom
+    - Hongo
+    - HongoCafe
+    - SetaCafe
+    - Seta
   RedMushroom:
     id: 40
     price: 5
+    alias:
+    - HongoRojo
+    - SetaRoja
   BlockGold:
     id: 41
-    price: 7200
+    price: 0
+    depend:
+      Gold: 9
+    alias:
+    - BloqueOro
   BlockIron:
     id: 42
-    price: 2700
-  BrickWall:
+    price: 0
+    depend:
+      Iron: 9
+    alias:
+    - BloqueHierro
+  Bricks:
     id: 45
-    price: 16
+    price: 0
+    depend:
+      Brick: 4
+    alias:
+    - Muro
+    - Ladrillos
   TNT:
     id: 46
-    price: 100
+    price: 0
+    depend:
+      Sand: 4
+      Gunpowder: 5
+    alias:
+    - Bomba
   Bookshelf:
     id: 47
-    price: 300
+    price: 0
+    depend:
+      Book: 3
+      OakPlank: 6
+    alias:
+    - Libreria
+    - Librero
   MossStone:
     id: 48
-    price: 350
+    price: 50
+    depend:
+      Cobblestone: 1
+      Seeds: 1
+    alias:
+    - PiedraMusgosa
   Obsidian:
     id: 49
     price: 300
+    alias:
+    - Obsidiana
   Torch:
     id: 50
-    price: 1.3
+    price: 0.1
+    depend:
+      Coal: 1
+    alias:
+    - Antorcha
   Chest:
     id: 54
-    price: 10
+    price: 0
+    depend:
+      OakPlank: 8
+    alias:
+    - Cofre
   BlockDiamond:
     id: 57
-    price: 9000
+    price: 0
+    depend:
+      Diamond: 9
+    alias:
+    - BloqueDiamante
   Furnance:
     id: 61
-    price: 7
+    price: 0
+    depend:
+      Cobblestone: 8
+    alias:
+    - Horno
   Ladders:
     id: 65
-    price: 0.6
+    price: 0
+    depend:
+      OakPlank: 1
+    alias:
+    - Escalera
   Rails:
     id: 66
-    price: 300
+    price: 0
+    depend:
+      Iron: 1
+    alias:
+    - Rail
+    - Riel
   RedstoneTorch:
     id: 76
-    price: 75
-  Snow:
-    id: 78
-    price: 1
+    price: 0
+    depend:
+      Redstone: 1
+    alias:
+    - AntorchaRedstone
   Ice:
     id: 79
     price: 15
+    alias:
+    - Hielo
   SnowBlock:
     id: 80
-    price: 15
+    price: 0
+    depend:
+      Snowball: 4
+    alias:
+    - BloqueNieve
   Cactus:
     id: 81
     price: 20
-  Clay:
+  ClayBlock:
     id: 82
-    price: 15
+    price: 0
+    depend:
+      Clay: 4
+    alias:
+    - BloqueArcilla
   JukeBox:
     id: 84
-    price: 1000
+    price: 0
+    depend:
+      Diamond: 1
+      OakPlank: 8
+    alias:
+    - Reproductor
+    - CajaMusica
   Fence:
     id: 85
-    price: 7
+    price: 0
+    depend:
+      OakPlank: 1
+    alias:
+    - Valla
   Pumpkin:
     id: 86
-    price: 50
+    price: 0
+    depend:
+      PumpkinSeeds: 4
+    alias:
+    - Calabaza
   Netherrack:
     id: 87
     price: 10
+    alias:
+    - PiedraNether
+    - PiedraAbisal
   SoulSand:
     id: 88
     price: 15
+    alias:
+    - ArenaAlmas
   GlowstoneBlock:
     id: 89
-    price: 40
+    price: 10
+    depend:
+      GlowstoneDust: 4
+    alias:
+    - PiedraBrillante
   MonsterEgg:
     id: 97
     price: 800
+    alias:
+    - HuevoPiedra
   StoneBricks:
     id: 98
     price: 1
+    depend:
+      Stone: 1
+    alias:
+    - PiedraLadrillo
   IronBars:
     id: 101
-    price: 100
+    price: 0
+    depend:
+      Iron: 1
+    alias:
+    - RejaHierro
+    - Barrotes
   Glasspane:
     id: 102
-    price: 1.2
+    price: 0
+    depend:
+      Glass: 1
+    alias:
+    - PanelVidrio
   Melon:
     id: 103
-    price: 15
+    price: 0
+    depend:
+      MelonSlice: 9
+    alias:
+    - WaterMelon
+    - Sandia
   Vines:
     id: 106
     price: 2
+    alias:
+    - Enredadera
   Mycelium:
     id: 110
     price: 800
+    alias:
+    - Micelio
   LilyPad:
     id: 111
     price: 20
+    alias:
+    - Nenufar
   NetherBrick:
     id: 112
     price: 50
+    alias:
+    - LadrillosInfierno
+    - LadrillosAbisales
+    - LadrillosNether
   NetherFence:
     id: 113
-    price: 50
+    price: 1
+    depend:
+      NetherBrick: 1
+    alias:
+    - VallaNether
+    - VallaAbisal
   EnchantmentTable:
     id: 116
-    price: 1500
+    price: 10
+    depend:
+      Book: 1
+      Diamond: 2
+      Obsidian: 4
+    alias:
+    - MesaEncantamiento
   EndPortalFrame:
     id: 120
     price: 16000
+    alias:
+    - PortalDelFin
   EndStone:
     id: 121
     price: 100
+    alias:
+    - PiedraDelFin
   DragonEgg:
     id: 122
     price: 12000
+    alias:
+    - HuevoDragon
   RedstoneLamp:
     id: 123
-    price: 50
+    price: 0
+    depend:
+      Redstone: 1
+      GlowstoneBlock: 1
+    alias:
+    - Lampara
   BlockEmerald:
     id: 133
-    price: 13500
+    price: 0
+    depend:
+      Emerald: 9
+    alias:
+    - BloqueEsmeralda
   Beacon:
     id: 138
-    price: 8000
+    price: 0
+    depend:
+      Glass: 5
+      NetherStar: 1
+      Obsidian: 3
+    alias:
+    - Faro
   CobblestoneWall:
     id: 139
-    price: 2
+    price: 0
+    depend:
+      Cobblestone: 1
+    alias:
+    - MuroRoca
   Anvil:
     id: 145
-    price: 9300
+    price: 0
+    depend:
+      Iron: 31
+    alias:
+    - Yunque
   FlintAndSteel:
     id: 259
-    price: 300
+    price: 0
+    depend:
+      Iron: 1
+      Flint: 1
+    alias:
+    - PedernalHierro
+    - YesqueroHierro
   Apple:
     id: 260
     price: 10
+    alias:
+    - Manzana
   Arrow:
     id: 262
-    price: 5
+    price: 1
+    depend:
+      Flint: 1
+      Feather: 1
+    alias:
+    - Flecha
   Coal:
     id: 263
     price: 1
+    alias:
+    - Carbon
   Diamond:
     id: 264
     price: 1000
+    alias:
+    - Diamond
   Iron:
     id: 265
     price: 300
+    alias:
+    - Hierro
   Gold:
     id: 266
-    price: 600
+    price: 0
+    depend:
+      GoldNugget: 9
+    alias:
+    - Oro
+  Stick:
+    id: 280
+    price: .4
+    alias:
+    - Palo
   MushroomStew:
     id: 282 
     price: 3
+    depend:
+      RedMushroom: 1
+      BrownMushroom: 1
+    alias:
+    - Stew
+    - Sopa
   String:
     id: 287
     price: 2
+    alias:
+    - Hilo
   Feather:
     id: 288
     price: 3
+    alias:
+    - Pluma
   Gunpowder:
     id: 289
     price: 12
+    alias:
+    - Polvora
   Seeds:
     id: 295
     price: 1
+    alias:
+    - Semillas
   Wheat:
     id: 296
-    price: 8
+    price: 1
+    depend:
+      Seeds: 1
+    alias:
+    - Trigo
   Bread:
     id: 297
-    price: 24
+    price: 1
+    depend:
+      Wheat: 3
+    alias:
+    - Pan
   ChainHelmet:
     id: 302
     price: 1300
@@ -383,493 +808,743 @@ item:
     price: 1000
   Flint:
     id: 318
-    price: 8
+    price: 1
+    depend:
+      Gravel: 1
+    alias:
+    - Pedernal
+    - Yesquero
   RawPorkchop:
     id: 319
     price: 4
+    alias:
+    - CarnePuerco
   CookedPorckchop:
     id: 320
-    price: 5
+    price: 1
+    depend:
+      RawPorkchop: 1
+    alias:
+    - CarnePuercoCocida
   Painting:
     id: 321
-    price: 10
+    price: 2
+    depend:
+      Wool: 1
+    alias:
+    - Pintura
   GoldenApple:
     id: 322
-    price: 4800
+    price: 0
+    depend:
+      GoldNugget: 8
+      Apple: 1
+    alias:
+    - ManzanaOro
   Sign:
     id: 323
-    price: 2
+    price: 0
+    depend:
+      OakPlank: 2
+    alias:
+    - Letrero
   WoodenDoor:
     id: 324
     price: 2
+    depend:
+      OakPlank: 6
+    alias:
+    - PuertaMadera
   Bucket:
     id: 325
-    price: 900
+    price: 10
+    depend:
+      Iron: 3
+    alias:
+    - Cubeta
   WaterBucket:
     id: 326
-    price: 900
+    price: 0
+    depend:
+      Iron: 3
+      Ice: 1
+    alias:
+    - Water
+    - Agua
   LavaBucket:
     id: 327
-    price: 900
+    price: 0
+    depend:
+      Iron: 3
+      Obsidian: 1
+    alias:
+    - Lava
   Minecart:
     id: 328
-    price: 1800
+    price: 0
+    depend:
+      Iron: 6
+    alias:
+    - Carrito
   Saddle:
     id: 329
     price: 25
+    alias:
+    - Asiento
   IronDoor:
     id: 330
-    price: 1800
+    price: 0
+    depend:
+      Iron: 6
+    alias:
+    - PuertaMetal
   Redstone:
     id: 331
     price: 50
   Snowball:
     id: 332
     price: 1
+    alias:
+    - BolaNieve
   Boat:
     id: 333 
-    price: 2
+    price: 0
+    depend:
+      OakPlank: 5
+    alias:
+    - Bote
   Leather:
     id: 334
     price: 15
+    alias:
+    - Cuero
   Milk:
     id: 335
-    price: 900
+    price: 0
+    depend:
+      Iron: 3
+    alias:
+    - Leche
   Brick:
     id: 336
-    price: 4
+    price: 0
+    depend:
+      Clay: 1
+    alias:
+    - Ladrillo
   Clay:
     id: 337
     price: 4
+    alias:
+    - Arcilla
   SugarCanes:
     id: 338
     price: 3
+    alias:
+    - Caña
   Paper:
     id: 339
-    price: 9
+    price: 0
+    depend:
+      SugarCanes: 1
+    alias:
+    - Papel
   Book:
     id: 340
-    price: 40
+    price: 0
+    depend:
+      Leather: 1
+      Paper: 3
+    alias:
+    - Libro
   Slimeball:
     id: 341
     price: 15
+    alias:
+    - BolaSlime
   Egg:
     id: 344
     price: 50
+    alias:
+    - Huevo
   Compass:
     id: 345
-    price: 1000
+    price: 0
+    depend:
+      Iron: 4
+      Redstone: 1
+    alias:
+    - Compas
   FishingRod:
     id: 346
-    price: 60
+    price: 0
+    depend:
+      String: 3
+    alias:
+    - CañaPescar
   Clock:
     id: 347 
-    price: 1300
-  GlowtoneDust:
+    price: 0
+    depend:
+      Gold: 4
+      Redstone: 1
+    alias:
+    - Reloj
+  GlowstoneDust:
     id: 348
     price: 10
+    alias:
+    - PolvoPiedraBrillante
   RawFish:
     id: 349
     price: 15
+    alias:
+    - PescadoCrudo
   CookedFish:
     id: 350
     price: 17
+    alias:
+    - PescadoCocido
   InkSac:
     id: 351
     price: 30
     data: 0
+    alias:
+    - Tinta
   RoseRed:
     id: 351
     price: 30
     data: 1
+    alias:
+    - Red
+    - Rojo
   CactusGreen:
     id: 351
     price: 30
     data: 2
+    alias:
+    - Green
+    - Verde
   CocoaBeans:
     id: 351
     price: 30
     data: 3
+    alias:
+    - Brown
+    - Cafe
+    - Chocolate
   LapisLazuli:
     id: 351
     price: 30
     data: 4
+    alias:
+    - LapisLazuli
+    - Lapis
+    - Blue
   PurpleDye:
     id: 351
     price: 30
     data: 5
+    alias:
+    - Purple
+    - Morado
   CyanDye:
     id: 351
     price: 30
     data: 6
+    alias:
+    - Cyan
+    - Cian
   LightGrayDye:
     id: 351
     price: 30
     data: 7
+    alias:
+    - LightGray
+    - GrisClaro
   GrayDye:
     id: 351
     price: 30
     data: 8
+    alias:
+    - Gray
+    - Gris
   PinkDye:
     id: 351
     price: 30
     data: 9
+    alias:
+    - Pink
+    - Rosa
   LimeDye:
     id: 351
     price: 30
     data: 10
+    alias:
+    - Lime
+    - Lima
   DandelionYellow:
     id: 351
     price: 30
     data: 11
+    alias:
+    - Yellow
+    - Amarillo
   LightBlueDye:
     id: 351
     price: 30
     data: 12
+    alias:
+    - LightBlue
+    - AzulClaro
   MagentaDye:
     id: 351
     price: 30
     data: 13
+    alias:
+    - Magenta
   OrangeDye:
     id: 351
     price: 30
     data: 14
+    alias:
+    - Orange
+    - Naranja
   BoneMeal:
     id: 351
     price: 30
     data: 15
+    alias:
+    - White
+    - Blanco
+    - PolvoHueso
   Bone:
     id: 352
     price: 10
+    alias:
+    - Hueso
   Sugar:
     id: 353 
-    price: 10
+    price: 0
+    depend:
+      SugarCanes: 1
+    alias:
+    - Azucar
   Cake:
     id: 354
-    price: 100
+    price: 0
+    depend:
+      Sugar: 2
+      Egg: 1
+      Wheat: 6
+    alias:
+    - Pastel
   Bed:
     id: 355
-    price: 15
+    price: 0
+    depend:
+      Wool: 3
+      OakPlank: 3
+    alias:
+    - Cama
   RedstoneRepeater:
     id: 356
-    price: 150
+    price: 0
+    depend:
+      Redstone: 3
+      Stone: 3
+    alias:
+    - Repeater
+    - Repetidor
   Cookie:
     id: 357
     price: 10
+    alias:
+    - Galleta
   Shears:
     id: 359
-    price: 800
+    price: 0
+    depend:
+      Iron: 3
+    alias:
+    - Tijeras
   MelonSlice:
     id: 360
-    price: 
+    price: 10
+    alias:
+    - PedazoMelon
+    - PedazoSandia
   PumpkinSeeds:
     id: 361
     price: 10
+    alias:
+    - SemillasCalabaza
   MelonSeeds:
     id: 362
-    price: 10
+    price: 0
+    depend:
+      MelonSlice: 1
+    alias:
+    - SemillasSandia
+    - SemillasMelon
   RawBeef:
     id: 363
     price: 10
+    alias:
+    - FileteCrudo
   Steak:
     id: 364
     price: 11
+    alias:
+    - Filete
   RawChicken:
     id: 365
     price: 15
+    alias:
+    - PolloCrudo
   CookedChiken:
     id: 366
     price: 16
+    alias:
+    - PolloRostizado
   RottenFlesh:
     id: 367
-    price: .5
+    price: 0.5
+    alias:
+    - CarnePodrida
   EnderPearl:
     id: 368
     price: 500
+    alias:
+    - PerlaEnder
   BlazeRod:
     id: 369
     price: 75
+    alias:
+    - VaraLlameante
   GhastTear:
     id: 370
     price: 75
+    alias:
+    - Tear
+    - Lagrima
   GoldNugget:
     id: 371
     price: 40
+    alias:
+    - Nugget
+    - Pepita
   NetherWart:
     id: 372
     price: 50
+    alias:
+    - Verruga
   GlassBottle:
     id: 374
-    price: 25
+    price: 0
+    depend:
+      Glass: 1
+    alias:
+    - Botella
   SpiderEye:
     id: 375
     price: 70
+    alias:
+    - OjoAraña
   FermentedSpiderEye:
     id: 376
-    price: 71
+    price: 5
+    depend:
+      Sugar: 1
+      SpiderEye: 1
+    alias:
+    - OjoArañaFermentado
   MagmaCream:
     id: 378
-    price: 75
+    price: 50
+    depend:
+      Slimeball: 1
+    alias:
+    - CremaMagma
+    - Cream
+    - Crema
   BrewingStand:
     id: 379
-    price: 80
+    price: 0
+    depend:
+      BlazeRod: 1
+      Cobblestone: 3
+    alias:
+    - SoporteBrebajes
   Cauldron:
     id: 380
-    price: 2100
+    price: 0
+    depend:
+      Iron: 7
+    alias:
+    - Caldero
   EyeEnder:
     id: 381
-    price: 200
+    price: 50
+    depend:
+      EnderPearl: 1
+    alias:
+    - OjoEnder
   GlisteringMelon:
     id: 382
-    price: 60
+    price: 0
+    depend:
+      MelonSlice: 1
+      GoldNugget: 1
+    alias:
+    - SandiaReluciente
   CreeperEgg:
     id: 383
     price: 150
     data: 50
+    alias:
+    - HuevoCreeper
   SkeletonEgg:
     id: 383
     price: 150
     data: 51
+    alias:
+    - HuevoEsqueleto
   SpiderEgg:
     id: 383
     price: 150
     data: 52
+    alias:
+    - HuevoAraña
   ZombieEgg:
     id: 383
     price: 150
     data: 54
+    alias:
+    - HuevoZombie
   SlimeEgg:
     id: 383
     price: 150
     data: 55
+    alias:
+    - HuevoSlime
   GhastEgg:
     id: 383
     price: 150
     data: 56
+    alias:
+    - HuevoGhast
   ZombiePigmanEgg:
     id: 383
     price: 150
     data: 57
+    alias:
+    - HuevoZombieCerdo
   EndermanEgg:
     id: 383
     price: 150
     data: 58
+    alias:
+    - HuevoEnderman
   CaveSpiderEgg:
     id: 383
     price: 150
     data: 59
+    alias:
+    - HuevoArañaDeCueva
   SilverfishEgg:
     id: 383
     price: 150
     data: 60
+    alias:
+    - HuevoLepisma
   BlazeEgg:
     id: 383
     price: 150
     data: 61
+    alias:
+    - HuevoLlama
   MagmaCubeEgg:
     id: 383
     price: 150
     data: 62
+    alias:
+    - HuevoMagma
   WitchEgg:
     id: 383
     price: 150
     data: 66
+    alias:
+    - HuevoBruja
   BatEgg:
     id: 383
     price: 150
     data: 65
+    alias:
+    - HuevoMurcielago
   PigEgg:
     id: 383
     price: 150
     data: 90
+    alias:
+    - HuevoCerdo
   SheepEgg:
     id: 383
     price: 150
     data: 91
+    alias:
+    - HuevoOveja
   CowEgg:
     id: 383
     price: 150
     data: 92
+    alias:
+    - HuevoVaca
   ChickenEgg:
     id: 383
     price: 150
     data: 93
+    alias:
+    - HuevoGallina
   SquidEgg:
     id: 383
     price: 150
     data: 94
+    alias:
+    - HuevoCalamar
   WolfEgg:
     id: 383
     price: 150
     data: 95
+    alias:
+    - HuevoLobo
   MooshroomEgg:
     id: 383
     price: 150
     data: 96
+    alias:
+    - HuevoVacaSeta
   OcelotEgg:
     id: 383
     price: 150
     data: 98
+    alias:
+    - HuevoOcelote
   VillagerEgg:
     id: 383
     price: 150
     data: 120
+    alias:
+    - HuevoAldeano
   BookAndQuill:
     id: 386
-    price: 150
-  Book:
-    id: 387
-    price: 400
+    price: 0
+    depend:
+      Book: 1
+      Feather: 1
+      InkSac: 1
+    alias:
+    - LibroPluma
   Emerald:
     id: 388
     price: 1000
+    alias:
+    - Esmeralda
   ItemFrame:
     id: 389
-    price: 70
+    price: 5
+    depend:
+      Leather: 1
+    alias:
+    - Marco
   FlowerPot:
     id: 390
-    price: 30
+    price: 0
+    depend:
+      Clay: 3
+    alias:
+    - Maceta
   Carrot:
     id: 391
     price: 7
+    alias:
+    - Zanahoria
   Potato:
     id: 392
     price: 8
+    alias:
+    - Patata
+    - Papa
   BakedPotato:
     id: 393
     price: 8.25
+    alias:
+    - PatataCocida
+    - PapaCocida
   EmptyMap:
     id: 395
-    price: 600
+    price: 0
+    depend:
+      Paper: 8
+      Compass: 1
+    alias:
+    - MapaVacio
   GoldenCarrot:
     id: 396
     price: 1200
+    alias:
+    - ZanahoriaOro
   SkeletonHead:
     id: 397
     price: 600
     data: 0
+    alias:
+    - CabezaEsqueleto
   WitherHead:
     id: 397
     price: 600
     data: 1
+    alias:
+    - CabezaWither
   ZombieHead:
     id: 397
     price: 600
     data: 2
+    alias:
+    - CabezaZombie
   HumanHead:
     id: 397
     price: 600
     data: 3
+    alias:
+    - CabezaHumano
   CreeperHead:
     id: 397
     price: 600
     data: 4
+    alias:
+    - CabezaCreeper
   CarrotOnAStick:
     id: 398
-    price: 100
+    price: 0
+    depend:
+      Carrot: 1
+    alias:
+    - PaloZanahoria
   NetherStar:
     id: 399
-    price: 15000
+    price: 5000
+    alias:
+    - EstrellaAbismo
+    - Estrella
+    - Star
   PumpkinPie:
     id: 400
-    price: 400
-alt:
-  Piedra: "Stone"
-  Pasto: "Grass"
-  Tierra: "Dirt"
-  Plank: "OakPlank"
-  Sapling: "SpruceSapling"
-  Arena: "Sand"
-  Grava: "Gravel"
-  Wood: "OackWood"
-  Esponja: "Sponge"
-  Vidrio: "Glass"
-  Dispensador: "Dispenser"
-  Sandstone2: "SandstoneChiseled"
-  Sandstone3: "SandstoneSmooth"
-  Nota: "NoteBlock"
-  Telara�a: "Cobweb"
-  Lana: "Wool"
-  LanaNaranja: "OrangeWool"
-  LanaMagenta: "MagentaWool"
-  LanaAzulCielo: "LightBlueWool"
-  LanaAmarilla: "YellowWool"
-  LanaLima: "LimeWool"
-  LanaRosa: "PinkWool"
-  LanaGris: "GrayWool"
-  LanaGrisClaro: "LightGrayWool"
-  LanaCian: "CyanWool"
-  LanaPurpura: "PurpleWool"
-  LanaAzul: "BlueWool"
-  LanaCafe: "BrownWool"
-  LanaVerde: "GreenWool"
-  LanaRoja: "RedWool"
-  LanaNegra: "BlackWool"
-  Flower: "YellowFlower"
-  Flor: "YellowFlower"
-  Rose: "RedFlower"
-  Rosa: "RedFlower"
-  Mushroom: "BrownMushroom"
-  HongoCafe: "BrownMushroom"
-  HongoRojo: "RedMushroom"
-  BloqueOro: "BlockGold"
-  BloqueHierro: "BlockIron"
-  Pared: "BrickWall"
-  Libreria: "Bookshelf"
-  Obsidiana: "Obsidian"
-  Antorcha: "Torch"
-  Cofre: "Chest"
-  BloqueDiamante: "BlockDiamond"
-  Horno: "Funrnance"
-  Esalera: "Ladders"
-  Vias: "Rails"
-  AntorchaRedstone: "RedstoneTorch"
-  Nieve: "Snow"
-  Hielo: "Ice"
-  BloqueNieve: "SnowBlock"
-  Arcilla: "Clay"
-  Calabaza: "Pumpkin"
-  RejaHierro: "IronBars"
-  PanelVidrio: "Glasspane"
-  Manzana: "Apple"
-  Flecha: "Arrow"
-  Carbon: "Coal"
-  Diamante: "Diamond"
-  Hierro: "Iron"
-  Oro: "Gold"
-  Stew: "MushroomStew"
-  Sopa: "MushroomStew"
-  Hilo: "String"
-  Pluma: "Feather"
-  Polvora: "Gunpowder"
-  Semillas: "Seeds"
-  Trigo: "Wheat"
-  Pan: "Bread"
-  ManzanaOro: "GoldenApple"
-  Cubeta: "Bucket"
-  Water: "WaterBucket"
-  Lava: "LavaBucket"
-  BolaNieve: "Snowball"
-  Bote: "Boat"
-  Ca�a: "SugarCanes"
-  Papel: "Paper"
-  Libro: "Book"
-  Huevo: "Egg"
-  Pescado: "RawFish"
-  Hueso: "Bone"
-  Azucar: "Sugar"
-  Paste: "Cake"
-  Cama: "Bed"
-  Galleta: "Cookie"
-  Tijeras: "Shears"
-  Carne: "Steak"
-  PolloCrudo: "RawChicken"
-  PolloRostizado: "CookedChiken"
-  Lagrima: "GhastTear"
-  OjoAra�a: "SpiderEye"
-  Esmeralda: "Emerald"
-  Zanahoria: "Carrot"
-  Patata: "Potato"
-  Papa: "Potato"
-  MapaVacio: "EmptyMap"
-  
+    price: 0
+    depend:
+      Pumpkin: 1
+      Sugar: 1
+      Egg: 1
+    alias:
+    - Pay
+    - Pie

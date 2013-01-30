@@ -209,7 +209,7 @@ shop:
   creative:
   - "§cEstás en creativo, eso es tampa."
   sellRate:
-  - .9
+  - .6
 cmd:
   reload:
   - Reload de comandos y configuraciones completo!
