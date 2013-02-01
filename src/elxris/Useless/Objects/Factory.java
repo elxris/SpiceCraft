@@ -122,16 +122,13 @@ public class Factory {
     public int getData(String item){
         return getCache().getInt("item."+item+".data");
     }
-    public List<String> getDepends(String item){
+    private List<String> getDepends(String item){
     	List<String> dependency = new ArrayList<String>();
-    	if(searchItem(item) == null){
-    		return null;
-    	}
-    	if(!getCache().isSet("item."+searchItem(item)+".depend")){
+    	if(!getCache().isSet("item."+item+".depend")){
     		dependency.add(item);
     		return dependency;
     	}
-    	ConfigurationSection memory = getCache().getConfigurationSection("item."+searchItem(item)+".depend");
+    	ConfigurationSection memory = getCache().getConfigurationSection("item."+item+".depend");
     	for(String s: memory.getKeys(false)){
     		for(int i = memory.getInt(s); i > 0; i--){
     			dependency.addAll(getDepends(s));

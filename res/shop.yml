@@ -5,11 +5,16 @@ item:
   Stone:
     id: 1
     price: 1
+    depend:
+      Cobblestone: 1
     alias:
     - Piedra
   Grass:
     id: 2
-    price: 10
+    price: 9
+    depend:
+      Dirt: 1
+      Seeds: 1
     alias:
     - Pasto
     - BloqueHierba
@@ -154,6 +159,7 @@ item:
     price: 0
     depend:
       Sand: 1
+      Coal: 1
     alias:
     - Vidrio
   LapisBlock:
@@ -211,6 +217,7 @@ item:
     depend:
       Gold: 1
       Redstone: 1
+      Stick: 1
     alias:
     - RailPropulsor
   DetectorRail:
@@ -219,6 +226,7 @@ item:
     depend:
       Rail: 1
       Redstone: 1
+      Stone: 1
     alias:
     - RailDetector
   Piston:
@@ -241,7 +249,7 @@ item:
     id: 30
     price: 0
     depend:
-      String: 1
+      String: 4
     alias:
     - Telaraña
   TallGrass:
@@ -252,6 +260,8 @@ item:
   DeadBush:
     id: 32
     price: 5
+    depend:
+      TallGrass: 1
     alias:
     - ArbustoMuerto
   Wool:
@@ -391,7 +401,9 @@ item:
     - Flor
   RedFlower:
     id: 38
-    price: 4
+    price: 1
+    depend:
+      YellowFlower: 1
     alias:
     - Rose
     - Rosa
@@ -406,7 +418,9 @@ item:
     - Seta
   RedMushroom:
     id: 40
-    price: 5
+    price: 0
+    depend:
+      BrownMushroom: 1
     alias:
     - HongoRojo
     - SetaRoja
@@ -495,7 +509,7 @@ item:
     id: 65
     price: 0
     depend:
-      OakPlank: 1
+      Stick: 2
     alias:
     - Escalera
   Rails:
@@ -503,6 +517,7 @@ item:
     price: 0
     depend:
       Iron: 1
+      Stick: 1
     alias:
     - Rail
     - Riel
@@ -511,6 +526,7 @@ item:
     price: 0
     depend:
       Redstone: 1
+      Stick: 1
     alias:
     - AntorchaRedstone
   Ice:
@@ -548,7 +564,7 @@ item:
     id: 85
     price: 0
     depend:
-      OakPlank: 1
+      Stick: 3
     alias:
     - Valla
   Pumpkin:
@@ -764,12 +780,12 @@ item:
     - Sopa
   String:
     id: 287
-    price: 2
+    price: 0.5
     alias:
     - Hilo
   Feather:
     id: 288
-    price: 3
+    price: 2
     alias:
     - Pluma
   Gunpowder:
@@ -826,6 +842,7 @@ item:
     price: 1
     depend:
       RawPorkchop: 1
+      Coal: 1
     alias:
     - CarnePuercoCocida
   Painting:
@@ -848,8 +865,8 @@ item:
     id: 323
     price: 0
     depend:
-      OakPlank: 1
-      Stick: 2
+      OakPlank: 2
+      Stick: 1
     alias:
     - Letrero
   WoodenDoor:
@@ -870,7 +887,7 @@ item:
     id: 326
     price: 0
     depend:
-      Iron: 3
+      Bucket: 1
       Ice: 1
     alias:
     - Water
@@ -879,7 +896,7 @@ item:
     id: 327
     price: 0
     depend:
-      Iron: 3
+      Bucket: 1
       Obsidian: 1
     alias:
     - Lava
@@ -926,7 +943,7 @@ item:
     id: 335
     price: 10
     depend:
-      Iron: 3
+      Bucket: 1
     alias:
     - Leche
   Brick:
@@ -934,6 +951,7 @@ item:
     price: 0
     depend:
       Clay: 1
+      Coal: 1
     alias:
     - Ladrillo
   Clay:
@@ -1200,13 +1218,14 @@ item:
     price: 1
     depend:
       Wheat: 2
+      CocoaBeans: 1
     alias:
     - Galleta
   Shears:
     id: 359
     price: 0
     depend:
-      Iron: 3
+      Iron: 2
     alias:
     - Tijeras
   MelonSlice:
@@ -1264,7 +1283,9 @@ item:
     - PerlaEnder
   BlazeRod:
     id: 369
-    price: 75
+    price: 0
+    depend:
+      BlazePowder: 2
     alias:
     - VaraLlameante
   GhastTear:
@@ -1304,11 +1325,17 @@ item:
       SpiderEye: 1
     alias:
     - OjoArañaFermentado
+  BlazePowder:
+    id: 377
+    price: 30
+    alias:
+    - Fuego
   MagmaCream:
     id: 378
     price: 50
     depend:
       Slimeball: 1
+      BlazePowder: 1
     alias:
     - CremaMagma
     - Cream
@@ -1333,6 +1360,7 @@ item:
     price: 50
     depend:
       EnderPearl: 1
+      BlazePowder: 1
     alias:
     - OjoEnder
   GlisteringMelon:
@@ -1551,7 +1579,7 @@ item:
     id: 390
     price: 0
     depend:
-      Clay: 3
+      Brick: 3
     alias:
     - Maceta
   Carrot:
@@ -1561,7 +1589,9 @@ item:
     - Zanahoria
   Potato:
     id: 392
-    price: 8
+    price: 1
+    depend:
+      Carrot: 1
     alias:
     - Patata
     - Papa
@@ -1597,25 +1627,33 @@ item:
     - CabezaEsqueleto
   WitherHead:
     id: 397
-    price: 600
+    price: 0
+    depend:
+      SkeletonHead: 1
     data: 1
     alias:
     - CabezaWither
   ZombieHead:
     id: 397
-    price: 600
+    price: 0
+    depend:
+      SkeletonHead: 1
     data: 2
     alias:
     - CabezaZombie
   HumanHead:
     id: 397
-    price: 600
+    price: 0
+    depend:
+      SkeletonHead: 1
     data: 3
     alias:
     - CabezaHumano
   CreeperHead:
     id: 397
-    price: 600
+    price: 0
+    depend:
+      SkeletonHead: 1
     data: 4
     alias:
     - CabezaCreeper
