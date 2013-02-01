@@ -64,10 +64,15 @@ public class ShopCommand extends Comando{
                 }
             }
         }
+        Factory.save();
         return true;
     }
     public void showItemInfo(Player p, String item){
+    	String id = f.getId(item)+"";
+    	if(f.haveData(item)){
+    		id = id.concat(":"+f.getData(item));
+    	}
         mensaje(p, "shop.itemInfo", item, new Econ().getPrecio(f.getPrecio(item)),
-                f.getVel(item), f.getId(item));
+                f.getVel(item), id);
     }
 }

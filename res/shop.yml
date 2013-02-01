@@ -412,14 +412,14 @@ item:
     - SetaRoja
   BlockGold:
     id: 41
-    price: 0
+    price: 20
     depend:
       Gold: 9
     alias:
     - BloqueOro
   BlockIron:
     id: 42
-    price: 0
+    price: 20
     depend:
       Iron: 9
     alias:
@@ -464,9 +464,10 @@ item:
     - Obsidiana
   Torch:
     id: 50
-    price: 0.1
+    price: 0
     depend:
       Coal: 1
+      Stick: 1
     alias:
     - Antorcha
   Chest:
@@ -651,7 +652,7 @@ item:
     - MesaEncantamiento
   EndPortalFrame:
     id: 120
-    price: 16000
+    price: 2000
     alias:
     - PortalDelFin
   EndStone:
@@ -666,7 +667,7 @@ item:
     - HuevoDragon
   RedstoneLamp:
     id: 123
-    price: 0
+    price: 10
     depend:
       Redstone: 1
       GlowstoneBlock: 1
@@ -674,7 +675,7 @@ item:
     - Lampara
   BlockEmerald:
     id: 133
-    price: 0
+    price: 20
     depend:
       Emerald: 9
     alias:
@@ -722,6 +723,7 @@ item:
     depend:
       Flint: 1
       Feather: 1
+      Stick: 1
     alias:
     - Flecha
   Coal:
@@ -748,7 +750,7 @@ item:
     - Oro
   Stick:
     id: 280
-    price: .4
+    price: 0.4
     alias:
     - Palo
   MushroomStew:
@@ -816,7 +818,7 @@ item:
     - Yesquero
   RawPorkchop:
     id: 319
-    price: 4
+    price: 15
     alias:
     - CarnePuerco
   CookedPorckchop:
@@ -831,6 +833,7 @@ item:
     price: 2
     depend:
       Wool: 1
+      Stick: 8
     alias:
     - Pintura
   GoldenApple:
@@ -845,7 +848,8 @@ item:
     id: 323
     price: 0
     depend:
-      OakPlank: 2
+      OakPlank: 1
+      Stick: 2
     alias:
     - Letrero
   WoodenDoor:
@@ -920,7 +924,7 @@ item:
     - Cuero
   Milk:
     id: 335
-    price: 0
+    price: 10
     depend:
       Iron: 3
     alias:
@@ -979,7 +983,8 @@ item:
     id: 346
     price: 0
     depend:
-      String: 3
+      String: 2
+      Stick: 3
     alias:
     - CañaPescar
   Clock:
@@ -1002,32 +1007,40 @@ item:
     - PescadoCrudo
   CookedFish:
     id: 350
-    price: 17
+    price: 1
+    depend:
+      RawFish: 1
     alias:
     - PescadoCocido
   InkSac:
     id: 351
-    price: 30
+    price: 10
     data: 0
     alias:
     - Tinta
   RoseRed:
     id: 351
-    price: 30
+    price: 0
+    depend:
+      InkSac: 1
     data: 1
     alias:
     - Red
     - Rojo
   CactusGreen:
     id: 351
-    price: 30
+    price: 0
+    depend:
+      InkSac: 1
     data: 2
     alias:
     - Green
     - Verde
   CocoaBeans:
     id: 351
-    price: 30
+    price: 0
+    depend:
+      InkSac: 1
     data: 3
     alias:
     - Brown
@@ -1035,7 +1048,9 @@ item:
     - Chocolate
   LapisLazuli:
     id: 351
-    price: 30
+    price: 300
+    depend:
+      InkSac: 1
     data: 4
     alias:
     - LapisLazuli
@@ -1043,76 +1058,98 @@ item:
     - Blue
   PurpleDye:
     id: 351
-    price: 30
+    price: 0
+    depend:
+      InkSac: 1
     data: 5
     alias:
     - Purple
     - Morado
   CyanDye:
     id: 351
-    price: 30
+    price: 0
+    depend:
+      InkSac: 1
     data: 6
     alias:
     - Cyan
     - Cian
   LightGrayDye:
     id: 351
-    price: 30
+    price: 0
+    depend:
+      InkSac: 1
     data: 7
     alias:
     - LightGray
     - GrisClaro
   GrayDye:
     id: 351
-    price: 30
+    price: 0
+    depend:
+      InkSac: 1
     data: 8
     alias:
     - Gray
     - Gris
   PinkDye:
     id: 351
-    price: 30
+    price: 0
+    depend:
+      InkSac: 1
     data: 9
     alias:
     - Pink
     - Rosa
   LimeDye:
     id: 351
-    price: 30
+    price: 0
+    depend:
+      InkSac: 1
     data: 10
     alias:
     - Lime
     - Lima
   DandelionYellow:
     id: 351
-    price: 30
+    price: 0
+    depend:
+      InkSac: 1
     data: 11
     alias:
     - Yellow
     - Amarillo
   LightBlueDye:
     id: 351
-    price: 30
+    price: 0
+    depend:
+      InkSac: 1
     data: 12
     alias:
     - LightBlue
     - AzulClaro
   MagentaDye:
     id: 351
-    price: 30
+    price: 0
+    depend:
+      InkSac: 1
     data: 13
     alias:
     - Magenta
   OrangeDye:
     id: 351
-    price: 30
+    price: 0
+    depend:
+      InkSac: 1
     data: 14
     alias:
     - Orange
     - Naranja
   BoneMeal:
     id: 351
-    price: 30
+    price: 0
+    depend:
+      InkSac: 1
     data: 15
     alias:
     - White
@@ -1120,7 +1157,9 @@ item:
     - PolvoHueso
   Bone:
     id: 352
-    price: 10
+    price: 0
+    depend:
+      BoneMeal: 3
     alias:
     - Hueso
   Sugar:
@@ -1158,7 +1197,9 @@ item:
     - Repetidor
   Cookie:
     id: 357
-    price: 10
+    price: 1
+    depend:
+      Wheat: 2
     alias:
     - Galleta
   Shears:
@@ -1194,7 +1235,9 @@ item:
     - FileteCrudo
   Steak:
     id: 364
-    price: 11
+    price: 1
+    depend:
+      RawBeef: 1
     alias:
     - Filete
   RawChicken:
@@ -1204,12 +1247,14 @@ item:
     - PolloCrudo
   CookedChiken:
     id: 366
-    price: 16
+    price: 1
+    depend:
+      RawChicken: 1
     alias:
     - PolloRostizado
   RottenFlesh:
     id: 367
-    price: 0.5
+    price: 0.1
     alias:
     - CarnePodrida
   EnderPearl:
@@ -1253,7 +1298,7 @@ item:
     - OjoAraña
   FermentedSpiderEye:
     id: 376
-    price: 5
+    price: 1
     depend:
       Sugar: 1
       SpiderEye: 1
@@ -1306,133 +1351,177 @@ item:
     - HuevoCreeper
   SkeletonEgg:
     id: 383
-    price: 150
+    price: 0
+    depend:
+      CreeperEgg: 1
     data: 51
     alias:
     - HuevoEsqueleto
   SpiderEgg:
     id: 383
-    price: 150
+    price: 0
+    depend:
+      CreeperEgg: 1
     data: 52
     alias:
     - HuevoAraña
   ZombieEgg:
     id: 383
-    price: 150
+    price: 0
+    depend:
+      CreeperEgg: 1
     data: 54
     alias:
     - HuevoZombie
   SlimeEgg:
     id: 383
-    price: 150
+    price: 0
+    depend:
+      CreeperEgg: 1
     data: 55
     alias:
     - HuevoSlime
   GhastEgg:
     id: 383
-    price: 150
+    price: 0
+    depend:
+      CreeperEgg: 1
     data: 56
     alias:
     - HuevoGhast
   ZombiePigmanEgg:
     id: 383
-    price: 150
+    price: 0
+    depend:
+      CreeperEgg: 1
     data: 57
     alias:
     - HuevoZombieCerdo
   EndermanEgg:
     id: 383
-    price: 150
+    price: 0
+    depend:
+      CreeperEgg: 1
     data: 58
     alias:
     - HuevoEnderman
   CaveSpiderEgg:
     id: 383
-    price: 150
+    price: 0
+    depend:
+      CreeperEgg: 1
     data: 59
     alias:
     - HuevoArañaDeCueva
   SilverfishEgg:
     id: 383
-    price: 150
+    price: 0
+    depend:
+      CreeperEgg: 1
     data: 60
     alias:
     - HuevoLepisma
   BlazeEgg:
     id: 383
-    price: 150
+    price: 0
+    depend:
+      CreeperEgg: 1
     data: 61
     alias:
     - HuevoLlama
   MagmaCubeEgg:
     id: 383
-    price: 150
+    price: 0
+    depend:
+      CreeperEgg: 1
     data: 62
     alias:
     - HuevoMagma
   WitchEgg:
     id: 383
-    price: 150
+    price: 0
+    depend:
+      CreeperEgg: 1
     data: 66
     alias:
     - HuevoBruja
   BatEgg:
     id: 383
-    price: 150
+    price: 0
+    depend:
+      CreeperEgg: 1
     data: 65
     alias:
     - HuevoMurcielago
   PigEgg:
     id: 383
-    price: 150
+    price: 0
+    depend:
+      CreeperEgg: 1
     data: 90
     alias:
     - HuevoCerdo
   SheepEgg:
     id: 383
-    price: 150
+    price: 0
+    depend:
+      CreeperEgg: 1
     data: 91
     alias:
     - HuevoOveja
   CowEgg:
     id: 383
-    price: 150
+    price: 0
+    depend:
+      CreeperEgg: 1
     data: 92
     alias:
     - HuevoVaca
   ChickenEgg:
     id: 383
-    price: 150
+    price: 0
+    depend:
+      CreeperEgg: 1
     data: 93
     alias:
     - HuevoGallina
   SquidEgg:
     id: 383
-    price: 150
+    price: 0
+    depend:
+      CreeperEgg: 1
     data: 94
     alias:
     - HuevoCalamar
   WolfEgg:
     id: 383
-    price: 150
+    price: 0
+    depend:
+      CreeperEgg: 1
     data: 95
     alias:
     - HuevoLobo
   MooshroomEgg:
     id: 383
-    price: 150
+    price: 0
+    depend:
+      CreeperEgg: 1
     data: 96
     alias:
     - HuevoVacaSeta
   OcelotEgg:
     id: 383
-    price: 150
+    price: 0
+    depend:
+      CreeperEgg: 1
     data: 98
     alias:
     - HuevoOcelote
   VillagerEgg:
     id: 383
-    price: 150
+    price: 0
+    depend:
+      CreeperEgg: 1
     data: 120
     alias:
     - HuevoAldeano
@@ -1455,6 +1544,7 @@ item:
     price: 5
     depend:
       Leather: 1
+      Stick: 8
     alias:
     - Marco
   FlowerPot:
@@ -1477,7 +1567,9 @@ item:
     - Papa
   BakedPotato:
     id: 393
-    price: 8.25
+    price: 0.25
+    depend:
+      Potato: 1
     alias:
     - PatataCocida
     - PapaCocida
@@ -1491,7 +1583,10 @@ item:
     - MapaVacio
   GoldenCarrot:
     id: 396
-    price: 1200
+    price: 0
+    depend:
+      Carrot: 1
+      GoldNugget: 8
     alias:
     - ZanahoriaOro
   SkeletonHead:
@@ -1529,6 +1624,7 @@ item:
     price: 0
     depend:
       Carrot: 1
+      FishingRod: 1
     alias:
     - PaloZanahoria
   NetherStar:

@@ -1,7 +1,8 @@
 
 # Useles by elxris
 # Fork me on github: https://github.com/elxris/Useless
-lang: es
+lang:
+- es
 comm:
   tw:
     new:

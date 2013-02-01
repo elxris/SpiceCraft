@@ -6,6 +6,7 @@ import java.util.Set;
 
 import org.bukkit.GameMode;
 import org.bukkit.Material;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -23,6 +24,7 @@ public class Factory {
     private int vel;
     private long FRECUENCY;
     private int STACKFULL;
+    private static boolean save;
     public Factory() {
         init();
     }
@@ -34,8 +36,8 @@ public class Factory {
     private void update(String item){
         for(;getTime(item) <= getSystemTimeHour(); addTime(item, FRECUENCY)){
             produce(item);
+            save = true;
         }
-        save();
     }
     private void produce(String item){
         // Producir deacuerdo a un item y su velocidad, y luego cambiar su velocidad.
@@ -77,11 +79,14 @@ public class Factory {
         getCache().set("item."+item+".count", count);
     }
     public int getCount(String item){
-        isSet("item."+item+".count", 64);
+        isSet("item."+item+".count", STACKFULL / 2);
         return getCache().getInt("item."+item+".count");
     }
     public void addCount(String item, int count){
-        setCount(item, getCount(item)+count);
+    	setCount(item, getCount(item)+count);
+		for(String s: getDepends(item)){
+			setCount(s, getCount(s)+count);
+		}
     }
     public void setVel(String item, int vel){
         getCache().set("item."+item+".vel", vel);
@@ -93,8 +98,14 @@ public class Factory {
     public void addVel(String item, int vel){
         setVel(item, getVel(item)+vel);
     }
-    public double getPrice(String item){        
-        return getCache().getDouble("item."+item+".price", 1.0);
+    public double getPrice(String item){
+    	double price = getCache().getDouble("item."+item+".price");
+    	if(getCache().isSet("item."+item+".depend")){
+    		for(String s: getDepends(item)){
+    			price += getPrecio(s);
+    		}
+    	}
+        return price;
     }
     public double getRazonPrecio(String item){
         return (double)getVel(item)/vel;
@@ -111,8 +122,26 @@ public class Factory {
     public int getData(String item){
         return getCache().getInt("item."+item+".data");
     }
+    public List<String> getDepends(String item){
+    	List<String> dependency = new ArrayList<String>();
+    	if(searchItem(item) == null){
+    		return null;
+    	}
+    	if(!getCache().isSet("item."+searchItem(item)+".depend")){
+    		dependency.add(item);
+    		return dependency;
+    	}
+    	ConfigurationSection memory = getCache().getConfigurationSection("item."+searchItem(item)+".depend");
+    	for(String s: memory.getKeys(false)){
+    		for(int i = memory.getInt(s); i > 0; i--){
+    			dependency.addAll(getDepends(s));
+    		}
+    	}
+		return dependency;
+    }
     public String searchItem(String s){
         makePaths();
+        s = s.replace(':', '-');
         if(getCache().isSet("paths."+s.toLowerCase())){
             String res = getCache().getString("paths."+s.toLowerCase());
             update(res);
@@ -127,26 +156,33 @@ public class Factory {
         Set<String> items = getCache().getConfigurationSection("item").getKeys(false);
         for(String s: items){// Items
             getCache().set("paths."+s.toLowerCase(), s);
+            if(getCache().isSet("item."+s+".alias")){// Alias
+            	List<String> alias = getCache().getStringList("item."+s+".alias");
+            	for(String a: alias){
+            		getCache().set("paths."+a.toLowerCase(), s);
+            	}
+            }
         }
         for(String s: items){// IDs
             if(!getCache().isSet("paths."+getCache().getInt("item."+s+".id"))){
-                getCache().set("paths."+getCache().getInt("item."+s+".id"), s);
+            	if(haveData(s)){
+            		getCache().set("paths."+getCache().getInt("item."+s+".id")+"-"+getCache().getInt("item."+s+".data"), s);
+            	}else{
+            		getCache().set("paths."+getCache().getInt("item."+s+".id"), s);
+            	}
             }
-        }
-        Set<String> ids = getCache().getConfigurationSection("alt").getKeys(false);
-        for(String s: ids){// Alternatives
-            getCache().set("paths."+s.toLowerCase(), getCache().getString("alt."+s));
         }
     }
     private void isSet(String path, Object value){
         if(!getCache().isSet(path)){
             getCache().set(path, value);
+            save = true;
         }
     }
     private ItemStack createItem(String item, int size){
         ItemStack stack = new ItemStack(getId(item));
         byte data = (byte)getData(item);
-        if(getCache().isSet("item."+item+".data")){
+        if(haveData(item)){
             MaterialData mData = stack.getData();
             mData.setData(data);
             stack = mData.toItemStack();
@@ -166,8 +202,11 @@ public class Factory {
         }
         return items;
     }
+    public boolean haveData(String item){
+    	return getCache().isSet("item."+item+".data");
+    }
     // Comandos de la tienda.
-    public void shop(Player p, String item, int cantidad){
+    public void shop(Player p, String item, int cantidad){ // Compra
         if(searchItem(item) == null){
             Chat.mensaje(p, "shop.notExist");
             return;
@@ -179,15 +218,14 @@ public class Factory {
         }
         addItemsToInventory(p, createItems(item, cantidad));
         addCount(item, -cantidad);
-        save();
     }
-    private void addItemsToInventory(Player p, List<ItemStack> items){
+    private void addItemsToInventory(Player p, List<ItemStack> items){ // Añade el item al inventario del jugador.
         ItemStack[] itemsArray = items.toArray(new ItemStack[0]);
         for(ItemStack item: p.getInventory().addItem(itemsArray).values()){
             p.getWorld().dropItemNaturally(p.getLocation(), item);
         }
     }
-    public List<String> lookItems(String item){
+    public List<String> lookItems(String item){ // Busca items.
         List<String> items = new ArrayList<String>();
         makePaths();
         for(String s: getCache().getConfigurationSection("paths").getKeys(false)){
@@ -210,7 +248,6 @@ public class Factory {
         addCount(name, p.getItemInHand().getAmount());
         new Econ().pagar(p, getPrecio(name, p.getItemInHand().getAmount())*Strings.getDouble("shop.sellRate"));
         p.setItemInHand(null);
-        save();
     }
     // Gestion de archivos.
     private static void setFile(String path){
@@ -234,8 +271,12 @@ public class Factory {
         }
         return fc;
     }
-    private static void save(){
+    public static void save(){
+    	if(!save){
+    		return;
+    	}
         getCache().set("paths", null);
         getFile().save(getCache());
+        save = false;
     }
 }

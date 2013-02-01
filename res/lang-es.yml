@@ -1,6 +1,6 @@
 tw:
   info:
-  - §aAyuda /tw
+  - §b[§cTW§b]§r §aAYUDA
   - §e/tw §cn§euevo [minutos]§r Para crear un warp temporal personal.
   - Recuerda que por cada minuto te cobrará %s.
   - §e/tw §cn§euevo [nombre] [minutos]§r Hacer un warp temporal que cualquiera pueda usar.
@@ -10,28 +10,28 @@ tw:
   - §e/tw§r Muestra esta ayuda, o puede ser un comando rápido para un warp temporal personal.
   s:
     created:
-    - Warp Temporal de %d minutos creado.
+    - §b[§cTW§b]§r Warp Temporal de %d minutos creado.
     - Usa §e/tw %s§r para usarlo.
     remain:
-    - Quedan §4%d§r segundos para la destrucción de el warp temporal.
+    - §b[§cTW§b]§r Quedan §4%d§r segundos para la destrucción de el warp temporal.
     teleported:
-    - Teleportando..
+    - §b[§cTW§b]§r Teleportando..
     destroyed:
-    - Warp Destruido.
+    - §b[§cTW§b]§r Warp Destruido.
     noMoney:
-    - No puedes pagarte un warp temporal en este momento.
+    - §b[§cTW§b]§r No puedes pagarte un warp temporal en este momento.
     noExist:
-    - No existe el warp. §e/tw§r Para más info.
+    - §b[§cTW§b]§r No existe el warp. §e/tw§r Para más info.
     exist:
-    - Ya existe ese warp.
+    - §b[§cTW§b]§r Ya existe ese warp.
     timeLimit:
-    - No debe ser menor a %d minutos ni mayor a %d minutos.
+    - §b[§cTW§b]§r No debe ser menor a %d minutos ni mayor a %d minutos.
     warpLimit:
-    - No puedes hacer otro warp, ya tienes muchos.
+    - §b[§cTW§b]§r No puedes hacer otro warp, ya tienes muchos.
     noOwner:
-    - No puedes borrar este warp, no es tuyo.
+    - §b[§cTW§b]§r No puedes borrar este warp, no es tuyo.
     listHeader:
-    - '### Lista de warps públicos ###'
+    - '§b[§cTW§b]§r §a### §cLista de warps públicos §a###'
     - '%s'
     listItem:
     - <%s:%s %s segundos restantes>
@@ -46,13 +46,13 @@ tw:
     - 10.0
 mbox:
   info:
-  - §aAyuda /mbox
+  - §b[§cMBOX§b]§r §aAyuda
   - §e/mbox . §rNumerar los correos que tienes.
   - §e/mbox §cl§eeer §rLeer el correo.
   - §e/mbox §cb§eorrar §rBorrar la bandeja de entrada.
   - §e/mboxc §rAyuda para crear correos.
   list:
-  - Tienes §e%d§r mensajes. §e/mbox§r Para más info.
+  - §b[§cMBOX§b]§r Tienes §e%d§r mensajes. §e/mbox§r Para más info.
   mail:
   - 'De: §a%s§r Fecha: %s'
   - §b§o%s§r
@@ -60,17 +60,17 @@ mbox:
   timeago:
   - 'Hace '
   readStart:
-  - '§c### Inicio Bandeja de Correo ###'
+  - '§b[§cMBOX§b]§r §a### §cInicio Bandeja de Correo §a###'
   readFinish:
-  - '§c### Fin Bandeja de Correo ###'
+  - '§a### §cFin Bandeja de Correo §a###'
   - Escribe §e/mbox §cb§eorrar§r para borrar la bandeja de entrada.
   listEnd:
-  - Ya no tienes correos.
+  - §b[§cMBOX§b]§r Ya no tienes correos.
   deleted:
-  - Mensajes eliminados.
+  - §b[§cMBOX§b]§r Mensajes eliminados.
 mboxc:
   info:
-  - §aAyuda /mboxc
+  - §b[§cMBOXC§b]§r §aAYUDA
   - Para crear un correo debes primero hacer un borrador para después agregar el mensaje.
   - §e/mboxc §cn§eevo [Usuario] ... §rCrea un borrador con destinatario o destinatarios. Uno mínimo.
   - §e/mboxc §ca§egregar [Mensaje] §rAgrega el mensaje a el correo.
@@ -79,58 +79,58 @@ mboxc:
   - §e/mboxc §ce§enviar [Usuario] [Mensaje] §rComando rápido para enviar un mensaje.
   - §e/mboxc a§ct§eodos§r (Solo Admins)Envía el mensaje a todos los usuarios.
   noPlayerAdded:
-  - Ningún destinatario, por lo tanto mensaje no creado.
+  - §b[§cMBOXC§b]§r Ningún destinatario, por lo tanto mensaje no creado.
   playerNotExist:
-  - El jugador %s no encontrado. No ha sido agregado.
+  - §b[§cMBOXC§b]§r El jugador %s no encontrado. No ha sido agregado.
   catched:
-  - Mensaje recibido.
+  - §b[§cMBOXC§b]§r Mensaje recibido.
   sended:
-  - Mensaje enviado.
+  - §b[§cMBOXC§b]§r Mensaje enviado.
   limit:
-  - Lo siento, ya has superado el límite de 300 caracteres.
+  - §b[§cMBOXC§b]§r Lo siento, ya has superado el límite de 300 caracteres.
   created:
-  - Borrador creado. §e/mboxc §ca§egregar <Mensaje>§r para añadir mensaje.
+  - §b[§cMBOXC§b]§r Borrador creado. §e/mboxc §ca§egregar <Mensaje>§r para añadir mensaje.
   add:
-  - Mensaje añadido añade más con §e/mboxc a [mensaje] §e/mboxc §ce§enviar§r para enviar.
+  - §b[§cMBOXC§b]§r Mensaje añadido añade más con §e/mboxc a [mensaje] §e/mboxc §ce§enviar§r para enviar.
   noMessage:
-  - §cPrimero debes crear un borrador. §e/mboxc para más ayuda.
+  - §b[§cMBOXC§b]§r §cPrimero debes crear un borrador. §e/mboxc para más ayuda.
   v:
     maxChar:
     - 200
 upin:
   info:
-  - §aAyuda /upin
+  - §b[§cUPIN§b]§r §aAYUDA
   - §e/upin [nombre] [x] [z]§r Para crear una posición que puede ser localizada con una brújula.
   - §e/upin [nombre]§r Para usarla.
   - §e/upin §cb§eorrar [nombre]§r Para borrarla si eres el dueño.
   - §e/upin §cl§eistar§r Para ver todas las posiciones.
   noPin:
-  - No existe la posicion.
+  - §b[§cUPIN§b]§r No existe la posicion.
   exist:
-  - Ya existe esa posicion. Elige otra.
+  - §b[§cUPIN§b]§r Ya existe esa posicion. Elige otra.
   list:
-  - '§a### Lista de las posiciones ###'
+  - '§b[§cUPIN§b]§r §a### §cLista de las posiciones §a###'
   - §b%s
   item:
   - '<%s: %s [%s][%s]> '
   noList:
-  - §cNo hay posiciones. Aún.
+  - §b[§cUPIN§b]§r §cNo hay posiciones. Aún.
   created:
-  - Posición creada, úsala con §e/upin %s
+  - §b[§cUPIN§b]§r Posición creada, úsala con §e/upin %s
   set:
-  - La posición ahora se mostrará en un compás.
+  - §b[§cUPIN§b]§r La posición ahora se mostrará en un compás.
   nether:
-  - §cDe nada sirve crear una posición aquí. No se mostrará.
+  - §b[§cUPIN§b]§r §cDe nada sirve crear una posición aquí. No se mostrará.
   del:
-  - Borrada la posición.
+  - §b[§cUPIN§b]§r Borrada la posición.
   v:
     maxPerUser:
     - 3
   limitPin:
-  - Ya tienes demasiadas posiciones, ya no puedes hacer más.
+  - §b[§cUPIN§b]§r Ya tienes demasiadas posiciones, ya no puedes hacer más.
 lib:
   info:
-  - §b[§cLIB§b] §aAYUDA
+  - §b[§cLIB§b]§r §aAYUDA
   - §e/lib §cc§eomprar [id]§r Compra el libro indicado.
   - §e/lib §ci§enfo [id]§r Muestra la información del libro indicado.
   - §e/lib §cl§eistar§r Muestra una lista de los libros disponibles.
@@ -139,75 +139,75 @@ lib:
   - §e/lib §cb§eorrar [id]§r Borra el libro indicado
   - §e/lib §cp§eaga§r Cobra las retribuciones.
   sell:
-  - Has vendido un libro.
+  - §b[§cLIB§b]§r Has vendido un libro.
   buy:
-  - Has comprado un libro. Gracias.
+  - §b[§cLIB§b]§r Has comprado un libro. Gracias.
   send:
-  - Has enviado satisfactoriamente tu libro. Pronto ganarás dinero con tus habilidades retóricas.
+  - §b[§cLIB§b]§r Has enviado satisfactoriamente tu libro. Pronto ganarás dinero con tus habilidades retóricas.
   noBook:
-  - No existe el libro.
+  - §b[§cLIB§b]§r No existe el libro.
   bookInfo:
-  - §aFICHA DEL LIBRO
+  - §b[§cLIB§b]§r §aFICHA DEL LIBRO
   - '§bAutor: §c%s'
   - '§bTítulo: §c%S'
   - '§bPáginas: §c%d'
   - '§bPrecio: §c%s'
   - '§bVentas: §c%d'
   noMoney:
-  - No tienes suficiente dinero para comprar un libro.
+  - §b[§cLIB§b]§r No tienes suficiente dinero para comprar un libro.
   noHand:
-  - No tienes un libro en la mano para vender.
+  - §b[§cLIB§b]§r No tienes un libro en la mano para vender.
   wrongAuthor:
-  - No eres el autor del libro.
+  - §b[§cLIB§b]§r No eres el autor del libro.
   pay:
-  - §eCon los libros [%s§e], has ganado §a%s.
+  - §b[§cLIB§b]§r §eCon los libros [%s§e], has ganado §a%s.
   noPay:
-  - No tienes retribuciones.
+  - §b[§cLIB§b]§r No tienes retribuciones.
   list:
-  - '###Lista de libros###'
+  - '§b[§cLIB§b]§r §a### §cLista de libros §a###'
   itemMe:
   - '§d[%d] ::%s:: <%s>{%s}'
   item:
   - '§b[%d] ::%s:: <%s>{%s}'
   top:
-  - '###Top Libros###'
+  - '§b[§cLIB§b]§r §a### §cTop Libros §a###'
   topItem:
   - '%d.- %s'
   del:
-  - Has borrado el libro satisfactoriamente.
+  - §b[§cLIB§b]§r Has borrado el libro satisfactoriamente.
   repeated:
-  - Está repetido. ¿Acaso quieres engañar a tus lectores?
+  - §b[§cLIB§b]§r Está repetido. ¿Acaso quieres engañar a tus lectores?
   isNotABook:
-  - Lo que tienes en tu mano no es un libro.
+  - §b[§cLIB§b]§r Lo que tienes en tu mano no es un libro.
   topSize:
   - 3
   percent:
   - 50
 shop:
   info:
-  - "§b[§cSHOP§b] §aAYUDA"
+  - "§b[§cSHOP§b]§r §aAYUDA"
   - "§e/shop [item] §rMuestra la información de un item. Nombre o id."
   - "§e/shop [item] [cantidad]§r Compra un item."
   - "§bConsultar precios ya que varían."
   - "§e/shop §cb§euscar [búsqueda] §rBusca item que contiene la [búsqueda] en el nombre."
   - "§e/shop §cv§eender §rVende el stack que tienes en mano al %s del precio que tiene actualmente."
   itemInfo:
-  - "§b[§cSHOP§b] §aInfo §d%s"
+  - "§b[§cSHOP§b]§r §aInfo §d%s"
   - "§bPrecio: §a%s §ela unidad."
   - "§bProducción: §a%s"
   - "§bID: §a%s"
   shoped:
-  - "§aGracias por tu compra."
+  - "§b[§cSHOP§b]§r §aGracias por tu compra."
   searchHead:
-  - "§b[§cSHOP§b]§a=== §cBuscando: §e%s §a==="
+  - "§b[§cSHOP§b]§r §a=== §cBuscando: §e%s §a==="
   searchItem:
   - "§b%s"
   notExist:
-  - "§cNo existe el item en la tienda."
+  - "§b[§cSHOP§b]§r §cNo existe el item en la tienda."
   noMoney:
-  - "§cNo tienes suficiente dinero para comprar."
+  - "§b[§cSHOP§b]§r §cNo tienes suficiente dinero para comprar."
   creative:
-  - "§cEstás en creativo, eso es tampa."
+  - "§b[§cSHOP§b]§r §cEstás en creativo, eso es tampa."
   sellRate:
   - .6
 cmd:
@@ -256,6 +256,6 @@ exp:
   - '%d puntos de experiencia'
 econ:
   cobrar:
-  - Cobrando %s.
+  - §bCobrando §c%s.
   pagar:
-  - Pagando %s.
+  - §bPagando §a%s.
