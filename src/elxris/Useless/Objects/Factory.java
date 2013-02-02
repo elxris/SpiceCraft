@@ -9,6 +9,9 @@ import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.material.MaterialData;
 
@@ -18,7 +21,7 @@ import elxris.Useless.Utils.Chat;
 import elxris.Useless.Utils.Econ;
 import elxris.Useless.Utils.Strings;
 
-public class Factory {
+public class Factory implements Listener {
     private static Archivo file;
     private static FileConfiguration fc;
     private int vel;
@@ -218,9 +221,17 @@ public class Factory {
     }
     private void addItemsToInventory(Player p, List<ItemStack> items){ // Añade el item al inventario del jugador.
         ItemStack[] itemsArray = items.toArray(new ItemStack[0]);
-        for(ItemStack item: p.getInventory().addItem(itemsArray).values()){
-            p.getWorld().dropItemNaturally(p.getLocation(), item);
-        }
+        addItemsToInventory(p, itemsArray);
+    }
+    private void addItemsToInventory(Player p, ItemStack[] itemsArray){
+    	for(ItemStack item: itemsArray){
+    		p.getWorld().dropItemNaturally(p.getLocation(), item);
+    	}
+    }
+    private void addItemToInventory(Player p, ItemStack item){
+    	List<ItemStack> itemsArray = new ArrayList<ItemStack>();
+    	itemsArray.add(item);
+    	addItemsToInventory(p, itemsArray);
     }
     public List<String> lookItems(String item){ // Busca items.
         List<String> items = new ArrayList<String>();
@@ -232,19 +243,42 @@ public class Factory {
         }
         return items;
     }
-    public void sell(Player p){
-        String name = searchItem(String.valueOf(p.getItemInHand().getTypeId())); 
-        if(name == null){
-            Chat.mensaje(p, "shop.notExist");
-            return;
-        }
-        if(p.getGameMode() == GameMode.CREATIVE){
-            Chat.mensaje(p, "shop.creative");
-            return;
-        }
-        addCount(name, p.getItemInHand().getAmount());
-        new Econ().pagar(p, getPrecio(name, p.getItemInHand().getAmount())*Strings.getDouble("shop.sellRate"));
-        p.setItemInHand(null);
+    public void sell(Player p){ // Vende
+    	if(p.getGameMode() == GameMode.CREATIVE){
+    		Chat.mensaje(p, "shop.creative");
+    		return;
+    	}
+    	Inventory inv = org.bukkit.Bukkit.createInventory(p, 27, "SHOP");
+    	p.openInventory(inv);
+    }
+    @EventHandler
+    public void onCloseInventory(org.bukkit.event.inventory.InventoryCloseEvent event){
+    	if(event.getInventory().getTitle().contentEquals("SHOP")){
+    		Inventory inv = event.getInventory();
+    		Player p = (Player) event.getPlayer();
+    		double money = 0;
+        	for(ItemStack item: inv.getContents()){
+        		if(item == null){
+        			continue;
+        		}
+        		String id = ""+item.getTypeId();
+        		if(item.getData().getData() > 0){
+        			id += ":"+item.getData().getData();
+        		}
+        		String name = searchItem(id);
+        		if(name == null){
+        			name = searchItem(id+":0");
+        		}
+        		if(name == null){
+        			Chat.mensaje(p, "shop.notExist");
+        			addItemToInventory(p, item);
+        			continue;
+        		}
+        		addCount(name, item.getAmount());
+        		money += getPrecio(name, item.getAmount());
+        	}
+        	new Econ().pagar(p, money*Strings.getDouble("shop.sellRate"));
+    	}
     }
     // Gestion de archivos.
     private static void setFile(String path){

@@ -6,6 +6,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import elxris.Useless.Useless;
 import elxris.Useless.Objects.Factory;
 import elxris.Useless.Utils.Econ;
 import elxris.Useless.Utils.Strings;
@@ -14,6 +15,8 @@ public class ShopCommand extends Comando{
     public Factory f;
     public ShopCommand() {
         f = new Factory();
+        // Registra los eventos de plugin.
+        Useless.plugin().getServer().getPluginManager().registerEvents(f, Useless.plugin());
     }
     @Override
     public boolean onCommand(CommandSender player, Command command, String label, String[] args) {

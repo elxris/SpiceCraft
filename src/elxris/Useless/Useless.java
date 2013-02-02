@@ -40,7 +40,7 @@ public class Useless extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new CompassListener(), this);
         //Comando Compass
         getCommand("upin").setExecutor(new CompassCommand());
-        //Comando Librerï¿½a
+        //Comando Librería
         getCommand("lib").setExecutor(new LibCommand());
         //Comando Tienda
         getCommand("shop").setExecutor(new ShopCommand());
