@@ -484,6 +484,11 @@ item:
       Stick: 1
     alias:
     - Antorcha
+  MobSpawner:
+    id: 52
+    price: 5000
+    alias:
+    - Spawner
   Chest:
     id: 54
     price: 0

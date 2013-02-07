@@ -1,5 +1,5 @@
 name: Useless
-version: 0.8.4
+version: 0.8.5
 main: elxris.Useless.Useless
 commands:
     tw:
@@ -65,3 +65,5 @@ permissions:
         default: true
     useless.lang:
         default: op
+    useless.mob:
+    	default: true
