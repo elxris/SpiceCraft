@@ -7,6 +7,7 @@ import java.util.Set;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.MemoryConfiguration;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -24,6 +25,7 @@ import elxris.Useless.Utils.Strings;
 public class Factory implements Listener{
     private static Archivo file;
     private static FileConfiguration fc;
+    private static MemoryConfiguration paths;
     private int vel;
     private long FRECUENCY;
     private int STACKFULL;
@@ -144,33 +146,34 @@ public class Factory implements Listener{
     public String searchItem(String s){
         makePaths();
         s = s.replace(':', '-');
-        if(getCache().isSet("paths."+s.toLowerCase())){
-            String res = getCache().getString("paths."+s.toLowerCase());
+        if(paths.isSet(s.toLowerCase())){
+            String res = paths.getString(s.toLowerCase());
             update(res);
             return res;
         }
         return null;
     }
     private void makePaths(){
-        if(getCache().isSet("paths")){
+        if(paths != null){
            return; 
         }
+        paths = new MemoryConfiguration();
         Set<String> items = getCache().getConfigurationSection("item").getKeys(false);
         for(String s: items){// Items
-            getCache().set("paths."+s.toLowerCase(), s);
+            paths.set(s.toLowerCase(), s);
             if(getCache().isSet("item."+s+".alias")){// Alias
             	List<String> alias = getCache().getStringList("item."+s+".alias");
             	for(String a: alias){
-            		getCache().set("paths."+a.toLowerCase(), s);
+            		paths.set(a.toLowerCase(), s);
             	}
             }
         }
         for(String s: items){// IDs
-            if(!getCache().isSet("paths."+getCache().getInt("item."+s+".id"))){
+            if(!paths.isSet(getCache().getInt("item."+s+".id")+"")){
             	if(haveData(s)){
-            		getCache().set("paths."+getCache().getInt("item."+s+".id")+"-"+getCache().getInt("item."+s+".data"), s);
+            		paths.set(getCache().getInt("item."+s+".id")+"-"+getCache().getInt("item."+s+".data"), s);
             	}else{
-            		getCache().set("paths."+getCache().getInt("item."+s+".id"), s);
+            		paths.set(getCache().getInt("item."+s+".id")+"", s);
             	}
             }
         }
@@ -238,7 +241,7 @@ public class Factory implements Listener{
     public List<String> lookItems(String item){ // Busca items.
         List<String> items = new ArrayList<String>();
         makePaths();
-        for(String s: getCache().getConfigurationSection("paths").getKeys(false)){
+        for(String s: paths.getKeys(false)){
             if(s.matches("(.*)("+item.toLowerCase()+")(.*)")){
                 items.add(s);
             }
@@ -308,7 +311,6 @@ public class Factory implements Listener{
         getHilo();
     }
     public static void finishSave(){
-    	getCache().set("paths", null);
         getFile().save(getCache());
     }
 	public static Hilo getHilo() {
