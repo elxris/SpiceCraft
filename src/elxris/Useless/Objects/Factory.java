@@ -21,25 +21,24 @@ import elxris.Useless.Utils.Chat;
 import elxris.Useless.Utils.Econ;
 import elxris.Useless.Utils.Strings;
 
-public class Factory implements Listener {
+public class Factory implements Listener{
     private static Archivo file;
     private static FileConfiguration fc;
     private int vel;
     private long FRECUENCY;
     private int STACKFULL;
-    private static boolean save;
     public Factory() {
         init();
     }
     private void init() {
         vel = getCache().getInt("vel");
-        FRECUENCY = getCache().getLong("freq")*60000;
+        FRECUENCY = getCache().getLong("freq")*60*1000;
         STACKFULL = getCache().getInt("full");
     }
     private void update(String item){
-        for(;getTime(item) <= getSystemTimeHour(); addTime(item, FRECUENCY)){
+    	long time = getSystemTimeHour();
+        for(;getTimeHour(item) < time; addTime(item, FRECUENCY)){
             produce(item);
-            save = true;
         }
     }
     private void produce(String item){
@@ -61,9 +60,10 @@ public class Factory implements Listener {
     }
     public void setTime(String item, long time) {
         getCache().set("item."+item+".time", time);
+        save();
     }
     public long getTime(String item) {
-        isSet("item."+item+".time", getSystemTime());
+        isSet("item."+item+".time", getSystemTimeHour());
         return getCache().getLong("item."+item+".time");
     }
     public long getTimeHour(String item) {
@@ -72,14 +72,15 @@ public class Factory implements Listener {
     public void addTime(String item, long time){
         setTime(item, getTime(item)+time);
     }
-    public long getSystemTime(){
+    public long getSystemTime(){ // Obtiene el tiempo del sistema.
         return System.currentTimeMillis();
     }
-    public long getSystemTimeHour(){
+    public long getSystemTimeHour(){ // Obtiene el tiempo del sistema menos el resto de la frecuencia.
         return getSystemTime() - (getSystemTime() % FRECUENCY);
     }
     public void setCount(String item, int count){
         getCache().set("item."+item+".count", count);
+        save();
     }
     public int getCount(String item){
         isSet("item."+item+".count", STACKFULL / 2);
@@ -93,6 +94,7 @@ public class Factory implements Listener {
     }
     public void setVel(String item, int vel){
         getCache().set("item."+item+".vel", vel);
+        save();
     }
     public int getVel(String item){
         isSet("item."+item+".vel", vel);
@@ -176,7 +178,7 @@ public class Factory implements Listener {
     private void isSet(String path, Object value){
         if(!getCache().isSet(path)){
             getCache().set(path, value);
-            save = true;
+            save();
         }
     }
     private ItemStack createItem(String item, int size){
@@ -302,12 +304,35 @@ public class Factory implements Listener {
         }
         return fc;
     }
-    public static void save(){
-    	if(!save){
-    		return;
-    	}
-        getCache().set("paths", null);
-        getFile().save(getCache());
-        save = false;
+    private static void save(){
+        getHilo();
     }
+    public static void finishSave(){
+    	getCache().set("paths", null);
+        getFile().save(getCache());
+    }
+	public static Hilo getHilo() {
+		return new Hilo();
+	}
+}
+class Hilo implements Runnable{
+	private static boolean save = false;
+	public Hilo() {
+		if(save){
+			return;
+		}else{
+			save = true;
+			new Thread(this).start();
+		}
+	}
+	@Override
+	public void run() {
+		try {
+			Thread.sleep(15*1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		Factory.finishSave();
+	}
+	
 }

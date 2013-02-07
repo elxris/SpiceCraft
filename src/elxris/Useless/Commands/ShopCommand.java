@@ -67,7 +67,6 @@ public class ShopCommand extends Comando{
                 }
             }
         }
-        Factory.save();
         return true;
     }
     public void showItemInfo(Player p, String item){

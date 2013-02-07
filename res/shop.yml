@@ -634,7 +634,9 @@ item:
     - Enredadera
   Mycelium:
     id: 110
-    price: 800
+    price: 100
+    depend:
+      Dirt: 1
     alias:
     - Micelio
   LilyPad:
@@ -751,7 +753,7 @@ item:
     id: 264
     price: 1000
     alias:
-    - Diamond
+    - Diamante
   Iron:
     id: 265
     price: 300
@@ -1036,6 +1038,7 @@ item:
     data: 0
     alias:
     - Tinta
+    - Negro
   RoseRed:
     id: 351
     price: 0
@@ -1074,6 +1077,7 @@ item:
     - LapisLazuli
     - Lapis
     - Blue
+    - Azul
   PurpleDye:
     id: 351
     price: 0
@@ -1682,3 +1686,325 @@ item:
     alias:
     - Pay
     - Pie
+  13Disc:
+    id: 2256
+    price: 500
+  CatDisc:
+    id: 2257
+    price: 0
+    depend:
+      13Disc: 1
+  BlocksDisc:
+    id: 2258
+    price: 0
+    depend:
+      13Disc: 1
+  ChirpDisc:
+    id: 2259
+    price: 0
+    depend:
+      13Disc: 1
+  FarDisc:
+    id: 2260
+    price: 0
+    depend:
+      13Disc: 1
+  MallDisc:
+    id: 2261
+    price: 0
+    depend:
+      13Disc: 1
+  MellohiDisc:
+    id: 2262
+    price: 0
+    depend:
+      13Disc: 1
+  StalDisc:
+    id: 2263
+    price: 0
+    depend:
+      13Disc: 1
+  StradDisc:
+    id: 2264
+    price: 0
+    depend:
+      13Disc: 1
+  WardDisc:
+    id: 2265
+    price: 0
+    depend:
+      13Disc: 1
+  11Disc:
+    id: 2266
+    price: 0
+    depend:
+      13Disc: 1
+  WaitDisc:
+    id: 2267
+    price: 0
+    depend:
+      13Disc: 1
+  BottleOfEnchanting:
+    id: 384
+    price: 100
+    depend:
+      GlassBottle: 1
+    alias:
+    - XP
+    - BottleOEnchanting
+    - ThrownExpBottle
+  AwkwardPotion:
+    id: 373
+    price: 0
+    depend:
+      GlassBottle: 1
+      Ice: 1
+      NetherWart: 1
+    data: 16
+    alias:
+    - Potion
+  PotionRegeneration:
+    id: 373
+    price: 0
+    depend:
+      AwkwardPotion: 1
+      GhastTear: 1
+    data: 8193
+  PotionRegenerationExtended:
+    id: 373
+    price: 0
+    depend:
+      PotionRegeneration: 1
+      Redstone: 1
+    data: 8257
+  PotionRegeneration2:
+    id: 373
+    price: 0
+    depend:
+      PotionRegeneration: 1
+      GlowstoneDust: 1
+    data: 8225
+  PotionRegeneration2Extended:
+    id: 373
+    price: 0
+    depend:
+      PotionRegeneration2: 1
+      Redstone: 1
+    data: 8289
+  PotionSwiftness:
+    id: 373
+    price: 0
+    depend:
+      AwkwardPotion: 1
+      Sugar: 1
+    data: 8194
+  PotionSwiftnessExtended:
+    id: 373
+    price: 0
+    depend:
+      PotionSwiftness: 1
+      Redstone: 1
+    data: 8258
+  PotionSwiftness2:
+    id: 373
+    price: 0
+    depend:
+      PotionSwiftness: 1
+      GlowstoneDust: 1
+    data: 8225
+  PotionSwiftness2Extended:
+    id: 373
+    price: 0
+    depend:
+      PotionSwiftness2: 1
+      Redstone: 1
+    data: 8290
+  PotionFireResistance:
+    id: 373
+    price: 0
+    depend:
+      AwkwardPotion: 1
+      MagmaCream: 1
+    data: 8195
+  PotionFireResistanceExtended:
+    id: 373
+    price: 0
+    depend:
+      PotionFireResistance: 1
+      Redstone: 1
+    data: 8259
+  PotionFireResistanceReverted:
+    id: 373
+    price: 0
+    depend:
+      PotionFireResistance: 1
+      GlowstoneDust: 1
+    data: 8227
+  PotionHealing:
+    id: 373
+    price: 0
+    depend:
+      AwkwardPotion: 1
+      GlisteringMelon: 1
+    data: 8197
+  PotionHealingReverted:
+    id: 373
+    price: 0
+    depend:
+      PotionHealing: 1
+      Redstone: 1
+    data: 8261
+  PotionHealing2:
+    id: 373
+    price: 0
+    depend:
+      PotionHealing: 1
+      GlowstoneDust: 1
+    data: 8229
+  PotionNightVision:
+    id: 373
+    price: 0
+    depend:
+      AwkwardPotion: 1
+      GoldenCarrot: 1
+    data: 8198
+  PotionNightVisionExtended:
+    id: 373
+    price: 0
+    depend:
+      PotionNightVision: 1
+      Redstone: 1
+    data: 8262
+  PotionStrength:
+    id: 373
+    price: 0
+    depend:
+      AwkwardPotion: 1
+      BlazePowder: 1
+    data: 8201
+  PotionStrengthExtended:
+    id: 373
+    price: 0
+    depend:
+      PotionStrength: 1
+      Redstone: 1
+    data: 8265
+  PotionStrength2:
+    id: 373
+    price: 0
+    depend:
+      PotionStrength: 1
+      GlowstoneDust: 1
+    data: 8233
+  PotionStrength2Extended:
+    id: 373
+    price: 0
+    depend:
+      PotionStrength2: 1
+      Redstone: 1
+    data: 8297
+  PotionInvisibility:
+    id: 373
+    price: 0
+    depend:
+      PotionNightVision: 1
+      FermentedSpiderEye: 1
+    data: 8206
+  PotionInvisibilityExtended:
+    id: 373
+    price: 0
+    depend:
+      PotionInvisibility: 1
+      Redstone: 1
+    data: 8270
+  PotionPoison:
+    id: 373
+    price: 0
+    depend:
+      AwkwardPotion: 1
+      SpiderEye: 1
+    data: 8196
+  PotionPoisonExtended:
+    id: 373
+    price: 0
+    depend:
+      PotionPoison: 1
+      Redstone: 1
+    data: 8260
+  PotionPoison2:
+    id: 373
+    price: 0
+    depend:
+      PotionPoison: 1
+      GlowstoneDust: 1
+    data: 8228
+  PotionPoison2Extended:
+    id: 373
+    price: 0
+    depend:
+      PotionPoison2: 1
+      Redstone: 1
+    data: 8292
+  PotionWeakness:
+    id: 373
+    price: 0
+    depend:
+      AwkwardPotion: 1
+      FermentedSpiderEye: 1
+    data: 8200
+  PotionWeaknessExtended:
+    id: 373
+    price: 0
+    depend:
+      PotionWeakness: 1
+      Redstone: 1
+    data: 8264
+  PotionWeaknessReverted:
+    id: 373
+    price: 0
+    depend:
+      PotionWeakness: 1
+      GlowstoneDust: 1
+    data: 8232
+  PotionSlowness:
+    id: 373
+    price: 0
+    depend:
+      PotionSwiftness: 1
+      FermentedSpiderEye: 1
+    data: 8202
+  PotionSlownessExtended:
+    id: 373
+    price: 0
+    depend:
+      PotionSlowness: 1
+      Redstone: 1
+    data: 8266
+  PotionSlownessReverted:
+    id: 373
+    price: 0
+    depend:
+      PotionSlowness: 1
+      GlowstoneDust: 1
+    data: 8234
+  PotionHarming:
+    id: 373
+    price: 0
+    depend:
+      PotionPoison: 1
+      FermentedSpiderEye: 1
+    data: 8204
+  PotionHarmingReverted:
+    id: 373
+    price: 0
+    depend:
+      PotionHarming: 1
+      Redstone: 1
+    data: 8268
+  PotionHarming2:
+    id: 373
+    price: 0
+    depend:
+      PotionHarming: 1
+      GlowstoneDust: 1
+    data: 8236
