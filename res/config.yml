@@ -21,7 +21,7 @@ comm:
     - list
     - li
     - l
-  mbox:
+  mail:
     count:
     - .
     read:
@@ -34,7 +34,6 @@ comm:
     - b
     - clear
     - c
-  mboxc:
     new:
     - nuevo
     - n
@@ -56,11 +55,6 @@ comm:
     - t
     - sendall
     - sa
-    clear:
-    - limpiar
-    - l
-    - clear
-    - cl
   upin:
     del:
     - delete
@@ -109,8 +103,3 @@ comm:
     - s
     - vender
     - v
-    search:
-    - search
-    - h
-    - buscar
-    - b

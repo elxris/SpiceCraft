@@ -1,11 +1,11 @@
 tw:
   info:
   - §b[§cTW§b]§r §aAYUDA
-  - §e/tw §cn§euevo [minutos]§r Para crear un warp temporal personal.
+  - §e/tw §cn§euevo <minutos>§r Para crear un warp temporal personal.
   - Recuerda que por cada minuto te cobrará %s.
-  - §e/tw §cn§euevo [nombre] [minutos]§r Hacer un warp temporal que cualquiera pueda usar.
-  - §e/tw [nombre]§r Para hacer uso de un warp temporal.
-  - §e/tw §cb§eorrar§r o §e/tw §cb§eorrar [nombre]§r Borra un warp personal o público si eres el dueño.
+  - §e/tw §cn§euevo <nombre> <minutos>§r Hacer un warp temporal que cualquiera pueda usar.
+  - §e/tw <nombre>§r Para hacer uso de un warp temporal.
+  - §e/tw §cb§eorrar§r o §e/tw §cb§eorrar <nombre>§r Borra un warp personal o público si eres el dueño.
   - §e/tw list§r Lista los warps públicos.
   - §e/tw§r Muestra esta ayuda, o puede ser un comando rápido para un warp temporal personal.
   s:
@@ -44,65 +44,59 @@ tw:
     - 2
     price:
     - 10.0
-mbox:
+mail:
   info:
-  - §b[§cMBOX§b]§r §aAyuda
-  - §e/mbox . §rNumerar los correos que tienes.
-  - §e/mbox §cl§eeer §rLeer el correo.
-  - §e/mbox §cb§eorrar §rBorrar la bandeja de entrada.
-  - §e/mboxc §rAyuda para crear correos.
+  - §b[§cMAIL§b]§r §aAyuda
+  - §e/mail . §rNumerar los correos que tienes.
+  - §e/mail §cl§eeer §rLeer el correo.
+  - §e/mail §cb§eorrar §rBorrar la bandeja de entrada.
+  - §e/mail §ce§enviar <Usuario> <Mensaje> §rComando rápido para enviar un mensaje.
+  - Para crear un correo más largo debes primero hacer un borrador para después agregar el mensaje y al final enviarlo.
+  - §e/mail §cn§eevo <Usuario> ... §rCrea un borrador con destinatario o destinatarios. Uno mínimo.
+  - §e/mail §ca§egregar <Mensaje> §rAgrega el mensaje a el borrador.
+  - §e/mail §ce§enviar §rYa que tienes listo el borrador, este comando lo envía.
+  - §e/mail a§ct§eodos§r (Solo Admins)Envía el mensaje a todos los usuarios.
   list:
-  - §b[§cMBOX§b]§r Tienes §e%d§r mensajes. §e/mbox§r Para más info.
+  - §b[§cmail§b]§r Tienes §e%d§r mensajes. §e/mail§r Para más info.
   mail:
   - 'De: §a%s§r Fecha: %s'
   - §b§o%s§r
-  - §e/mboxc §ce§enviar %s [Mensaje]§r para responder
+  - §e/mail §ce§enviar %s <Mensaje>§r para responder
   timeago:
   - 'Hace '
   readStart:
-  - '§b[§cMBOX§b]§r §a### §cInicio Bandeja de Correo §a###'
+  - '§b[§cMAIL§b]§r §a### §cInicio Bandeja de Correo §a###'
   readFinish:
   - '§a### §cFin Bandeja de Correo §a###'
-  - Escribe §e/mbox §cb§eorrar§r para borrar la bandeja de entrada.
+  - Escribe §e/mail §cb§eorrar§r para borrar la bandeja de entrada.
   listEnd:
-  - §b[§cMBOX§b]§r Ya no tienes correos.
+  - §b[§cMAIL§b]§r Ya no tienes correos.
   deleted:
-  - §b[§cMBOX§b]§r Mensajes eliminados.
-mboxc:
-  info:
-  - §b[§cMBOXC§b]§r §aAYUDA
-  - Para crear un correo debes primero hacer un borrador para después agregar el mensaje.
-  - §e/mboxc §cn§eevo [Usuario] ... §rCrea un borrador con destinatario o destinatarios. Uno mínimo.
-  - §e/mboxc §ca§egregar [Mensaje] §rAgrega el mensaje a el correo.
-  - §e/mboxc §cb§eorrar §rBorra el mensaje.
-  - §e/mboxc §ce§enviar §rYa que tienes listo el mensaje, este comando lo envía.
-  - §e/mboxc §ce§enviar [Usuario] [Mensaje] §rComando rápido para enviar un mensaje.
-  - §e/mboxc a§ct§eodos§r (Solo Admins)Envía el mensaje a todos los usuarios.
+  - §b[§cMAIL§b]§r Mensajes eliminados.
   noPlayerAdded:
-  - §b[§cMBOXC§b]§r Ningún destinatario, por lo tanto mensaje no creado.
+  - §b[§cMAIL§b]§r Ningún destinatario, por lo tanto mensaje no creado.
   playerNotExist:
-  - §b[§cMBOXC§b]§r El jugador %s no encontrado. No ha sido agregado.
+  - §b[§cMAIL§b]§r El jugador %s no encontrado. No ha sido agregado.
   catched:
-  - §b[§cMBOXC§b]§r Mensaje recibido.
+  - §b[§cMAIL§b]§r Mensaje recibido.
   sended:
-  - §b[§cMBOXC§b]§r Mensaje enviado.
+  - §b[§cMAIL§b]§r Mensaje enviado.
   limit:
-  - §b[§cMBOXC§b]§r Lo siento, ya has superado el límite de 300 caracteres.
+  - §b[§cMAIL§b]§r Lo siento, ya has superado el límite de 300 caracteres.
   created:
-  - §b[§cMBOXC§b]§r Borrador creado. §e/mboxc §ca§egregar <Mensaje>§r para añadir mensaje.
+  - §b[§cMAIL§b]§r Borrador creado. §e/mail §ca§egregar <Mensaje>§r para añadir mensaje.
   add:
-  - §b[§cMBOXC§b]§r Mensaje añadido añade más con §e/mboxc a [mensaje] §e/mboxc §ce§enviar§r para enviar.
+  - §b[§cMAILC§b]§r Mensaje añadido añade más con §e/mail a <mensaje> §e/mail §ce§enviar§r para enviar.
   noMessage:
-  - §b[§cMBOXC§b]§r §cPrimero debes crear un borrador. §e/mboxc para más ayuda.
-  v:
-    maxChar:
-    - 200
+  - §b[§cMAIL§b]§r §cPrimero debes crear un borrador. §e/mail para más ayuda.
+  maxChar:
+  - 200
 upin:
   info:
   - §b[§cUPIN§b]§r §aAYUDA
-  - §e/upin [nombre] [x] [z]§r Para crear una posición que puede ser localizada con una brújula.
-  - §e/upin [nombre]§r Para usarla.
-  - §e/upin §cb§eorrar [nombre]§r Para borrarla si eres el dueño.
+  - §e/upin <nombre> <x> <z>§r Para crear una posición que puede ser localizada con una brújula.
+  - §e/upin <nombre>§r Para usarla.
+  - §e/upin §cb§eorrar <nombre>§r Para borrarla si eres el dueño.
   - §e/upin §cl§eistar§r Para ver todas las posiciones.
   noPin:
   - §b[§cUPIN§b]§r No existe la posicion.
@@ -131,12 +125,12 @@ upin:
 lib:
   info:
   - §b[§cLIB§b]§r §aAYUDA
-  - §e/lib §cc§eomprar [id]§r Compra el libro indicado.
-  - §e/lib §ci§enfo [id]§r Muestra la información del libro indicado.
+  - §e/lib §cc§eomprar <id>§r Compra el libro indicado.
+  - §e/lib §ci§enfo <id>§r Muestra la información del libro indicado.
   - §e/lib §cl§eistar§r Muestra una lista de los libros disponibles.
   - §e/lib §ct§eop§r Muestra una lista de los 3 libros más vendidos.
-  - §e/lib §cv§eender [precio]§r Vende el libro que tienes en mano.
-  - §e/lib §cb§eorrar [id]§r Borra el libro indicado
+  - §e/lib §cv§eender <precio>§r Vende el libro que tienes en mano.
+  - §e/lib §cb§eorrar <id>§r Borra el libro indicado
   - §e/lib §cp§eaga§r Cobra las retribuciones.
   sell:
   - §b[§cLIB§b]§r Has vendido un libro.
@@ -186,10 +180,10 @@ lib:
 shop:
   info:
   - "§b[§cSHOP§b]§r §aAYUDA"
-  - "§e/shop [item] §rMuestra la información de un item. Nombre o id."
-  - "§e/shop [item] [cantidad]§r Compra un item."
+  - "§e/shop <item> §rMuestra la información de un item. Nombre o id."
+  - "§e/shop <item> <cantidad>§r Compra un item."
   - "§bConsultar precios ya que varían."
-  - "§e/shop §cb§euscar [búsqueda] §rBusca item que contiene la [búsqueda] en el nombre."
+  - "§e/shop §cb§euscar <búsqueda> §rBusca item que contiene la búsqueda en el nombre."
   - "§e/shop §cv§eender §rVende el stack que tienes en mano al %s del precio que tiene actualmente."
   itemInfo:
   - "§b[§cSHOP§b]§r §aInfo §d%s"
@@ -256,6 +250,6 @@ exp:
   - '%d puntos de experiencia'
 econ:
   cobrar:
-  - §bCobrando §c%s.
+  - §bSe retira §c%s§b de tu cuenta bancaria.
   pagar:
-  - §bPagando §a%s.
+  - §bSe deposita §a%s§b a tu cuenta bancaria.

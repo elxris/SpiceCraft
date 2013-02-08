@@ -6,14 +6,10 @@ commands:
         description: Crea un warp temporal.
         usage: /tw
         permission: useless.tw
-    mbox:
+    mail:
         description: Revisa tu bandeja.
-        usage: /mbox
+        usage: /mail
         permission: useless.mail
-    mboxc:
-        description: Elimina todos los mensajes de tu bandeja de mail.
-        usage: /mboxc
-        permission: useless.mail.create
     upin:
         description: Muestra en tu brujula la direccion que hayas marcado.
         usage: /upin
