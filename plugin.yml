@@ -66,4 +66,4 @@ permissions:
     useless.lang:
         default: op
     useless.mob:
-    	default: true
+        default: true

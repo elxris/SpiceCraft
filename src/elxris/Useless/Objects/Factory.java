@@ -38,7 +38,7 @@ public class Factory implements Listener{
         STACKFULL = getCache().getInt("full");
     }
     private void update(String item){
-    	long time = getSystemTimeHour();
+        long time = getSystemTimeHour();
         for(;getTimeHour(item) < time; addTime(item, FRECUENCY)){
             produce(item);
         }
@@ -89,10 +89,10 @@ public class Factory implements Listener{
         return getCache().getInt("item."+item+".count");
     }
     public void addCount(String item, int count){
-    	setCount(item, getCount(item)+count);
-		for(String s: getDepends(item)){
-			setCount(s, getCount(s)+count);
-		}
+        setCount(item, getCount(item)+count);
+        for(String s: getDepends(item)){
+            setCount(s, getCount(s)+count);
+        }
     }
     public void setVel(String item, int vel){
         getCache().set("item."+item+".vel", vel);
@@ -106,12 +106,12 @@ public class Factory implements Listener{
         setVel(item, getVel(item)+vel);
     }
     public double getPrice(String item){
-    	double price = getCache().getDouble("item."+item+".price");
-    	if(getCache().isSet("item."+item+".depend")){
-    		for(String s: getDepends(item)){
-    			price += getPrecio(s);
-    		}
-    	}
+        double price = getCache().getDouble("item."+item+".price");
+        if(getCache().isSet("item."+item+".depend")){
+            for(String s: getDepends(item)){
+                price += getPrecio(s);
+            }
+        }
         return price;
     }
     public double getRazonPrecio(String item){
@@ -130,18 +130,18 @@ public class Factory implements Listener{
         return getCache().getInt("item."+item+".data");
     }
     private List<String> getDepends(String item){
-    	List<String> dependency = new ArrayList<String>();
-    	if(!getCache().isSet("item."+item+".depend")){
-    		dependency.add(item);
-    		return dependency;
-    	}
-    	ConfigurationSection memory = getCache().getConfigurationSection("item."+item+".depend");
-    	for(String s: memory.getKeys(false)){
-    		for(int i = memory.getInt(s); i > 0; i--){
-    			dependency.addAll(getDepends(s));
-    		}
-    	}
-		return dependency;
+        List<String> dependency = new ArrayList<String>();
+        if(!getCache().isSet("item."+item+".depend")){
+            dependency.add(item);
+            return dependency;
+        }
+        ConfigurationSection memory = getCache().getConfigurationSection("item."+item+".depend");
+        for(String s: memory.getKeys(false)){
+            for(int i = memory.getInt(s); i > 0; i--){
+                dependency.addAll(getDepends(s));
+            }
+        }
+        return dependency;
     }
     public String searchItem(String s){
         makePaths();
@@ -162,19 +162,19 @@ public class Factory implements Listener{
         for(String s: items){// Items
             paths.set(s.toLowerCase(), s);
             if(getCache().isSet("item."+s+".alias")){// Alias
-            	List<String> alias = getCache().getStringList("item."+s+".alias");
-            	for(String a: alias){
-            		paths.set(a.toLowerCase(), s);
-            	}
+                List<String> alias = getCache().getStringList("item."+s+".alias");
+                for(String a: alias){
+                    paths.set(a.toLowerCase(), s);
+                }
             }
         }
         for(String s: items){// IDs
             if(!paths.isSet(getCache().getInt("item."+s+".id")+"")){
-            	if(haveData(s)){
-            		paths.set(getCache().getInt("item."+s+".id")+"-"+getCache().getInt("item."+s+".data"), s);
-            	}else{
-            		paths.set(getCache().getInt("item."+s+".id")+"", s);
-            	}
+                if(haveData(s)){
+                    paths.set(getCache().getInt("item."+s+".id")+"-"+getCache().getInt("item."+s+".data"), s);
+                }else{
+                    paths.set(getCache().getInt("item."+s+".id")+"", s);
+                }
             }
         }
     }
@@ -208,7 +208,7 @@ public class Factory implements Listener{
         return items;
     }
     public boolean haveData(String item){
-    	return getCache().isSet("item."+item+".data");
+        return getCache().isSet("item."+item+".data");
     }
     // Comandos de la tienda.
     public void shop(Player p, String item, int cantidad){ // Compra
@@ -229,14 +229,14 @@ public class Factory implements Listener{
         addItemsToInventory(p, itemsArray);
     }
     private void addItemsToInventory(Player p, ItemStack[] itemsArray){
-    	for(ItemStack item: itemsArray){
-    		p.getWorld().dropItemNaturally(p.getLocation(), item);
-    	}
+        for(ItemStack item: itemsArray){
+            p.getWorld().dropItemNaturally(p.getLocation(), item);
+        }
     }
     private void addItemToInventory(Player p, ItemStack item){
-    	List<ItemStack> itemsArray = new ArrayList<ItemStack>();
-    	itemsArray.add(item);
-    	addItemsToInventory(p, itemsArray);
+        List<ItemStack> itemsArray = new ArrayList<ItemStack>();
+        itemsArray.add(item);
+        addItemsToInventory(p, itemsArray);
     }
     public List<String> lookItems(String item){ // Busca items.
         List<String> items = new ArrayList<String>();
@@ -249,41 +249,41 @@ public class Factory implements Listener{
         return items;
     }
     public void sell(Player p){ // Vende
-    	if(p.getGameMode() == GameMode.CREATIVE){
-    		Chat.mensaje(p, "shop.creative");
-    		return;
-    	}
-    	Inventory inv = org.bukkit.Bukkit.createInventory(p, 27, "SHOP");
-    	p.openInventory(inv);
+        if(p.getGameMode() == GameMode.CREATIVE){
+            Chat.mensaje(p, "shop.creative");
+            return;
+        }
+        Inventory inv = org.bukkit.Bukkit.createInventory(p, 27, "SHOP");
+        p.openInventory(inv);
     }
     @EventHandler
     public void onCloseInventory(org.bukkit.event.inventory.InventoryCloseEvent event){
-    	if(event.getInventory().getTitle().contentEquals("SHOP")){
-    		Inventory inv = event.getInventory();
-    		Player p = (Player) event.getPlayer();
-    		double money = 0;
-        	for(ItemStack item: inv.getContents()){
-        		if(item == null){
-        			continue;
-        		}
-        		String id = ""+item.getTypeId();
-        		if(item.getData().getData() > 0){
-        			id += ":"+item.getData().getData();
-        		}
-        		String name = searchItem(id);
-        		if(name == null){
-        			name = searchItem(id+":0");
-        		}
-        		if(name == null){
-        			Chat.mensaje(p, "shop.notExist");
-        			addItemToInventory(p, item);
-        			continue;
-        		}
-        		addCount(name, item.getAmount());
-        		money += getPrecio(name, item.getAmount());
-        	}
-        	new Econ().pagar(p, money*Strings.getDouble("shop.sellRate"));
-    	}
+        if(event.getInventory().getTitle().contentEquals("SHOP")){
+            Inventory inv = event.getInventory();
+            Player p = (Player) event.getPlayer();
+            double money = 0;
+            for(ItemStack item: inv.getContents()){
+                if(item == null){
+                    continue;
+                }
+                String id = ""+item.getTypeId();
+                if(item.getData().getData() > 0){
+                    id += ":"+item.getData().getData();
+                }
+                String name = searchItem(id);
+                if(name == null){
+                    name = searchItem(id+":0");
+                }
+                if(name == null){
+                    Chat.mensaje(p, "shop.notExist");
+                    addItemToInventory(p, item);
+                    continue;
+                }
+                addCount(name, item.getAmount());
+                money += getPrecio(name, item.getAmount());
+            }
+            new Econ().pagar(p, money*Strings.getDouble("shop.sellRate"));
+        }
     }
     // Gestion de archivos.
     private static void setFile(String path){
@@ -313,28 +313,27 @@ public class Factory implements Listener{
     public static void finishSave(){
         getFile().save(getCache());
     }
-	public static Hilo getHilo() {
-		return new Hilo();
-	}
+    public static Hilo getHilo() {
+        return new Hilo();
+    }
 }
 class Hilo implements Runnable{
-	private static boolean save = false;
-	public Hilo() {
-		if(save){
-			return;
-		}else{
-			save = true;
-			new Thread(this).start();
-		}
-	}
-	@Override
-	public void run() {
-		try {
-			Thread.sleep(15*1000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		Factory.finishSave();
-	}
-	
+    private static boolean save = false;
+    public Hilo() {
+        if(save){
+            return;
+        }else{
+            save = true;
+            new Thread(this).start();
+        }
+    }
+    @Override
+    public void run() {
+        try {
+            Thread.sleep(15*1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Factory.finishSave();
+    }
 }
