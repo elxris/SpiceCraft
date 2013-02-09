@@ -15,7 +15,7 @@ import elxris.Useless.Utils.Chat;
 import elxris.Useless.Utils.Fecha;
 import elxris.Useless.Utils.Strings;
 
-public class Mail {
+public class Mail extends Savable{
     FileConfiguration cache;
     MemoryConfiguration draft;
     Archivo archivo;
@@ -28,10 +28,6 @@ public class Mail {
     public void load(){
         cache = archivo.load();
         interpreta();
-    }
-    public void save(){
-        archivo.save(cache);
-        load();
     }
     public void interpreta(){
         if(!cache.isSet("msg")){
@@ -58,7 +54,7 @@ public class Mail {
         }
         Set<String> mensajes = cache.getConfigurationSection("msg").getKeys(false);
         for(String lng: mensajes){
-            cache.getStringList(lng+".usuarios").remove(jugador);
+            eliminar(jugador, Long.parseLong(lng));
         }
         save();
     }
@@ -217,5 +213,11 @@ public class Mail {
             }
         }
         return checked;
+    }
+    @Override
+    public void run() {
+        super.run();
+        archivo.save(cache);
+        load();
     }
 }

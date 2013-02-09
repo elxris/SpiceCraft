@@ -22,13 +22,14 @@ import elxris.Useless.Utils.Chat;
 import elxris.Useless.Utils.Econ;
 import elxris.Useless.Utils.Strings;
 
-public class Factory implements Listener{
+public class Factory extends Savable implements Listener {
     private static Archivo file;
     private static FileConfiguration fc;
     private static MemoryConfiguration paths;
     private int vel;
     private long FRECUENCY;
     private int STACKFULL;
+    
     public Factory() {
         init();
     }
@@ -307,33 +308,9 @@ public class Factory implements Listener{
         }
         return fc;
     }
-    private static void save(){
-        getHilo();
-    }
-    public static void finishSave(){
-        getFile().save(getCache());
-    }
-    public static Hilo getHilo() {
-        return new Hilo();
-    }
-}
-class Hilo implements Runnable{
-    private static boolean save = false;
-    public Hilo() {
-        if(save){
-            return;
-        }else{
-            save = true;
-            new Thread(this).start();
-        }
-    }
     @Override
     public void run() {
-        try {
-            Thread.sleep(15*1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        Factory.finishSave();
+        super.save();
+        getFile().save(getCache());
     }
 }

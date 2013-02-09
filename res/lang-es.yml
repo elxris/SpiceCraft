@@ -57,7 +57,7 @@ mail:
   - §e/mail §ce§enviar §rYa que tienes listo el borrador, este comando lo envía.
   - §e/mail a§ct§eodos§r (Solo Admins) Envía el mensaje a todos los usuarios.
   list:
-  - §b[§cmail§b]§r Tienes §e%d§r mensajes. §e/mail§r Para más info.
+  - §b[§cMAIL§b]§r Tienes §e%d§r mensajes. §e/mail§r Para más info.
   mail:
   - 'De: §a%s§r Fecha: %s'
   - §b§o%s§r
