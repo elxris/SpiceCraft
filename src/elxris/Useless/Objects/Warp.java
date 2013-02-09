@@ -57,18 +57,23 @@ public class Warp implements Runnable{
             if(t < 1){
                 t = 1;
             }
-            Thread.sleep(t);
-            for(int i = 6;i > 0;){
+            Thread.sleep(t); // Duerme hasta que queden 30 segundos.
+            for(int i = 7;i > 0;){
                 if(!cache.isSet(getPath()+".set")){
                     break;
                 }
-                Chat.mensaje(jugador, "tw.s.remain", i*5);
-                if(i == 6){
-                    i /= 2;
-                    Thread.sleep(15*1000);
-                }else{
+                if(i == 7){
                     i--;
-                    Thread.sleep(5*1000);
+                    Chat.mensaje(jugador, "tw.s.remain", 30);
+                    Thread.sleep(15*1000); // Duerme 15 segundos.
+                }else if(i == 6){
+                    i--;
+                    Chat.mensaje(jugador, "tw.s.remain", 15);
+                    Thread.sleep(10*1000);
+                }else{
+                    Chat.mensaje(jugador, "tw.s.remain", i);
+                    i--;
+                    Thread.sleep(1000);
                 }
             }
             if(cache.isSet(getPath()+".set")){

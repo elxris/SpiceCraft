@@ -35,8 +35,18 @@ public class Factory extends Savable implements Listener {
     }
     private void init() {
         VEL = getCache().getInt("vel");
-        FRECUENCY = getCache().getLong("freq")*60*1000;
+        if(VEL < 1){
+            VEL = 1;
+        }
+        FRECUENCY = getCache().getLong("freq");
+        if(FRECUENCY < 1){
+            FRECUENCY = 1;
+        }
+        FRECUENCY *= 60*1000;
         STACKFULL = getCache().getInt("full");
+        if(STACKFULL < 64){
+            STACKFULL = 64;
+        }
     }
     private void update(String item){
         long time = getSystemTimeHour();
@@ -86,7 +96,7 @@ public class Factory extends Savable implements Listener {
         save();
     }
     public int getCount(String item){
-        isSet("item."+item+".count", STACKFULL / 2);
+        isSet("item."+item+".count", STACKFULL / VEL);
         return getCache().getInt("item."+item+".count");
     }
     public void addCount(String item, int count){
