@@ -26,7 +26,7 @@ public class Factory extends Savable implements Listener {
     private static Archivo file;
     private static FileConfiguration fc;
     private static MemoryConfiguration paths;
-    private int vel;
+    private int VEL;
     private long FRECUENCY;
     private int STACKFULL;
     
@@ -34,7 +34,7 @@ public class Factory extends Savable implements Listener {
         init();
     }
     private void init() {
-        vel = getCache().getInt("vel");
+        VEL = getCache().getInt("vel");
         FRECUENCY = getCache().getLong("freq")*60*1000;
         STACKFULL = getCache().getInt("full");
     }
@@ -50,9 +50,9 @@ public class Factory extends Savable implements Listener {
         if(getCount(item) < 0){
             addVel(item, 1);
         }else if(getCount(item) > 0 && getCount(item) < STACKFULL){
-            if(getVel(item) > vel){
+            if(getVel(item) > VEL){
                 addVel(item, -1);
-            }else if(getVel(item) < vel){
+            }else if(getVel(item) < VEL){
                 addVel(item, +1);
             }
         }else if(getCount(item) > STACKFULL){
@@ -100,7 +100,7 @@ public class Factory extends Savable implements Listener {
         save();
     }
     public int getVel(String item){
-        isSet("item."+item+".vel", vel);
+        isSet("item."+item+".vel", VEL);
         return getCache().getInt("item."+item+".vel");
     }
     public void addVel(String item, int vel){
@@ -116,7 +116,7 @@ public class Factory extends Savable implements Listener {
         return price;
     }
     public double getRazonPrecio(String item){
-        return (double)getVel(item)/vel;
+        return (double)getVel(item)/VEL;
     }
     public double getPrecio(String item){
         return getRazonPrecio(item)*getPrice(item);
@@ -213,17 +213,18 @@ public class Factory extends Savable implements Listener {
     }
     // Comandos de la tienda.
     public void shop(Player p, String item, int cantidad){ // Compra
-        if(searchItem(item) == null){
+        String item_real = searchItem(item);
+        if(item_real == null){
             Chat.mensaje(p, "shop.notExist");
             return;
         }
         Econ econ = new Econ();
-        if(!econ.cobrar(p, getPrecio(item, cantidad))){
+        if(!econ.cobrar(p, getPrecio(item_real, cantidad))){
             Chat.mensaje(p, "shop.noMoney");
             return;
         }
-        addItemsToInventory(p, createItems(item, cantidad));
-        addCount(item, -cantidad);
+        addItemsToInventory(p, createItems(item_real, cantidad));
+        addCount(item_real, -cantidad);
     }
     private void addItemsToInventory(Player p, List<ItemStack> items){ // Añade el item al inventario del jugador.
         ItemStack[] itemsArray = items.toArray(new ItemStack[0]);
@@ -303,7 +304,7 @@ public class Factory extends Savable implements Listener {
         if(fc == null){
             setCache(getFile().load());
             if(!fc.isSet("vel")){
-                fc = Useless.getConfig("shop.yml");
+                setCache(Useless.getConfig("shop.yml"));
             }
         }
         return fc;
