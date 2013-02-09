@@ -16,9 +16,9 @@ import elxris.Useless.Utils.Econ;
 import elxris.Useless.Utils.Strings;
 
 public class LibCommand extends Comando{
-    Archivo file;
-    FileConfiguration cache;
-    Econ econ;
+    private Archivo file;
+    private FileConfiguration cache;
+    private Econ econ;
     public LibCommand() {
         setFile(new Archivo("lib.yml"));
         setEcon(new Econ());
@@ -42,13 +42,10 @@ public class LibCommand extends Comando{
         // Listar, Top, paga.
         if(args.length == 1){
             if(isCommand("comm.lib.list", args[0])){
-                if(!getCache().isSet("libros")){
-                    return true;
-                }
-                List<Integer> libros = getCache().getIntegerList("libros");
                 List<String> lista = new ArrayList<String>();
                 List<String> listaYo = Strings.getStringList("lib.list");
-                for(int k: libros){
+                for(String libro: getCache().getConfigurationSection("libro").getKeys(false)){
+                    int k = Integer.parseInt(libro);
                     if(isMyBook(jugador, k)){
                         listaYo.add(itemMe(k));
                     }else{
@@ -77,13 +74,10 @@ public class LibCommand extends Comando{
                 getCache().set("top", topTmp);
                 mensaje(jugador, list);
             }else if(isCommand("comm.lib.pay", args[0])){
-                if(!getCache().isSet("libros")){
-                    return true;
-                }
-                List<Integer> libros = getCache().getIntegerList("libros");
                 String list = "";
                 double dinero = 0;
-                for(int k: libros){
+                for(String libro: getCache().getConfigurationSection("libro").getKeys(false)){
+                    int k = Integer.parseInt(libro);
                     if(isMyBook(jugador, k)){
                         if(getRetributions(k) > 0){
                             dinero += getRetributions(k);
@@ -190,9 +184,6 @@ public class LibCommand extends Comando{
                     return true;
                 }
                 getCache().set("libro."+args[1], null);
-                List<Integer> libros = getCache().getIntegerList("libros");
-                libros.remove((Object)Integer.parseInt(args[1]));
-                getCache().set("libros", libros);
                 mensaje(jugador, "lib.del");
                 save();
             }
@@ -248,7 +239,7 @@ public class LibCommand extends Comando{
             n++;
         }
         int index = Strings.getInt("lib.topSize");
-        if(result.size() > index){
+        if(result.size() < index){
             index = result.size();
         }
         getCache().set("top", result.subList(0, index));
@@ -293,9 +284,6 @@ public class LibCommand extends Comando{
         getCache().set(path+".cost", price);
         getCache().set(path+".count", 0);
         getCache().set(path+".payed", 0);
-        List<Integer> libros = getCache().getIntegerList("libros");
-        libros.add(id);
-        getCache().set("libros", libros);
         return true;
     }
     private ItemStack getBook(int id){
@@ -326,7 +314,7 @@ public class LibCommand extends Comando{
         return hasBook(Integer.parseInt(id));
     }
     private boolean isRepeated(BookMeta book){
-        for(int k: getCache().getIntegerList("libros")){
+        for(String k: getCache().getConfigurationSection("libro").getKeys(false)){
             if(getBookMeta(k).getPages().toString().contentEquals(book.getPages().toString())){
                 return true;
             }
