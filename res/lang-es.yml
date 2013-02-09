@@ -89,6 +89,8 @@ mail:
   - §b[§cMAILC§b]§r Mensaje añadido añade más con §e/mail a <mensaje> §e/mail §ce§enviar§r para enviar.
   noMessage:
   - §b[§cMAIL§b]§r §cPrimero debes crear un borrador. §e/mail para más ayuda.
+  first:
+  - Ahora puedes enviar correos!
   maxChar:
   - 200
 upin:

@@ -22,11 +22,11 @@ public class Mail {
     
     public Mail(){
         archivo = new Archivo("mail.yml");
+        draft = new MemoryConfiguration();
         load();
     }
     public void load(){
         cache = archivo.load();
-        draft = new MemoryConfiguration();
         interpreta();
     }
     public void save(){
@@ -35,6 +35,7 @@ public class Mail {
     }
     public void interpreta(){
         if(!cache.isSet("msg")){
+            sendMensajeATodos("Server", Strings.getString("mail.first"));
             return;
         }
         Set<String> listacorreos = cache.getConfigurationSection("msg").getKeys(false);
@@ -81,7 +82,7 @@ public class Mail {
                 }
             }
         }
-        Chat.mensaje(jugador, "mbox.list", mensajes);
+        Chat.mensaje(jugador, "mail.list", mensajes);
     }
     public void getNextMail(String jugador, Boolean eliminar){ //Obtiene todos los correos.
         List<String> mensajes = new ArrayList<String>();
@@ -94,28 +95,28 @@ public class Mail {
             }
         }
         if(mensajes.size() == 0){
-            Chat.mensaje(jugador, "mbox.listEnd");
+            Chat.mensaje(jugador, "mail.listEnd");
             return;
         }
-        Chat.mensaje(jugador, "mbox.readStart");
+        Chat.mensaje(jugador, "mail.readStart");
         // Enviando cada uno de los mensajes.
         for(String lng: mensajes){
             String[] mensaje = getMail(Long.parseLong(lng));
-            Chat.mensaje(jugador, "mbox.mail", mensaje);
+            Chat.mensaje(jugador, "mail.mail", mensaje);
             if(eliminar){
                 eliminar(jugador, Long.parseLong(lng));
             }
         }
-        Chat.mensaje(jugador, "mbox.readFinish");
+        Chat.mensaje(jugador, "mail.readFinish");
     }
     public void createBorrador(String jugador, String args[]){ //Inicia el borrador.
         clearBorrador(jugador);
         List<String> destinatarios = checkDestinatarios(jugador, args);
         if(destinatarios.size() >= 1){
             draft.set(jugador+".destinatarios", destinatarios);
-            Chat.mensaje(jugador, "mboxc.created");
+            Chat.mensaje(jugador, "mail.created");
         }else{
-            Chat.mensaje(jugador, "mboxc.noPlayerAdded");
+            Chat.mensaje(jugador, "mail.noPlayerAdded");
         }
     }
     public void setMensaje(String jugador, String mensaje){
@@ -123,21 +124,21 @@ public class Mail {
     }
     public void addMensaje(String jugador, String mensaje){
         if(draft.getStringList(jugador+".destinatarios").size() < 1){
-            Chat.mensaje(jugador, "mboxc.noMessage");
+            Chat.mensaje(jugador, "mail.noMessage");
             return;
         }
         String mensajeAnterior = "";
         if(draft.isSet(jugador+".mensaje")){
             mensajeAnterior = draft.getString(jugador+".mensaje");
         }
-        if(mensajeAnterior.length() > Strings.getInt("mboxc.v.maxChar")){
+        if(mensajeAnterior.length() > Strings.getInt("mail.v.maxChar")){
             if(!Useless.getPlayer(jugador).hasPermission("useless.mail.noCharLimit")){
-                Chat.mensaje(jugador, "mboxc.limit");
+                Chat.mensaje(jugador, "mail.limit");
                 return;
             }
         }
         setMensaje(jugador, mensajeAnterior+" "+mensaje);
-        Chat.mensaje(jugador, "mboxc.add");
+        Chat.mensaje(jugador, "mail.add");
     }
     public void clearMensaje(String jugador){
         setMensaje(jugador, "");
@@ -157,9 +158,9 @@ public class Mail {
         cache.set(path+"mensaje", mensaje);
         cache.set(path+"usuarios", destinatarios);
         for(String k: destinatarios){
-            Chat.mensaje(k, "mboxc.catched");
+            Chat.mensaje(k, "mail.catched");
         }
-        Chat.mensaje(jugador, "mboxc.sended");
+        Chat.mensaje(jugador, "mail.sended");
         clearBorrador(jugador);
         save();
     }
@@ -178,7 +179,7 @@ public class Mail {
         sendMensajeATodos(jugador, draft.getString(jugador+".mensaje"));
     }
     public void sendMensajeATodos(String jugador, String mensaje){
-        if(!Useless.getPlayer(jugador).hasPermission("useless.mail.massive")){
+        if(!jugador.contentEquals("Server") && !Useless.getPlayer(jugador).hasPermission("useless.mail.massive")){
             return;
         }
         List<String> destinatarios = new ArrayList<>();
@@ -200,7 +201,7 @@ public class Mail {
     }
     public boolean hasMensaje(String jugador){
         if(!draft.isSet(jugador+".mensaje")){
-            Chat.mensaje(jugador, "mboxc.noMessage");
+            Chat.mensaje(jugador, "mail.noMessage");
             return false;
         }
         return true;
@@ -212,7 +213,7 @@ public class Mail {
             if(destinatario != null){
                 checked.add(destinatario);
             }else{
-                Chat.mensaje(jugador, "mboxc.playerNotExist", s);
+                Chat.mensaje(jugador, "mail.playerNotExist", s);
             }
         }
         return checked;

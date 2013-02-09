@@ -27,19 +27,19 @@ public class MailBoxCommand extends Comando{
             return true;
         }
         if(args.length < 1){
-            mensaje(jugador, "mbox.info");
+            mensaje(jugador, "mail.info");
             return true;
         }
         //TODO Crear comandos moderadores.
-        if(isCommand("comm.mbox.count", args[0])){
+        if(isCommand("comm.mail.count", args[0])){
             mail.getMailList(jugador.getName());
         }else
-        if(isCommand("comm.mbox.read", args[0])){
+        if(isCommand("comm.mail.read", args[0])){
             mail.getNextMail(jugador.getName(), false);
         }else
-        if(isCommand("comm.mbox.clear", args[0])){
+        if(isCommand("comm.mail.clear", args[0])){
             mail.eliminarAll(jugador.getName());
-            mensaje(jugador, "mbox.deleted");
+            mensaje(jugador, "mail.deleted");
         }
         // COMANDOS PARA CREAR CORREOS.
         if(!jugador.hasPermission("useless.mail.create")){

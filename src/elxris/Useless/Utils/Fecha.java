@@ -47,7 +47,7 @@ public class Fecha {
         //Guardar cuanto tiempo ha pasado
         
         fecha += " (";
-        fecha += Strings.getString("mbox.timeago");
+        fecha += Strings.getString("mail.timeago");
         if(semanas != 0){
             fecha += unidadFecha(semanas, h, primero);
             count++;
