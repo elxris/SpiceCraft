@@ -18,7 +18,7 @@ public class Archivo {
     private String name;
     
     public Archivo(String nombre){
-    	setName(nombre);
+        setName(nombre);
         setFile();
     }
     private String getName(){
@@ -34,7 +34,7 @@ public class Archivo {
         file = new File(Useless.plugin().getDataFolder(), getName());
     }
     public boolean exist(){
-    	return getFile().exists();
+        return getFile().exists();
     }
     public FileConfiguration load(){
         return YamlConfiguration.loadConfiguration(getFile());
@@ -47,18 +47,18 @@ public class Archivo {
         }
     }
     public void saveString(String data){
-    	try {
-			FileWriter fw = new FileWriter(getFile());
-			fw.write(data);
-			fw.close();
-		} catch (IOException e) {}
+        try {
+            FileWriter fw = new FileWriter(getFile());
+            fw.write(data);
+            fw.close();
+        } catch (IOException e) {}
     }
     public void loadResourse(String path){
-    	InputStream is = Useless.plugin().getResource("res/"+path);
+        InputStream is = Useless.plugin().getResource("res/"+path);
         if(is == null){
-        	return;
+            return;
         }
         Scanner s = new Scanner(is, Charsets.ISO_8859_1.displayName()).useDelimiter("\\A");
-		saveString(s.next());
+        saveString(s.next());
     }
 }

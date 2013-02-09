@@ -64,11 +64,11 @@ public class Warp implements Runnable{
                 }
                 Chat.mensaje(jugador, "tw.s.remain", i*5);
                 if(i == 6){
-                	i /= 2;
-                	Thread.sleep(15*1000);
+                    i /= 2;
+                    Thread.sleep(15*1000);
                 }else{
-                	i--;
-                	Thread.sleep(5*1000);
+                    i--;
+                    Thread.sleep(5*1000);
                 }
             }
             if(cache.isSet(getPath()+".set")){

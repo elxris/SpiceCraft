@@ -1,5 +1,7 @@
 package elxris.Useless;
 
+import java.io.IOException;
+
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -8,7 +10,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 import elxris.Useless.Commands.CompassCommand;
 import elxris.Useless.Commands.LibCommand;
 import elxris.Useless.Commands.MailBoxCommand;
-import elxris.Useless.Commands.MailBoxCreateCommand;
 import elxris.Useless.Commands.ShopCommand;
 import elxris.Useless.Commands.WarpCommand;
 import elxris.Useless.Listener.CommandListener;
@@ -64,7 +65,12 @@ public class Useless extends JavaPlugin {
     }
     public static FileConfiguration getConfig(String path){
         FileConfiguration fc = new YamlConfiguration();
-        Archivo file = new Archivo("-"+path);
+        Archivo file = new Archivo("tmp."+path);
+        if(!new Archivo(path).exist()){
+            try {
+                fc.save(file.getFile());
+            } catch (IOException e) {e.printStackTrace();}
+        }
         file.loadResourse(path);
         fc = file.load();
         file.getFile().delete();

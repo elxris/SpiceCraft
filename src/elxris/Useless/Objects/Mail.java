@@ -172,13 +172,13 @@ public class Mail {
         sendMensaje(jugador, destinatarios, mensaje, false);
     }
     public void sendMensajeATodos(String jugador){
-    	if(!hasMensaje(jugador)){
+        if(!hasMensaje(jugador)){
             return;
         }
         sendMensajeATodos(jugador, draft.getString(jugador+".mensaje"));
     }
     public void sendMensajeATodos(String jugador, String mensaje){
-    	if(!Useless.getPlayer(jugador).hasPermission("useless.mail.massive")){
+        if(!Useless.getPlayer(jugador).hasPermission("useless.mail.massive")){
             return;
         }
         List<String> destinatarios = new ArrayList<>();

@@ -2,64 +2,64 @@ name: Useless
 version: 0.8.5
 main: elxris.Useless.Useless
 commands:
-    tw:
-        description: Crea un warp temporal.
-        usage: /tw
-        permission: useless.tw
-    mail:
-        description: Revisa tu bandeja.
-        usage: /mail
-        permission: useless.mail
-    upin:
-        description: Muestra en tu brujula la direccion que hayas marcado.
-        usage: /upin
-        permission: useless.upin
-    lib:
-        description: Funciona como una libreria.
-        usage: /lib
-        premission: useless.lib
-    shop:
-        description: A Shop.
-        usage: /shop
-        premission: useless.shop
-    uselesslang:
-        description: Cambia el idioma del plugin.
-        usage: /uselesslang
-        premission: useless.lang
+  tw:
+    description: Crea un warp temporal.
+    usage: /tw
+    permission: useless.tw
+  mail:
+    description: Revisa tu bandeja.
+    usage: /mail
+    permission: useless.mail
+  upin:
+    description: Muestra en tu brujula la direccion que hayas marcado.
+    usage: /upin
+    permission: useless.upin
+  lib:
+    description: Funciona como una libreria.
+    usage: /lib
+    premission: useless.lib
+  shop:
+    description: A Shop.
+    usage: /shop
+    premission: useless.shop
+  uselesslang:
+    description: Cambia el idioma del plugin.
+    usage: /uselesslang
+    premission: useless.lang
 permissions:
-    useless.tw:
-        default: true
-    useless.tw.noMaxTime:
-        default: op
-    useless.tw.noWarpLimit:
-        default: op
-    useless.tw.master:
-        default: op
-    useless.mail:
-        default: true
-    useless.mail.create:
-        default: true
-    useless.mail.massive:
-        default: op
-    useless.mail.noCharLimit:
-        default: op
-    useless.upin:
-        default: true
-    useless.upin.noLimit:
-        default: op
-    useless.cmd.reload:
-        default: op
-    useless.lib:
-        default: true
-    useless.lib.master:
-        default: op
-    useless.lib.buy:
-        default: true
-    useless.lib.sell:
-        default: true
-    useless.shop:
-        default: true
-    useless.lang:
-        default: op
-    useless.mob:
-        default: true
+  useless.tw:
+    default: true
+  useless.tw.noMaxTime:
+    default: op
+  useless.tw.noWarpLimit:
+    default: op
+  useless.tw.master:
+    default: op
+  useless.mail:
+    default: true
+  useless.mail.create:
+    default: true
+  useless.mail.massive:
+    default: op
+  useless.mail.noCharLimit:
+    default: op
+  useless.upin:
+    default: true
+  useless.upin.noLimit:
+    default: op
+  useless.cmd.reload:
+    default: op
+  useless.lib:
+    default: true
+  useless.lib.master:
+    default: op
+  useless.lib.buy:
+    default: true
+  useless.lib.sell:
+    default: true
+  useless.shop:
+    default: true
+  useless.lang:
+    default: op
+  useless.mob:
+    default: true

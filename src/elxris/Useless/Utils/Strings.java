@@ -20,12 +20,12 @@ public class Strings{
     }
     // GETTERS
     public static String getString(String path){
-    	return getFc().getStringList(path).get(0);
+        return getFc().getStringList(path).get(0);
     }
     public static List<String> getStringList(String path){
-    	if(path.contentEquals("s")){
-    		return s;
-    	}
+        if(path.contentEquals("s")){
+            return s;
+        }
         return getFc().getStringList(path);
     }
     public static int getInt(String path){

@@ -41,14 +41,11 @@ public class MailBoxCommand extends Comando{
             mail.eliminarAll(jugador.getName());
             mensaje(jugador, "mbox.deleted");
         }
-        mail.interpreta();
-        
-        
-        
-        if(!jugador.hasPermission("useless.mail")){
+        // COMANDOS PARA CREAR CORREOS.
+        if(!jugador.hasPermission("useless.mail.create")){
+            mail.interpreta();
             return true;
         }
-        
         if(isCommand("comm.mail.new", args[0])){
             if(args.length > 1){
                 mail.createBorrador(jugador.getName(), cortarArray(1, args));              
@@ -57,7 +54,7 @@ public class MailBoxCommand extends Comando{
             if(args.length > 1){
                 mail.addMensaje(jugador.getName(), getString(cortarArray(1, args)));
             }
-        }else if(isCommand("comm.mboxc.send", args[0])){
+        }else if(isCommand("comm.mail.send", args[0])){
             if(args.length == 1){
                 mail.sendMensaje(jugador.getName());                
             }else if(args.length >= 3){
@@ -66,16 +63,13 @@ public class MailBoxCommand extends Comando{
                 mail.sendMensaje(jugador.getName(), destinatario, getString(cortarArray(2, args)), false);
             }
             return true;
-        }else if(isCommand("comm.mboxc.sendall", args[0])){
+        }else if(isCommand("comm.mail.sendall", args[0])){
             if(args.length == 1){
                 mail.sendMensajeATodos(jugador.getName());
             }else if(args.length > 1){
                 String mess = getString(cortarArray(1, args));
                 mail.sendMensajeATodos(jugador.getName(), mess);
             }
-        }else{
-            mensaje(jugador, "mboxc.info");
-            return true;
         }
         mail.interpreta();
         return true;
@@ -87,7 +81,6 @@ public class MailBoxCommand extends Comando{
         }
         return resultado.toArray(new String[resultado.size()]);
     }
-    
     public String getString(String[] args){
         String string = "";
         for(String k: args){

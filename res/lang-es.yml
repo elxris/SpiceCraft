@@ -47,15 +47,15 @@ tw:
 mail:
   info:
   - §b[§cMAIL§b]§r §aAyuda
-  - §e/mail . §rNumerar los correos que tienes.
-  - §e/mail §cl§eeer §rLeer el correo.
+  - §e/mail . §rVer el número de correos que tienes.
+  - §e/mail §cl§eeer §rLeer la bandeja de entrada.
   - §e/mail §cb§eorrar §rBorrar la bandeja de entrada.
   - §e/mail §ce§enviar <Usuario> <Mensaje> §rComando rápido para enviar un mensaje.
   - Para crear un correo más largo debes primero hacer un borrador para después agregar el mensaje y al final enviarlo.
   - §e/mail §cn§eevo <Usuario> ... §rCrea un borrador con destinatario o destinatarios. Uno mínimo.
   - §e/mail §ca§egregar <Mensaje> §rAgrega el mensaje a el borrador.
   - §e/mail §ce§enviar §rYa que tienes listo el borrador, este comando lo envía.
-  - §e/mail a§ct§eodos§r (Solo Admins)Envía el mensaje a todos los usuarios.
+  - §e/mail a§ct§eodos§r (Solo Admins) Envía el mensaje a todos los usuarios.
   list:
   - §b[§cmail§b]§r Tienes §e%d§r mensajes. §e/mail§r Para más info.
   mail:
