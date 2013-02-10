@@ -27,34 +27,34 @@ public class MailBoxCommand extends Comando{
             return true;
         }
         if(args.length < 1){
-            mensaje(jugador, "mail.info");
+            mensaje(jugador, "mbox.info");
             return true;
         }
         //TODO Crear comandos moderadores.
-        if(isCommand("comm.mail.count", args[0])){
+        if(isCommand("comm.mbox.count", args[0])){
             mail.getMailList(jugador.getName());
         }else
-        if(isCommand("comm.mail.read", args[0])){
+        if(isCommand("comm.mbox.read", args[0])){
             mail.getNextMail(jugador.getName(), false);
         }else
-        if(isCommand("comm.mail.clear", args[0])){
+        if(isCommand("comm.mbox.clear", args[0])){
             mail.eliminarAll(jugador.getName());
-            mensaje(jugador, "mail.deleted");
+            mensaje(jugador, "mbox.deleted");
         }
         // COMANDOS PARA CREAR CORREOS.
         if(!jugador.hasPermission("useless.mail.create")){
             mail.interpreta();
             return true;
         }
-        if(isCommand("comm.mail.new", args[0])){
+        if(isCommand("comm.mbox.new", args[0])){
             if(args.length > 1){
                 mail.createBorrador(jugador.getName(), cortarArray(1, args));              
             }
-        }else if(isCommand("comm.mail.add", args[0])){
+        }else if(isCommand("comm.mbox.add", args[0])){
             if(args.length > 1){
                 mail.addMensaje(jugador.getName(), getString(cortarArray(1, args)));
             }
-        }else if(isCommand("comm.mail.send", args[0])){
+        }else if(isCommand("comm.mbox.send", args[0])){
             if(args.length == 1){
                 mail.sendMensaje(jugador.getName());                
             }else if(args.length >= 3){
@@ -63,7 +63,7 @@ public class MailBoxCommand extends Comando{
                 mail.sendMensaje(jugador.getName(), destinatario, getString(cortarArray(2, args)), false);
             }
             return true;
-        }else if(isCommand("comm.mail.sendall", args[0])){
+        }else if(isCommand("comm.mbox.sendall", args[0])){
             if(args.length == 1){
                 mail.sendMensajeATodos(jugador.getName());
             }else if(args.length > 1){

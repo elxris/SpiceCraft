@@ -6,9 +6,9 @@ commands:
     description: Crea un warp temporal.
     usage: /tw
     permission: useless.tw
-  mail:
+  mbox:
     description: Revisa tu bandeja.
-    usage: /mail
+    usage: /mbox
     permission: useless.mail
   upin:
     description: Muestra en tu brujula la direccion que hayas marcado.

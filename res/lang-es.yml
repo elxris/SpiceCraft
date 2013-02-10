@@ -44,52 +44,52 @@ tw:
     - 2
     price:
     - 10.0
-mail:
+mbox:
   info:
-  - §b[§cMAIL§b]§r §aAyuda
-  - §e/mail . §rVer el número de correos que tienes.
-  - §e/mail §cl§eeer §rLeer la bandeja de entrada.
-  - §e/mail §cb§eorrar §rBorrar la bandeja de entrada.
-  - §e/mail §ce§enviar <Usuario> <Mensaje> §rComando rápido para enviar un mensaje.
+  - §b[§cMBOX§b]§r §aAyuda
+  - §e/mbox . §rVer el número de correos que tienes.
+  - §e/mbox §cl§eeer §rLeer la bandeja de entrada.
+  - §e/mbox §cb§eorrar §rBorrar la bandeja de entrada.
+  - §e/mbox §ce§enviar <Usuario> <Mensaje> §rComando rápido para enviar un mensaje.
   - Para crear un correo más largo debes primero hacer un borrador para después agregar el mensaje y al final enviarlo.
-  - §e/mail §cn§eevo <Usuario> ... §rCrea un borrador con destinatario o destinatarios. Uno mínimo.
-  - §e/mail §ca§egregar <Mensaje> §rAgrega el mensaje a el borrador.
-  - §e/mail §ce§enviar §rYa que tienes listo el borrador, este comando lo envía.
-  - §e/mail a§ct§eodos§r (Solo Admins) Envía el borrador a todos los usuarios.
-  - §e/mail a§ct§eodos <mensaje>§r (Solo Admins) Envía el mensaje a todos los usuarios.
+  - §e/mbox §cn§eevo <Usuario> ... §rCrea un borrador con destinatario o destinatarios. Uno mínimo.
+  - §e/mbox §ca§egregar <Mensaje> §rAgrega el mensaje a el borrador.
+  - §e/mbox §ce§enviar §rYa que tienes listo el borrador, este comando lo envía.
+  - §e/mbox a§ct§eodos§r (Solo Admins) Envía el borrador a todos los usuarios.
+  - §e/mbox a§ct§eodos <mensaje>§r (Solo Admins) Envía el mensaje a todos los usuarios.
   list:
-  - §b[§cMAIL§b]§r Tienes §e%d§r mensajes. §e/mail§r Para más info.
+  - §b[§cMBOX§b]§r Tienes §e%d§r mensajes. §e/mbox§r Para más info.
   mail:
   - 'De: §a%s§r Fecha: %s'
   - §b§o%s§r
-  - §e/mail §ce§enviar %s <Mensaje>§r para responder
+  - §e/mbox §ce§enviar %s <Mensaje>§r para responder
   timeago:
   - 'Hace '
   readStart:
-  - '§b[§cMAIL§b]§r §a### §cInicio Bandeja de Correo §a###'
+  - '§b[§cMBOX§b]§r §a### §cInicio Bandeja de Correo §a###'
   readFinish:
   - '§a### §cFin Bandeja de Correo §a###'
-  - Escribe §e/mail §cb§eorrar§r para borrar la bandeja de entrada.
+  - Escribe §e/mbox §cb§eorrar§r para borrar la bandeja de entrada.
   listEnd:
-  - §b[§cMAIL§b]§r Ya no tienes correos.
+  - §b[§cMBOX§b]§r Ya no tienes correos.
   deleted:
-  - §b[§cMAIL§b]§r Mensajes eliminados.
+  - §b[§cMBOX§b]§r Mensajes eliminados.
   noPlayerAdded:
-  - §b[§cMAIL§b]§r Ningún destinatario, por lo tanto mensaje no creado.
+  - §b[§cMBOX§b]§r Ningún destinatario, por lo tanto mensaje no creado.
   playerNotExist:
-  - §b[§cMAIL§b]§r El jugador %s no encontrado. No ha sido agregado.
+  - §b[§cMBOX§b]§r El jugador %s no encontrado. No ha sido agregado.
   catched:
-  - §b[§cMAIL§b]§r Mensaje recibido.
+  - §b[§cMBOX§b]§r Mensaje recibido.
   sended:
-  - §b[§cMAIL§b]§r Mensaje enviado.
+  - §b[§cMBOX§b]§r Mensaje enviado.
   limit:
-  - §b[§cMAIL§b]§r Lo siento, ya has superado el límite de 300 caracteres.
+  - §b[§cMBOX§b]§r Lo siento, ya has superado el límite de 300 caracteres.
   created:
-  - §b[§cMAIL§b]§r Borrador creado. §e/mail §ca§egregar <Mensaje>§r para añadir mensaje.
+  - §b[§cMBOX§b]§r Borrador creado. §e/mbox §ca§egregar <Mensaje>§r para añadir mensaje.
   add:
-  - §b[§cMAILC§b]§r Mensaje añadido añade más con §e/mail a <mensaje> §e/mail §ce§enviar§r para enviar.
+  - §b[§cMBOXC§b]§r Mensaje añadido añade más con §e/mbox a <mensaje> §e/mbox §ce§enviar§r para enviar.
   noMessage:
-  - §b[§cMAIL§b]§r §cPrimero debes crear un borrador. §e/mail para más ayuda.
+  - §b[§cMBOX§b]§r §cPrimero debes crear un borrador. §e/mbox para más ayuda.
   first:
   - Ahora puedes enviar correos!
   maxChar:

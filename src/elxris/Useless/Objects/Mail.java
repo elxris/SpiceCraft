@@ -31,7 +31,7 @@ public class Mail extends Savable{
     }
     public void interpreta(){
         if(!cache.isSet("msg")){
-            sendMensajeATodos("Server", Strings.getString("mail.first"));
+            sendMensajeATodos("Server", Strings.getString("mbox.first"));
             return;
         }
         Set<String> listacorreos = cache.getConfigurationSection("msg").getKeys(false);
@@ -78,7 +78,7 @@ public class Mail extends Savable{
                 }
             }
         }
-        Chat.mensaje(jugador, "mail.list", mensajes);
+        Chat.mensaje(jugador, "mbox.list", mensajes);
     }
     public void getNextMail(String jugador, Boolean eliminar){ //Obtiene todos los correos.
         List<String> mensajes = new ArrayList<String>();
@@ -91,28 +91,28 @@ public class Mail extends Savable{
             }
         }
         if(mensajes.size() == 0){
-            Chat.mensaje(jugador, "mail.listEnd");
+            Chat.mensaje(jugador, "mbox.listEnd");
             return;
         }
-        Chat.mensaje(jugador, "mail.readStart");
+        Chat.mensaje(jugador, "mbox.readStart");
         // Enviando cada uno de los mensajes.
         for(String lng: mensajes){
             String[] mensaje = getMail(Long.parseLong(lng));
-            Chat.mensaje(jugador, "mail.mail", mensaje);
+            Chat.mensaje(jugador, "mbox.mail", mensaje);
             if(eliminar){
                 eliminar(jugador, Long.parseLong(lng));
             }
         }
-        Chat.mensaje(jugador, "mail.readFinish");
+        Chat.mensaje(jugador, "mbox.readFinish");
     }
     public void createBorrador(String jugador, String args[]){ //Inicia el borrador.
         clearBorrador(jugador);
         List<String> destinatarios = checkDestinatarios(jugador, args);
         if(destinatarios.size() >= 1){
             draft.set(jugador+".destinatarios", destinatarios);
-            Chat.mensaje(jugador, "mail.created");
+            Chat.mensaje(jugador, "mbox.created");
         }else{
-            Chat.mensaje(jugador, "mail.noPlayerAdded");
+            Chat.mensaje(jugador, "mbox.noPlayerAdded");
         }
     }
     public void setMensaje(String jugador, String mensaje){
@@ -120,21 +120,21 @@ public class Mail extends Savable{
     }
     public void addMensaje(String jugador, String mensaje){
         if(draft.getStringList(jugador+".destinatarios").size() < 1){
-            Chat.mensaje(jugador, "mail.noMessage");
+            Chat.mensaje(jugador, "mbox.noMessage");
             return;
         }
         String mensajeAnterior = "";
         if(draft.isSet(jugador+".mensaje")){
             mensajeAnterior = draft.getString(jugador+".mensaje");
         }
-        if(mensajeAnterior.length() > Strings.getInt("mail.v.maxChar")){
+        if(mensajeAnterior.length() > Strings.getInt("mbox.v.maxChar")){
             if(!Useless.getPlayer(jugador).hasPermission("useless.mail.noCharLimit")){
-                Chat.mensaje(jugador, "mail.limit");
+                Chat.mensaje(jugador, "mbox.limit");
                 return;
             }
         }
         setMensaje(jugador, mensajeAnterior+" "+mensaje);
-        Chat.mensaje(jugador, "mail.add");
+        Chat.mensaje(jugador, "mbox.add");
     }
     public void clearMensaje(String jugador){
         setMensaje(jugador, "");
@@ -154,9 +154,9 @@ public class Mail extends Savable{
         cache.set(path+"mensaje", mensaje);
         cache.set(path+"usuarios", destinatarios);
         for(String k: destinatarios){
-            Chat.mensaje(k, "mail.catched");
+            Chat.mensaje(k, "mbox.catched");
         }
-        Chat.mensaje(jugador, "mail.sended");
+        Chat.mensaje(jugador, "mbox.sended");
         clearBorrador(jugador);
         save();
     }
@@ -197,7 +197,7 @@ public class Mail extends Savable{
     }
     public boolean hasMensaje(String jugador){
         if(!draft.isSet(jugador+".mensaje")){
-            Chat.mensaje(jugador, "mail.noMessage");
+            Chat.mensaje(jugador, "mbox.noMessage");
             return false;
         }
         return true;
@@ -209,7 +209,7 @@ public class Mail extends Savable{
             if(destinatario != null){
                 checked.add(destinatario);
             }else{
-                Chat.mensaje(jugador, "mail.playerNotExist", s);
+                Chat.mensaje(jugador, "mbox.playerNotExist", s);
             }
         }
         return checked;

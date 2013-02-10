@@ -31,7 +31,7 @@ public class Useless extends JavaPlugin {
         getCommand("tw").setExecutor(new WarpCommand());
         //Comando Mail
         mail = new Mail();
-        getCommand("mail").setExecutor(new MailBoxCommand(mail));
+        getCommand("mbox").setExecutor(new MailBoxCommand(mail));
         //Listener Mail
         this.getServer().getPluginManager().registerEvents(new MailListener(mail), this);
         //Listener Command
