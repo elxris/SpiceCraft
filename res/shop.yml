@@ -1691,6 +1691,14 @@ item:
     alias:
     - Pay
     - Pie
+  EnchantedBook:
+    id: 403
+    price: 0
+    depend:
+      Book: 1
+      Diamond: 1
+    alias:
+    - LibroEncantado
   13Disc:
     id: 2256
     price: 500

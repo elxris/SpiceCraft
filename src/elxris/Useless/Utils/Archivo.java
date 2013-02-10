@@ -37,7 +37,7 @@ public class Archivo {
         return getFile().exists();
     }
     public FileConfiguration load(){
-        if(!file.exists()){
+        if(!exist()){
             loadResourse(getName());
         }
         return YamlConfiguration.loadConfiguration(getFile());

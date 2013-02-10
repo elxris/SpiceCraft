@@ -9,14 +9,15 @@ import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.MemoryConfiguration;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.material.MaterialData;
 
-import elxris.Useless.Useless;
 import elxris.Useless.Utils.Archivo;
 import elxris.Useless.Utils.Chat;
 import elxris.Useless.Utils.Econ;
@@ -195,7 +196,7 @@ public class Factory extends Savable implements Listener {
             save();
         }
     }
-    private ItemStack createItem(String item, int size){
+    private ItemStack createItem(Player p, String item, int size){
         ItemStack stack = new ItemStack(getId(item));
         byte data = (byte)getData(item);
         if(haveData(item)){
@@ -204,17 +205,34 @@ public class Factory extends Savable implements Listener {
             stack = mData.toItemStack();
         }
         stack.setAmount(size);
+        // Da la cabeza del que la pide.
+        if(stack.getType() == Material.SKULL_ITEM){
+            if(data == 3){
+                SkullMeta skull = (SkullMeta) stack.getItemMeta();
+                skull.setOwner(p.getName());
+                stack.setItemMeta(skull);
+            }
+        }
+        // Da un libro con un encantamiento al azar.
+        if(stack.getType() == Material.ENCHANTED_BOOK){
+            java.util.Random rndm = new java.util.Random();;
+            Enchantment enchant;
+            do{
+                enchant = Enchantment.values()[rndm.nextInt(Enchantment.values().length)];
+            } while(enchant.canEnchantItem(stack));
+            stack.addUnsafeEnchantment(enchant, 1+rndm.nextInt(enchant.getMaxLevel()));
+        }
         return stack;
     }
-    private List<ItemStack> createItems(String item, int num){
+    private List<ItemStack> createItems(Player p, String item, int num){
         List<ItemStack> items = new ArrayList<ItemStack>();
         int maxStack = Material.getMaterial(getId(item)).getMaxStackSize();
         if(num%maxStack > 0){
-            items.add(createItem(item, num%maxStack));
+            items.add(createItem(p, item, num%maxStack));
             num -= num%maxStack;
         }
         for(int i = 0; i < num/maxStack; i++){
-            items.add(createItem(item, maxStack));
+            items.add(createItem(p, item, maxStack));
         }
         return items;
     }
@@ -233,7 +251,7 @@ public class Factory extends Savable implements Listener {
             Chat.mensaje(p, "shop.noMoney");
             return;
         }
-        addItemsToInventory(p, createItems(item_real, cantidad));
+        addItemsToInventory(p, createItems(p, item_real, cantidad));
         addCount(item_real, -cantidad);
     }
     private void addItemsToInventory(Player p, List<ItemStack> items){ // Añade el item al inventario del jugador.
@@ -320,7 +338,6 @@ public class Factory extends Savable implements Listener {
     @Override
     public void run() {
         super.save();
-        Useless.log("Guardando Shop.");
         getFile().save(getCache());
     }
 }
