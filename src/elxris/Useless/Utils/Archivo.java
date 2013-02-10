@@ -37,6 +37,9 @@ public class Archivo {
         return getFile().exists();
     }
     public FileConfiguration load(){
+        if(!file.exists()){
+            loadResourse(getName());
+        }
         return YamlConfiguration.loadConfiguration(getFile());
     }
     public void save(FileConfiguration fc){
@@ -46,19 +49,30 @@ public class Archivo {
             Useless.log(Strings.getString("alert.notsaved")+getName());
         }
     }
-    public void saveString(String data){
+    private void saveString(String data){
         try {
             FileWriter fw = new FileWriter(getFile());
             fw.write(data);
             fw.close();
         } catch (IOException e) {}
     }
-    public void loadResourse(String path){
+    public void loadResourse(String path){ // Carga un recurso del jar y lo guarda en el archivo.
         InputStream is = Useless.plugin().getResource("res/"+path);
         if(is == null){
             return;
         }
         Scanner s = new Scanner(is, Charsets.ISO_8859_1.displayName()).useDelimiter("\\A");
         saveString(s.next());
+    }
+    public static FileConfiguration getDefaultConfig(String path){ // Carga una configuración.
+        FileConfiguration fc = new YamlConfiguration();
+        Archivo file = new Archivo("tmp."+path);
+        
+        try {fc.save(file.getFile());} catch (IOException e) {e.printStackTrace();}
+        
+        file.loadResourse(path); // Carga el recurso.
+        fc = file.load();
+        file.getFile().delete();
+        return fc;
     }
 }

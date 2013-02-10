@@ -15,7 +15,7 @@ public class CheckConfiguration {
         isChanged();
     }
     private void init(){
-        FileConfiguration defaults = Useless.getConfig("config.yml");
+        FileConfiguration defaults = Archivo.getDefaultConfig("config.yml");
         if(p().getConfig().getKeys(true).size() == 0){
             Archivo file = new Archivo("config.yml");
             file.save(defaults);
@@ -23,7 +23,7 @@ public class CheckConfiguration {
         }
         update();
         register(defaults);
-        register(Useless.getConfig("lang-"+getString(defaults, "lang")+".yml"));
+        register(Archivo.getDefaultConfig("lang-"+getString(defaults, "lang")+".yml"));
     }
     private void update() {
         String prev;
@@ -81,7 +81,7 @@ public class CheckConfiguration {
         changed = true;
     }
     public boolean changeLang(String s){
-        FileConfiguration fc = Useless.getConfig("lang-"+s+".yml");
+        FileConfiguration fc = Archivo.getDefaultConfig("lang-"+s+".yml");
         if(fc == null){
             return false;
         }

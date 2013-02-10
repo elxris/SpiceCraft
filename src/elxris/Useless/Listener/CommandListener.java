@@ -24,19 +24,7 @@ public class CommandListener implements Listener{
     }
     // Inicia y prepara la configuración.
     private void init(){
-        if(!getFc().isSet("commands") || !getFc().isList("commands")){
-            String[] ejemplo = {"comando1", "comando2"};
-            setPath("commands", ejemplo);
-            save();
-        }
-        for(String s: getFc().getStringList("commands")){
-            if(!getFc().isSet(s)){
-                setPath("root."+s, "Mensaje sin argumentos.");
-                setPath(s+".1", "Mensaje con argumento '1'.");
-                setPath(s+".1.dos", "Mensaje con argumento '1 dos'.");
-                save();
-            }
-        }
+        fc = new Archivo("commands.yml").load();
     }
     // Muestra un comando
     private boolean getCommand(Player p, String command){
@@ -54,11 +42,8 @@ public class CommandListener implements Listener{
                 return true;
             }
         }
-        if(s.length == 1){
-            return mensaje(p, "root."+command);
-        }
-        if(s.length > 1){
-            return mensaje(p, command);
+        if(s.length > 0){
+            return mensaje(p, command+".*");
         }
         return false;
     }
@@ -71,7 +56,7 @@ public class CommandListener implements Listener{
     }
     
     // SetPath, Cargar y Guardar.
-    private void setPath(String path, Object... o){
+    /*private void setPath(String path, Object... o){
         getFc().set(path, o);
     }
     private void save(FileConfiguration fc){
@@ -80,7 +65,7 @@ public class CommandListener implements Listener{
     private void save(){
         save(fc);
         reload();
-    }
+    }*/
     private void load(String name){
         setFile(new Archivo(name));
         setFc(getFile().load());

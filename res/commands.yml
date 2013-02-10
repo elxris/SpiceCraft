@@ -1,0 +1,11 @@
+help:
+  '*':
+  - 'You type: /help'
+  - 'Try /help ?'
+  '?':
+    '*':
+    - 'You type: /help ?'
+    - 'Try /help ? secret'
+    secret:
+      '*':
+      - 'You type this: /help ? secret'

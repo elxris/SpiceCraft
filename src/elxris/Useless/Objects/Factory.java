@@ -313,9 +313,7 @@ public class Factory extends Savable implements Listener {
     private static FileConfiguration getCache(){
         if(fc == null){
             setCache(getFile().load());
-            if(!fc.isSet("vel")){
-                setCache(Useless.getConfig("shop.yml"));
-            }
+            getCache().setDefaults(Archivo.getDefaultConfig("shop.yml"));
         }
         return fc;
     }
