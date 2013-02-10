@@ -117,7 +117,7 @@ public class Factory extends Savable implements Listener {
         setVel(item, getVel(item)+vel);
     }
     public double getPrice(String item){
-        double price = getCache().getDouble("item."+item+".price");
+        double price = getCache().getDouble("item."+item+".price") * getRazonPrecio(item);
         if(getCache().isSet("item."+item+".depend")){
             for(String s: getDepends(item)){
                 price += getPrecio(s);
@@ -129,7 +129,7 @@ public class Factory extends Savable implements Listener {
         return (double)getVel(item)/VEL;
     }
     public double getPrecio(String item){
-        return getRazonPrecio(item)*getPrice(item);
+        return getPrice(item);
     }
     public double getPrecio(String item, int cantidad){
         return getPrecio(item)*(double)cantidad;
@@ -322,6 +322,7 @@ public class Factory extends Savable implements Listener {
     @Override
     public void run() {
         super.save();
+        Useless.log("Guardando Shop.");
         getFile().save(getCache());
     }
 }
