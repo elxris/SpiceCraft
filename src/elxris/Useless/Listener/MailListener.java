@@ -13,7 +13,9 @@ public class MailListener implements Listener{
     }
     @EventHandler
     public void onLogin(PlayerJoinEvent event){
-        new MailDelay(event.getPlayer(), (long) 2, getMail());
+        if(event.getPlayer().hasPermission("useless.mail")){
+            new MailDelay(event.getPlayer(), (long) 2, getMail());
+        }
     }
     public void setMail(Mail mail) {
         this.mail = mail;

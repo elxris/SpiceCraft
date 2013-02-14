@@ -20,10 +20,16 @@ public class ShopCommand extends Comando{
     }
     @Override
     public boolean onCommand(CommandSender player, Command command, String label, String[] args) {
-        if(!(player instanceof Player)){
-            return false;
+        Player p;
+        if(player instanceof Player){
+            p = (Player) player;
+        }else{
+            return true;
         }
-        Player p = (Player)player;
+        if(!p.hasPermission("useless.shop")){
+            mensaje(p, "alert.permission");
+            return true;
+        }
         if(args.length == 0){ // Info
             mensaje(p, "shop.info", Strings.getDouble("shop.sellRate")*100+"%");
         }else

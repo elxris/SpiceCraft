@@ -33,6 +33,7 @@ public class CompassCommand extends Comando{
             return true;
         }
         if(!jugador.hasPermission("useless.upin")){
+            mensaje(jugador, "alert.permission");
             return true;
         }
         if(args.length == 0){

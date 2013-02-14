@@ -33,6 +33,7 @@ public class LibCommand extends Comando{
             return true;
         }
         if(!jugador.hasPermission("useless.lib")){
+            mensaje(jugador, "alert.permission");
             return true;
         }
         // Muestra la ayuda.

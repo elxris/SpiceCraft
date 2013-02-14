@@ -24,6 +24,7 @@ public class MailBoxCommand extends Comando{
             return true;
         }
         if(!jugador.hasPermission("useless.mail")){
+            mensaje(jugador, "alert.permission");
             return true;
         }
         if(args.length < 1){

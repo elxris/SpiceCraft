@@ -19,7 +19,6 @@ public class WarpCommand extends Comando{
     public WarpCommand() {
         this.cache = new MemoryConfiguration();
         this.econ = new Econ();
-        return;
     }
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -27,10 +26,11 @@ public class WarpCommand extends Comando{
         if(sender instanceof Player){
             jugador = (Player) sender;
         }else{
-            return false;
+            return true;
         }
-        if(!jugador.hasPermission("Useless.tw")){
-            return false;
+        if(!jugador.hasPermission("useless.tw")){
+            mensaje(jugador, "alert.permission");
+            return true;
         }
         // Crea un registro en el cache, por si se va a usar.
         if(!cache.isSet(getPath("p.%s.set", jugador))){

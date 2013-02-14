@@ -7,7 +7,7 @@ commands:
     usage: /tw
     permission: useless.tw
   mbox:
-    description: Revisa tu bandeja.
+    description: Lee y administra mensajeria.
     usage: /mbox
     permission: useless.mail
   upin:
@@ -15,13 +15,13 @@ commands:
     usage: /upin
     permission: useless.upin
   lib:
-    description: Funciona como una libreria.
+    description: Liberia virtual.
     usage: /lib
-    premission: useless.lib
+    permission: useless.lib
   shop:
     description: A Shop.
     usage: /shop
-    premission: useless.shop
+    permission: useless.shop
   uselesslang:
     description: Cambia el idioma del plugin.
     usage: /uselesslang

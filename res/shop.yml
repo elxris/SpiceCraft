@@ -587,7 +587,9 @@ item:
     - PiedraAbisal
   SoulSand:
     id: 88
-    price: 15
+    price: 10
+    depend:
+      SoulSand: 1
     alias:
     - ArenaAlmas
   GlowstoneBlock:
@@ -1697,6 +1699,7 @@ item:
     depend:
       Book: 1
       Diamond: 1
+      BottleOfEnchanting: 1
     alias:
     - LibroEncantado
   13Disc:
