@@ -1,7 +1,7 @@
 package elxris.Useless.Objects;
 
 public abstract class Savable implements Runnable{
-    private static boolean save = false;
+    private boolean save = false;
     public void save(){
         if(!save){
             setSave(true);
@@ -17,10 +17,10 @@ public abstract class Savable implements Runnable{
         }
         setSave(false);
     }
-    public static boolean getSave() {
+    public boolean getSave() {
         return save;
     }
-    public static void setSave(boolean save) {
-        Savable.save = save;
+    public void setSave(boolean save) {
+        this.save = save;
     }
 }

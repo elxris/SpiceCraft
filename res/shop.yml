@@ -1760,14 +1760,12 @@ item:
     price: 0
     depend:
       13Disc: 1
-  BottleOfEnchanting:
+  BottleOEnchanting:
     id: 384
     price: 100
     depend:
       GlassBottle: 1
     alias:
-    - XP
-    - BottleOEnchanting
     - ThrownExpBottle
   AwkwardPotion:
     id: 373

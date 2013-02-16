@@ -94,6 +94,7 @@ public class Factory extends Savable implements Listener {
     }
     public void setCount(String item, int count){
         getCache().set("item."+item+".count", count);
+        getTime(item);
         save();
     }
     public int getCount(String item){
@@ -337,7 +338,7 @@ public class Factory extends Savable implements Listener {
     }
     @Override
     public void run() {
-        super.save();
+        super.run();
         getFile().save(getCache());
     }
 }
