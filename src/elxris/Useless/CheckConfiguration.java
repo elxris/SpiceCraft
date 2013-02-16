@@ -2,10 +2,10 @@ package elxris.Useless;
 
 import java.util.List;
 
-import org.bukkit.configuration.MemoryConfiguration;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import elxris.Useless.Utils.Archivo;
+import elxris.Useless.Utils.Strings;
 
 public class CheckConfiguration {
     private boolean changed = false;
@@ -21,21 +21,15 @@ public class CheckConfiguration {
             file.save(defaults);
             p().reloadConfig();
         }
-        update();
         register(defaults);
-        register(Archivo.getDefaultConfig("lang-"+getString(defaults, "lang")+".yml"));
-    }
-    private void update() {
-        String prev;
-        if(!p().getConfig().isSet("v")){
-            prev = "0.7.6";
-        }else{
-            prev = p().getConfig().getStringList("v").get(0);
+        Archivo lang = new Archivo("lang-"+p().getConfig().getString("lang")+".yml");
+        if(!lang.exist()){
+            if(!lang.loadResourse("lang-"+p().getConfig().getString("lang")+".yml")){
+                lang = new Archivo("lang-"+defaults.getString("lang")+".yml");
+                lang.loadResourse("lang-"+defaults.getString("lang")+".yml");
+            }
         }
-        if(!prev.contentEquals(Useless.getVersion())){
-            delPath("v");
-            setPath("v", Useless.getVersion());
-        }
+        new Strings(lang.load());
     }
     // Registra las configuraciones que no existan en el config.yml del cliente.
     private void register(FileConfiguration fc){
@@ -59,13 +53,6 @@ public class CheckConfiguration {
             setPath(path, v);
         }
     }
-    private void delPath(String path){
-        p().getConfig().set(path, null);
-        changed();
-    }
-    private String getString(MemoryConfiguration mc, String path){
-        return mc.getStringList(path).get(0);
-    }
     private Useless p(){
         return Useless.plugin();
     }
@@ -79,16 +66,5 @@ public class CheckConfiguration {
     }
     public void changed() {
         changed = true;
-    }
-    public boolean changeLang(String s){
-        FileConfiguration fc = Archivo.getDefaultConfig("lang-"+s+".yml");
-        if(fc == null){
-            return false;
-        }
-        for(String p: fc.getKeys(false)){
-            delPath(p);
-        }
-        register(fc);
-        return true;
     }
 }

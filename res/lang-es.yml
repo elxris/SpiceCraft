@@ -8,42 +8,32 @@ tw:
   - §e/tw §cb§eorrar§r o §e/tw §cb§eorrar <nombre>§r Borra un warp personal o público si eres el dueño.
   - §e/tw list§r Lista los warps públicos.
   - §e/tw§r Muestra esta ayuda, o puede ser un comando rápido para un warp temporal personal.
-  s:
-    created:
-    - §b[§cTW§b]§r Warp Temporal de %d minutos creado.
-    - Usa §e/tw %s§r para usarlo.
-    remain:
-    - §b[§cTW§b]§r Quedan §4%d§r segundos para la destrucción de el warp temporal.
-    teleported:
-    - §b[§cTW§b]§r Teleportando..
-    destroyed:
-    - §b[§cTW§b]§r Warp Destruido.
-    noMoney:
-    - §b[§cTW§b]§r No puedes pagarte un warp temporal en este momento.
-    noExist:
-    - §b[§cTW§b]§r No existe el warp. §e/tw§r Para más info.
-    exist:
-    - §b[§cTW§b]§r Ya existe ese warp.
-    timeLimit:
-    - §b[§cTW§b]§r No debe ser menor a %d minutos ni mayor a %d minutos.
-    warpLimit:
-    - §b[§cTW§b]§r No puedes hacer otro warp, ya tienes muchos.
-    noOwner:
-    - §b[§cTW§b]§r No puedes borrar este warp, no es tuyo.
-    listHeader:
-    - '§b[§cTW§b]§r §a### §cLista de warps públicos §a###'
-    - '%s'
-    listItem:
-    - <%s:%s %s segundos restantes>
-  v:
-    maxTime:
-    - 120
-    minTime:
-    - 1
-    maxPerUser:
-    - 2
-    price:
-    - 10.0
+  created:
+  - §b[§cTW§b]§r Warp Temporal de %d minutos creado.
+  - Usa §e/tw %s§r para usarlo.
+  remain:
+  - §b[§cTW§b]§r Quedan §4%d§r segundos para la destrucción de el warp temporal.
+  teleported:
+  - §b[§cTW§b]§r Teleportando..
+  destroyed:
+  - §b[§cTW§b]§r Warp Destruido.
+  noMoney:
+  - §b[§cTW§b]§r No puedes pagarte un warp temporal en este momento.
+  noExist:
+  - §b[§cTW§b]§r No existe el warp. §e/tw§r Para más info.
+  exist:
+  - §b[§cTW§b]§r Ya existe ese warp.
+  timeLimit:
+  - §b[§cTW§b]§r No debe ser menor a %d minutos ni mayor a %d minutos.
+  warpLimit:
+  - §b[§cTW§b]§r No puedes hacer otro warp, ya tienes muchos.
+  noOwner:
+  - §b[§cTW§b]§r No puedes borrar este warp, no es tuyo.
+  listHeader:
+  - '§b[§cTW§b]§r §a### §cLista de warps públicos §a###'
+  - '%s'
+  listItem:
+  - <%s:%s %s segundos restantes>
 mbox:
   info:
   - §b[§cMBOX§b]§r §aAyuda
@@ -66,9 +56,9 @@ mbox:
   timeago:
   - 'Hace '
   readStart:
-  - '§b[§cMBOX§b]§r §a### §cInicio Bandeja de Correo §a###'
+  - §b[§cMBOX§b]§r §a### §cInicio Bandeja de Correo §a###
   readFinish:
-  - '§a### §cFin Bandeja de Correo §a###'
+  - §a### §cFin Bandeja de Correo §a###
   - Escribe §e/mbox §cb§eorrar§r para borrar la bandeja de entrada.
   listEnd:
   - §b[§cMBOX§b]§r Ya no tienes correos.
@@ -92,8 +82,6 @@ mbox:
   - §b[§cMBOX§b]§r §cPrimero debes crear un borrador. §e/mbox para más ayuda.
   first:
   - Ahora puedes enviar correos!
-  maxChar:
-  - 200
 upin:
   info:
   - §b[§cUPIN§b]§r §aAYUDA
@@ -120,9 +108,6 @@ upin:
   - §b[§cUPIN§b]§r §cDe nada sirve crear una posición aquí. No se mostrará.
   del:
   - §b[§cUPIN§b]§r Borrada la posición.
-  v:
-    maxPerUser:
-    - 3
   limitPin:
   - §b[§cUPIN§b]§r Ya tienes demasiadas posiciones, ya no puedes hacer más.
 lib:
@@ -176,38 +161,32 @@ lib:
   - §b[§cLIB§b]§r Está repetido. ¿Acaso quieres engañar a tus lectores?
   isNotABook:
   - §b[§cLIB§b]§r Lo que tienes en tu mano no es un libro.
-  topSize:
-  - 3
-  percent:
-  - 50
 shop:
   info:
-  - "§b[§cSHOP§b]§r §aAYUDA"
-  - "§e/shop <item> §rBusca un item. Parte del nombre o id."
-  - "§e/shop <item> <#> §rMuestra la infomación de un item. Si al buscar un item se encuentra más de un objeto en la tienda, puedes seleccionar uno de la lista."
-  - "§e/shop <item> [#] <cantidad>§r Compra un item. Especifica el número de la búsqueda si es necesario."
-  - "Ejemplo: §c/shop lana 3 64§r Que compraría 64 piezas del tercer item encontrado con la búsqueda 'lana'."
-  - "§bConsultar precios es importante ya que varían con el tiempo."
-  - "§e/shop §cv§eender §rVende items al %s del precio que tiene actualmente."
+  - §b[§cSHOP§b]§r §aAYUDA
+  - §e/shop <item> §rBusca un item. Parte del nombre o id.
+  - §e/shop <item> <#> §rMuestra la infomación de un item. Si al buscar un item se encuentra más de un objeto en la tienda, puedes seleccionar uno de la lista.
+  - §e/shop <item> [#] <cantidad>§r Compra un item. Especifica el número de la búsqueda si es necesario.
+  - Ejemplo: §c/shop lana 3 64§r Que compraría 64 piezas del tercer item encontrado con la búsqueda 'lana'.
+  - §bConsultar precios es importante ya que varían con el tiempo.
+  - §e/shop §cv§eender §rVende items al %s del precio que tiene actualmente.
   itemInfo:
-  - "§b[§cSHOP§b]§r §aInfo §d%s"
-  - "§bPrecio: §a%s §ela unidad."
-  - "§bProducción: §a%s"
-  - "§bID: §a%s"
+  - §b[§cSHOP§b]§r §aInfo §d%s
+  - §bPrecio: §a%s §ela unidad.
+  - §bProducción: §a%s
+  - §bID: §a%s
   shoped:
-  - "§b[§cSHOP§b]§r §aGracias por tu compra."
+  - §b[§cSHOP§b]§r §aGracias por tu compra.
   searchHead:
-  - "§b[§cSHOP§b]§r §a=== §cBuscando: §e%s §a==="
+  - §b[§cSHOP§b]§r §a=== §cBuscando: §e%s §a===
   searchItem:
-  - "§b#%s §e%s"
+  - §b#%s §e%s
   notExist:
-  - "§b[§cSHOP§b]§r §cNo existe el item en la tienda."
+  - §b[§cSHOP§b]§r §cNo existe el item en la tienda.
   noMoney:
-  - "§b[§cSHOP§b]§r §cNo tienes suficiente dinero para comprar."
+  - §b[§cSHOP§b]§r §cNo tienes suficiente dinero para comprar.
   creative:
-  - "§b[§cSHOP§b]§r §cEstás en creativo, eso es tampa."
-  sellRate:
-  - .6
+  - §b[§cSHOP§b]§r §cEstás en creativo, eso es tampa.
 cmd:
   reload:
   - Reload de comandos y configuraciones completo!

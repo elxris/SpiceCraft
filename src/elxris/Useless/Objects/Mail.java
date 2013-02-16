@@ -127,7 +127,7 @@ public class Mail extends Savable{
         if(draft.isSet(jugador+".mensaje")){
             mensajeAnterior = draft.getString(jugador+".mensaje");
         }
-        if(mensajeAnterior.length() > Strings.getInt("mbox.v.maxChar")){
+        if(mensajeAnterior.length() > Useless.plugin().getConfig().getInt("mbox.maxChar")){
             if(!Useless.getPlayer(jugador).hasPermission("useless.mail.noCharLimit")){
                 Chat.mensaje(jugador, "mbox.limit");
                 return;

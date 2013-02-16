@@ -56,20 +56,29 @@ public class Archivo {
             fw.close();
         } catch (IOException e) {}
     }
-    public void loadResourse(String path){ // Carga un recurso del jar y lo guarda en el archivo.
+    public boolean loadResourse(String path){ // Carga un recurso del jar y lo guarda en el archivo.
         InputStream is = Useless.plugin().getResource("res/"+path);
         if(is == null){
-            return;
+            return false;
         }
         Scanner s = new Scanner(is, Charsets.ISO_8859_1.displayName()).useDelimiter("\\A");
+        if(!exist()){
+            blankFile(path);
+        }
         saveString(s.next());
+        return true;
+    }
+    public static void blankFile(String name){
+        FileConfiguration fc = new YamlConfiguration();
+        Archivo file = new Archivo(name);
+        
+        // Crea el archivo y carpetas necesarias.
+        try {fc.save(file.getFile());} catch (IOException e) {e.printStackTrace();}
     }
     public static FileConfiguration getDefaultConfig(String path){ // Carga una configuración.
         FileConfiguration fc = new YamlConfiguration();
         Archivo file = new Archivo("tmp."+path);
-        
-        try {fc.save(file.getFile());} catch (IOException e) {e.printStackTrace();}
-        
+        blankFile("tmp."+path);
         file.loadResourse(path); // Carga el recurso.
         fc = file.load();
         file.getFile().delete();

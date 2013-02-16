@@ -20,36 +20,40 @@ public class Strings{
     }
     // GETTERS
     public static String getString(String path){
-        return getFc().getStringList(path).get(0);
+        return (String) get(path);
     }
+    @SuppressWarnings("unchecked")
     public static List<String> getStringList(String path){
         if(path.contentEquals("s")){
             return s;
         }
-        return getFc().getStringList(path);
+        return (List<String>) getList(path);
     }
     public static int getInt(String path){
-        return getFc().getIntegerList(path).get(0);
+        return (int) get(path);
     }
+    @SuppressWarnings("unchecked")
     public static List<Integer> getIntList(String path){
-        return getFc().getIntegerList(path);
+        return (List<Integer>) getList(path);
     }
     public static double getDouble(String path){
-        return getFc().getDoubleList(path).get(0);
+        return (double) get(path);
     }
+    @SuppressWarnings("unchecked")
     public static List<Double> getDoubleList(String path){
-        return getFc().getDoubleList(path);
+        return (List<Double>) getList(path);
     }
     public static long getLong(String path){
-        return getFc().getLongList(path).get(0);
+        return (long) get(path);
     }
+    @SuppressWarnings("unchecked")
     public static List<Long> getLongList(String path){
-        return getFc().getLongList(path);
+        return (List<Long>) getList(path);
     }
     public static Object get(String path){
-        return getFc().getList(path).get(0);
+        return getList(path).get(0);
     }
-    public static Object getList(String path){
+    public static List<?> getList(String path){
         return getFc().getList(path);
     }
 }

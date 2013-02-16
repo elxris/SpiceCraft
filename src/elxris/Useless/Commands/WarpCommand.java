@@ -57,10 +57,10 @@ public class WarpCommand extends Comando{
                 borrarWarp(jugador, getPath("p.%s", jugador));
                 return true;
             }else if(isCommand("comm.tw.list", args[0])){
-                mensaje(jugador, "tw.s.listHeader", getlistaWarps());
+                mensaje(jugador, "tw.listHeader", getlistaWarps());
                 return true;
             }
-            Chat.mensaje(jugador, "tw.s.noExist");
+            Chat.mensaje(jugador, "tw.noExist");
         } else
         
         // Si son dos argumentos crea el warp personal.
@@ -90,7 +90,7 @@ public class WarpCommand extends Comando{
     }
     private void teleport(Player jugador, String path){
         jugador.teleport((Location)cache.get(getPath(path, jugador)));
-        mensaje(jugador, "tw.s.teleported");
+        mensaje(jugador, "tw.teleported");
     }
     private String getPath(String path, Player jugador) {
         return String.format(path, getPlayerName(jugador));
@@ -99,13 +99,13 @@ public class WarpCommand extends Comando{
         return jugador.getName();
     }
     private void chatInfo(Player jugador){
-        Chat.mensaje(jugador, "tw.info", econ.getPrecio(Strings.getDouble("tw.v.price")));
+        Chat.mensaje(jugador, "tw.info", econ.getPrecio((double)getValue("tw.price")));
     }
     private boolean crearWarp(Player jugador, int tiempo, String path){
-        double precio = Strings.getDouble("tw.v.price")*tiempo;
+        double precio = (double)getValue("tw.price")*tiempo;
         econ.setJugador(jugador);
         if(!econ.cobrar(jugador, precio)){
-            mensaje(jugador, "tw.s.noMoney");
+            mensaje(jugador, "tw.noMoney");
             return false;
         }
         Warp w = new Warp(jugador.getLocation(), jugador, tiempo, cache, path);
@@ -125,14 +125,14 @@ public class WarpCommand extends Comando{
         }
         // Si es ya existe.
         if(cache.isSet(path+".warp")){
-            mensaje(jugador, "tw.s.exist");
+            mensaje(jugador, "tw.exist");
             return;
         }
         int minutos = Integer.parseInt(tiempo);
         //Si está fuera de rango.
-        if(!(minutos >= Strings.getInt("tw.v.minTime") && minutos <= Strings.getInt("tw.v.maxTime"))){
+        if(!(minutos >= (int)getValue("tw.minTime") && minutos <= (int)getValue("tw.maxTime"))){
             if(!jugador.hasPermission("useless.tw.noMaxTime")){
-                mensaje(jugador, "tw.s.timeLimit", Strings.getInt("tw.v.minTime"), Strings.getInt("tw.v.maxTime"));
+                mensaje(jugador, "tw.timeLimit", (int)getValue("tw.minTime"), (int)getValue("tw.maxTime"));
                 return;                
             }
         }
@@ -141,14 +141,14 @@ public class WarpCommand extends Comando{
             cache.set("user."+getPlayerName(jugador), 0);
         }
         // Si excede a los máximos por usuario.
-        if(Strings.getInt("tw.v.maxPerUser") <= cache.getInt("user."+getPlayerName(jugador))){
+        if((int)getValue("tw.maxPerUser") <= cache.getInt("user."+getPlayerName(jugador))){
             if(!jugador.hasPermission("useless.tw.noWarpLimit")){
-                mensaje(jugador, "tw.s.warpLimit");
+                mensaje(jugador, "tw.warpLimit");
                 return;                
             }
         }
         if(crearWarp(jugador, minutos, path)){            
-            mensaje(jugador, "tw.s.created", minutos, nombreWarp);
+            mensaje(jugador, "tw.created", minutos, nombreWarp);
             // Añadir el warp a la lista de warps
             if(nombreWarp != ""){
                 addListaWarps(nombreWarp);                
@@ -161,14 +161,14 @@ public class WarpCommand extends Comando{
                     || jugador.hasPermission("useless.tw.master")){
                 cache.set(path, null);
                 cache.set("user."+jugador.getName(), cache.getInt("user."+jugador.getName())-1);
-                Chat.mensaje(jugador, "tw.s.destroyed");
+                Chat.mensaje(jugador, "tw.destroyed");
                 return;
             }else{
-                mensaje(jugador, "tw.s.noOwner");
+                mensaje(jugador, "tw.noOwner");
                 return;
             }
         }
-        mensaje(jugador, "tw.s.noExist");
+        mensaje(jugador, "tw.noExist");
     }
     
     private void addListaWarps(String s){
@@ -181,7 +181,7 @@ public class WarpCommand extends Comando{
         for(String s: cache.getStringList("list")){
             if(cache.isSet("g."+s)){
                 r += String.format(
-                        Strings.getString("tw.s.listItem")+"\n", 
+                        Strings.getString("tw.listItem")+"\n", 
                         s,
                         cache.getString("g."+s+".owner"),
                         (cache.getLong("g."+s+".date")+cache.getLong("g."+s+".time")-System.currentTimeMillis())/1000

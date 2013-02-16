@@ -12,7 +12,6 @@ import elxris.Useless.Listener.CommandListener;
 import elxris.Useless.Listener.CompassListener;
 import elxris.Useless.Listener.MailListener;
 import elxris.Useless.Objects.Mail;
-import elxris.Useless.Utils.Strings;
  
 public class Useless extends JavaPlugin {
     private Mail mail;
@@ -21,7 +20,6 @@ public class Useless extends JavaPlugin {
     public void onEnable(){
         plugin = this;
         new CheckConfiguration();
-        new Strings(this.getConfig());
         //Commando Tempowal Warp
         getCommand("tw").setExecutor(new WarpCommand());
         //Comando Mail
@@ -39,8 +37,6 @@ public class Useless extends JavaPlugin {
         getCommand("lib").setExecutor(new LibCommand());
         //Comando Tienda
         getCommand("shop").setExecutor(new ShopCommand());
-        //Comando cambiar idioma
-        getCommand("uselesslang").setExecutor(new Lang());
     }
     public static void log(String m){
         plugin.getLogger().info(m);

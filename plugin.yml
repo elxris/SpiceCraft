@@ -1,31 +1,20 @@
 name: Useless
 version: 0.8.7
 main: elxris.Useless.Useless
+author: elxris
+website: http://dev.bukkit.org/server-mods/useless/
+loadbefore: [Vault]
 commands:
   tw:
-    description: Crea un warp temporal.
-    usage: /tw
     permission: useless.tw
   mbox:
-    description: Lee y administra mensajeria.
-    usage: /mbox
     permission: useless.mail
   upin:
-    description: Muestra en tu brujula la direccion que hayas marcado.
-    usage: /upin
     permission: useless.upin
   lib:
-    description: Liberia virtual.
-    usage: /lib
     permission: useless.lib
   shop:
-    description: A Shop.
-    usage: /shop
     permission: useless.shop
-  uselesslang:
-    description: Cambia el idioma del plugin.
-    usage: /uselesslang
-    premission: useless.lang
 permissions:
   useless.tw:
     default: true
@@ -59,7 +48,5 @@ permissions:
     default: true
   useless.shop:
     default: true
-  useless.lang:
-    default: op
   useless.mob:
     default: true

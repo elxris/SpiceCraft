@@ -31,7 +31,7 @@ public class ShopCommand extends Comando{
             return true;
         }
         if(args.length == 0){ // Info
-            mensaje(p, "shop.info", Strings.getDouble("shop.sellRate")*100+"%");
+            mensaje(p, "shop.info", (double)getValue("shop.sellRate")*100+"%");
         }else
         if(args.length == 1){
             if(isCommand("comm.shop.sell", args[0])){ // Vender

@@ -239,7 +239,7 @@ public class LibCommand extends Comando{
             result.add(i, libros[n]);
             n++;
         }
-        int index = Strings.getInt("lib.topSize");
+        int index = (int)getValue("lib.topSize");
         if(result.size() < index){
             index = result.size();
         }
@@ -247,9 +247,9 @@ public class LibCommand extends Comando{
     }
     private double getRetributions(int id){
         double diff = getCache().getInt("libro."+id+".count")-getCache().getInt("libro."+id+".payed");
-        double percent = Strings.getInt("lib.percent");
+        double percent = (double)getValue("lib.rate");
         double price = getCache().getInt("libro."+id+".cost");
-        return price*(percent/100.0)*diff;
+        return price*percent*diff;
     }
     private void setRetributions(int id){
         getCache().set("libro."+id+".payed", getCache().getInt("libro."+id+".count"));

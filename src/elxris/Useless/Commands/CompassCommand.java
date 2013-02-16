@@ -142,7 +142,7 @@ public class CompassCommand extends Comando{
         Chat.mensaje(jugador, "upin.list", list);
     }
     private boolean setNumPinUsuario(Player jugador, int num){
-        if(Strings.getInt("upin.v.maxPerUser") == 0){
+        if((int)getValue("upin.maxPerUser") == 0){
             return true;
         }
         if(jugador.hasPermission("useless.upin.noLimit")){
@@ -153,7 +153,7 @@ public class CompassCommand extends Comando{
             getCache().set(path, 0);
         }
         int numero = getCache().getInt(path);
-        if(numero+num <= Strings.getInt("upin.v.maxPerUser")){
+        if(numero+num <= (int)getValue("upin.maxPerUser")){
             if(numero+num < 0){
                 getCache().set(path, 0);
                 return true;

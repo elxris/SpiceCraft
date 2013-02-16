@@ -1,8 +1,6 @@
-
 # Useles by elxris
 # Fork me on github: https://github.com/elxris/Useless
-lang:
-- es
+lang: es
 comm:
   tw:
     new:
@@ -74,7 +72,7 @@ comm:
     - borrar
     - b
     buy:
-    - compra
+    - comprar
     - buy
     - c
     info:
@@ -103,3 +101,17 @@ comm:
     - s
     - vender
     - v
+tw:
+  maxTime: 120
+  minTime: 1
+  maxPerUser: 2
+  price: 10.0
+mail:
+  maxChar: 200
+upin:
+  maxPerUser: 3
+lib:
+  topSize: 3
+  rate: 0.6
+shop:
+  sellRate: 0.6

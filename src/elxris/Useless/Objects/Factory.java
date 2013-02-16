@@ -18,10 +18,10 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.material.MaterialData;
 
+import elxris.Useless.Useless;
 import elxris.Useless.Utils.Archivo;
 import elxris.Useless.Utils.Chat;
 import elxris.Useless.Utils.Econ;
-import elxris.Useless.Utils.Strings;
 
 public class Factory extends Savable implements Listener {
     private static Archivo file;
@@ -312,7 +312,7 @@ public class Factory extends Savable implements Listener {
                 addCount(name, item.getAmount());
                 money += getPrecio(name, item.getAmount());
             }
-            new Econ().pagar(p, money*Strings.getDouble("shop.sellRate"));
+            new Econ().pagar(p, money*Useless.plugin().getConfig().getDouble("shop.sellRate"));
         }
     }
     // Gestion de archivos.
