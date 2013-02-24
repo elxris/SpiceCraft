@@ -1,17 +1,19 @@
 full: 4096
 vel: 8
 freq: 60
+multiplier: 1.0
 item:
   Stone:
     id: 1
-    price: 1
+    price: 0
     depend:
       Cobblestone: 1
+      Coal: 1
     alias:
     - Piedra
   Grass:
     id: 2
-    price: 9
+    price: 0
     depend:
       Dirt: 1
       Seeds: 1
@@ -758,12 +760,12 @@ item:
     - Carbon
   Diamond:
     id: 264
-    price: 1000
+    price: 500
     alias:
     - Diamante
   Iron:
     id: 265
-    price: 300
+    price: 200
     alias:
     - Hierro
   Gold:

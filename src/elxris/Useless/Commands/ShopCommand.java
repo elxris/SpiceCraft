@@ -46,15 +46,6 @@ public class ShopCommand extends Comando{
         }
         return true;
     }
-    private void showItemInfo(Player p, String itemName){
-        String item = f.searchItem(itemName);
-        String id = f.getId(item)+"";
-        if(f.haveData(item)){
-            id = id.concat(":"+f.getData(item));
-        }
-        mensaje(p, "shop.itemInfo", itemName, new Econ().getPrecio(f.getPrecio(item)),
-                f.getVel(item), id);
-    }
     private void buscar(Player p, String arg1, String arg2, String arg3){
         List<String> items = f.lookItems(arg1);
         if(items.size() == 0){
@@ -94,11 +85,20 @@ public class ShopCommand extends Comando{
         }
     }
     private void shop(Player p, String item, String cantidad){
-        if(!isInteger(cantidad)){
+        if(!isInteger(cantidad) && Integer.parseInt(cantidad) > 0){
             mensaje(p, "alert.noInteger");
             return;
         }
         f.shop(p, item, Integer.parseInt(cantidad));
         mensaje(p, "shop.shoped");
+    }
+    private void showItemInfo(Player p, String itemName){
+        String item = f.searchItem(itemName);
+        String id = f.getId(item)+"";
+        if(f.haveData(item)){
+            id = id.concat(":"+f.getData(item));
+        }
+        mensaje(p, "shop.itemInfo", itemName, new Econ().getPrecio(f.getPrecio(item)),
+                f.getVel(item), id);
     }
 }

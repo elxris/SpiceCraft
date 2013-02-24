@@ -30,6 +30,7 @@ public class Factory extends Savable implements Listener {
     private int VEL;
     private long FRECUENCY;
     private int STACKFULL;
+    private double MULTIPLIER;
     
     public Factory() {
         init();
@@ -47,6 +48,10 @@ public class Factory extends Savable implements Listener {
         STACKFULL = getCache().getInt("full");
         if(STACKFULL < 64){
             STACKFULL = 64;
+        }
+        MULTIPLIER = getCache().getDouble("multiplier");
+        if(MULTIPLIER < 0){
+            MULTIPLIER = 1;
         }
     }
     private void update(String item){
@@ -119,10 +124,10 @@ public class Factory extends Savable implements Listener {
         setVel(item, getVel(item)+vel);
     }
     public double getPrice(String item){
-        double price = getCache().getDouble("item."+item+".price") * getRazonPrecio(item);
+        double price = getCache().getDouble("item."+item+".price") * getRazonPrecio(item) * MULTIPLIER;
         if(getCache().isSet("item."+item+".depend")){
             for(String s: getDepends(item)){
-                price += getPrecio(s);
+                price += getPrice(s);
             }
         }
         return price;
@@ -159,8 +164,8 @@ public class Factory extends Savable implements Listener {
     public String searchItem(String s){
         makePaths();
         s = s.replace(':', '-');
-        if(paths.isSet(s.toLowerCase())){
-            String res = paths.getString(s.toLowerCase());
+        if(paths.isSet(s)){
+            String res = paths.getString(s);
             update(res);
             return res;
         }
@@ -173,11 +178,11 @@ public class Factory extends Savable implements Listener {
         paths = new MemoryConfiguration();
         Set<String> items = getCache().getConfigurationSection("item").getKeys(false);
         for(String s: items){// Items
-            paths.set(s.toLowerCase(), s);
+            paths.set(s, s);
             if(getCache().isSet("item."+s+".alias")){// Alias
                 List<String> alias = getCache().getStringList("item."+s+".alias");
                 for(String a: alias){
-                    paths.set(a.toLowerCase(), s);
+                    paths.set(a, s);
                 }
             }
         }
@@ -260,8 +265,8 @@ public class Factory extends Savable implements Listener {
         addItemsToInventory(p, itemsArray);
     }
     private void addItemsToInventory(Player p, ItemStack[] itemsArray){
-        for(ItemStack item: itemsArray){
-            p.getWorld().dropItemNaturally(p.getLocation(), item);
+        for(ItemStack item: p.getInventory().addItem(itemsArray).values()){
+            p.getWorld().dropItem(p.getEyeLocation(), item);
         }
     }
     private void addItemToInventory(Player p, ItemStack item){
@@ -272,8 +277,19 @@ public class Factory extends Savable implements Listener {
     public List<String> lookItems(String item){ // Busca items.
         List<String> items = new ArrayList<String>();
         makePaths();
+        String n = "";
+        for(int i = 0; i < item.length(); i++){
+            n += "[";
+            n += item.toLowerCase().toCharArray()[i];
+            n += item.toUpperCase().toCharArray()[i];
+            n += "]";
+        }
+        item = n;
         for(String s: paths.getKeys(false)){
-            if(s.matches("(.*)("+item.toLowerCase()+")(.*)")){
+            if(items.size() == 20){
+                break;
+            }
+            if(s.matches("(.*)("+item+")(.*)")){
                 items.add(s);
             }
         }

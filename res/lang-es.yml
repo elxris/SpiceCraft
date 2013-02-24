@@ -33,7 +33,7 @@ tw:
   - '§b[§cTW§b]§r §a### §cLista de warps públicos §a###'
   - '%s'
   listItem:
-  - <%s:%s %s segundos restantes>
+  - '<%s:%s %s segundos restantes>'
 mbox:
   info:
   - §b[§cMBOX§b]§r §aAyuda
@@ -51,7 +51,7 @@ mbox:
   - §b[§cMBOX§b]§r Tienes §e%d§r mensajes. §e/mbox§r Para más info.
   mail:
   - 'De: §a%s§r Fecha: %s'
-  - §b§o%s§r
+  - '  §b§o%s§r'
   - §e/mbox §ce§enviar %s <Mensaje>§r para responder
   timeago:
   - 'Hace '
@@ -167,18 +167,18 @@ shop:
   - §e/shop <item> §rBusca un item. Parte del nombre o id.
   - §e/shop <item> <#> §rMuestra la infomación de un item. Si al buscar un item se encuentra más de un objeto en la tienda, puedes seleccionar uno de la lista.
   - §e/shop <item> [#] <cantidad>§r Compra un item. Especifica el número de la búsqueda si es necesario.
-  - Ejemplo: §c/shop lana 3 64§r Que compraría 64 piezas del tercer item encontrado con la búsqueda 'lana'.
+  - "Ejemplo: §c/shop lana 3 64§r Que compraría 64 piezas del tercer item encontrado con la búsqueda 'lana'."
   - §bConsultar precios es importante ya que varían con el tiempo.
   - §e/shop §cv§eender §rVende items al %s del precio que tiene actualmente.
   itemInfo:
-  - §b[§cSHOP§b]§r §aInfo §d%s
-  - §bPrecio: §a%s §ela unidad.
-  - §bProducción: §a%s
-  - §bID: §a%s
+  - '§b[§cSHOP§b]§r §aInfo §d%s'
+  - '§bPrecio: §a%s §ela unidad.'
+  - '§bProducción: §a%s'
+  - '§bID: §a%s'
   shoped:
   - §b[§cSHOP§b]§r §aGracias por tu compra.
   searchHead:
-  - §b[§cSHOP§b]§r §a=== §cBuscando: §e%s §a===
+  - '§b[§cSHOP§b]§r §a=== §cBuscando: §e%s §a==='
   searchItem:
   - §b#%s §e%s
   notExist:
