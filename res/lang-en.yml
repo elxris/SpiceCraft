@@ -1,0 +1,238 @@
+tw:
+  info:
+  - §b[§cTW§b]§r §aHELP
+  - §e/tw §cn§eew <minutes>§r Create personal temporal warp.
+  - Remember that you will be charged for each minute %s.
+  - §e/tw §cn§ew <name> <minutes>§r Create global temporal warp.
+  - §e/tw <name>§r Use global warp.
+  - §e/tw §cd§eestroy§r o §e/tw §cd§eestroy <name>§r Destroy warp.
+  - §e/tw §cl§eist§r List global warps.
+  - §e/tw§r Show this, or use personal warp.
+  created:
+  - §b[§cTW§b]§r Temporal warp of %d minutes created.
+  - Use §e/tw %s§r to teleport.
+  remain:
+  - §b[§cTW§b]§r Remain §4%d§r seconds for destruction.
+  teleported:
+  - §b[§cTW§b]§r Teleporting ...
+  destroyed:
+  - §b[§cTW§b]§r Warp destroyed.
+  noMoney:
+  - §b[§cTW§b]§r You cant afford one at this time.
+  noExist:
+  - §b[§cTW§b]§r That warp does not exist. §e/tw§r For info.
+  exist:
+  - §b[§cTW§b]§r Already exists.
+  timeLimit:
+  - §b[§cTW§b]§r It should not be more than %d minutes or less than %d minute.
+  warpLimit:
+  - §b[§cTW§b]§r You can not make another warp, you have many.
+  noOwner:
+  - §b[§cTW§b]§r You can not delete this warp, its not yours.
+  listHeader:
+  - '§b[§cTW§b]§r §a### §cPublic warps list §a###'
+  - '%s'
+  listItem:
+  - '<%s:%s %s seconds remaining>'
+mbox:
+  info:
+  - §b[§cMBOX§b]§r §aHELP
+  - §e/mbox . §rView the number of emails you have.
+  - §e/mbox §cr§eead §rRead your Inbox.
+  - §e/mbox §cb§elear §rClear your inbox.
+  - §e/mbox §cs§eend <User> <Message> §rCommand to send a message quickly.
+  - To create a longer email you first make a draft and then add the message and send it ultimately.
+  - §e/mbox §cn§eew <User> <User2> ... §rCreate a draft to recipient or recipients. One minimum.
+  - §e/mbox §ca§edd <Message> §rAdds the message to the draft.
+  - §e/mbox §cs§eend §rSince you have the draft ready, this command sends it.
+  - §e/mbox sendall §ror §e/mbox sa§r (Only Admins) Send the draft to all users.
+  - §e/mbox sendall <Message> §ror §e/mbox sa <Message>§r (Only Admins) Send the message to all users.
+  list:
+  - §b[§cMBOX§b]§r You have §e%d§r messages. §e/mbox§r For more info.
+  mail:
+  - 'Of: §a%s§r Date: %s'
+  - '  §b§o%s§r'
+  - §e/mbox §cs§e %s <Message>§r to reply.
+  timeago:
+  - ''
+  readStart:
+  - §b[§cMBOX§b]§r §a### §cStart Inbox §a###
+  readFinish:
+  - §a### §cEnd Inbox §a###
+  - Escribe §e/mbox §cb§elear §r to clear your inbox.
+  listEnd:
+  - §b[§cMBOX§b]§r You dont have emails.
+  deleted:
+  - §b[§cMBOX§b]§r Inbox cleared.
+  noPlayerAdded:
+  - §b[§cMBOX§b]§r No recipient; draft not created.
+  playerNotExist:
+  - §b[§cMBOX§b]§r Player %s not found. It was not added.
+  catched:
+  - §b[§cMBOX§b]§r Message received.
+  sended:
+  - §b[§cMBOX§b]§r Message sent.
+  limit:
+  - §b[§cMBOX§b]§r Sorry, you have exceeded the limit of 300 characters.
+  created:
+  - §b[§cMBOX§b]§r Draft created. §e/mbox §ca§edd <Message>§r to add post.
+  add:
+  - §b[§cMBOXC§b]§r Message added add more with §e/mbox a <Message> §e/mbox §cs§eend§r to send.
+  noMessage:
+  - §b[§cMBOX§b]§r §cFirst you must create a draft. §e/mbox for help.
+  first:
+  - Now you can send emails!
+upin:
+  info:
+  - §b[§cUPIN§b]§r §aHELP
+  - §e/upin <name> <x> <z>§r To create a position that can be reached with a compass.
+  - §e/upin <name>§r To use.
+  - §e/upin §cd§eel <name>§r To delete it if you are the owner.
+  - §e/upin §cl§eist§r To see all positions.
+  noPin:
+  - §b[§cUPIN§b]§r Does not exist the position.
+  exist:
+  - §b[§cUPIN§b]§r Already exists that position. Choose another.
+  list:
+  - '§b[§cUPIN§b]§r §a### §cPositions List §a###'
+  - §b%s
+  item:
+  - '<%s: %s [%s][%s]> '
+  noList:
+  - §b[§cUPIN§b]§r §cNo positions. Yet.
+  created:
+  - §b[§cUPIN§b]§r Position created, use it with §e/upin %s
+  set:
+  - §b[§cUPIN§b]§r The position will now be displayed on a compass.
+  nether:
+  - §b[§cUPIN§b]§r §cThere is no point creating a position here. Can not be displayed.
+  del:
+  - §b[§cUPIN§b]§r Deleted position.
+  limitPin:
+  - §b[§cUPIN§b]§r Already have too many positions, you can not do more.
+lib:
+  info:
+  - §b[§cLIB§b]§r §aHELP
+  - §e/lib buy <id>§r Buy the book.
+  - §e/lib §ci§enfo <id>§r Displays information about the book.
+  - §e/lib §cl§eist§r Muestra una lista de los libros disponibles.
+  - §e/lib §ct§eop§r Muestra una lista de los 3 libros más vendidos.
+  - §e/lib §cs§eell <precio>§r Vende el libro que tienes en mano.
+  - §e/lib §cd§eel <id>§r Deletes the book.
+  - §e/lib §cp§eay§r Collect the remuneration.
+  sell:
+  - §b[§cLIB§b]§r You sold a book.
+  buy:
+  - §b[§cLIB§b]§r You bought a book. Thank you.
+  send:
+  - §b[§cLIB§b]§r You have successfully sent your book. Soon you will make money with your rhetorical skills.
+  noBook:
+  - §b[§cLIB§b]§r There is no book.
+  bookInfo:
+  - §b[§cLIB§b]§r §aBOOK INFO
+  - '§bAuthor: §c%s'
+  - '§bTitle: §c%S'
+  - '§bPages: §c%d'
+  - '§bPrice: §c%s'
+  - '§bSales: §c%d'
+  noMoney:
+  - §b[§cLIB§b]§r You do not have enough money to buy a book.
+  noHand:
+  - §b[§cLIB§b]§r You do not have a book on hand to sell.
+  wrongAuthor:
+  - §b[§cLIB§b]§r You are not the author of the book.
+  pay:
+  - §b[§cLIB§b]§r §eWith books [%s§e], you have earned §a%s.
+  noPay:
+  - §b[§cLIB§b]§r You have no remuneration.
+  list:
+  - '§b[§cLIB§b]§r §a### §cBooklist §a###'
+  itemMe:
+  - '§d[%d] ::%s:: <%s>{%s}'
+  item:
+  - '§b[%d] ::%s:: <%s>{%s}'
+  top:
+  - '§b[§cLIB§b]§r §a### §cTop Books §a###'
+  topItem:
+  - '%d.- %s'
+  del:
+  - §b[§cLIB§b]§r You have successfully deleted the book.
+  repeated:
+  - §b[§cLIB§b]§r Is repeated.
+  isNotABook:
+  - §b[§cLIB§b]§r What you have in your hand is not a book.
+shop:
+  info:
+  - §b[§cSHOP§b]§r §aHELP
+  - §e/shop <item> §rFind an item. Part of the name or id.
+  - §e/shop <item> [#] §rDisplays an item infomation. If the search for an item is more than one item in the store, you can select one from the list.
+  - §e/shop <item> [#] <amount>§r Buy an item. Specifies the number of the search if necessary.
+  - "Example: §c/shop wool 3 64§r buy 64 pieces, of the third item found with the search 'wool'."
+  - §bCheck prices is important as they vary with time.
+  - §e/shop §cs§eell §rSell ??items to %s the price it has now.
+  itemInfo:
+  - '§b[§cSHOP§b]§r §aInfo §d%s'
+  - '§bPrice: §a%s §e the unit.'
+  - '§bProduction: §a%s'
+  - '§bID: §a%s'
+  shoped:
+  - §b[§cSHOP§b]§r §aThanks for your purchase.
+  searchHead:
+  - '§b[§cSHOP§b]§r §a=== §cLooking: §e%s §a==='
+  searchItem:
+  - §b#%s §e%s
+  notExist:
+  - §b[§cSHOP§b]§r §cThere is no item in the store.
+  noMoney:
+  - §b[§cSHOP§b]§r §cYou do not have enough money to buy.
+  creative:
+  - §b[§cSHOP§b]§r §cYou are creative, that is cheating.
+cmd:
+  reload:
+  - Reload commands and configurations, complete!
+alert:
+  notsaved:
+  - 'Error, failed to save: '
+  noEconomy:
+  - No economy plugin. Be charged with experience points.
+  error:
+  - §cError when using the command. Check the help.
+  noInteger:
+  - You must enter integer values??.
+  permission:
+  - You do not have permission to use this command.
+  positive:
+  - Only positive values ??are allowed.
+f:
+  units:
+  - month
+  - months
+  - day
+  - days
+  - hour
+  - hours
+  - minute
+  - minutes
+  - second
+  - seconds
+  months:
+  - January
+  - February
+  - March
+  - April
+  - May
+  - June
+  - July
+  - August
+  - September
+  - October
+  - November
+  - December
+exp:
+  format:
+  - '%d experience points'
+econ:
+  cobrar:
+  - §b§c%s§b were withdrawn from your bank account.
+  pagar:
+  - §b§a%s§b were deposited into your bank account.
