@@ -18,8 +18,12 @@ public class CommandListener implements Listener{
     }
     @EventHandler
     public void onCommand(PlayerCommandPreprocessEvent event){
-        if(getCommand(event.getPlayer(), event.getMessage())){
-            event.setCancelled(true);
+        if(event instanceof Player){
+            if(((Player) event).hasPermission("useless.cmd")){
+                if(getCommand(event.getPlayer(), event.getMessage())){
+                    event.setCancelled(true);
+                }
+            }
         }
     }
     // Inicia y prepara la configuración.
@@ -54,18 +58,6 @@ public class CommandListener implements Listener{
         }
         return false;
     }
-    
-    // SetPath, Cargar y Guardar.
-    /*private void setPath(String path, Object... o){
-        getFc().set(path, o);
-    }
-    private void save(FileConfiguration fc){
-        getFile().save(fc);
-    }
-    private void save(){
-        save(fc);
-        reload();
-    }*/
     private void load(String name){
         setFile(new Archivo(name));
         setFc(getFile().load());

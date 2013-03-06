@@ -289,6 +289,10 @@ public class Factory extends Savable implements Listener {
             if(items.size() == 20){
                 break;
             }
+            if(s.matches("^"+item+"$")){
+                items.add(s);
+                break;
+            }else
             if(s.matches("(.*)("+item+")(.*)")){
                 items.add(s);
             }

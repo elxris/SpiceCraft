@@ -15,6 +15,8 @@ commands:
     permission: useless.lib
   shop:
     permission: useless.shop
+  cmd:
+    permission: useless.cmd
 permissions:
   useless.tw:
     default: true
@@ -36,6 +38,8 @@ permissions:
     default: true
   useless.upin.noLimit:
     default: op
+  useless.cmd:
+    default: true
   useless.cmd.reload:
     default: op
   useless.lib:
