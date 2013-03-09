@@ -89,8 +89,9 @@ public class ShopCommand extends Comando{
             mensaje(p, "alert.noInteger");
             return;
         }
-        f.shop(p, item, Integer.parseInt(cantidad));
-        mensaje(p, "shop.shoped");
+        if(f.shop(p, item, Integer.parseInt(cantidad))){
+            mensaje(p, "shop.shoped");            
+        }
     }
     private void showItemInfo(Player p, String itemName){
         String item = f.searchItem(itemName);

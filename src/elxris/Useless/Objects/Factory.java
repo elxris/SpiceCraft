@@ -17,7 +17,6 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.material.MaterialData;
-
 import elxris.Useless.Useless;
 import elxris.Useless.Utils.Archivo;
 import elxris.Useless.Utils.Chat;
@@ -153,6 +152,12 @@ public class Factory extends Savable implements Listener {
     public int getData(String item){
         return getCache().getInt("item."+item+".data");
     }
+    public boolean getUserBuy(String item){
+        return getCache().getBoolean("item."+item+".userBuy", Useless.plugin().getConfig().getBoolean("shop.defaultUserBuy"));
+    }
+    public boolean getUserSell(String item){
+        return getCache().getBoolean("item."+item+".userSell", Useless.plugin().getConfig().getBoolean("shop.defaultUserSell"));
+    }
     private List<String> getDepends(String item){
         List<String> dependency = new ArrayList<String>();
         if(!getCache().isSet("item."+item+".depend")){
@@ -252,19 +257,24 @@ public class Factory extends Savable implements Listener {
         return getCache().isSet("item."+item+".data");
     }
     // Comandos de la tienda.
-    public void shop(Player p, String item, int cantidad){ // Compra
+    public boolean shop(Player p, String item, int cantidad){ // Compra
         String item_real = searchItem(item);
         if(item_real == null){
             Chat.mensaje(p, "shop.notExist");
-            return;
+            return false;
+        }
+        if(!(p.hasPermission("useless.shop.master")&&(getUserBuy(item)))){
+            Chat.mensaje(p, "shop.cantBuy");
+            return false;
         }
         Econ econ = new Econ();
         if(!econ.cobrar(p, getPrecio(item_real, cantidad))){
             Chat.mensaje(p, "shop.noMoney");
-            return;
+            return false;
         }
         addItemsToInventory(p, createItems(p, item_real, cantidad));
         addCount(item_real, -cantidad);
+        return true;
     }
     private void addItemsToInventory(Player p, List<ItemStack> items){ // Añade el item al inventario del jugador.
         ItemStack[] itemsArray = items.toArray(new ItemStack[0]);
@@ -333,6 +343,11 @@ public class Factory extends Savable implements Listener {
                 }
                 if(name == null){
                     Chat.mensaje(p, "shop.notExist");
+                    addItemToInventory(p, item);
+                    continue;
+                }
+                if(!(p.hasPermission("useless.shop.master")&&(getUserSell(name)))){
+                    Chat.mensaje(p, "shop.cantSell");
                     addItemToInventory(p, item);
                     continue;
                 }

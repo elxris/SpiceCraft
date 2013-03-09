@@ -187,6 +187,10 @@ shop:
   - §b[§cSHOP§b]§r §cYou do not have enough money to buy.
   creative:
   - §b[§cSHOP§b]§r §cYou are creative, that is cheating.
+  cantBuy:
+  - §b[§cSHOP§b]§r §cThis item can not be purchased.
+  cantSell:
+  - §b[§cSHOP§b]§r §cThis item can not be sold.
 cmd:
   reload:
   - Reload commands and configurations, complete!

@@ -52,5 +52,7 @@ permissions:
     default: true
   useless.shop:
     default: true
+  useless.shop.master:
+    default: op
   useless.mob:
     default: true

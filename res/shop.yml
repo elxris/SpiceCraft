@@ -7,6 +7,8 @@ item:
       Coal: 1
     alias:
     - Piedra
+    userSell: true
+    userBuy: true
   Grass:
     id: 2
     price: 0

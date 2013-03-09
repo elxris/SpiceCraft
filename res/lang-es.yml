@@ -187,6 +187,10 @@ shop:
   - §b[§cSHOP§b]§r §cNo tienes suficiente dinero para comprar.
   creative:
   - §b[§cSHOP§b]§r §cEstás en creativo, eso es trampa.
+  cantBuy:
+  - §b[§cSHOP§b]§r §cNo se puede comprar este objeto.
+  cantSell:
+  - §b[§cSHOP§b]§r §cNo se puede vender este objeto.
 cmd:
   reload:
   - Reload de comandos y configuraciones completo!
