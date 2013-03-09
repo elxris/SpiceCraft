@@ -169,7 +169,7 @@ shop:
   - §e/shop <item> [#] <amount>§r Buy an item. Specifies the number of the search if necessary.
   - "Example: §c/shop wool 3 64§r buy 64 pieces, of the third item found with the search 'wool'."
   - §bCheck prices is important as they vary with time.
-  - §e/shop §cs§eell §rSell ??items to %s the price it has now.
+  - §e/shop §cs§eell §rSell items to %s the price it has now.
   itemInfo:
   - '§b[§cSHOP§b]§r §aInfo §d%s'
   - '§bPrice: §a%s §e the unit.'

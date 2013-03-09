@@ -27,32 +27,34 @@ public class Factory extends Savable implements Listener {
     private static Archivo file;
     private static FileConfiguration fc;
     private static MemoryConfiguration paths;
-    private int VEL;
+    private int VEL, STACKFULL;
     private long FRECUENCY;
-    private int STACKFULL;
-    private double MULTIPLIER;
+    private double MULTIPLIER, SELLRATE;
+    private boolean VARIABLE;
     
     public Factory() {
         init();
     }
     private void init() {
-        VEL = getCache().getInt("vel");
+        VEL = Useless.plugin().getConfig().getInt("shop.vel");
         if(VEL < 1){
             VEL = 1;
         }
-        FRECUENCY = getCache().getLong("freq");
+        FRECUENCY = Useless.plugin().getConfig().getLong("shop.freq");
         if(FRECUENCY < 1){
             FRECUENCY = 1;
         }
         FRECUENCY *= 60*1000;
-        STACKFULL = getCache().getInt("full");
+        STACKFULL = Useless.plugin().getConfig().getInt("shop.full");
         if(STACKFULL < 64){
             STACKFULL = 64;
         }
-        MULTIPLIER = getCache().getDouble("multiplier");
+        MULTIPLIER = Useless.plugin().getConfig().getDouble("shop.multiplier");
         if(MULTIPLIER < 0){
             MULTIPLIER = 1;
         }
+        SELLRATE = Useless.plugin().getConfig().getDouble("shop.sellRate");
+        VARIABLE = Useless.plugin().getConfig().getBoolean("shop.variable");
     }
     private void update(String item){
         long time = getSystemTimeHour();
@@ -117,8 +119,12 @@ public class Factory extends Savable implements Listener {
         save();
     }
     public int getVel(String item){
-        isSet("item."+item+".vel", VEL);
-        return getCache().getInt("item."+item+".vel");
+        if(VARIABLE){
+            isSet("item."+item+".vel", VEL);
+            return getCache().getInt("item."+item+".vel");
+        }else{
+            return VEL;
+        }
     }
     public void addVel(String item, int vel){
         setVel(item, getVel(item)+vel);
@@ -333,7 +339,7 @@ public class Factory extends Savable implements Listener {
                 addCount(name, item.getAmount());
                 money += getPrecio(name, item.getAmount());
             }
-            new Econ().pagar(p, money*Useless.plugin().getConfig().getDouble("shop.sellRate"));
+            new Econ().pagar(p, money*SELLRATE);
         }
     }
     // Gestion de archivos.
