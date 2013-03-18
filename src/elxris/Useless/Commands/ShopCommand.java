@@ -4,14 +4,14 @@ import java.util.List;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
-
 import elxris.Useless.Useless;
 import elxris.Useless.Objects.Factory;
 import elxris.Useless.Utils.Econ;
 import elxris.Useless.Utils.Strings;
 
-public class ShopCommand extends Comando{
+public class ShopCommand extends Comando implements TabCompleter{
     public Factory f;
     public ShopCommand() {
         f = new Factory();
@@ -45,6 +45,21 @@ public class ShopCommand extends Comando{
             buscar(p, args[0], args[1], args[2]);
         }
         return true;
+    }
+    @Override
+    public List<String> onTabComplete(CommandSender sender, Command command,
+            String label, String[] args) {
+        if(sender instanceof Player){
+            return tab((Player)sender, args);
+        }
+        return null;
+    }
+    private List<String> tab(Player p, String[] args){
+        if(args.length == 1){
+            Useless.log("\""+args[0]+"\"");
+            return f.lookItems(args[0], true);
+        }
+        return null;
     }
     private void buscar(Player p, String arg1, String arg2, String arg3){
         List<String> items = f.lookItems(arg1);

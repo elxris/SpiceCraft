@@ -30,7 +30,6 @@ public class Factory extends Savable implements Listener {
     private long FRECUENCY;
     private double MULTIPLIER, SELLRATE;
     private boolean VARIABLE;
-    
     public Factory() {
         init();
     }
@@ -290,7 +289,7 @@ public class Factory extends Savable implements Listener {
         itemsArray.add(item);
         addItemsToInventory(p, itemsArray);
     }
-    public List<String> lookItems(String item){ // Busca items.
+    public List<String> lookItems(String item, boolean all){ // Busca items.
         List<String> items = new ArrayList<String>();
         makePaths();
         String n = "";
@@ -306,14 +305,22 @@ public class Factory extends Savable implements Listener {
                 break;
             }
             if(s.matches("^"+item+"$")){
-                items.add(s);
-                break;
+                if(all){
+                    items.add(s);
+                }else{
+                    items = new ArrayList<String>();
+                    items.add(s);
+                    break;
+                }
             }else
             if(s.matches("(.*)("+item+")(.*)")){
                 items.add(s);
             }
         }
         return items;
+    }
+    public List<String> lookItems(String item){
+        return lookItems(item, false);
     }
     public void sell(Player p){ // Vende
         if(p.getGameMode() == GameMode.CREATIVE){

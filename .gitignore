@@ -3,6 +3,7 @@
 .classpath
 .project
 .settings
+*sublime*
 lib/
 
 # Compiled source #

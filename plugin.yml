@@ -17,6 +17,8 @@ commands:
     permission: useless.shop
   cmd:
     permission: useless.cmd
+  jbs:
+    permission: useless.jobs
 permissions:
   useless.tw:
     default: true
@@ -54,5 +56,9 @@ permissions:
     default: true
   useless.shop.master:
     default: op
+  useless.jobs:
+    default: true
+  useless.jobs.master:
+    default: true
   useless.mob:
     default: true

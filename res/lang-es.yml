@@ -194,6 +194,13 @@ shop:
 cmd:
   reload:
   - Reload de comandos y configuraciones completo!
+jobs:
+  jobsList:
+  - §b[§cJOBS§b]§r Trabajos disponibles:
+  jobFormat:
+  - ' %s '
+  noJobs:
+  - §b[§cJOBS§b]§r §cNo tienes trabajos.
 alert:
   notsaved:
   - 'Error, no se ha podido guardar: '

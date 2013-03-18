@@ -4,12 +4,14 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import elxris.Useless.Commands.CompassCommand;
+import elxris.Useless.Commands.JobsCommand;
 import elxris.Useless.Commands.LibCommand;
 import elxris.Useless.Commands.MailBoxCommand;
 import elxris.Useless.Commands.ShopCommand;
 import elxris.Useless.Commands.WarpCommand;
 import elxris.Useless.Listener.CommandListener;
 import elxris.Useless.Listener.CompassListener;
+import elxris.Useless.Listener.JobsListener;
 import elxris.Useless.Listener.MailListener;
 import elxris.Useless.Objects.Mail;
  
@@ -36,7 +38,12 @@ public class Useless extends JavaPlugin {
         //Comando Librería
         getCommand("lib").setExecutor(new LibCommand());
         //Comando Tienda
-        getCommand("shop").setExecutor(new ShopCommand());
+        ShopCommand shop = new ShopCommand();
+        getCommand("shop").setExecutor(shop);
+        getCommand("shop").setTabCompleter(shop);
+        //Jobs Listener
+        this.getServer().getPluginManager().registerEvents(new JobsListener(), this);
+        getCommand("jbs").setExecutor(new JobsCommand());
     }
     public static void log(String m){
         plugin.getLogger().info(m);

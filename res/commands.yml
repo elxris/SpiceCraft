@@ -9,3 +9,10 @@ help:
     secret:
       '*':
       - 'You type this: /help ? secret'
+book:
+  '!':
+  - 'Title'
+  - 'Author'
+  - 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pharetra sem quis nibh aliquet a laoreet mi dapibus. Quisque odio odio, faucibus eu faucibus quis, bibendum ut tortor. Maecenas ornare turpis a nisi pretium ut adipiscing tortor imperdiet. Suspendisse potenti. Aenean a sem elit, vel tempor enim. Fusce suscipit varius tincidunt. Integer vitae est a arcu sagittis euismod non ut ipsum. Curabitur quis turpis ipsum. Praesent scelerisque quam ut nisl pulvinar non ullamcorper enim varius. Phasellus orci nunc, dictum in sodales sit amet, consequat venenatis lorem. Nunc gravida faucibus quam sit amet vestibulum.'
+  - ''
+  - 'Luis elit elit, dictum ut dignissim sed, porttitor at purus. Nam euismod, metus quis aliquet sagittis, augue libero lacinia nisi, non malesuada diam ligula ac nunc. Fusce tempor, ligula et malesuada semper, felis nisi fringilla elit, non feugiat enim enim vel magna. Suspendisse non scelerisque erat. Suspendisse sed posuere libero. Fusce est odio, dictum vitae posuere id, iaculis vel ante. Etiam consequat nibh vitae orci luctus sit amet lacinia tortor scelerisque.'

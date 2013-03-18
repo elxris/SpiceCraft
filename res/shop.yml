@@ -1699,7 +1699,7 @@ item:
     depend:
       Book: 1
       Diamond: 1
-      BottleOfEnchanting: 1
+      BottleOEnchanting: 100
     alias:
     - LibroEncantado
   13Disc:
@@ -1762,7 +1762,7 @@ item:
       13Disc: 1
   BottleOEnchanting:
     id: 384
-    price: 100
+    price: 8
     depend:
       GlassBottle: 1
     alias:
