@@ -56,7 +56,6 @@ public class ShopCommand extends Comando implements TabCompleter{
     }
     private List<String> tab(Player p, String[] args){
         if(args.length == 1){
-            Useless.log("\""+args[0]+"\"");
             return f.lookItems(args[0], true);
         }
         return null;

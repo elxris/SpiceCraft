@@ -3,7 +3,6 @@ package elxris.Useless.Objects;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -11,47 +10,31 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.material.MaterialData;
 
 import elxris.Useless.Utils.Archivo;
-import elxris.Useless.Utils.Chat;
 
-public class Jobs {
-    private FileConfiguration cache;
+public class Jobs extends Savable{
     private Archivo archivo;
-    private List<JobInterface> jobs;
-    public void onBlockBreak(Player p, Block block){
-        /*for(long l: getPlayerJobs(p)){
-            p.getInventory().contains(getJobItem(l), 1);
-        }
-        for(long l: getPlayerRols(p)){
-            
-        }*/
+    private FileConfiguration cache;
+    private List<Job> jobsCache;
+    private FileConfiguration playerCache;
+    
+    public void resetPlayerCache(){
+        this.playerCache = null;
     }
-    public void showPlayerJobs(Player p){
-        //  Rehacer esta clase.
-        if(!getCache().isSet("users."+p.getName())){
-            Chat.mensaje(p, "jobs.noJobs");
-            return;
-        }
-        String trabajos = new String();
-        /*for(long s: getPlayerRols(p)){
-            trabajos += String.format(Strings.getString("jobs.jobFormat"), getRolName(s));
-        }
-        for(long s: getPlayerJobs(p)){
-            trabajos += String.format(Strings.getString("jobs.jobFormat"), getJobName(s));
-        }*/
-        Chat.mensaje(p, trabajos);
+    public void resetJobsCache(){
+        this.jobsCache = null;
+        resetPlayerCache();
     }
-    private ItemStack getJobItem(long id){
-        
-        Material material = Material.getMaterial(getCache().getInt("job."+id+".id"));
-        ItemStack item = new ItemStack(material);
-        item.getData().setData((byte) getCache().getInt("job."+id+".data"));
-        
-        item.setAmount(item.getMaxStackSize());
-        return item;
+    public List<Job> getJobs(){
+        if(this.jobsCache == null){
+            // TODO
+        }
+        return this.jobsCache;
     }
-    private List<JobInterface> getJobs(){
-        // TODO Crear los trabajos si la lista no existe.
-        return null;
+    public FileConfiguration getPlayers(){
+        if(this.playerCache == null){
+            // TODO
+        }
+        return this.playerCache;
     }
     public Archivo getArchivo(){
         if(archivo == null){
@@ -68,102 +51,190 @@ public class Jobs {
         }
         return cache;
     }
-    
+    /* Guardar */
+    @Override
+    public void run(){
+        super.run();
+        archivo.save(getCache());
+    }
     
     // ## Clases Privadas ##
-    
-    private interface JobInterface{
-        public void destroy(Player p);
-        public void setPath(String path);
-        public String getDisplay();
-        public void setCantidadTotal(int cantidad);
-        public int getCantidadTotal();
-        public void setCantidadRestante(int cantidad);
-        public void addCantidadRestante(int cantidad);
-        public int getCantidadRestante();
-        public void setServidor(boolean servidor);
-        public boolean getServidor();
-        public void setCosto(double costo);
-        public double getCosto();
-        public void setDate(long date);
-        public long getDate();
-        public void setItems(List<JobItem> objetos);
-        public void addItem(JobItem objeto);
-        public List<JobItem> getItems();
-        public boolean check(Player p, int id, byte data);
-        public boolean isUser(Player p);
-        public void addUser(Player p);
-        public void removeUser(Player p);
-    }
-    protected class Job implements JobInterface{
-        public void destroy(Player p) {
+    protected class Job{
+        Jobs kernel;
+        String autor;
+        int id;
+        List<JobItem> block;
+        double costo;
+        int cantidad;
+        int restante;
+        long date;
+        boolean terminado;
+        public Job(Jobs nucleo, String autor, int id, int materialID, byte data, 
+                double costo, int cantidad, int restante, long date, boolean terminado){
+            setKernel(nucleo);
+            setAutor(autor);
+            setID(id);
+            addBlock(materialID, data);
+            setCosto(costo);
+            setCantidad(cantidad);
+            setRestante(restante);
+            setDate(date);
+            setTerminado(terminado);
         }
-        public void setPath(String path) {
-        }
-        public String getDisplay() {
-            return null;
-        }
-        public void setCantidadTotal(int cantidad) {
-        }
-        public int getCantidadTotal() {
-            return 0;
-        }
-        public void setCantidadRestante(int cantidad) {
-        }
-        public void addCantidadRestante(int cantidad) {
-        }
-        public int getCantidadRestante() {
-            return 0;
-        }
-        public void setServidor(boolean servidor) {
-        }
-        public boolean getServidor() {
+        public boolean finish(Player p){
+            if(p.getName().contentEquals(getAutor())){
+                // TODO Recolectar los objetos, y el dinero que resta.
+                destroyJob();
+                return true;
+            }else if(p.hasPermission("useless.jobs.master")){
+                destroyJob();
+                return true;
+            }
             return false;
         }
-        public void setCosto(double costo) {
+        public void destroyJob() {
+            // TODO Borrar el trabajo del cache.
         }
-        public double getCosto() {
-            return 0;
+        public String getPath() {
+            return "jobs."+getID()+".";
         }
-        public void setDate(long date) {
+        public FileConfiguration getConfig(){
+            return kernel.getCache();
         }
-        public long getDate() {
-            return 0;
-        }
-        public void setItems(List<JobItem> objetos) {
-        }
-        public void addItem(JobItem objeto) {
-        }
-        public List<JobItem> getItems() {
+        public String getDisplayName() {
+            // TODO
             return null;
         }
-        public boolean check(Player p, int id, byte data) {
-            return false;
+        public boolean check(Player p, Block block) {
+            if(!isUser(p)){
+                return false;
+            }
+            if(!isBlock(block)){
+                return false; 
+            }
+            // TODO Destruir y hacer el conteo de todo.
+            return true;
         }
         public boolean isUser(Player p) {
+            // TODO Obtener si el usuario está en el trabajo.
             return false;
         }
         public void addUser(Player p) {
+            // TODO
         }
         public void removeUser(Player p) {
+            // TODO
+        }
+        
+        /* GETTERS & SETTERS */
+        
+        public void setKernel(Jobs nucleo){
+            this.kernel = nucleo;
+        }
+        public Jobs getKernel(){
+            return this.kernel;
+        }
+        public void setAutor(String autor){
+            this.autor = autor;
+        }
+        public String getAutor(){
+            return this.autor;
+        }
+        public boolean isAutor(Player p){
+            return p.getName().contentEquals(getAutor());
+        }
+        public boolean isServidor(){
+            return getAutor() == null ? true : false;
+        }
+        public void setID(int id){
+            this.id = id;
+        }
+        public int getID(){
+            return this.id;
+        }
+        public List<JobItem> getBlocks(){
+            if(block == null){
+                // TODO
+            }
+            return block;
+        }
+        public void addBlock(int blockID, byte data){
+            getBlocks().add(new JobItem(blockID, data));
+        }
+        public boolean isBlock(Block block){
+            for(JobItem item : getBlocks()){
+                if(item.isJobItem(block)){
+                    return true;
+                }
+            }
+            return false;
+        }
+        public int getBlockID(int i){
+            if(i >= getBlocks().size()){
+                return 0;
+            }
+            return getBlocks().get(i).getId();
+        }
+        public byte getData(int i){
+            if(i >= getBlocks().size()){
+                return 0;
+            }
+            return getBlocks().get(i).getData();
+        }
+        public void setCosto(double costo) {
+            if(costo >= 0){
+                this.costo = costo;
+            }else{
+                this.costo = 0;
+            }
+        }
+        public double getCosto() {
+            return this.costo;
+        }
+        public void setCantidad(int cantidad) {
+            this.cantidad = cantidad;
+        }
+        public int getCantidad() {
+            return this.cantidad;
+        }
+        public void setRestante(int restante){
+            this.restante = restante;
+        }
+        public int getRestante(){
+            return this.restante;
+        }
+        public void addRestante(int n){
+            setRestante(getRestante()+n);
+        }
+        public void setDate(long date) {
+            this.date = date;
+        }
+        public long getDate() {
+            return this.date;
+        }
+        public void setTerminado(boolean i){
+            this.terminado = i;
+        }
+        public boolean getTerminado(){
+            return this.terminado;
         }
     }
     protected class JobItem{
-        int id;
-        byte data;
-        public JobItem(int id, byte data) {
-            setId(id);
+        private int block;
+        private byte data;
+        public JobItem(int block, byte data) {
+            setId(block);
             setData(data);
         }
         public JobItem(int id, MaterialData data){
             setId(id);
             setData(data);
         }
-        public void setId(int id){
-            this.id = id;
+        public void setId(int block){
+            this.block = block;
         }
         public int getId(){
-            return this.id;
+            return this.block;
         }
         public void setData(byte data){
             this.data = data;
