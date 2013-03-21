@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.block.Block;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -62,18 +63,20 @@ public class Jobs extends Savable{
     protected class Job{
         Jobs kernel;
         String autor;
-        int id;
+        String id;
         List<JobItem> block;
         double costo;
         int cantidad;
         int restante;
         long date;
         boolean terminado;
-        public Job(Jobs nucleo, String autor, int id, int materialID, byte data, 
+        public Job(Jobs nucleo, String id){
+        }
+        public Job(Jobs nucleo, String autor, String id, int materialID, byte data, 
                 double costo, int cantidad, int restante, long date, boolean terminado){
             setKernel(nucleo);
-            setAutor(autor);
             setID(id);
+            setAutor(autor);
             addBlock(materialID, data);
             setCosto(costo);
             setCantidad(cantidad);
@@ -94,9 +97,11 @@ public class Jobs extends Savable{
         }
         public void destroyJob() {
             // TODO Borrar el trabajo del cache.
+            getConfig().set(getPath(), null);
+            kernel.resetJobsCache();
         }
         public String getPath() {
-            return "jobs."+getID()+".";
+            return "jobs."+getID();
         }
         public FileConfiguration getConfig(){
             return kernel.getCache();
@@ -112,22 +117,47 @@ public class Jobs extends Savable{
             if(!isBlock(block)){
                 return false; 
             }
-            // TODO Destruir y hacer el conteo de todo.
+            // TODO Destruir bloque y hacer el conteo.
             return true;
         }
         public boolean isUser(Player p) {
-            // TODO Obtener si el usuario está en el trabajo.
-            return false;
+            // Obtener si el usuario está en el trabajo.
+            return getCache().getStringList(getPath()+".users").contains(p.getName());
         }
         public void addUser(Player p) {
-            // TODO
+            // Añadir un usuario a la lista.
+            if(!isUser(p)){
+                List<String> users = getCache().getStringList(getPath()+".users");
+                users.add(p.getName());
+                getCache().set(getPath()+".users", users);
+                getKernel().resetPlayerCache();
+            }
         }
         public void removeUser(Player p) {
-            // TODO
+            // Quitar un usuario
+            List<String> users = getCache().getStringList(getPath()+".users");
+            users.remove(p.getName());
+            getCache().set(getPath()+".users", users);
+            getKernel().resetPlayerCache();
         }
         
         /* GETTERS & SETTERS */
         
+        public boolean isSet(String path){
+            if(getConfig().isSet(getPath()+path)){
+                return true;
+            }
+            return false;
+        }
+        public void setPath(String path, Object o){
+            if(getPath() != o){
+                save();
+            }
+            getConfig().set(getPath()+path, o);
+        }
+        public Object getPath(String path){
+            return getConfig().get(getPath()+path);
+        }
         public void setKernel(Jobs nucleo){
             this.kernel = nucleo;
         }
@@ -135,6 +165,7 @@ public class Jobs extends Savable{
             return this.kernel;
         }
         public void setAutor(String autor){
+            setPath(".autor", autor);
             this.autor = autor;
         }
         public String getAutor(){
@@ -146,17 +177,24 @@ public class Jobs extends Savable{
         public boolean isServidor(){
             return getAutor() == null ? true : false;
         }
-        public void setID(int id){
+        public void setID(String id){
             this.id = id;
         }
-        public int getID(){
+        public String getID(){
             return this.id;
         }
         public List<JobItem> getBlocks(){
-            if(block == null){
-                // TODO
+            if(this.block == null){
+                // Obtener los bloques de la lista.
+                List<JobItem> block = new ArrayList<JobItem>();
+                ConfigurationSection cf = getCache().getConfigurationSection(getPath()+".blocks");
+                for(String k : cf.getKeys(false)){
+                    Integer.parseInt(k);
+                    block.add(new JobItem(Integer.parseInt(k), (byte)cf.getInt(k)));
+                }
+                this.block = block;
             }
-            return block;
+            return this.block;
         }
         public void addBlock(int blockID, byte data){
             getBlocks().add(new JobItem(blockID, data));
