@@ -1,4 +1,5 @@
 item:
+## BLOCKS
   Stone:
     id: 1
     price: 0
@@ -653,7 +654,9 @@ item:
     - Nenufar
   NetherBrick:
     id: 112
-    price: 50
+    price: 0
+    depend:
+      NetherBrickItem: 4
     alias:
     - LadrillosInfierno
     - LadrillosAbisales
@@ -698,6 +701,16 @@ item:
       GlowstoneBlock: 1
     alias:
     - Lampara
+  TripwireHook:
+    id: 131
+    price: 0
+    depend:
+      Iron: 1
+      Stick: 1
+      OakPlank: 1
+    alias:
+    - Gancho
+    - Trampa
   BlockEmerald:
     id: 133
     price: 20
@@ -728,6 +741,45 @@ item:
       Iron: 31
     alias:
     - Yunque
+  TrappedChest:
+    id: 146
+    price: 0
+    depend:
+      Chest: 1
+      TripwireHook: 1
+  GoldenPressurePlate:
+    id: 147
+    price: 0
+    depend:
+      Gold: 2
+  IronPressurePlate:
+    id: 148
+    price: 0
+    depend:
+      Iron: 2
+  BlockRedstone:
+    id: 152
+    price: 0
+    depend:
+      Redstone: 9
+  Hopper:
+    id: 154
+    price: 0
+    depend:
+      Chest: 1
+      Iron: 5
+  BlockQuartz:
+    id: 155
+    price: 0
+    depend:
+      Quartz: 4
+  Dropper:
+    id: 158
+    price: 0
+    depend:
+      Redstone: 1
+      Cobblestone: 7
+## ITEMS
   FlintAndSteel:
     id: 259
     price: 0
@@ -1039,151 +1091,6 @@ item:
       RawFish: 1
     alias:
     - PescadoCocido
-  InkSac:
-    id: 351
-    price: 10
-    data: 0
-    alias:
-    - Tinta
-    - Negro
-  RoseRed:
-    id: 351
-    price: 0
-    depend:
-      InkSac: 1
-    data: 1
-    alias:
-    - Red
-    - Rojo
-  CactusGreen:
-    id: 351
-    price: 0
-    depend:
-      InkSac: 1
-    data: 2
-    alias:
-    - Green
-    - Verde
-  CocoaBeans:
-    id: 351
-    price: 0
-    depend:
-      InkSac: 1
-    data: 3
-    alias:
-    - Brown
-    - Cafe
-    - Chocolate
-  LapisLazuli:
-    id: 351
-    price: 300
-    depend:
-      InkSac: 1
-    data: 4
-    alias:
-    - LapisLazuli
-    - Lapis
-    - Blue
-    - Azul
-  PurpleDye:
-    id: 351
-    price: 0
-    depend:
-      InkSac: 1
-    data: 5
-    alias:
-    - Purple
-    - Morado
-  CyanDye:
-    id: 351
-    price: 0
-    depend:
-      InkSac: 1
-    data: 6
-    alias:
-    - Cyan
-    - Cian
-  LightGrayDye:
-    id: 351
-    price: 0
-    depend:
-      InkSac: 1
-    data: 7
-    alias:
-    - LightGray
-    - GrisClaro
-  GrayDye:
-    id: 351
-    price: 0
-    depend:
-      InkSac: 1
-    data: 8
-    alias:
-    - Gray
-    - Gris
-  PinkDye:
-    id: 351
-    price: 0
-    depend:
-      InkSac: 1
-    data: 9
-    alias:
-    - Pink
-    - Rosa
-  LimeDye:
-    id: 351
-    price: 0
-    depend:
-      InkSac: 1
-    data: 10
-    alias:
-    - Lime
-    - Lima
-  DandelionYellow:
-    id: 351
-    price: 0
-    depend:
-      InkSac: 1
-    data: 11
-    alias:
-    - Yellow
-    - Amarillo
-  LightBlueDye:
-    id: 351
-    price: 0
-    depend:
-      InkSac: 1
-    data: 12
-    alias:
-    - LightBlue
-    - AzulClaro
-  MagentaDye:
-    id: 351
-    price: 0
-    depend:
-      InkSac: 1
-    data: 13
-    alias:
-    - Magenta
-  OrangeDye:
-    id: 351
-    price: 0
-    depend:
-      InkSac: 1
-    data: 14
-    alias:
-    - Orange
-    - Naranja
-  BoneMeal:
-    id: 351
-    price: 0
-    depend:
-      InkSac: 1
-    data: 15
-    alias:
-    - White
-    - Blanco
-    - PolvoHueso
   Bone:
     id: 352
     price: 0
@@ -1382,7 +1289,317 @@ item:
       GoldNugget: 1
     alias:
     - SandiaReluciente
-  CreeperEgg:
+  BottleOEnchanting:
+    id: 384
+    price: 8
+    depend:
+      GlassBottle: 1
+    alias:
+    - ThrownExpBottle
+  BookAndQuill:
+    id: 386
+    price: 0
+    depend:
+      Book: 1
+      Feather: 1
+      InkSac: 1
+    alias:
+    - LibroPluma
+  Emerald:
+    id: 388
+    price: 1000
+    alias:
+    - Esmeralda
+  ItemFrame:
+    id: 389
+    price: 5
+    depend:
+      Leather: 1
+      Stick: 8
+    alias:
+    - Marco
+  FlowerPot:
+    id: 390
+    price: 0
+    depend:
+      Brick: 3
+    alias:
+    - Maceta
+  Carrot:
+    id: 391
+    price: 7
+    alias:
+    - Zanahoria
+  Potato:
+    id: 392
+    price: 1
+    depend:
+      Carrot: 1
+    alias:
+    - Patata
+    - Papa
+  BakedPotato:
+    id: 393
+    price: 0.25
+    depend:
+      Potato: 1
+    alias:
+    - PatataCocida
+    - PapaCocida
+  EmptyMap:
+    id: 395
+    price: 0
+    depend:
+      Paper: 8
+      Compass: 1
+    alias:
+    - MapaVacio
+  GoldenCarrot:
+    id: 396
+    price: 0
+    depend:
+      Carrot: 1
+      GoldNugget: 8
+    alias:
+    - ZanahoriaOro
+  SkeletonHead:
+    id: 397
+    price: 600
+    data: 0
+    alias:
+    - CabezaEsqueleto
+  WitherHead:
+    id: 397
+    price: 0
+    depend:
+      SkeletonHead: 1
+    data: 1
+    alias:
+    - CabezaWither
+  ZombieHead:
+    id: 397
+    price: 0
+    depend:
+      SkeletonHead: 1
+    data: 2
+    alias:
+    - CabezaZombie
+  HumanHead:
+    id: 397
+    price: 0
+    depend:
+      SkeletonHead: 1
+    data: 3
+    alias:
+    - CabezaHumano
+  CreeperHead:
+    id: 397
+    price: 0
+    depend:
+      SkeletonHead: 1
+    data: 4
+    alias:
+    - CabezaCreeper
+  CarrotOnAStick:
+    id: 398
+    price: 0
+    depend:
+      Carrot: 1
+      FishingRod: 1
+    alias:
+    - PaloZanahoria
+  NetherStar:
+    id: 399
+    price: 5000
+    alias:
+    - EstrellaAbismo
+    - Estrella
+    - Star
+  PumpkinPie:
+    id: 400
+    price: 0
+    depend:
+      Pumpkin: 1
+      Sugar: 1
+      Egg: 1
+    alias:
+    - Pay
+    - Pie
+  RedstoneComparator:
+    id: 404
+    price: 0
+    depend:
+      RedstoneTorch: 3
+      Quartz: 1
+      Stone: 3
+  NetherBrickItem:
+    id: 405
+    price: 0
+    depend:
+      Netherrack: 1
+      Coal: 1
+  Quartz:
+    id: 406
+    price: 15
+    alias:
+    - NetherQuartz
+  EnchantedBook:
+    id: 403
+    price: 0
+    depend:
+      Book: 1
+      Diamond: 1
+      BottleOEnchanting: 100
+    alias:
+    - LibroEncantado
+## DYES
+  InkSac:
+    id: 351
+    price: 10
+    data: 0
+    alias:
+    - Tinta
+    - Negro
+  RoseRed:
+    id: 351
+    price: 0
+    depend:
+      InkSac: 1
+    data: 1
+    alias:
+    - Red
+    - Rojo
+  CactusGreen:
+    id: 351
+    price: 0
+    depend:
+      InkSac: 1
+    data: 2
+    alias:
+    - Green
+    - Verde
+  CocoaBeans:
+    id: 351
+    price: 0
+    depend:
+      InkSac: 1
+    data: 3
+    alias:
+    - Brown
+    - Cafe
+    - Chocolate
+  LapisLazuli:
+    id: 351
+    price: 300
+    depend:
+      InkSac: 1
+    data: 4
+    alias:
+    - LapisLazuli
+    - Lapis
+    - Blue
+    - Azul
+  PurpleDye:
+    id: 351
+    price: 0
+    depend:
+      InkSac: 1
+    data: 5
+    alias:
+    - Purple
+    - Morado
+  CyanDye:
+    id: 351
+    price: 0
+    depend:
+      InkSac: 1
+    data: 6
+    alias:
+    - Cyan
+    - Cian
+  LightGrayDye:
+    id: 351
+    price: 0
+    depend:
+      InkSac: 1
+    data: 7
+    alias:
+    - LightGray
+    - GrisClaro
+  GrayDye:
+    id: 351
+    price: 0
+    depend:
+      InkSac: 1
+    data: 8
+    alias:
+    - Gray
+    - Gris
+  PinkDye:
+    id: 351
+    price: 0
+    depend:
+      InkSac: 1
+    data: 9
+    alias:
+    - Pink
+    - Rosa
+  LimeDye:
+    id: 351
+    price: 0
+    depend:
+      InkSac: 1
+    data: 10
+    alias:
+    - Lime
+    - Lima
+  DandelionYellow:
+    id: 351
+    price: 0
+    depend:
+      InkSac: 1
+    data: 11
+    alias:
+    - Yellow
+    - Amarillo
+  LightBlueDye:
+    id: 351
+    price: 0
+    depend:
+      InkSac: 1
+    data: 12
+    alias:
+    - LightBlue
+    - AzulClaro
+  MagentaDye:
+    id: 351
+    price: 0
+    depend:
+      InkSac: 1
+    data: 13
+    alias:
+    - Magenta
+  OrangeDye:
+    id: 351
+    price: 0
+    depend:
+      InkSac: 1
+    data: 14
+    alias:
+    - Orange
+    - Naranja
+  BoneMeal:
+    id: 351
+    price: 0
+    depend:
+      InkSac: 1
+    data: 15
+    alias:
+    - White
+    - Blanco
+    - PolvoHueso
+## EGGS
+    CreeperEgg:
     id: 383
     price: 150
     data: 50
@@ -1564,144 +1781,7 @@ item:
     data: 120
     alias:
     - HuevoAldeano
-  BookAndQuill:
-    id: 386
-    price: 0
-    depend:
-      Book: 1
-      Feather: 1
-      InkSac: 1
-    alias:
-    - LibroPluma
-  Emerald:
-    id: 388
-    price: 1000
-    alias:
-    - Esmeralda
-  ItemFrame:
-    id: 389
-    price: 5
-    depend:
-      Leather: 1
-      Stick: 8
-    alias:
-    - Marco
-  FlowerPot:
-    id: 390
-    price: 0
-    depend:
-      Brick: 3
-    alias:
-    - Maceta
-  Carrot:
-    id: 391
-    price: 7
-    alias:
-    - Zanahoria
-  Potato:
-    id: 392
-    price: 1
-    depend:
-      Carrot: 1
-    alias:
-    - Patata
-    - Papa
-  BakedPotato:
-    id: 393
-    price: 0.25
-    depend:
-      Potato: 1
-    alias:
-    - PatataCocida
-    - PapaCocida
-  EmptyMap:
-    id: 395
-    price: 0
-    depend:
-      Paper: 8
-      Compass: 1
-    alias:
-    - MapaVacio
-  GoldenCarrot:
-    id: 396
-    price: 0
-    depend:
-      Carrot: 1
-      GoldNugget: 8
-    alias:
-    - ZanahoriaOro
-  SkeletonHead:
-    id: 397
-    price: 600
-    data: 0
-    alias:
-    - CabezaEsqueleto
-  WitherHead:
-    id: 397
-    price: 0
-    depend:
-      SkeletonHead: 1
-    data: 1
-    alias:
-    - CabezaWither
-  ZombieHead:
-    id: 397
-    price: 0
-    depend:
-      SkeletonHead: 1
-    data: 2
-    alias:
-    - CabezaZombie
-  HumanHead:
-    id: 397
-    price: 0
-    depend:
-      SkeletonHead: 1
-    data: 3
-    alias:
-    - CabezaHumano
-  CreeperHead:
-    id: 397
-    price: 0
-    depend:
-      SkeletonHead: 1
-    data: 4
-    alias:
-    - CabezaCreeper
-  CarrotOnAStick:
-    id: 398
-    price: 0
-    depend:
-      Carrot: 1
-      FishingRod: 1
-    alias:
-    - PaloZanahoria
-  NetherStar:
-    id: 399
-    price: 5000
-    alias:
-    - EstrellaAbismo
-    - Estrella
-    - Star
-  PumpkinPie:
-    id: 400
-    price: 0
-    depend:
-      Pumpkin: 1
-      Sugar: 1
-      Egg: 1
-    alias:
-    - Pay
-    - Pie
-  EnchantedBook:
-    id: 403
-    price: 0
-    depend:
-      Book: 1
-      Diamond: 1
-      BottleOEnchanting: 100
-    alias:
-    - LibroEncantado
+## DISC
   13Disc:
     id: 2256
     price: 500
@@ -1760,13 +1840,7 @@ item:
     price: 0
     depend:
       13Disc: 1
-  BottleOEnchanting:
-    id: 384
-    price: 8
-    depend:
-      GlassBottle: 1
-    alias:
-    - ThrownExpBottle
+## POTIONS
   AwkwardPotion:
     id: 373
     price: 0
