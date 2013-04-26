@@ -1,4 +1,4 @@
-package elxris.Useless.Listener;
+package elxris.SpiceCraft.Listener;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

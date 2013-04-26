@@ -1,4 +1,4 @@
-package elxris.Useless.Utils;
+package elxris.SpiceCraft.Utils;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -11,7 +11,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 import com.google.common.base.Charsets;
 
-import elxris.Useless.Useless;
+import elxris.SpiceCraft.SpiceCraft;
 
 public class Archivo {
     private File file;
@@ -31,7 +31,7 @@ public class Archivo {
         return file;
     }
     public void setFile(){
-        file = new File(Useless.plugin().getDataFolder(), getName());
+        file = new File(SpiceCraft.plugin().getDataFolder(), getName());
     }
     public boolean exist(){
         return getFile().exists();
@@ -46,7 +46,7 @@ public class Archivo {
         try {
             fc.save(getFile());
         } catch (IOException e) {
-            Useless.log(Strings.getString("alert.notsaved")+getName());
+            SpiceCraft.log(Strings.getString("alert.notsaved")+getName());
         }
     }
     private void saveString(String data){
@@ -57,7 +57,7 @@ public class Archivo {
         } catch (IOException e) {}
     }
     public boolean loadResourse(String path){ // Carga un recurso del jar y lo guarda en el archivo.
-        InputStream is = Useless.plugin().getResource("res/"+path);
+        InputStream is = SpiceCraft.plugin().getResource("res/"+path);
         if(is == null){
             return false;
         }

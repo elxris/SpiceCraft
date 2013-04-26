@@ -1,4 +1,4 @@
-package elxris.Useless.Commands;
+package elxris.SpiceCraft.Commands;
 
 import java.util.List;
 
@@ -6,17 +6,18 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
-import elxris.Useless.Useless;
-import elxris.Useless.Objects.Factory;
-import elxris.Useless.Utils.Econ;
-import elxris.Useless.Utils.Strings;
+
+import elxris.SpiceCraft.SpiceCraft;
+import elxris.SpiceCraft.Objects.Factory;
+import elxris.SpiceCraft.Utils.Econ;
+import elxris.SpiceCraft.Utils.Strings;
 
 public class ShopCommand extends Comando implements TabCompleter{
     public Factory f;
     public ShopCommand() {
         f = new Factory();
         // Registra los eventos de plugin.
-        Useless.plugin().getServer().getPluginManager().registerEvents(f, Useless.plugin());
+        SpiceCraft.plugin().getServer().getPluginManager().registerEvents(f, SpiceCraft.plugin());
     }
     @Override
     public boolean onCommand(CommandSender player, Command command, String label, String[] args) {

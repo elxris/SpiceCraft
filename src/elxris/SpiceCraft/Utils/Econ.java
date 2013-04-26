@@ -1,9 +1,9 @@
-package elxris.Useless.Utils;
+package elxris.SpiceCraft.Utils;
 
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;
 
-import elxris.Useless.Useless;
+import elxris.SpiceCraft.SpiceCraft;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.economy.EconomyResponse;
 
@@ -13,7 +13,7 @@ public class Econ {
     private Player jugador;
     public Econ() {
         if (!setup && !setupEconomy()) {
-            Useless.log(Strings.getString("alert.noEconomy"));
+            SpiceCraft.log(Strings.getString("alert.noEconomy"));
         }
     }
     public void setJugador(Player jugador) {
@@ -28,10 +28,10 @@ public class Econ {
     //Economía.
     private boolean setupEconomy() {
         setup = true;
-        if (Useless.plugin().getServer().getPluginManager().getPlugin("Vault") == null) {
+        if (SpiceCraft.plugin().getServer().getPluginManager().getPlugin("Vault") == null) {
             return false;
         }
-        RegisteredServiceProvider<Economy> rsp = Useless.plugin().getServer().getServicesManager().getRegistration(Economy.class);
+        RegisteredServiceProvider<Economy> rsp = SpiceCraft.plugin().getServer().getServicesManager().getRegistration(Economy.class);
         if (rsp == null) {
             return false;
         }

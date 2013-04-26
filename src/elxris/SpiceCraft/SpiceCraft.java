@@ -1,23 +1,23 @@
-package elxris.Useless;
+package elxris.SpiceCraft;
 
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import elxris.Useless.Commands.CompassCommand;
-import elxris.Useless.Commands.JobsCommand;
-import elxris.Useless.Commands.LibCommand;
-import elxris.Useless.Commands.MailBoxCommand;
-import elxris.Useless.Commands.ShopCommand;
-import elxris.Useless.Commands.WarpCommand;
-import elxris.Useless.Listener.CommandListener;
-import elxris.Useless.Listener.CompassListener;
-import elxris.Useless.Listener.JobsListener;
-import elxris.Useless.Listener.MailListener;
-import elxris.Useless.Objects.Mail;
+import elxris.SpiceCraft.Commands.CompassCommand;
+import elxris.SpiceCraft.Commands.JobsCommand;
+import elxris.SpiceCraft.Commands.LibCommand;
+import elxris.SpiceCraft.Commands.MailBoxCommand;
+import elxris.SpiceCraft.Commands.ShopCommand;
+import elxris.SpiceCraft.Commands.WarpCommand;
+import elxris.SpiceCraft.Listener.CommandListener;
+import elxris.SpiceCraft.Listener.CompassListener;
+import elxris.SpiceCraft.Listener.JobsListener;
+import elxris.SpiceCraft.Listener.MailListener;
+import elxris.SpiceCraft.Objects.Mail;
  
-public class Useless extends JavaPlugin {
+public class SpiceCraft extends JavaPlugin {
     private Mail mail;
-    private static Useless plugin;
+    private static SpiceCraft plugin;
     
     public void onEnable(){
         plugin = this;
@@ -51,7 +51,7 @@ public class Useless extends JavaPlugin {
     public static Player getPlayer(String playerName){
         return plugin.getServer().getPlayer(playerName);
     }
-    public static Useless plugin(){
+    public static SpiceCraft plugin(){
         return plugin;
     }
     public static String getVersion(){

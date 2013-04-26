@@ -1,4 +1,4 @@
-package elxris.Useless.Objects;
+package elxris.SpiceCraft.Objects;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,11 +9,11 @@ import org.bukkit.configuration.MemoryConfiguration;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
-import elxris.Useless.Useless;
-import elxris.Useless.Utils.Archivo;
-import elxris.Useless.Utils.Chat;
-import elxris.Useless.Utils.Fecha;
-import elxris.Useless.Utils.Strings;
+import elxris.SpiceCraft.SpiceCraft;
+import elxris.SpiceCraft.Utils.Archivo;
+import elxris.SpiceCraft.Utils.Chat;
+import elxris.SpiceCraft.Utils.Fecha;
+import elxris.SpiceCraft.Utils.Strings;
 
 public class Mail extends Savable{
     FileConfiguration cache;
@@ -127,8 +127,8 @@ public class Mail extends Savable{
         if(draft.isSet(jugador+".mensaje")){
             mensajeAnterior = draft.getString(jugador+".mensaje");
         }
-        if(mensajeAnterior.length() > Useless.plugin().getConfig().getInt("mbox.maxChar")){
-            if(!Useless.getPlayer(jugador).hasPermission("useless.mail.noCharLimit")){
+        if(mensajeAnterior.length() > SpiceCraft.plugin().getConfig().getInt("mbox.maxChar")){
+            if(!SpiceCraft.getPlayer(jugador).hasPermission("useless.mail.noCharLimit")){
                 Chat.mensaje(jugador, "mbox.limit");
                 return;
             }
@@ -175,21 +175,21 @@ public class Mail extends Savable{
         sendMensajeATodos(jugador, draft.getString(jugador+".mensaje"));
     }
     public void sendMensajeATodos(String jugador, String mensaje){
-        if(!jugador.contentEquals("Server") && !Useless.getPlayer(jugador).hasPermission("useless.mail.massive")){
+        if(!jugador.contentEquals("Server") && !SpiceCraft.getPlayer(jugador).hasPermission("useless.mail.massive")){
             return;
         }
         List<String> destinatarios = new ArrayList<>();
-        for(OfflinePlayer p: Useless.plugin().getServer().getOfflinePlayers()){
+        for(OfflinePlayer p: SpiceCraft.plugin().getServer().getOfflinePlayers()){
             destinatarios.add(p.getName());
         }
         sendMensaje(jugador, destinatarios, mensaje, true);
     }
     public String isDestinatario(String player){
-        List<Player> l = Useless.plugin().getServer().matchPlayer(player);
+        List<Player> l = SpiceCraft.plugin().getServer().matchPlayer(player);
         if(l.size() == 1){
             return l.get(0).getName();
         }else{
-            if(Useless.plugin().getServer().getOfflinePlayer(player).hasPlayedBefore()){
+            if(SpiceCraft.plugin().getServer().getOfflinePlayer(player).hasPlayedBefore()){
                 return player;
             }
         }

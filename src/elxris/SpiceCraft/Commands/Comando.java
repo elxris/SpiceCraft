@@ -1,4 +1,4 @@
-package elxris.Useless.Commands;
+package elxris.SpiceCraft.Commands;
 
 import java.util.List;
 
@@ -6,8 +6,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
-import elxris.Useless.Useless;
-import elxris.Useless.Utils.Chat;
+import elxris.SpiceCraft.SpiceCraft;
+import elxris.SpiceCraft.Utils.Chat;
 
 public abstract class Comando  implements CommandExecutor{
     public void mensaje(Player p, String mensaje, Object...objects){
@@ -36,7 +36,7 @@ public abstract class Comando  implements CommandExecutor{
         }
     }
     public FileConfiguration getConfig(){
-        return Useless.plugin().getConfig();
+        return SpiceCraft.plugin().getConfig();
     }
     public boolean isCommand(String path, String command){
         for(String s: getConfig().getStringList(path)){

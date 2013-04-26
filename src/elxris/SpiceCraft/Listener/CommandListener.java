@@ -1,4 +1,4 @@
-package elxris.Useless.Listener;
+package elxris.SpiceCraft.Listener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,9 +11,10 @@ import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BookMeta;
-import elxris.Useless.Useless;
-import elxris.Useless.Utils.Archivo;
-import elxris.Useless.Utils.Chat;
+
+import elxris.SpiceCraft.SpiceCraft;
+import elxris.SpiceCraft.Utils.Archivo;
+import elxris.SpiceCraft.Utils.Chat;
 
 public class CommandListener implements Listener{
     private Archivo file;
@@ -46,7 +47,7 @@ public class CommandListener implements Listener{
         }
         if(s[0].contains("/uselessreload")){
             if(p.hasPermission("useless.cmd.reload")){
-                Useless.reload();
+                SpiceCraft.reload();
                 reload();
                 Chat.mensaje((Player) p, "cmd.reload");
                 return true;

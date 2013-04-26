@@ -1,14 +1,14 @@
-package elxris.Useless.Listener;
+package elxris.SpiceCraft.Listener;
 
-import org.bukkit.Effect;
 import org.bukkit.GameMode;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
-import elxris.Useless.Objects.Jobs;
-import elxris.Useless.Utils.Chat;
+
+import elxris.SpiceCraft.Objects.Jobs;
+import elxris.SpiceCraft.Utils.Chat;
 
 public class JobsListener implements Listener{
     private static Jobs jobs;
@@ -21,18 +21,14 @@ public class JobsListener implements Listener{
             return;
         }
         // TODO Revisar si pertenece algun job.
-        // TODO jobs.check(String jugador, int BlockID);
+        // TODO jobs.check(Player jugador, block BlockID);
         Chat.mensaje(event.getPlayer().getName(), event.getBlock().getTypeId()+"");
         Chat.mensaje(event.getPlayer().getName(), event.getBlock().getType().name());
-        for(ItemStack item: event.getBlock().getDrops(event.getPlayer().getItemInHand())){
+        for(ItemStack item: event.getBlock().getDrops()){
             Chat.mensaje(event.getPlayer().getName(), "."+item.getTypeId()+"");
             Chat.mensaje(event.getPlayer().getName(), item.getType().name());
-            if(item.getTypeId() == 318){
-                event.getBlock().setTypeId(0);
-                event.getPlayer().getWorld().playEffect(event.getBlock().getLocation(), Effect.MOBSPAWNER_FLAMES, null);
-            }
         }
-        event.getBlock().setTypeId(0);
+        getJobs().check(event.getPlayer(), event.getBlock());
         
     }
     public static Jobs getJobs(){

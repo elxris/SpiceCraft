@@ -1,12 +1,12 @@
-package elxris.Useless.Listener;
+package elxris.SpiceCraft.Listener;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
-import elxris.Useless.Useless;
-import elxris.Useless.Objects.Mail;
+import elxris.SpiceCraft.SpiceCraft;
+import elxris.SpiceCraft.Objects.Mail;
 
 public class MailListener implements Listener{
     public Mail mail;
@@ -14,8 +14,8 @@ public class MailListener implements Listener{
     private long ONLOGINDELAY;
     public MailListener(Mail m) {
         setMail(m);
-        ONLOGIN = Useless.plugin().getConfig().getBoolean("mail.onLogin");
-        ONLOGINDELAY = Useless.plugin().getConfig().getLong("mail.onLoginDelay");
+        ONLOGIN = SpiceCraft.plugin().getConfig().getBoolean("mail.onLogin");
+        ONLOGINDELAY = SpiceCraft.plugin().getConfig().getLong("mail.onLoginDelay");
     }
     @EventHandler
     public void onLogin(PlayerJoinEvent event){

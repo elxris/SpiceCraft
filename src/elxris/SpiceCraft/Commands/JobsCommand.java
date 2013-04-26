@@ -1,10 +1,10 @@
-package elxris.Useless.Commands;
+package elxris.SpiceCraft.Commands;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
-import elxris.Useless.Listener.JobsListener;
-import elxris.Useless.Objects.Jobs;
+import elxris.SpiceCraft.Listener.JobsListener;
+import elxris.SpiceCraft.Objects.Jobs;
 
 public class JobsCommand extends Comando{
     private static Jobs jobs;

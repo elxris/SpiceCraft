@@ -1,4 +1,4 @@
-package elxris.Useless.Commands;
+package elxris.SpiceCraft.Commands;
 
 import java.util.List;
 
@@ -8,10 +8,11 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.configuration.MemoryConfiguration;
 import org.bukkit.entity.Player;
-import elxris.Useless.Objects.Warp;
-import elxris.Useless.Utils.Chat;
-import elxris.Useless.Utils.Econ;
-import elxris.Useless.Utils.Strings;
+
+import elxris.SpiceCraft.Objects.Warp;
+import elxris.SpiceCraft.Utils.Chat;
+import elxris.SpiceCraft.Utils.Econ;
+import elxris.SpiceCraft.Utils.Strings;
 
 public class WarpCommand extends Comando{
     private Configuration cache;

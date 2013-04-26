@@ -1,11 +1,11 @@
-package elxris.Useless.Listener;
+package elxris.SpiceCraft.Listener;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.entity.Player;
 
-import elxris.Useless.Utils.Chat;
+import elxris.SpiceCraft.Utils.Chat;
 
 public class MessageDelay implements Runnable{
     private Player jugador;

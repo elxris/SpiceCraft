@@ -1,8 +1,9 @@
-package elxris.Useless.Objects;
+package elxris.SpiceCraft.Objects;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bukkit.Effect;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -10,7 +11,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.material.MaterialData;
 
-import elxris.Useless.Utils.Archivo;
+import elxris.SpiceCraft.Utils.Archivo;
 
 public class Jobs extends Savable{
     private Archivo archivo;
@@ -27,9 +28,20 @@ public class Jobs extends Savable{
     }
     public List<Job> getJobs(){
         if(this.jobsCache == null){
+            List<Job> jobs = new ArrayList<Jobs.Job>();
+            Job j = new Job(this, "elxris", 1, (byte)0, 1, 100);
+            jobs.add(j);
             // TODO
+            this.jobsCache = jobs;
         }
         return this.jobsCache;
+    }
+    public void check(Player p, Block b){
+        for(Job j : getJobs()){
+            if(j.check(p, b)){
+                break;
+            }
+        }
     }
     public FileConfiguration getPlayers(){
         if(this.playerCache == null){
@@ -62,27 +74,27 @@ public class Jobs extends Savable{
     // ## Clases Privadas ##
     protected class Job{
         Jobs kernel;
+        Long id;
         String autor;
-        String id;
         List<JobItem> block;
-        double costo;
-        int cantidad;
-        int restante;
-        long date;
-        boolean terminado;
+        Double costo;
+        Integer cantidad;
+        Integer restante;
+        Long date;
+        Boolean terminado;
         public Job(Jobs nucleo, String id){
+            // TODO
         }
-        public Job(Jobs nucleo, String autor, String id, int materialID, byte data, 
-                double costo, int cantidad, int restante, long date, boolean terminado){
+        public Job(Jobs nucleo, String autor, int materialID, byte data, 
+                double costo, int cantidad){
             setKernel(nucleo);
-            setID(id);
+            setID(System.currentTimeMillis());
             setAutor(autor);
             addBlock(materialID, data);
             setCosto(costo);
             setCantidad(cantidad);
-            setRestante(restante);
-            setDate(date);
-            setTerminado(terminado);
+            setRestante(cantidad);
+            setDate(System.currentTimeMillis());
         }
         public boolean finish(Player p){
             if(p.getName().contentEquals(getAutor())){
@@ -111,13 +123,19 @@ public class Jobs extends Savable{
             return null;
         }
         public boolean check(Player p, Block block) {
+            // Si no pertenece el usuario al trabajo.
             if(!isUser(p)){
-                return false;
+                // TODO quitar
+                addUser(p);
+                //return false;
             }
+            // Si no es el bloque.
             if(!isBlock(block)){
-                return false; 
+                //return false; 
             }
             // TODO Destruir bloque y hacer el conteo.
+            block.setTypeId(0);
+            p.getWorld().playEffect(block.getLocation(), Effect.MOBSPAWNER_FLAMES, null);
             return true;
         }
         public boolean isUser(Player p) {
@@ -150,12 +168,15 @@ public class Jobs extends Savable{
             return false;
         }
         public void setPath(String path, Object o){
-            if(getPath() != o){
+            if(getPath(path) != o){
+                getConfig().set(getPath()+path, o);
                 save();
             }
-            getConfig().set(getPath()+path, o);
         }
         public Object getPath(String path){
+            if(!isSet(path)){
+                return null;
+            }
             return getConfig().get(getPath()+path);
         }
         public void setKernel(Jobs nucleo){
@@ -169,6 +190,9 @@ public class Jobs extends Savable{
             this.autor = autor;
         }
         public String getAutor(){
+            if(this.autor == null){
+                this.autor = (String) getPath(".autor");
+            }
             return this.autor;
         }
         public boolean isAutor(Player p){
@@ -177,10 +201,10 @@ public class Jobs extends Savable{
         public boolean isServidor(){
             return getAutor() == null ? true : false;
         }
-        public void setID(String id){
+        public void setID(long id){
             this.id = id;
         }
-        public String getID(){
+        public long getID(){
             return this.id;
         }
         public List<JobItem> getBlocks(){
@@ -188,9 +212,11 @@ public class Jobs extends Savable{
                 // Obtener los bloques de la lista.
                 List<JobItem> block = new ArrayList<JobItem>();
                 ConfigurationSection cf = getCache().getConfigurationSection(getPath()+".blocks");
-                for(String k : cf.getKeys(false)){
-                    Integer.parseInt(k);
-                    block.add(new JobItem(Integer.parseInt(k), (byte)cf.getInt(k)));
+                if(cf != null){
+                    for(String k : cf.getKeys(false)){
+                        Integer.parseInt(k);
+                        block.add(new JobItem(Integer.parseInt(k), (byte)cf.getInt(k)));
+                    }
                 }
                 this.block = block;
             }
@@ -221,45 +247,68 @@ public class Jobs extends Savable{
         }
         public void setCosto(double costo) {
             if(costo >= 0){
+                setPath(".costo", costo);
                 this.costo = costo;
             }else{
-                this.costo = 0;
+                this.costo = 0.0d;
             }
         }
         public double getCosto() {
+            if(this.costo == null){
+                this.costo = (Double) getPath(".costo");
+            }
             return this.costo;
         }
         public void setCantidad(int cantidad) {
+            setPath(".cantidad", cantidad);
             this.cantidad = cantidad;
         }
         public int getCantidad() {
+            if(this.cantidad == null){
+                this.cantidad = (Integer) getPath(".cantidad");
+            }
             return this.cantidad;
         }
         public void setRestante(int restante){
+            setPath(".restante", restante);
             this.restante = restante;
         }
         public int getRestante(){
+            if(this.restante == null){
+                this.restante = (Integer) getPath(".restante");
+            }
             return this.restante;
         }
         public void addRestante(int n){
-            setRestante(getRestante()+n);
+            setRestante(getRestante()-n);
         }
         public void setDate(long date) {
+            setPath(".date", date);
             this.date = date;
         }
-        public long getDate() {
+        public long getDate(){
+            if(this.date == null){
+                this.date = (Long) getPath(".terminado");
+            }
             return this.date;
         }
         public void setTerminado(boolean i){
+            setPath(".terminado", i);
             this.terminado = i;
         }
         public boolean getTerminado(){
+            if(this.terminado == null){
+                this.terminado = (Boolean) getPath(".terminado");
+            }
             return this.terminado;
         }
     }
     protected class JobItem{
-        private int block;
+        private Integer block;
         private byte data;
+        private String path;
+        private Integer cuenta;
+        private Integer restante;
         public JobItem(int block, byte data) {
             setId(block);
             setData(data);

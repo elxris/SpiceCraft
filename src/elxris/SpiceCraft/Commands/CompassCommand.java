@@ -1,4 +1,4 @@
-package elxris.Useless.Commands;
+package elxris.SpiceCraft.Commands;
 
 import java.util.List;
 
@@ -10,10 +10,10 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
-import elxris.Useless.Useless;
-import elxris.Useless.Utils.Archivo;
-import elxris.Useless.Utils.Chat;
-import elxris.Useless.Utils.Strings;
+import elxris.SpiceCraft.SpiceCraft;
+import elxris.SpiceCraft.Utils.Archivo;
+import elxris.SpiceCraft.Utils.Chat;
+import elxris.SpiceCraft.Utils.Strings;
 
 public class CompassCommand extends Comando{
     // TODO Añadir la posibilidad de varios pins. Y accesibles a cualquiera.
@@ -69,7 +69,7 @@ public class CompassCommand extends Comando{
     private void localizaPin(Player jugador, String name){
         String path = "pin."+name+".loc";
         if(isPinSet(name)){
-            World world = Useless.plugin().getServer().getWorld(getCache().getString(path+".world"));
+            World world = SpiceCraft.plugin().getServer().getWorld(getCache().getString(path+".world"));
             int x = getCache().getInt(path+".x");
             int z = getCache().getInt(path+".z");
             jugador.setCompassTarget((Location) new Location(world, x, 0, z));

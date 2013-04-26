@@ -1,4 +1,4 @@
-package elxris.Useless.Commands;
+package elxris.SpiceCraft.Commands;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,9 +11,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BookMeta;
 
-import elxris.Useless.Utils.Archivo;
-import elxris.Useless.Utils.Econ;
-import elxris.Useless.Utils.Strings;
+import elxris.SpiceCraft.Utils.Archivo;
+import elxris.SpiceCraft.Utils.Econ;
+import elxris.SpiceCraft.Utils.Strings;
 
 public class LibCommand extends Comando{
     private Archivo file;

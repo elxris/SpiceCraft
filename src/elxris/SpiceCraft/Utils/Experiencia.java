@@ -1,4 +1,4 @@
-package elxris.Useless.Utils;
+package elxris.SpiceCraft.Utils;
 
 import org.bukkit.entity.Player;
 

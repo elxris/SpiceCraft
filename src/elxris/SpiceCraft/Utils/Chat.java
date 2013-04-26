@@ -1,10 +1,10 @@
-package elxris.Useless.Utils;
+package elxris.SpiceCraft.Utils;
 
 import java.util.List;
 
 import org.bukkit.entity.Player;
 
-import elxris.Useless.Useless;
+import elxris.SpiceCraft.SpiceCraft;
 
 public class Chat {
     private static void enviar(Player p, String mensaje, Object... i){
@@ -31,10 +31,10 @@ public class Chat {
         mensaje(p, Strings.getStringList(path), i);
     }
     public static void mensaje(String p, String m, Object... i){
-        if(Useless.getPlayer(p) == null){
+        if(SpiceCraft.getPlayer(p) == null){
             return;
         }
-        Player jugador = Useless.getPlayer(p);
+        Player jugador = SpiceCraft.getPlayer(p);
         if(Strings.getStringList(m) == null){
             enviar(jugador, m);
             return;

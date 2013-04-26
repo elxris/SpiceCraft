@@ -1,4 +1,4 @@
-package elxris.Useless.Objects;
+package elxris.SpiceCraft.Objects;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,10 +17,11 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.material.MaterialData;
-import elxris.Useless.Useless;
-import elxris.Useless.Utils.Archivo;
-import elxris.Useless.Utils.Chat;
-import elxris.Useless.Utils.Econ;
+
+import elxris.SpiceCraft.SpiceCraft;
+import elxris.SpiceCraft.Utils.Archivo;
+import elxris.SpiceCraft.Utils.Chat;
+import elxris.SpiceCraft.Utils.Econ;
 
 public class Factory extends Savable implements Listener {
     private static Archivo file;
@@ -34,25 +35,25 @@ public class Factory extends Savable implements Listener {
         init();
     }
     private void init() {
-        VEL = Useless.plugin().getConfig().getInt("shop.vel");
+        VEL = SpiceCraft.plugin().getConfig().getInt("shop.vel");
         if(VEL < 1){
             VEL = 1;
         }
-        FRECUENCY = Useless.plugin().getConfig().getLong("shop.freq");
+        FRECUENCY = SpiceCraft.plugin().getConfig().getLong("shop.freq");
         if(FRECUENCY < 1){
             FRECUENCY = 1;
         }
         FRECUENCY *= 60*1000;
-        STACKFULL = Useless.plugin().getConfig().getInt("shop.full");
+        STACKFULL = SpiceCraft.plugin().getConfig().getInt("shop.full");
         if(STACKFULL < 64){
             STACKFULL = 64;
         }
-        MULTIPLIER = Useless.plugin().getConfig().getDouble("shop.multiplier");
+        MULTIPLIER = SpiceCraft.plugin().getConfig().getDouble("shop.multiplier");
         if(MULTIPLIER < 0){
             MULTIPLIER = 1;
         }
-        SELLRATE = Useless.plugin().getConfig().getDouble("shop.sellRate");
-        VARIABLE = Useless.plugin().getConfig().getBoolean("shop.variable");
+        SELLRATE = SpiceCraft.plugin().getConfig().getDouble("shop.sellRate");
+        VARIABLE = SpiceCraft.plugin().getConfig().getBoolean("shop.variable");
     }
     private void update(String item){
         long time = getSystemTimeHour();
@@ -152,10 +153,10 @@ public class Factory extends Savable implements Listener {
         return getCache().getInt("item."+item+".data");
     }
     public boolean getUserBuy(String item){
-        return getCache().getBoolean("item."+item+".userBuy", Useless.plugin().getConfig().getBoolean("shop.defaultUserBuy"));
+        return getCache().getBoolean("item."+item+".userBuy", SpiceCraft.plugin().getConfig().getBoolean("shop.defaultUserBuy"));
     }
     public boolean getUserSell(String item){
-        return getCache().getBoolean("item."+item+".userSell", Useless.plugin().getConfig().getBoolean("shop.defaultUserSell"));
+        return getCache().getBoolean("item."+item+".userSell", SpiceCraft.plugin().getConfig().getBoolean("shop.defaultUserSell"));
     }
     private List<String> getDepends(String item){
         List<String> dependency = new ArrayList<String>();
@@ -173,7 +174,6 @@ public class Factory extends Savable implements Listener {
     }
     public String searchItem(String s){
         makePaths();
-        s = s.replace(':', '-');
         if(paths.isSet(s)){
             String res = paths.getString(s);
             update(res);
@@ -197,12 +197,13 @@ public class Factory extends Savable implements Listener {
             }
         }
         for(String s: items){// IDs
-            if(!paths.isSet(getCache().getInt("item."+s+".id")+"")){
-                if(haveData(s)){
-                    paths.set(getCache().getInt("item."+s+".id")+"-"+getCache().getInt("item."+s+".data"), s);
-                }else{
-                    paths.set(getCache().getInt("item."+s+".id")+"", s);
+            if(haveData(s)){
+                if(getData(s) == 0){
+                    paths.set(getId(s)+"", s);
                 }
+                paths.set(getId(s)+":"+getData(s), s);
+            }else{
+                paths.set(getId(s)+"", s);
             }
         }
     }

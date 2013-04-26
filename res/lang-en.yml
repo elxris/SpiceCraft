@@ -39,7 +39,7 @@ mbox:
   - §b[§cMBOX§b]§r §aHELP
   - §e/mbox . §rView the number of emails you have.
   - §e/mbox §cr§eead §rRead your Inbox.
-  - §e/mbox §cb§elear §rClear your inbox.
+  - §e/mbox §cc§elear §rClear your inbox.
   - §e/mbox §cs§eend <User> <Message> §rCommand to send a message quickly.
   - To create a longer email you first make a draft and then add the message and send it ultimately.
   - §e/mbox §cn§eew <User> <User2> ... §rCreate a draft to recipient or recipients. One minimum.
@@ -59,7 +59,7 @@ mbox:
   - §b[§cMBOX§b]§r §a### §cStart Inbox §a###
   readFinish:
   - §a### §cEnd Inbox §a###
-  - Escribe §e/mbox §cb§elear §r to clear your inbox.
+  - Escribe §e/mbox §cc§elear §r to clear your inbox.
   listEnd:
   - §b[§cMBOX§b]§r You dont have emails.
   deleted:

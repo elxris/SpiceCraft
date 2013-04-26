@@ -1,11 +1,11 @@
-package elxris.Useless;
+package elxris.SpiceCraft;
 
 import java.util.List;
 
 import org.bukkit.configuration.file.FileConfiguration;
 
-import elxris.Useless.Utils.Archivo;
-import elxris.Useless.Utils.Strings;
+import elxris.SpiceCraft.Utils.Archivo;
+import elxris.SpiceCraft.Utils.Strings;
 
 public class CheckConfiguration {
     private boolean changed = false;
@@ -53,8 +53,8 @@ public class CheckConfiguration {
             setPath(path, v);
         }
     }
-    private Useless p(){
-        return Useless.plugin();
+    private SpiceCraft p(){
+        return SpiceCraft.plugin();
     }
     private void isChanged(){
         if(!changed){
