@@ -128,7 +128,7 @@ public class Mail extends Savable{
             mensajeAnterior = draft.getString(jugador+".mensaje");
         }
         if(mensajeAnterior.length() > SpiceCraft.plugin().getConfig().getInt("mbox.maxChar")){
-            if(!SpiceCraft.getPlayer(jugador).hasPermission("useless.mail.noCharLimit")){
+            if(!SpiceCraft.getPlayer(jugador).hasPermission("spicecraft.mail.noCharLimit")){
                 Chat.mensaje(jugador, "mbox.limit");
                 return;
             }
@@ -175,7 +175,7 @@ public class Mail extends Savable{
         sendMensajeATodos(jugador, draft.getString(jugador+".mensaje"));
     }
     public void sendMensajeATodos(String jugador, String mensaje){
-        if(!jugador.contentEquals("Server") && !SpiceCraft.getPlayer(jugador).hasPermission("useless.mail.massive")){
+        if(!jugador.contentEquals("Server") && !SpiceCraft.getPlayer(jugador).hasPermission("spicecraft.mail.massive")){
             return;
         }
         List<String> destinatarios = new ArrayList<>();

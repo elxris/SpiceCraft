@@ -23,7 +23,7 @@ public class MailBoxCommand extends Comando{
         }else{
             return true;
         }
-        if(!jugador.hasPermission("useless.mail")){
+        if(!jugador.hasPermission("spicecraft.mail")){
             mensaje(jugador, "alert.permission");
             return true;
         }
@@ -43,7 +43,7 @@ public class MailBoxCommand extends Comando{
             mensaje(jugador, "mbox.deleted");
         }
         // COMANDOS PARA CREAR CORREOS.
-        if(!jugador.hasPermission("useless.mail.create")){
+        if(!jugador.hasPermission("spicecraft.mail.create")){
             mail.interpreta();
             return true;
         }

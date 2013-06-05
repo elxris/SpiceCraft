@@ -101,7 +101,7 @@ public class Jobs extends Savable{
                 // TODO Recolectar los objetos, y el dinero que resta.
                 destroyJob();
                 return true;
-            }else if(p.hasPermission("useless.jobs.master")){
+            }else if(p.hasPermission("spicecraft.jobs.master")){
                 destroyJob();
                 return true;
             }

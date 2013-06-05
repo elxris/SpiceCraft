@@ -32,7 +32,7 @@ public class LibCommand extends Comando{
         }else{
             return true;
         }
-        if(!jugador.hasPermission("useless.lib")){
+        if(!jugador.hasPermission("spicecraft.lib")){
             mensaje(jugador, "alert.permission");
             return true;
         }
@@ -97,7 +97,7 @@ public class LibCommand extends Comando{
         // Comprar, Info, Vender, Borrar
         if(args.length == 2){
             if(isCommand("comm.lib.buy", args[0])){
-                if(!jugador.hasPermission("useless.lib.buy")){
+                if(!jugador.hasPermission("spicecraft.lib.buy")){
                     mensaje(jugador, "alert.permission");
                     return true;
                 }
@@ -134,7 +134,7 @@ public class LibCommand extends Comando{
                         getEcon().getPrecio(getCache().getDouble("libro."+args[1]+".cost")),
                         getCache().getInt("libro."+args[1]+".count"));
             }else if(isCommand("comm.lib.sell", args[0])){
-                if(!jugador.hasPermission("useless.lib.sell")){
+                if(!jugador.hasPermission("spicecraft.lib.sell")){
                     mensaje(jugador, "alert.permission");
                     return true;
                 }
@@ -180,7 +180,7 @@ public class LibCommand extends Comando{
                 }
                 // Si no es el autor del libro.
                 if(!getCache().getString("libro."+args[1]+".autor").contentEquals(jugador.getName())
-                        && !jugador.hasPermission("useless.lib.master")){
+                        && !jugador.hasPermission("spicecraft.lib.master")){
                     mensaje(jugador, "lib.wrongAuthor");                        
                     return true;
                 }

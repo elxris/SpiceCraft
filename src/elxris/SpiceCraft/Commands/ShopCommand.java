@@ -27,7 +27,7 @@ public class ShopCommand extends Comando implements TabCompleter{
         }else{
             return true;
         }
-        if(!p.hasPermission("useless.shop")){
+        if(!p.hasPermission("spicecraft.shop")){
             mensaje(p, "alert.permission");
             return true;
         }

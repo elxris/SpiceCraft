@@ -32,7 +32,7 @@ public class CompassCommand extends Comando{
         }else{
             return true;
         }
-        if(!jugador.hasPermission("useless.upin")){
+        if(!jugador.hasPermission("spicecraft.upin")){
             mensaje(jugador, "alert.permission");
             return true;
         }
@@ -145,7 +145,7 @@ public class CompassCommand extends Comando{
         if((int)getValue("upin.maxPerUser") == 0){
             return true;
         }
-        if(jugador.hasPermission("useless.upin.noLimit")){
+        if(jugador.hasPermission("spicecraft.upin.noLimit")){
             return true;
         }
         String path = "users."+jugador.getName();

@@ -109,8 +109,11 @@ public class Factory extends Savable implements Listener {
     }
     public void addCount(String item, int count){
         setCount(item, getCount(item)+count);
+    }
+    public void addCountRecursive(String item, int count){
+        addCount(item, count);
         for(String s: getDepends(item)){
-            setCount(s, getCount(s)+count);
+            addCount(s, count);
         }
     }
     public void setVel(String item, int vel){
@@ -160,13 +163,14 @@ public class Factory extends Savable implements Listener {
     }
     private List<String> getDepends(String item){
         List<String> dependency = new ArrayList<String>();
+        update(item);
         if(!getCache().isSet("item."+item+".depend")){
             dependency.add(item);
             return dependency;
         }
         ConfigurationSection memory = getCache().getConfigurationSection("item."+item+".depend");
         for(String s: memory.getKeys(false)){
-            for(int i = memory.getInt(s); i > 0; i--){
+            for(int i = memory.getInt(s); i > 0; i--){ // Numero de dependencia para los objetos.
                 dependency.addAll(getDepends(s));
             }
         }
@@ -176,7 +180,6 @@ public class Factory extends Savable implements Listener {
         makePaths();
         if(paths.isSet(s)){
             String res = paths.getString(s);
-            update(res);
             return res;
         }
         return null;
@@ -263,7 +266,7 @@ public class Factory extends Savable implements Listener {
             Chat.mensaje(p, "shop.notExist");
             return false;
         }
-        if(!(p.hasPermission("useless.shop.master")&&(getUserBuy(item)))){
+        if(!(p.hasPermission("spicecraft.shop.master")&&(getUserBuy(item)))){
             Chat.mensaje(p, "shop.cantBuy");
             return false;
         }
@@ -273,7 +276,7 @@ public class Factory extends Savable implements Listener {
             return false;
         }
         addItemsToInventory(p, createItems(p, item_real, cantidad));
-        addCount(item_real, -cantidad);
+        addCountRecursive(item_real, -cantidad);
         return true;
     }
     private void addItemsToInventory(Player p, List<ItemStack> items){ // Añade el item al inventario del jugador.
@@ -354,12 +357,12 @@ public class Factory extends Savable implements Listener {
                     addItemToInventory(p, item);
                     continue;
                 }
-                if(!(p.hasPermission("useless.shop.master")&&(getUserSell(name)))){
+                if(!(p.hasPermission("spicecraft.shop.master")&&(getUserSell(name)))){
                     Chat.mensaje(p, "shop.cantSell");
                     addItemToInventory(p, item);
                     continue;
                 }
-                addCount(name, item.getAmount());
+                addCountRecursive(name, item.getAmount());
                 money += getPrecio(name, item.getAmount());
             }
             new Econ().pagar(p, money*SELLRATE);

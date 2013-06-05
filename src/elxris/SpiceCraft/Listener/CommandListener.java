@@ -30,7 +30,7 @@ public class CommandListener implements Listener{
     @EventHandler
     public void onCommand(PlayerCommandPreprocessEvent event){
         if(event.getPlayer() != null){
-            if(event.getPlayer().hasPermission("useless.cmd")){
+            if(event.getPlayer().hasPermission("spicecraft.cmd")){
                 if(getCommand(event.getPlayer(), event.getMessage())){
                     event.setCancelled(true);
                 }
@@ -45,8 +45,8 @@ public class CommandListener implements Listener{
         if(s[0].contains("/root")){
             return false;
         }
-        if(s[0].contains("/uselessreload")){
-            if(p.hasPermission("useless.cmd.reload")){
+        if(s[0].contains("/spicecraftreload")){
+            if(p.hasPermission("spicecraft.cmd.reload")){
                 SpiceCraft.reload();
                 reload();
                 Chat.mensaje((Player) p, "cmd.reload");

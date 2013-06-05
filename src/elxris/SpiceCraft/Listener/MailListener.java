@@ -22,7 +22,7 @@ public class MailListener implements Listener{
         if(!ONLOGIN){
             return;
         }
-        if(event.getPlayer().hasPermission("useless.mail")){
+        if(event.getPlayer().hasPermission("spicecraft.mail")){
             new MailDelay(event.getPlayer(), ONLOGINDELAY, getMail());
         }
     }

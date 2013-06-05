@@ -1,4 +1,4 @@
-name: Useless
+name: SpiceCraft
 version: 0.8.8
 main: elxris.SpiceCraft.SpiceCraft
 author: elxris
@@ -6,59 +6,59 @@ website: http://dev.bukkit.org/server-mods/useless/
 loadbefore: [Vault]
 commands:
   tw:
-    permission: useless.tw
+    permission: spicecraft.tw
   mbox:
-    permission: useless.mail
+    permission: spicecraft.mail
   upin:
-    permission: useless.upin
+    permission: spicecraft.upin
   lib:
-    permission: useless.lib
+    permission: spicecraft.lib
   shop:
-    permission: useless.shop
+    permission: spicecraft.shop
   cmd:
-    permission: useless.cmd
+    permission: spicecraft.cmd
   jbs:
-    permission: useless.jobs
+    permission: spicecraft.jobs
 permissions:
-  useless.tw:
+  spicecraft.tw:
     default: true
-  useless.tw.noMaxTime:
+  spicecraft.tw.noMaxTime:
     default: op
-  useless.tw.noWarpLimit:
+  spicecraft.tw.noWarpLimit:
     default: op
-  useless.tw.master:
+  spicecraft.tw.master:
     default: op
-  useless.mail:
+  spicecraft.mail:
     default: true
-  useless.mail.create:
+  spicecraft.mail.create:
     default: true
-  useless.mail.massive:
+  spicecraft.mail.massive:
     default: op
-  useless.mail.noCharLimit:
+  spicecraft.mail.noCharLimit:
     default: op
-  useless.upin:
+  spicecraft.upin:
     default: true
-  useless.upin.noLimit:
+  spicecraft.upin.noLimit:
     default: op
-  useless.cmd:
+  spicecraft.cmd:
     default: true
-  useless.cmd.reload:
+  spicecraft.cmd.reload:
     default: op
-  useless.lib:
+  spicecraft.lib:
     default: true
-  useless.lib.master:
+  spicecraft.lib.master:
     default: op
-  useless.lib.buy:
+  spicecraft.lib.buy:
     default: true
-  useless.lib.sell:
+  spicecraft.lib.sell:
     default: true
-  useless.shop:
+  spicecraft.shop:
     default: true
-  useless.shop.master:
+  spicecraft.shop.master:
     default: op
-  useless.jobs:
+  spicecraft.jobs:
     default: true
-  useless.jobs.master:
+  spicecraft.jobs.master:
     default: true
-  useless.mob:
+  spicecraft.mob:
     default: true

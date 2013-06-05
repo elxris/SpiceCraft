@@ -29,7 +29,7 @@ public class WarpCommand extends Comando{
         }else{
             return true;
         }
-        if(!jugador.hasPermission("useless.tw")){
+        if(!jugador.hasPermission("spicecraft.tw")){
             mensaje(jugador, "alert.permission");
             return true;
         }
@@ -132,7 +132,7 @@ public class WarpCommand extends Comando{
         int minutos = Integer.parseInt(tiempo);
         //Si está fuera de rango.
         if(!(minutos >= (int)getValue("tw.minTime") && minutos <= (int)getValue("tw.maxTime"))){
-            if(!jugador.hasPermission("useless.tw.noMaxTime")){
+            if(!jugador.hasPermission("spicecraft.tw.noMaxTime")){
                 mensaje(jugador, "tw.timeLimit", (int)getValue("tw.minTime"), (int)getValue("tw.maxTime"));
                 return;                
             }
@@ -143,7 +143,7 @@ public class WarpCommand extends Comando{
         }
         // Si excede a los máximos por usuario.
         if((int)getValue("tw.maxPerUser") <= cache.getInt("user."+getPlayerName(jugador))){
-            if(!jugador.hasPermission("useless.tw.noWarpLimit")){
+            if(!jugador.hasPermission("spicecraft.tw.noWarpLimit")){
                 mensaje(jugador, "tw.warpLimit");
                 return;                
             }
@@ -159,7 +159,7 @@ public class WarpCommand extends Comando{
     private void borrarWarp(Player jugador, String path){
         if(cache.isSet(path)){
             if(cache.getString(path+".owner").contentEquals(jugador.getName())
-                    || jugador.hasPermission("useless.tw.master")){
+                    || jugador.hasPermission("spicecraft.tw.master")){
                 cache.set(path, null);
                 cache.set("user."+jugador.getName(), cache.getInt("user."+jugador.getName())-1);
                 Chat.mensaje(jugador, "tw.destroyed");
