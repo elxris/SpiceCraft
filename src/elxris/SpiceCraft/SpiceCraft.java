@@ -4,14 +4,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import elxris.SpiceCraft.Commands.CompassCommand;
-import elxris.SpiceCraft.Commands.JobsCommand;
 import elxris.SpiceCraft.Commands.LibCommand;
 import elxris.SpiceCraft.Commands.MailBoxCommand;
 import elxris.SpiceCraft.Commands.ShopCommand;
 import elxris.SpiceCraft.Commands.WarpCommand;
 import elxris.SpiceCraft.Listener.CommandListener;
 import elxris.SpiceCraft.Listener.CompassListener;
-import elxris.SpiceCraft.Listener.JobsListener;
 import elxris.SpiceCraft.Listener.MailListener;
 import elxris.SpiceCraft.Objects.Mail;
  
@@ -41,9 +39,6 @@ public class SpiceCraft extends JavaPlugin {
         ShopCommand shop = new ShopCommand();
         getCommand("shop").setExecutor(shop);
         getCommand("shop").setTabCompleter(shop);
-        //Jobs Listener
-        this.getServer().getPluginManager().registerEvents(new JobsListener(), this);
-        getCommand("jbs").setExecutor(new JobsCommand());
     }
     public static void log(String m){
         plugin.getLogger().info(m);

@@ -146,7 +146,7 @@ lib:
   noPay:
   - §b[§cLIB§b]§r You have no remuneration.
   list:
-  - '§b[§cLIB§b]§r §a### §cBooklist §a###'
+  - '§b[§cLIB§b]§r §a### §cBooklist <%d/%d> §a###'
   itemMe:
   - '§d[%d] ::%s:: <%s>{%s}'
   item:

@@ -42,7 +42,7 @@ mbox:
   - §e/mbox §cb§eorrar §rBorrar la bandeja de entrada.
   - §e/mbox §ce§enviar <Usuario> <Mensaje> §rComando rápido para enviar un mensaje.
   - Para crear un correo más largo debes primero hacer un borrador para después agregar el mensaje y al final enviarlo.
-  - §e/mbox §cn§eevo <Usuario> <Usuario2> ... §rCrea un borrador con destinatario o destinatarios. Uno mínimo.
+  - §e/mbox §cn§euevo <Usuario> <Usuario2> ... §rCrea un borrador con destinatario o destinatarios. Uno mínimo.
   - §e/mbox §ca§egregar <Mensaje> §rAgrega el mensaje a el borrador.
   - §e/mbox §ce§enviar §rYa que tienes listo el borrador, este comando lo envía.
   - §e/mbox a§ct§eodos§r (Solo Admins) Envía el borrador a todos los usuarios.
@@ -146,7 +146,7 @@ lib:
   noPay:
   - §b[§cLIB§b]§r No tienes retribuciones.
   list:
-  - '§b[§cLIB§b]§r §a### §cLista de libros §a###'
+  - '§b[§cLIB§b]§r §a### §cLista de libros <%d/%d> §a###'
   itemMe:
   - '§d[%d] ::%s:: <%s>{%s}'
   item:

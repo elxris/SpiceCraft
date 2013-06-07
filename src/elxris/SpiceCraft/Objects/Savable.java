@@ -3,7 +3,7 @@ package elxris.SpiceCraft.Objects;
 public abstract class Savable implements Runnable{
     private boolean save = false;
     public void save(){
-        if(!save){
+        if(!getSave()){
             setSave(true);
             new Thread(this).start();
         }

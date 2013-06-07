@@ -43,18 +43,7 @@ public class LibCommand extends Comando{
         // Listar, Top, paga.
         if(args.length == 1){
             if(isCommand("comm.lib.list", args[0])){
-                List<String> lista = new ArrayList<String>();
-                List<String> listaYo = Strings.getStringList("lib.list");
-                for(String libro: getCache().getConfigurationSection("libro").getKeys(false)){
-                    int k = Integer.parseInt(libro);
-                    if(isMyBook(jugador, k)){
-                        listaYo.add(itemMe(k));
-                    }else{
-                        lista.add(item(k));
-                    }
-                }
-                listaYo.addAll(lista);
-                mensaje(jugador, listaYo);
+                listarLibros(jugador, 1);
             }else if(isCommand("comm.lib.top", args[0])){
                 if(!getCache().isSet("top")){
                     top();
@@ -187,6 +176,12 @@ public class LibCommand extends Comando{
                 getCache().set("libro."+args[1], null);
                 mensaje(jugador, "lib.del");
                 save();
+            }else if(isCommand("comm.lib.list", args[0])){
+                if(isInteger(args[1])){
+                    listarLibros(jugador, Integer.parseInt(args[1]));                    
+                }else{
+                    listarLibros(jugador, 1);
+                }
             }
         } // Fin if
         return true;
@@ -216,6 +211,9 @@ public class LibCommand extends Comando{
         return false;
     }
     private void top(){
+        if(!getCache().isSet("libro")){
+            return;
+        }
         String[] libros = getCache().getConfigurationSection("libro").getKeys(false).toArray(new String[0]);
         if(libros.length < 1){
             return;
@@ -273,7 +271,7 @@ public class LibCommand extends Comando{
     private boolean sellBook(BookMeta book, double price){
         int id = 0;
         for(boolean n = false; !n;){
-            id = new Random().nextInt(1000);
+            id = new Random().nextInt(10000);
             if(!hasBook(id)){
                 n = true;
             }
@@ -315,6 +313,9 @@ public class LibCommand extends Comando{
         return hasBook(Integer.parseInt(id));
     }
     private boolean isRepeated(BookMeta book){
+        if (!getCache().isSet("libro")) {
+            return false;
+        }
         for(String k: getCache().getConfigurationSection("libro").getKeys(false)){
             if(getBookMeta(k).getPages().toString().contentEquals(book.getPages().toString())){
                 return true;
@@ -322,9 +323,51 @@ public class LibCommand extends Comando{
         }
         return false;
     }
+    private List<String> invertList(List<String> original){
+        List<String> nueva = new ArrayList<String>();
+        for(int i = original.size()-1; i >= 0; i--){
+            nueva.add(original.get(i));
+        }
+        return nueva;
+    }
+    private void listarLibros(Player p, int pagina){
+        List<String> lista = new ArrayList<String>();
+        List<String> listaYo = new ArrayList<String>();
+        if(getCache().isSet("libro")){
+            for(String libro: getCache().getConfigurationSection("libro").getKeys(false)){
+                int k = Integer.parseInt(libro);
+                if(isMyBook(p, k)){
+                    listaYo.add(itemMe(k));
+                }else{
+                    lista.add(item(k));
+                }
+            }
+            listaYo = invertList(listaYo);
+            lista = invertList(lista);
+            listaYo.addAll(lista);
+        }
+        mensaje(p, paginarLista(listaYo, pagina));
+    }
+    private List<String> paginarLista(List<String> libros, int pagina){
+        List<String> nueva = new ArrayList<String>();
+        int size = libros.size()-1;
+        int max = ((size)+(8-(size)%8))/8;
+        size++;
+        if(pagina > max){
+            pagina = max;
+        }
+        nueva.add(String.format(Strings.getString("lib.list"), pagina, max));
+        for(int i = 8*(pagina-1);i < 8*pagina && i <= size-1;i++){
+            nueva.add(libros.get(i));
+        }
+        return nueva;
+    }
     // Getters
     private void setFile(Archivo file) {
         this.file = file;
+        if (!file.exist()) {
+            Archivo.blankFile(file.getName());
+        }
     }
     private Archivo getFile() {
         return file;
@@ -335,6 +378,9 @@ public class LibCommand extends Comando{
     private FileConfiguration getCache() {
         if(cache == null){
             load();
+        }
+        if(!cache.contains("libro")) {
+            cache.set("libro", null);
         }
         return cache;
     }

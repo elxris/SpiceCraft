@@ -5,7 +5,8 @@ tw:
   maxTime: 120
   minTime: 1
   maxPerUser: 2
-  price: 10.0
+  price: 20.0
+  usePrice: 5.0
 mail:
   maxChar: 200
   onLogin: true
@@ -24,10 +25,6 @@ shop:
   variable: true
   defaultUserSell: true
   defaultUserBuy: true
-jobs:
-  itemBreak: false
-  ## Max time in hours of a job (default 7 days).
-  maxTime: 168
 comm:
   tw:
     new:

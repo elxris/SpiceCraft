@@ -21,7 +21,7 @@ public class Archivo {
         setName(nombre);
         setFile();
     }
-    private String getName(){
+    public String getName(){
         return name;
     }
     private void setName(String nombre){
