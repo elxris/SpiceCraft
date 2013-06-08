@@ -20,7 +20,7 @@ shop:
   sellRate: 0.6
   full: 4096
   vel: 8
-  freq: 60
+  freq: 30
   multiplier: 1.0
   variable: true
   defaultUserSell: true

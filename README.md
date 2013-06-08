@@ -1,1 +1,1 @@
-Click on Wiki for the documentation.
+Click on Wiki for documentation.
