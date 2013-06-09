@@ -115,10 +115,10 @@ lib:
   - §b[§cLIB§b]§r §aHELP
   - §e/lib buy <id>§r Buy the book.
   - §e/lib §ci§enfo <id>§r Displays information about the book.
-  - §e/lib §cl§eist§r Muestra una lista de los libros disponibles.
-  - §e/lib §ct§eop§r Muestra una lista de los 3 libros más vendidos.
-  - §e/lib §cs§eell <precio>§r Vende el libro que tienes en mano.
-  - §e/lib §cd§eel <id>§r Deletes the book.
+  - §e/lib §cl§eist [page]§r Show a list of books.
+  - §e/lib §ct§eop§r Displays the best sellers.
+  - §e/lib §cs§eell <precio>§r Send the book that you have in hand.
+  - §e/lib §cd§eel <id>§r If the book is yors, delete the book.
   - §e/lib §cp§eay§r Collect the remuneration.
   sell:
   - §b[§cLIB§b]§r You sold a book.

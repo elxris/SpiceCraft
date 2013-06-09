@@ -115,7 +115,7 @@ lib:
   - §b[§cLIB§b]§r §aAYUDA
   - §e/lib §cc§eomprar <id>§r Compra el libro indicado.
   - §e/lib §ci§enfo <id>§r Muestra la información del libro indicado.
-  - §e/lib §cl§eistar§r Muestra una lista de los libros disponibles.
+  - §e/lib §cl§eistar [página]§r Muestra una lista de los libros disponibles.
   - §e/lib §ct§eop§r Muestra una lista de los 3 libros más vendidos.
   - §e/lib §cv§eender <precio>§r Vende el libro que tienes en mano.
   - §e/lib §cb§eorrar <id>§r Borra el libro indicado
