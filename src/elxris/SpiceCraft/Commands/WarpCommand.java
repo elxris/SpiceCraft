@@ -90,8 +90,13 @@ public class WarpCommand extends Comando{
         return true;
     }
     private void teleport(Player jugador, String path){
-        jugador.teleport((Location)cache.get(getPath(path, jugador)));
-        mensaje(jugador, "tw.teleported");
+        double precio = (double)getValue("tw.usePrice");
+        if(!econ.cobrar(jugador, precio)){
+            mensaje(jugador, "tw.noMoney");
+        }else{
+            jugador.teleport((Location)cache.get(getPath(path, jugador)));
+            mensaje(jugador, "tw.teleported");
+        }
     }
     private String getPath(String path, Player jugador) {
         return String.format(path, getPlayerName(jugador));
