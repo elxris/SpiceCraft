@@ -56,9 +56,4 @@ permissions:
     default: true
   spicecraft.shop.master:
     default: op
-  spicecraft.jobs:
-    default: true
-  spicecraft.jobs.master:
-    default: true
-  spicecraft.mob:
-    default: true
+

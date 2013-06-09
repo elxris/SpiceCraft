@@ -266,7 +266,7 @@ public class Factory extends Savable implements Listener {
             Chat.mensaje(p, "shop.notExist");
             return false;
         }
-        if(!(p.hasPermission("spicecraft.shop.master")&&(getUserBuy(item)))){
+        if(!(p.hasPermission("spicecraft.shop.master")||(getUserBuy(item)))){
             Chat.mensaje(p, "shop.cantBuy");
             return false;
         }
@@ -357,7 +357,7 @@ public class Factory extends Savable implements Listener {
                     addItemToInventory(p, item);
                     continue;
                 }
-                if(!(p.hasPermission("spicecraft.shop.master")&&(getUserSell(name)))){
+                if(!(p.hasPermission("spicecraft.shop.master")||(getUserSell(name)))){
                     Chat.mensaje(p, "shop.cantSell");
                     addItemToInventory(p, item);
                     continue;
