@@ -1841,8 +1841,6 @@ item:
       Ice: 1
       NetherWart: 1
     data: 16
-    alias:
-    - Potion
   PotionRegeneration:
     id: 373
     price: 0
@@ -2088,3 +2086,324 @@ item:
       PotionHarming: 1
       GlowstoneDust: 1
     data: 8236
+  ## Tools and Armor
+  IronShovel:
+    id: 256
+    price: 0
+    depend:
+      Stick: 2
+      IronBars: 1
+    alias:
+    - PalaDeHierro
+  IronPickaxe:
+    id: 257
+    price: 0
+    depend:
+      Stick: 2
+      IronBars: 3
+    alias:
+    - PicoDeHierro
+  IronAxe:
+    id: 258
+    price: 0
+    depend:
+      Stick: 2
+      IronBars: 3
+    alias:
+    - HachaDeHierro
+  Bow:
+    id: 261
+    price: 0
+    depend:
+      Stick: 3
+      String: 3
+    alias:
+    - Arco
+  IronSword:
+    id: 267
+    price: 0
+    depend:
+      Stick: 1
+      IronBars: 2
+    alias:
+    - EspadaDeHierro
+  WoodenSword:
+    id: 268
+    price: 0
+    depend:
+      Stick: 1
+      OakPlank: 2
+    alias:
+    - EspadaDeMadera
+  WoodenShovel:
+    id: 269
+    price: 0
+    depend:
+      Stick: 2
+      OakPlank: 1
+    alias:
+    - PalaDeMadera
+  WoodenPickaxe:
+    id: 270
+    price: 0
+    depend:
+      Stick: 2
+      OakPlank: 3
+    alias:
+    - PicodeMadera
+  WoodenAxe:
+    id: 271
+    price: 0
+    depend:
+      Stick: 2
+      OakPlank: 3
+    alias:
+    - HachaDeMadera
+  StoneSword:
+    id: 272
+    price: 0
+    depend:
+      Stick: 1
+      Stone: 2
+    alias:
+    - EspadaDePiedra
+  StoneShovel:
+    id: 273
+    price: 0
+    depend:
+      Stick: 2
+      Stone: 1
+    alias:
+    - PalaDePiedra
+  StonePickaxe:
+    id: 274
+    price: 0
+    depend:
+      Stick: 2
+      Stone: 3
+    alias:
+    - PicoDePiedra
+  StoneAxe:
+    id: 275
+    price: 0
+    depend:
+      Stick: 2
+      Stone: 3
+    alias:
+    - HachaDePiedra
+  DiamondSword:
+    id: 276
+    price: 0
+    depend:
+      Stick: 1
+      Diamond: 2
+    alias:
+    - EspadaDeDiamante
+  DiamondShovel:
+    id: 277
+    price: 0
+    depend:
+      Stick: 2
+      Diamond: 1
+    alias:
+    - PalaDeDiamante
+  DiamondPickaxe:
+    id: 278
+    price: 0
+    depend:
+      Stick: 2
+      Diamond: 3
+    alias:
+    - PicoDeDiamante
+  DiamondAxe:
+    id: 279
+    price: 0
+    depend:
+      Stick: 2
+      Diamond: 3
+    alias:
+    - HachaDeDiamante
+  GoldenSword:
+    id: 283
+    price: 0
+    depend:
+      Stick: 1
+      Gold: 2
+    alias:
+    - EspadaDeOro
+  GoldenShovel:
+    id: 284
+    price: 0
+    depend:
+      Stick: 2
+      Gold: 2
+    alias:
+    - PalaDeOro
+  GoldenPickaxe:
+    id: 285
+    price: 0
+    depend:
+      Stick: 2
+      Gold: 3
+    alias:
+    - PicoDeOro
+  GoldenAxe:
+    id: 286
+    price: 0
+    depend:
+      Stick: 2
+      Gold: 3
+    alias:
+    - HachaDeOro
+  WoodenHoe:
+    id: 290
+    price: 0
+    depend:
+      Stick: 2
+      OakPlank: 2
+    alias:
+    - AzadonDeMadera
+  StoneHoe:
+    id: 291
+    price: 0
+    depend:
+      Stick: 2
+      Stone: 2
+    alias:
+    - AzadonDePiedra
+  IronHoe:
+    id: 292
+    price: 0
+    depend:
+      Stick: 2
+      IronBars: 2
+    alias:
+    - AzadonDeHierro
+  DiamondHoe:
+    id: 293
+    price: 0
+    depend:
+      Stick: 2
+      Diamond: 2
+    alias:
+    - AzadonDeDiamante
+  GoldenHoe:
+    id: 294
+    price: 0
+    depend:
+      Stick: 2
+      Gold: 2
+    alias:
+    - AzadonDeOro
+  LeatherCap:
+    id: 298
+    price: 0
+    depend:
+      Leather: 5
+    alias:
+    - CascoDeCuero
+  LeatherTunic:
+    id: 299
+    price: 0
+    depend:
+      Leather: 8
+    alias:
+    - PetoDeCuero
+  LeatherPants:
+    id: 300
+    price: 0
+    depend:
+      Leather: 7
+    alias:
+    - PantalonesDeCuero
+  LeatherBoots:
+    id: 301
+    price: 0
+    depend:
+      Leather: 4
+    alias:
+    - BotasDeCuero
+  IronHelmet:
+    id: 306
+    price: 0
+    depend:
+      IronBars: 5
+    alias:
+    - CascoDeHierro
+  IronChestplate:
+    id: 307
+    price: 0
+    depend:
+      IronBars: 8
+    alias:
+    - PetoDeHierro
+  IronLeggins:
+    id: 308
+    price: 0
+    depend:
+      IronBars: 7
+    alias:
+    - PantalonesDeHierro
+  IronBoots:
+    id: 309
+    price: 0
+    depend:
+      IronBars: 4
+    alias:
+    - BotasDeHierro
+  DiamondHelmet:
+    id: 310
+    price: 0
+    depend:
+      Diamond: 5
+    alias:
+    - CascoDeDiamante
+  DiamondChestplate:
+    id: 311
+    price: 0
+    depend:
+      Diamond: 8
+    alias:
+    - PetoDeDiamante
+  DiamondLeggings:
+    id: 312
+    price: 0
+    depend:
+      Diamond: 7
+    alias:
+    - PantalonesDeDiamante
+  DiamondBoots:
+    id: 313
+    price: 0
+    depend:
+      Gold: 4
+    alias:
+    - BotasDeDiamante
+  GoldenHelmet:
+    id: 314
+    price: 0
+    depend:
+      Gold: 5
+    alias:
+    - CascoDeOro
+  GoldenChestplate:
+    id: 315
+    price: 0
+    depend:
+      Gold: 8
+    alias:
+    - PetoDeOro
+  GoldenLeggings:
+    id: 316
+    price: 0
+    depend:
+      Gold: 7
+    alias:
+    - PantalonesDeOro
+  GoldenBoots:
+    id: 317
+    price: 0
+    depend:
+      Gold: 4
+    alias:
+    - BotasDeOro

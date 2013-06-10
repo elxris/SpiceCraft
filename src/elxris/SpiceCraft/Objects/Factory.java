@@ -305,7 +305,7 @@ public class Factory extends Savable implements Listener {
         }
         item = n;
         for(String s: paths.getKeys(false)){
-            if(items.size() == 20){
+            if(items.size() == 19){
                 break;
             }
             if(s.matches("^"+item+"$")){
@@ -344,9 +344,13 @@ public class Factory extends Savable implements Listener {
                 if(item == null){
                     continue;
                 }
+                double maxDurab = item.getType().getMaxDurability();
+                double durab = maxDurab - item.getDurability();
                 String id = ""+item.getTypeId();
                 if(item.getData().getData() > 0){
-                    id += ":"+item.getData().getData();
+                    if(maxDurab == durab){
+                        id += ":"+item.getData().getData();
+                    }
                 }
                 String name = searchItem(id);
                 if(name == null){
@@ -363,7 +367,11 @@ public class Factory extends Savable implements Listener {
                     continue;
                 }
                 addCountRecursive(name, item.getAmount());
-                money += getPrecio(name, item.getAmount());
+                if(item.getType().getMaxDurability() != item.getDurability()){
+                    money += getPrecio(name, item.getAmount())*(durab/maxDurab);
+                }else{
+                    money += getPrecio(name, item.getAmount());
+                }
             }
             new Econ().pagar(p, money*SELLRATE);
         }
