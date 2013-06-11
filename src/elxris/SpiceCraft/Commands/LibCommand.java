@@ -223,8 +223,8 @@ public class LibCommand extends Comando{
             compras[i] = getCount(Integer.parseInt(libros[i]));
         }
         
-        List<Integer> ordered = new ArrayList<>();
-        List<Object> result = new ArrayList<>();
+        List<Integer> ordered = new ArrayList<Integer>();
+        List<Object> result = new ArrayList<Object>();
         int n = 0;
         for(int e: compras){
             int i;

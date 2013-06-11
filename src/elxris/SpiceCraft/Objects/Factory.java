@@ -305,7 +305,7 @@ public class Factory extends Savable implements Listener {
         }
         item = n;
         for(String s: paths.getKeys(false)){
-            if(items.size() == 19){
+            if(items.size() == 18){
                 break;
             }
             if(s.matches("^"+item+"$")){

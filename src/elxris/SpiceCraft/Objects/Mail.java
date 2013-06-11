@@ -178,7 +178,7 @@ public class Mail extends Savable{
         if(!jugador.contentEquals("Server") && !SpiceCraft.getPlayer(jugador).hasPermission("spicecraft.mail.massive")){
             return;
         }
-        List<String> destinatarios = new ArrayList<>();
+        List<String> destinatarios = new ArrayList<String>();
         for(OfflinePlayer p: SpiceCraft.plugin().getServer().getOfflinePlayers()){
             destinatarios.add(p.getName());
         }

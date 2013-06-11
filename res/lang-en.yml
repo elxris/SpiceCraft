@@ -191,6 +191,8 @@ shop:
   - §b[§cSHOP§b]§r §cThis item can not be purchased.
   cantSell:
   - §b[§cSHOP§b]§r §cThis item can not be sold.
+  andMore:
+  - ... and more, but you should make a more specific search.
 cmd:
   reload:
   - Reload commands and configurations, complete!
