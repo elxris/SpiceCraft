@@ -196,13 +196,11 @@ shop:
 cmd:
   reload:
   - Reload de comandos y configuraciones completo!
-jobs:
-  jobsList:
-  - §b[§cJOBS§b]§r Trabajos disponibles:
-  jobFormat:
-  - ' %s '
-  noJobs:
-  - §b[§cJOBS§b]§r §cNo tienes trabajos.
+mobs:
+  notEnough:
+  - §b[§cMOBS§b]§r §cNo tienes los suficientes objetos para realizar el cambio.
+  noMoney:
+  - '§b[§cMOBS§b]§r §cNo tienes suficiente dinero para cambiar tus objetos. D:'
 alert:
   notsaved:
   - 'Error, no se ha podido guardar: '

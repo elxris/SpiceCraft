@@ -16,6 +16,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionType;
 
 import elxris.SpiceCraft.Utils.Archivo;
+import elxris.SpiceCraft.Utils.Chat;
 import elxris.SpiceCraft.Utils.Econ;
 
 public class MonsterListener implements Listener {
@@ -43,6 +44,7 @@ public class MonsterListener implements Listener {
                 return true;
             }else{
                 // Mensaje de que no son suficientes.
+                Chat.mensaje(p, "mobs.notEnough");
             }
         }
         return false;
@@ -53,12 +55,21 @@ public class MonsterListener implements Listener {
     public int getAmountOut(Entity e, Player p){
         return getCache().getInt(getPath(e, p)+".amountOUT");
     }
+    public boolean isData(Entity e, Player p){
+        return (getCache().isSet(getPath(e, p)+".data") && getCache().isInt(getPath(e, p)+".data"));
+    }
+    public short getData(Entity e, Player p){
+        return (short)getCache().getInt(getPath(e, p)+".data");
+    }
     public String getPath(Entity e, Player p){
         return "mobs."+e.getType().getName()+"."+p.getItemInHand().getType().name();
     }
     public ItemStack getItem(Entity e, Player p){
         Material m = Material.getMaterial(getCache().getString(getPath(e, p)+".item"));
         ItemStack item = new ItemStack(m, getAmountOut(e, p));
+        if(isData(e, p)){
+            item.setDurability(getData(e, p));
+        }
         return item;
     }
     public void dropItem(Entity e, Player p){
@@ -75,6 +86,7 @@ public class MonsterListener implements Listener {
     public boolean cobrar(Entity e, Player p){
         if(!new Econ().cobrar(p, getCache().getDouble("config.price"))){
             // Mensaje de que no tiene dinero suficiente.
+            Chat.mensaje(p, "mobs.noMoney");
             return false;
         }
         // Calma al mob.

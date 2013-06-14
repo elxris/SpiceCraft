@@ -196,6 +196,11 @@ shop:
 cmd:
   reload:
   - Reload commands and configurations, complete!
+mobs:
+  notEnough:
+  - §b[§cMOBS§b]§r §cYou do not have enough items for exchange.
+  noMoney:
+  - '§b[§cMOBS§b]§r §cYou do not have enough money for excancge. D:'
 alert:
   notsaved:
   - 'Error, failed to save: '

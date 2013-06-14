@@ -27,6 +27,11 @@ mobs:
       amountIN: 1
       amountOUT: 1
       item: RED_ROSE
+    EGG:
+      amountIN: 16
+      amountOUT: 1
+      item: MONSTER_EGG
+      data: 120
   VillagerGolem:
     DIAMOND:
       amountIN: 2
@@ -36,6 +41,41 @@ mobs:
       amountIN: 64
       amountOUT: 1
       item: DIAMOND
+  Zombie:
+    BLAZE_ROD:
+      amountIN: 64
+      amountOUT: 1
+      item: DIAMOND
+  Cow:
+    EGG:
+      amountIN: 16
+      amountOUT: 1
+      item: MONSTER_EGG
+      data: 92
+  Chicken:
+    EGG:
+      amountIN: 16
+      amountOUT: 1
+      item: MONSTER_EGG
+      data: 93
+  Pig:
+    EGG:
+      amountIN: 16
+      amountOUT: 1
+      item: MONSTER_EGG
+      data: 90
+  Sheep:
+    EGG:
+      amountIN: 16
+      amountOUT: 1
+      item: MONSTER_EGG
+      data: 91
+  MushroomCow:
+    EGG:
+      amountIN: 16
+      amountOUT: 1
+      item: MONSTER_EGG
+      data: 96
 
 ## MONSTERS
 ## Creeper, Skeleton, Spider, Giant, Zombie, Slime, Ghast, PigZombie, Enderman, CaveSpider, Silverfish, Blaze, LavaSlime, EnderDragon, WitherBoss, Bat, Witch, Pig, Sheep, Cow, Chicken, Squid, Wolf, MushroomCow, SnowMan, Ozelot, VillagerGolem, Villager.
