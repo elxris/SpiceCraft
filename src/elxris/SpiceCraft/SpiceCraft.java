@@ -11,6 +11,7 @@ import elxris.SpiceCraft.Commands.WarpCommand;
 import elxris.SpiceCraft.Listener.CommandListener;
 import elxris.SpiceCraft.Listener.CompassListener;
 import elxris.SpiceCraft.Listener.MailListener;
+import elxris.SpiceCraft.Listener.MonsterListener;
 import elxris.SpiceCraft.Objects.Mail;
  
 public class SpiceCraft extends JavaPlugin {
@@ -39,6 +40,8 @@ public class SpiceCraft extends JavaPlugin {
         ShopCommand shop = new ShopCommand();
         getCommand("shop").setExecutor(shop);
         getCommand("shop").setTabCompleter(shop);
+        //Listener Mosnter
+        this.getServer().getPluginManager().registerEvents(new MonsterListener(), this);
     }
     public static void log(String m){
         plugin.getLogger().info(m);

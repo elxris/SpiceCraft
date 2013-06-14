@@ -56,4 +56,5 @@ permissions:
     default: true
   spicecraft.shop.master:
     default: op
-
+  spicecraft.monster:
+    default: true
