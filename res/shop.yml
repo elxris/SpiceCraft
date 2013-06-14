@@ -5,7 +5,7 @@ item:
     price: 0
     depend:
       Cobblestone: 1
-      Coal: 1
+      Stick: 2
     alias:
     - Piedra
     userSell: true
@@ -152,7 +152,7 @@ item:
     price: 0
     depend:
       Sand: 1
-      Coal: 1
+      Stick: 2
     alias:
     - Vidrio
   LapisBlock:
@@ -168,8 +168,7 @@ item:
     depend:
       Cobblestone: 7
       Redstone: 1
-      String: 3
-      Stick: 3
+      Bow: 1
     alias:
     - Dispensador
   Sandstone:
@@ -242,7 +241,7 @@ item:
     id: 30
     price: 0
     depend:
-      String: 4
+      String: 2
     alias:
     - Telaraña
   TallGrass:
@@ -447,6 +446,7 @@ item:
       Gunpowder: 5
     alias:
     - Bomba
+    userBuy: false
   Bookshelf:
     id: 47
     price: 0
@@ -797,7 +797,9 @@ item:
     - Flecha
   Coal:
     id: 263
-    price: 1
+    price: 0
+    depend:
+      Stick: 16
     alias:
     - Carbon
   Diamond:
@@ -892,10 +894,10 @@ item:
     - CarnePuerco
   CookedPorckchop:
     id: 320
-    price: 1
+    price: 0
     depend:
       RawPorkchop: 1
-      Coal: 1
+      Stick: 2
     alias:
     - CarnePuercoCocida
   Painting:
@@ -962,7 +964,9 @@ item:
     - Carrito
   Saddle:
     id: 329
-    price: 25
+    price: 0
+    depend:
+      Leather: 2
     alias:
     - Asiento
   IronDoor:
@@ -1004,7 +1008,7 @@ item:
     price: 0
     depend:
       Clay: 1
-      Coal: 1
+      Stick: 2
     alias:
     - Ladrillo
   Clay:
@@ -1021,7 +1025,7 @@ item:
     id: 339
     price: 0
     depend:
-      SugarCanes: 1
+      SugarCanes: 3
     alias:
     - Papel
   Book:
@@ -1078,9 +1082,10 @@ item:
     - PescadoCrudo
   CookedFish:
     id: 350
-    price: 1
+    price: 0
     depend:
       RawFish: 1
+      Stick: 2
     alias:
     - PescadoCocido
   Bone:
@@ -1125,10 +1130,9 @@ item:
     - Repetidor
   Cookie:
     id: 357
-    price: 1
+    price: 0
     depend:
-      Wheat: 2
-      CocoaBeans: 1
+      Wheat: 1
     alias:
     - Galleta
   Shears:
@@ -1140,13 +1144,17 @@ item:
     - Tijeras
   MelonSlice:
     id: 360
-    price: 10
+    price: 0
+    depend:
+      Potato: 2
     alias:
     - PedazoMelon
     - PedazoSandia
   PumpkinSeeds:
     id: 361
-    price: 10
+    price: 0
+    depend:
+      MelonSeeds: 1
     alias:
     - SemillasCalabaza
   MelonSeeds:
@@ -1159,26 +1167,32 @@ item:
     - SemillasMelon
   RawBeef:
     id: 363
-    price: 10
+    price: 0
+    depend:
+      Potato: 3
     alias:
     - FileteCrudo
   Steak:
     id: 364
-    price: 1
+    price: 0
     depend:
       RawBeef: 1
+      Stick: 2
     alias:
     - Filete
   RawChicken:
     id: 365
-    price: 15
+    price: 0
+    depend:
+      Potato: 2
     alias:
     - PolloCrudo
   CookedChiken:
     id: 366
-    price: 1
+    price: 0
     depend:
       RawChicken: 1
+      Stick: 2
     alias:
     - PolloRostizado
   RottenFlesh:
@@ -1188,7 +1202,7 @@ item:
     - CarnePodrida
   EnderPearl:
     id: 368
-    price: 500
+    price: 100
     alias:
     - PerlaEnder
   BlazeRod:
@@ -1233,11 +1247,12 @@ item:
     depend:
       Sugar: 1
       SpiderEye: 1
+      BrownMushroom: 1
     alias:
     - OjoArañaFermentado
   BlazePowder:
     id: 377
-    price: 30
+    price: 40
     alias:
     - Fuego
   MagmaCream:
@@ -1284,8 +1299,6 @@ item:
   BottleOEnchanting:
     id: 384
     price: 8
-    depend:
-      GlassBottle: 1
     alias:
     - ThrownExpBottle
   BookAndQuill:
@@ -1299,7 +1312,10 @@ item:
     - LibroPluma
   Emerald:
     id: 388
-    price: 1000
+    price: 50
+    depend:
+      IronBars: 1
+      Gold: 1
     alias:
     - Esmeralda
   ItemFrame:
@@ -1319,22 +1335,23 @@ item:
     - Maceta
   Carrot:
     id: 391
-    price: 7
+    price: 0
+    depend:
+      Potato: 5
     alias:
     - Zanahoria
   Potato:
     id: 392
     price: 1
-    depend:
-      Carrot: 1
     alias:
     - Patata
     - Papa
   BakedPotato:
     id: 393
-    price: 0.25
+    price: 0
     depend:
       Potato: 1
+      Stick: 2
     alias:
     - PatataCocida
     - PapaCocida
@@ -1429,7 +1446,7 @@ item:
     price: 0
     depend:
       Netherrack: 1
-      Coal: 1
+      Stick: 2
   Quartz:
     id: 406
     price: 15
@@ -1591,7 +1608,7 @@ item:
     - Blanco
     - PolvoHueso
 ## EGGS
-    CreeperEgg:
+  CreeperEgg:
     id: 383
     price: 150
     data: 50

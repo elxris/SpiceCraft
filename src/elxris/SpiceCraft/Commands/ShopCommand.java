@@ -88,7 +88,9 @@ public class ShopCommand extends Comando implements TabCompleter{
                 }
                 mensaje(p, "shop.searchHead", arg1);
                 mensaje(p, items);
-                mensaje(p, "shop.andMore", null);
+                if(items.size() == 18){
+                    mensaje(p, "shop.andMore", null);
+                }
             }else if(arg2 != null && arg3 == null){ // Si especifica el número.
                 showItemInfo(p, items.get(Integer.parseInt(arg2)));
             }else{ // Si hay número y cantidad.
