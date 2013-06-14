@@ -771,6 +771,22 @@ item:
     depend:
       Redstone: 1
       Cobblestone: 7
+  HayBlock:
+    id: 170
+    price: 0
+    depend:
+      Wheat: 9
+  HardenedClay:
+    id: 172
+    price: 0
+    depend:
+      ClayBlock: 1
+      Stick: 2
+  BlockCoal:
+    id: 173
+    price: 0
+    depend:
+      Coal: 9
 ## ITEMS
   FlintAndSteel:
     id: 259
@@ -912,10 +928,20 @@ item:
     id: 322
     price: 0
     depend:
-      GoldNugget: 8
+      Gold: 8
       Apple: 1
+    data: 0
     alias:
-    - ManzanaOro
+    - ManzanaDorada
+  EnchantedGoldenApple:
+    id: 322
+    price: 0
+    depend:
+      BlockGold: 8
+      Apple: 1
+    data: 1
+    alias:
+    - ManzanaEncantada
   Sign:
     id: 323
     price: 0
@@ -1293,7 +1319,7 @@ item:
     price: 0
     depend:
       MelonSlice: 1
-      GoldNugget: 1
+      GoldNugget: 8
     alias:
     - SandiaReluciente
   BottleOEnchanting:
@@ -1782,6 +1808,14 @@ item:
     data: 98
     alias:
     - HuevoOcelote
+  HorseEgg:
+    id: 383
+    price: 0
+    depend:
+      CreeperEgg: 1
+    data: 100
+    alias:
+    - HuevoCaballo
   VillagerEgg:
     id: 383
     price: 0
@@ -1790,6 +1824,12 @@ item:
     data: 120
     alias:
     - HuevoAldeano
+  Lead:
+    id: 420
+    price: 0
+    depend:
+      String: 2
+      Slimeball: 1
 ## DISC
   13Disc:
     id: 2256
@@ -2424,3 +2464,21 @@ item:
       Gold: 4
     alias:
     - BotasDeOro
+  IronHorseArmor:
+    id: 417
+    price: 0
+    depend:
+      Wool: 1
+      IronBars: 6
+  GoldenHorseArmor:
+    id: 418
+    price: 0
+    depend:
+      Wool: 1
+      Gold: 6
+  DiamondHorseArmor:
+    id: 419
+    price: 0
+    depend:
+      Wool: 1
+      Diamond: 6
