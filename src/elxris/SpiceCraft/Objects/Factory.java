@@ -16,8 +16,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
-import org.bukkit.material.MaterialData;
-
 import elxris.SpiceCraft.SpiceCraft;
 import elxris.SpiceCraft.Utils.Archivo;
 import elxris.SpiceCraft.Utils.Chat;
@@ -78,49 +76,48 @@ public class Factory extends Savable implements Listener {
             }
         }
     }
-    public void setTime(String item, long time) {
+    private void setTime(String item, long time) {
         getCache().set("item."+item+".time", time);
         save();
     }
-    public long getTime(String item) {
+    private long getTime(String item) {
         isSet("item."+item+".time", getSystemTimeHour());
         return getCache().getLong("item."+item+".time");
     }
-    public long getTimeHour(String item) {
+    private long getTimeHour(String item) {
         return getTime(item) - (getTime(item) % FRECUENCY);
     }
-    public void addTime(String item, long time){
+    private void addTime(String item, long time){
         setTime(item, getTime(item)+time);
     }
-    public long getSystemTime(){ // Obtiene el tiempo del sistema.
+    private long getSystemTime(){ // Obtiene el tiempo del sistema.
         return System.currentTimeMillis();
     }
-    public long getSystemTimeHour(){ // Obtiene el tiempo del sistema menos el resto de la frecuencia.
+    private long getSystemTimeHour(){ // Obtiene el tiempo del sistema menos el resto de la frecuencia.
         return getSystemTime() - (getSystemTime() % FRECUENCY);
     }
-    public void setCount(String item, int count){
+    private void setCount(String item, int count){
         getCache().set("item."+item+".count", count);
         getTime(item);
         save();
     }
-    public int getCount(String item){
-        isSet("item."+item+".count", STACKFULL / VEL);
+    private int getCount(String item){
+        isSet("item."+item+".count", VEL);
         return getCache().getInt("item."+item+".count");
     }
-    public void addCount(String item, int count){
+    private void addCount(String item, int count){
         setCount(item, getCount(item)+count);
     }
-    public void addCountRecursive(String item, int count){
-        addCount(item, count);
+    private void addCountRecursive(String item, int count){
         for(String s: getDepends(item)){
             addCount(s, count);
         }
     }
-    public void setVel(String item, int vel){
+    private void setVel(String item, int vel){
         getCache().set("item."+item+".vel", vel);
         save();
     }
-    public int getVel(String item){
+    private int getVel(String item){
         if(VARIABLE){
             isSet("item."+item+".vel", VEL);
             return getCache().getInt("item."+item+".vel");
@@ -128,46 +125,49 @@ public class Factory extends Savable implements Listener {
             return VEL;
         }
     }
-    public void addVel(String item, int vel){
+    private void addVel(String item, int vel){
         setVel(item, getVel(item)+vel);
     }
-    public double getPrice(String item){
-        double price = getCache().getDouble("item."+item+".price") * getRazonPrecio(item) * MULTIPLIER;
-        if(getCache().isSet("item."+item+".depend")){
-            for(String s: getDepends(item)){
-                price += getPrice(s);
-            }
+    private double getPriceData(String item){
+        return getCache().getDouble("item."+item+".price");
+    }
+    private double getPrice(String item){
+        double price = 0;
+        for(String s: getDepends(item)){
+            price += getPriceData(s) * getRazonPrecio(s) * MULTIPLIER;
         }
         return price;
     }
-    public double getRazonPrecio(String item){
+    private double getRazonPrecio(String item){
         return (double)getVel(item)/VEL;
     }
-    public double getPrecio(String item){
-        return getPrice(item);
+    private double getPrecio(String item, int cantidad){
+        double r = getPrice(item)*(double)cantidad;
+        if(r < 0){
+            r = 0;
+        }
+        return r;
     }
-    public double getPrecio(String item, int cantidad){
-        return getPrecio(item)*(double)cantidad;
-    }
-    public int getId(String item){
+    private int getId(String item){
         return getCache().getInt("item."+item+".id");
     }
-    public int getData(String item){
+    private int getData(String item){
         return getCache().getInt("item."+item+".data");
     }
-    public boolean getUserBuy(String item){
+    private boolean getUserBuy(String item){
         return getCache().getBoolean("item."+item+".userBuy", SpiceCraft.plugin().getConfig().getBoolean("shop.defaultUserBuy"));
     }
-    public boolean getUserSell(String item){
+    private boolean getUserSell(String item){
         return getCache().getBoolean("item."+item+".userSell", SpiceCraft.plugin().getConfig().getBoolean("shop.defaultUserSell"));
     }
     private List<String> getDepends(String item){
         List<String> dependency = new ArrayList<String>();
         update(item);
-        if(!getCache().isSet("item."+item+".depend")){
+        if(!getCache().isSet("item."+item+".depend")){ // Si no hay dependencias
             dependency.add(item);
             return dependency;
         }
+        dependency.add(item);
         ConfigurationSection memory = getCache().getConfigurationSection("item."+item+".depend");
         for(String s: memory.getKeys(false)){
             for(int i = memory.getInt(s); i > 0; i--){ // Numero de dependencia para los objetos.
@@ -176,7 +176,7 @@ public class Factory extends Savable implements Listener {
         }
         return dependency;
     }
-    public String searchItem(String s){
+    private String searchItem(String s){ // Busca el nomrbe real de un objeto.
         makePaths();
         if(paths.isSet(s)){
             String res = paths.getString(s);
@@ -218,11 +218,9 @@ public class Factory extends Savable implements Listener {
     }
     private ItemStack createItem(Player p, String item, int size){
         ItemStack stack = new ItemStack(getId(item));
-        byte data = (byte)getData(item);
+        short data = (short)getData(item);
         if(haveData(item)){
-            MaterialData mData = stack.getData();
-            mData.setData(data);
-            stack = mData.toItemStack();
+            stack.setDurability(data);
         }
         stack.setAmount(size);
         // Da la cabeza del que la pide.
@@ -256,7 +254,7 @@ public class Factory extends Savable implements Listener {
         }
         return items;
     }
-    public boolean haveData(String item){
+    private boolean haveData(String item){
         return getCache().isSet("item."+item+".data");
     }
     // Comandos de la tienda.
@@ -308,6 +306,7 @@ public class Factory extends Savable implements Listener {
             if(items.size() == 18){
                 break;
             }
+            // Si encuentra un matche completo.
             if(s.matches("^"+item+"$")){
                 if(all){
                     items.add(s);
@@ -316,8 +315,7 @@ public class Factory extends Savable implements Listener {
                     items.add(s);
                     break;
                 }
-            }else
-            if(s.matches("(.*)("+item+")(.*)")){
+            }else if(s.matches("(.*)("+item+")(.*)")){
                 items.add(s);
             }
         }
@@ -325,6 +323,29 @@ public class Factory extends Savable implements Listener {
     }
     public List<String> lookItems(String item){
         return lookItems(item, false);
+    }
+    public void reset(String item){
+        item = searchItem(item);
+        update(item);
+        for(String s: getDepends(item)){
+            setCount(s, VEL);
+            setVel(s, VEL);
+        }
+    }
+    public void setPrice(String item, Double NewPrice){
+        reset(item);
+        item = searchItem(item);
+        getCache().set("item."+item+".price", (NewPrice-getPrice(item))+getPriceData(item));
+        save();
+    }
+    public void showItemInfo(Player p, String itemName){
+        String item = searchItem(itemName);
+        String id = getId(item)+"";
+        if(haveData(item)){
+            id = id.concat(":"+getData(item));
+        }
+        Chat.mensaje(p, "shop.itemInfo", itemName, new Econ().getPrecio(getPrecio(item, 1)),
+                getVel(item), id);
     }
     public void sell(Player p){ // Vende
         if(p.getGameMode() == GameMode.CREATIVE){
@@ -335,7 +356,7 @@ public class Factory extends Savable implements Listener {
         p.openInventory(inv);
     }
     @EventHandler
-    public void onCloseInventory(org.bukkit.event.inventory.InventoryCloseEvent event){
+    private void onCloseInventory(org.bukkit.event.inventory.InventoryCloseEvent event){
         if(event.getInventory().getTitle().contentEquals("SHOP")){
             Inventory inv = event.getInventory();
             Player p = (Player) event.getPlayer();
@@ -347,9 +368,9 @@ public class Factory extends Savable implements Listener {
                 double maxDurab = item.getType().getMaxDurability();
                 double durab = maxDurab - item.getDurability();
                 String id = ""+item.getTypeId();
-                if(item.getData().getData() > 0){
-                    if(maxDurab == durab){
-                        id += ":"+item.getData().getData();
+                if(item.getDurability() > 0){
+                    if(maxDurab == 0){
+                        id += ":"+item.getDurability();
                     }
                 }
                 String name = searchItem(id);
@@ -367,7 +388,7 @@ public class Factory extends Savable implements Listener {
                     continue;
                 }
                 addCountRecursive(name, item.getAmount());
-                if(item.getType().getMaxDurability() != item.getDurability()){
+                if(durab > 0){
                     money += getPrecio(name, item.getAmount())*(durab/maxDurab);
                 }else{
                     money += getPrecio(name, item.getAmount());

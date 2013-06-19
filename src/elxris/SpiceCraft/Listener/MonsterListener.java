@@ -26,10 +26,10 @@ public class MonsterListener implements Listener {
     public void interactListener(PlayerInteractEntityEvent event){
         Player p = event.getPlayer();
         Entity entity = event.getRightClicked();
-        if(!event.getPlayer().hasPermission("spicecraft.monster")){
+        if(!p.hasPermission("spicecraft.monster")){
             return;
         }
-        if(!(event.getRightClicked() instanceof LivingEntity)){
+        if(!(entity instanceof LivingEntity)){
             return;
         }
         if(check(entity, p)){
@@ -39,6 +39,21 @@ public class MonsterListener implements Listener {
         }
     }
     public boolean check(Entity e, Player p){
+        if(p.getItemInHand().getTypeId() == 0){
+            String name = e.getType().getName();
+            boolean is = false;
+            if(!getCache().isSet("mobs."+name)){
+                return false;
+            }
+            for(String s: getCache().getConfigurationSection("mobs."+name).getKeys(false)){
+                if(!is){
+                    is = !is;
+                    Chat.mensaje(p, "mobs.infoHead", name);
+                }
+                Chat.mensaje(p, "mobs.infoItem", getAmountIn(e, s), s, getAmountOut(e, s), getItemName(e, s));
+            }
+            return false;
+        }
         if(getCache().contains(getPath(e, p))){
             if(getAmountIn(e, p) <= p.getItemInHand().getAmount()){
                 return true;
@@ -49,23 +64,50 @@ public class MonsterListener implements Listener {
         }
         return false;
     }
+    public int getAmountIn(Entity e, String itemName){
+        return getCache().getInt(getPath(e, itemName)+".amountIN");
+    }
     public int getAmountIn(Entity e, Player p){
-        return getCache().getInt(getPath(e, p)+".amountIN");
+        return getAmountIn(e, getItemHandName(p));
+    }
+    public int getAmountOut(Entity e, String itemName){
+        return getCache().getInt(getPath(e, itemName)+".amountOUT");
     }
     public int getAmountOut(Entity e, Player p){
-        return getCache().getInt(getPath(e, p)+".amountOUT");
+        return getAmountOut(e, getItemHandName(p));
+    }
+    public boolean isData(Entity e, String itemName){
+        return (getCache().isSet(getPath(e, itemName)+".data") && getCache().isInt(getPath(e, itemName)+".data"));
     }
     public boolean isData(Entity e, Player p){
-        return (getCache().isSet(getPath(e, p)+".data") && getCache().isInt(getPath(e, p)+".data"));
+        return isData(e, getItemHandName(p));
+    }
+    public short getData(Entity e, String itemName){
+        return (short)getCache().getInt(getPath(e, itemName)+".data");
     }
     public short getData(Entity e, Player p){
-        return (short)getCache().getInt(getPath(e, p)+".data");
+        return getData(e, getItemHandName(p));
+    }
+    public String getPath(Entity e, String item){
+        return "mobs."+e.getType().getName()+"."+item;
     }
     public String getPath(Entity e, Player p){
-        return "mobs."+e.getType().getName()+"."+p.getItemInHand().getType().name();
+        return getPath(e, getItemHandName(p));
+    }
+    public String getItemHandName(ItemStack item){
+        return item.getType().name();
+    }
+    public String getItemHandName(Player p){
+        return getItemHandName(p.getItemInHand());
+    }
+    public String getItemName(Entity e, String item){
+        return getCache().getString(getPath(e, item)+".item");
+    }
+    public String getItemName(Entity e, Player p){
+        return getItemName(e, getItemHandName(p));
     }
     public ItemStack getItem(Entity e, Player p){
-        Material m = Material.getMaterial(getCache().getString(getPath(e, p)+".item"));
+        Material m = Material.getMaterial(getItemName(e, p));
         ItemStack item = new ItemStack(m, getAmountOut(e, p));
         if(isData(e, p)){
             item.setDurability(getData(e, p));

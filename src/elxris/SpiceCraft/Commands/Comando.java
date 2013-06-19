@@ -39,6 +39,9 @@ public abstract class Comando  implements CommandExecutor{
         return SpiceCraft.plugin().getConfig();
     }
     public boolean isCommand(String path, String command){
+        if(!getConfig().isSet(path)){
+            return false;
+        }
         for(String s: getConfig().getStringList(path)){
             if(s.contentEquals(command)){
                 return true;

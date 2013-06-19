@@ -9,7 +9,7 @@ import org.bukkit.entity.Player;
 
 import elxris.SpiceCraft.SpiceCraft;
 import elxris.SpiceCraft.Objects.Factory;
-import elxris.SpiceCraft.Utils.Econ;
+import elxris.SpiceCraft.Utils.Chat;
 import elxris.SpiceCraft.Utils.Strings;
 
 public class ShopCommand extends Comando implements TabCompleter{
@@ -33,17 +33,22 @@ public class ShopCommand extends Comando implements TabCompleter{
         }
         if(args.length == 0){ // Info
             mensaje(p, "shop.info", (double)getValue("shop.sellRate")*100+"%");
+            if(p.hasPermission("spicecraft.shop.master")){
+                mensaje(p, "shop.infoMaster");
+            }
         }else
         if(args.length == 1){
             if(isCommand("comm.shop.sell", args[0])){ // Vender
                 f.sell(p);
             }else{ // Item info.
-                buscar(p, args[0], null, null);
+                buscar(p, args[0], null, null, null);
             }
         }else if(args.length == 2){
-            buscar(p, args[0], args[1], null);
+            buscar(p, args[0], args[1], null, null);
         }else if(args.length == 3){
-            buscar(p, args[0], args[1], args[2]);
+            buscar(p, args[0], args[1], args[2], null);
+        }else if(args.length == 4){
+            buscar(p, args[0], args[1], args[2], args[3]);
         }
         return true;
     }
@@ -61,18 +66,34 @@ public class ShopCommand extends Comando implements TabCompleter{
         }
         return null;
     }
-    private void buscar(Player p, String arg1, String arg2, String arg3){
+    private void buscar(Player p, String arg1, String arg2, String arg3, String arg4){
         List<String> items = f.lookItems(arg1);
         if(items.size() == 0){
             mensaje(p, "shop.notExist");
         }else if(items.size() == 1){ // Si sólo hay un resultado.
-            if(arg2 != null){ // Si hay una cantidad, compra.
+            if(arg2 == null && arg3 == null){ // Si no lo hay, muestra información.
+                f.showItemInfo(p, items.get(0));
+            }else if(isCommand("comm.shop.reset", arg2) && arg3 == null){ // Si hay reset, resetea el precio.
+                if(p.hasPermission("spicecraft.shop.master")){
+                    f.reset(items.get(0));
+                    Chat.mensaje(p, "shop.resetItem", items.get(0));
+                }else{
+                    Chat.mensaje(p, "alert.permission");
+                }
+            }else if(arg2 != null && arg3 == null){ // Si hay una cantidad, compra.
                 shop(p, items.get(0), arg2);
-            }else{ // Si no lo hay, muestra información.
-                showItemInfo(p, items.get(0));
+            }else if(isCommand("comm.shop.set", arg2) && arg3 != null){// Si hay un set, setea el precio.
+                if(isDouble(arg3)){
+                    if(p.hasPermission("spicecraft.shop.master")){
+                        f.setPrice(items.get(0), Double.parseDouble(arg3));
+                        Chat.mensaje(p, "shop.setPrice", items.get(0));
+                    }else{
+                        Chat.mensaje(p, "alert.permission");
+                    }
+                }
             }
         }else{ // Si hay más de un objeto en la búsqueda.
-            if(arg2 != null){
+            if(arg2 != null){ // Si especifica número. Pero no es entero o se sale de rango.
                 if(!isInteger(arg2)){
                     mensaje(p, "alert.noInteger");
                     return;
@@ -92,8 +113,21 @@ public class ShopCommand extends Comando implements TabCompleter{
                     mensaje(p, "shop.andMore", null);
                 }
             }else if(arg2 != null && arg3 == null){ // Si especifica el número.
-                showItemInfo(p, items.get(Integer.parseInt(arg2)));
+                f.showItemInfo(p, items.get(Integer.parseInt(arg2)));
             }else{ // Si hay número y cantidad.
+                if(p.hasPermission("spicecraft.shop.master")){
+                    if(isCommand("comm.shop.reset", arg3)){
+                        f.reset(items.get(Integer.parseInt(arg2)));
+                        Chat.mensaje(p, "shop.resetItem", items.get(Integer.parseInt(arg2)));
+                        return;
+                    }else if(isCommand("comm.shop.set", arg3) && arg4 != null && isDouble(arg4)){
+                        f.setPrice(items.get(Integer.parseInt(arg2)), Double.parseDouble(arg4));
+                        Chat.mensaje(p, "shop.setPrice", items.get(Integer.parseInt(arg2)));
+                        return;
+                    }
+                }else{
+                    Chat.mensaje(p, "alert.permission");
+                }
                 if(!isInteger(arg3)){
                     mensaje(p, "alert.noInteger");
                     return;
@@ -103,21 +137,16 @@ public class ShopCommand extends Comando implements TabCompleter{
         }
     }
     private void shop(Player p, String item, String cantidad){
-        if(!isInteger(cantidad) && Integer.parseInt(cantidad) > 0){
+        if(!isInteger(cantidad)){
             mensaje(p, "alert.noInteger");
             return;
         }
+        if(Integer.parseInt(cantidad) < 1){
+            mensaje(p, "alert.positive");
+            return;
+        }
         if(f.shop(p, item, Integer.parseInt(cantidad))){
-            mensaje(p, "shop.shoped");            
+            mensaje(p, "shop.shoped");
         }
-    }
-    private void showItemInfo(Player p, String itemName){
-        String item = f.searchItem(itemName);
-        String id = f.getId(item)+"";
-        if(f.haveData(item)){
-            id = id.concat(":"+f.getData(item));
-        }
-        mensaje(p, "shop.itemInfo", itemName, new Econ().getPrecio(f.getPrecio(item)),
-                f.getVel(item), id);
     }
 }

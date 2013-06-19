@@ -170,6 +170,9 @@ shop:
   - "Ejemplo: §c/shop lana 3 64§r Que compraría 64 piezas del tercer item encontrado con la búsqueda 'lana'."
   - §bConsultar precios es importante ya que varían con el tiempo.
   - §e/shop §cv§eender §rVende items al %s del precio que tiene actualmente.
+  infoMaster:
+  - §e/shop <item> [#] reset §rRestablece el valor de producción al original.
+  - §e/shop <item> [#] set <price> §rCambia el precio del item.
   itemInfo:
   - '§b[§cSHOP§b]§r §aInfo §d%s'
   - '§bPrecio: §a%s §ela unidad.'
@@ -181,6 +184,8 @@ shop:
   - '§b[§cSHOP§b]§r §a=== §cBuscando: §e%s §a==='
   searchItem:
   - §b#%s §e%s
+  andMore:
+  - ... y más, pero tienes que hacer una búsqueda más específica
   notExist:
   - §b[§cSHOP§b]§r §cNo existe el item en la tienda.
   noMoney:
@@ -191,8 +196,10 @@ shop:
   - §b[§cSHOP§b]§r §cNo se puede comprar este objeto.
   cantSell:
   - §b[§cSHOP§b]§r §cNo se puede vender este objeto.
-  andMore:
-  - ... y más, pero tienes que hacer una búsqueda más específica.
+  setPrice:
+  - §b[§cSHOP§b]§r §aSe ha fijado el precio satisfactoriamente a %s.
+  resetItem:
+  - §b[§cSHOP§b]§r §aSe ha reseteado satisfactoriamente a %s.
 cmd:
   reload:
   - Reload de comandos y configuraciones completo!
@@ -201,6 +208,10 @@ mobs:
   - §b[§cMOBS§b]§r §cNo tienes los suficientes objetos para realizar el cambio.
   noMoney:
   - '§b[§cMOBS§b]§r §cNo tienes suficiente dinero para cambiar tus objetos. D:'
+  infoHead:
+  - '§b[§cMOBS§b]§r §c%s'
+  infoItem:
+  - '§a%d §e%s §c: §a%d §e%s'
 alert:
   notsaved:
   - 'Error, no se ha podido guardar: '

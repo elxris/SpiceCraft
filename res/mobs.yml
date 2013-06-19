@@ -40,12 +40,12 @@ mobs:
     COAL:
       amountIN: 64
       amountOUT: 1
-      item: DIAMOND
+      item: IRON_INGOT
   Zombie:
-    BLAZE_ROD:
+    ROTTEN_FLESH:
       amountIN: 64
       amountOUT: 1
-      item: DIAMOND
+      item: IRON_INGOT
   Cow:
     EGG:
       amountIN: 16

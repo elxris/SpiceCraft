@@ -127,3 +127,7 @@ comm:
     - s
     - vender
     - v
+    set:
+    - set
+    reset:
+    - reset

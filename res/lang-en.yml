@@ -170,6 +170,9 @@ shop:
   - "Example: §c/shop wool 3 64§r buy 64 pieces, of the third item found with the search 'wool'."
   - §bCheck prices is important as they vary with time.
   - §e/shop §cs§eell §rSell items to %s the price it has now.
+  infoMaster:
+  - §e/shop <item> [#] reset §rReset the production data to original.
+  - §e/shop <item> [#] set <price> §rSet the price value.
   itemInfo:
   - '§b[§cSHOP§b]§r §aInfo §d%s'
   - '§bPrice: §a%s §e the unit.'
@@ -181,6 +184,8 @@ shop:
   - '§b[§cSHOP§b]§r §a=== §cLooking: §e%s §a==='
   searchItem:
   - §b#%s §e%s
+  andMore:
+  - ... and more, but you should make a more specific search.
   notExist:
   - §b[§cSHOP§b]§r §cThere is no item in the store.
   noMoney:
@@ -191,8 +196,10 @@ shop:
   - §b[§cSHOP§b]§r §cThis item can not be purchased.
   cantSell:
   - §b[§cSHOP§b]§r §cThis item can not be sold.
-  andMore:
-  - ... and more, but you should make a more specific search.
+  setPrice:
+  - §b[§cSHOP§b]§r §aIt has successfully fixed the price of %s.
+  resetItem:
+  - §b[§cSHOP§b]§r §aIt has successfully reset %s.
 cmd:
   reload:
   - Reload commands and configurations, complete!
@@ -200,7 +207,11 @@ mobs:
   notEnough:
   - §b[§cMOBS§b]§r §cYou do not have enough items for exchange.
   noMoney:
-  - '§b[§cMOBS§b]§r §cYou do not have enough money for excancge. D:'
+  - '§b[§cMOBS§b]§r §cYou do not have enough money for exchange. D:'
+  infoHead:
+  - '§b[§cMOBS§b]§r §c%s'
+  infoItem:
+  - '§a%d §e%s §c: §a%d §e%s'
 alert:
   notsaved:
   - 'Error, failed to save: '
@@ -209,11 +220,11 @@ alert:
   error:
   - §cError when using the command. Check the help.
   noInteger:
-  - You must enter integer values??.
+  - You must enter integer values.
   permission:
   - You do not have permission to use this command.
   positive:
-  - Only positive values ??are allowed.
+  - Only positive values are allowed.
 f:
   units:
   - month
