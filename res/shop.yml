@@ -1297,7 +1297,7 @@ item:
     - SandiaReluciente
   BottleOEnchanting:
     id: 384
-    price: 8
+    price: 25
     alias:
     - ThrownExpBottle
   BookAndQuill:
@@ -1456,8 +1456,7 @@ item:
     price: 0
     depend:
       Book: 1
-      Diamond: 1
-      BottleOEnchanting: 100
+      BottleOEnchanting: 120
     alias:
     - LibroEncantado
 ## DYES
