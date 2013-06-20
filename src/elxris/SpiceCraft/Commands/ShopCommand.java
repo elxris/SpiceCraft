@@ -125,8 +125,6 @@ public class ShopCommand extends Comando implements TabCompleter{
                         Chat.mensaje(p, "shop.setPrice", items.get(Integer.parseInt(arg2)));
                         return;
                     }
-                }else{
-                    Chat.mensaje(p, "alert.permission");
                 }
                 if(!isInteger(arg3)){
                     mensaje(p, "alert.noInteger");
