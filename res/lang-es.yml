@@ -73,7 +73,7 @@ mbox:
   sended:
   - §b[§cMBOX§b]§r Mensaje enviado.
   limit:
-  - §b[§cMBOX§b]§r Lo siento, ya has superado el límite de 300 caracteres.
+  - §b[§cMBOX§b]§r Lo siento, ya has superado el límite de %d caracteres.
   created:
   - §b[§cMBOX§b]§r Borrador creado. §e/mbox §ca§egregar <Mensaje>§r para añadir mensaje.
   add:

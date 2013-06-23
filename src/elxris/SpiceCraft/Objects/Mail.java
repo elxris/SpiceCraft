@@ -127,9 +127,9 @@ public class Mail extends Savable{
         if(draft.isSet(jugador+".mensaje")){
             mensajeAnterior = draft.getString(jugador+".mensaje");
         }
-        if(mensajeAnterior.length() > SpiceCraft.plugin().getConfig().getInt("mbox.maxChar")){
+        if(mensajeAnterior.length() > SpiceCraft.plugin().getConfig().getInt("mail.maxChar")){
             if(!SpiceCraft.getPlayer(jugador).hasPermission("spicecraft.mail.noCharLimit")){
-                Chat.mensaje(jugador, "mbox.limit");
+                Chat.mensaje(jugador, "mbox.limit", SpiceCraft.plugin().getConfig().getInt("mail.maxChar"));
                 return;
             }
         }

@@ -73,7 +73,7 @@ mbox:
   sended:
   - §b[§cMBOX§b]§r Message sent.
   limit:
-  - §b[§cMBOX§b]§r Sorry, you have exceeded the limit of 300 characters.
+  - §b[§cMBOX§b]§r Sorry, you have exceeded the limit of %d characters.
   created:
   - §b[§cMBOX§b]§r Draft created. §e/mbox §ca§edd <Message>§r to add post.
   add:

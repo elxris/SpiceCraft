@@ -96,7 +96,7 @@ item:
     - BroteSelva
   Sand:
     id: 12
-    price: 5
+    price: 1
     alias:
     - Arena
   Gravel:
@@ -472,8 +472,7 @@ item:
     id: 50
     price: 0
     depend:
-      Coal: 1
-      Stick: 1
+      Stick: 5
     alias:
     - Antorcha
   MobSpawner:
@@ -608,6 +607,7 @@ item:
     price: 0
     depend:
       Iron: 1
+      Stick: 2
     alias:
     - RejaHierro
     - Barrotes
