@@ -940,7 +940,7 @@ item:
     id: 321
     price: 0.5
     depend:
-      Wool: 1
+      WhiteWool: 1
       Stick: 8
     alias:
     - Pintura
@@ -1162,7 +1162,7 @@ item:
     id: 355
     price: 0
     depend:
-      Wool: 3
+      WhiteWool: 3
       OakPlank: 3
     alias:
     - Cama
@@ -1363,8 +1363,11 @@ item:
     id: 388
     price: 0
     depend:
+      Coal: 1
+      Redstone: 1
       Iron: 1
       Gold: 1
+      Diamond: 1
     alias:
     - Esmeralda
   ItemFrame:
@@ -2494,17 +2497,17 @@ item:
     id: 417
     price: 0
     depend:
-      Wool: 1
+      WhiteWool: 1
       Iron: 6
   GoldenHorseArmor:
     id: 418
     price: 0
     depend:
-      Wool: 1
+      WhiteWool: 1
       Gold: 6
   DiamondHorseArmor:
     id: 419
     price: 0
     depend:
-      Wool: 1
+      WhiteWool: 1
       Diamond: 6
