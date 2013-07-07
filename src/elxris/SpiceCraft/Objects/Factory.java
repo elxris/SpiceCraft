@@ -96,19 +96,19 @@ public class Factory extends Savable implements Listener {
     private long getSystemTimeHour(){ // Obtiene el tiempo del sistema menos el resto de la frecuencia.
         return getSystemTime() - (getSystemTime() % FRECUENCY);
     }
-    private void setCount(String item, int count){
+    private void setCount(String item, double count){
         getCache().set("item."+item+".count", count);
         getTime(item);
         save();
     }
-    private int getCount(String item){
+    private double getCount(String item){
         isSet("item."+item+".count", VEL);
-        return getCache().getInt("item."+item+".count");
+        return getCache().getDouble("item."+item+".count");
     }
-    private void addCount(String item, int count){
+    private void addCount(String item, double count){
         setCount(item, getCount(item)+count);
     }
-    private void addCountRecursive(String item, int count){
+    private void addCountRecursive(String item, double count){
         for(String s: getDepends(item)){
             addCount(s, count);
         }
@@ -136,7 +136,7 @@ public class Factory extends Savable implements Listener {
         for(String s: getDepends(item)){
             price += getPriceData(s) * getRazonPrecio(s) * MULTIPLIER;
         }
-        return price;
+        return price/getRecipieMultiplie(item);
     }
     private double getRazonPrecio(String item){
         return (double)getVel(item)/VEL;
@@ -159,6 +159,9 @@ public class Factory extends Savable implements Listener {
     }
     private boolean getUserSell(String item){
         return getCache().getBoolean("item."+item+".userSell", SpiceCraft.plugin().getConfig().getBoolean("shop.defaultUserSell"));
+    }
+    private int getRecipieMultiplie(String item){
+        return getCache().getInt("item."+item+".recipieMultiplie", 1);
     }
     private List<String> getDepends(String item){
         List<String> dependency = new ArrayList<String>();
@@ -274,7 +277,7 @@ public class Factory extends Savable implements Listener {
             return false;
         }
         addItemsToInventory(p, createItems(p, item_real, cantidad));
-        addCountRecursive(item_real, -cantidad);
+        addCountRecursive(item_real, (double)cantidad/getRecipieMultiplie(item_real)*(-1d));
         return true;
     }
     private void addItemsToInventory(Player p, List<ItemStack> items){ // Añade el item al inventario del jugador.
@@ -387,7 +390,7 @@ public class Factory extends Savable implements Listener {
                     addItemToInventory(p, item);
                     continue;
                 }
-                addCountRecursive(name, item.getAmount());
+                addCountRecursive(name, (double)item.getAmount()/getRecipieMultiplie(name));
                 if(durab > 0){
                     money += getPrecio(name, item.getAmount())*(durab/maxDurab);
                 }else{

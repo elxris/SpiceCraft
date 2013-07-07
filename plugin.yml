@@ -1,5 +1,5 @@
 name: SpiceCraft
-version: 0.8.9
+version: 0.9.0
 main: elxris.SpiceCraft.SpiceCraft
 author: elxris
 website: http://dev.bukkit.org/server-mods/useless/
@@ -17,8 +17,6 @@ commands:
     permission: spicecraft.shop
   cmd:
     permission: spicecraft.cmd
-  jbs:
-    permission: spicecraft.jobs
 permissions:
   spicecraft.tw:
     default: true
