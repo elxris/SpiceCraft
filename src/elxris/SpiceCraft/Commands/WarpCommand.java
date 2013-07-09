@@ -67,7 +67,7 @@ public class WarpCommand extends Comando{
         // Si son dos argumentos crea el warp personal.
         if(args.length == 2){
             if(isCommand("comm.tw.new", args[0])){
-                String warpName = String.format("p.%s", getPlayerName(jugador));
+                String warpName = getPath("p.%s", jugador);
                 validarNewWarp(warpName, args[1], "", jugador);
                 return true;
             }else if(isCommand("comm.tw.destroy", args[0])){
@@ -162,7 +162,7 @@ public class WarpCommand extends Comando{
         }
     }
     private void borrarWarp(Player jugador, String path){
-        if(cache.isSet(path)){
+        if(cache.isSet(path+".owner")){
             if(cache.getString(path+".owner").contentEquals(jugador.getName())
                     || jugador.hasPermission("spicecraft.tw.master")){
                 cache.set(path, null);
