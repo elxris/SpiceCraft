@@ -348,7 +348,21 @@ public class Factory extends Savable implements Listener {
             id = id.concat(":"+getData(item));
         }
         Chat.mensaje(p, "shop.itemInfo", itemName, new Econ().getPrecio(getPrecio(item, 1)),
-                getVel(item), id);
+                getProduction(item), id);
+    }
+    private int getProduction(String item){
+        List<String> dep = getDepends(item);
+        if(dep.size() > 1){
+            dep.remove(0);
+        }
+        int vel = 1;
+        for(String s: dep){
+            int v = getVel(s);
+            if(v > vel){
+                vel = v;
+            }
+        }
+        return vel;
     }
     public void sell(Player p){ // Vende
         if(p.getGameMode() == GameMode.CREATIVE){

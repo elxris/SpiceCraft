@@ -45,6 +45,7 @@ mbox:
   - §e/mbox §cn§euevo <Usuario> <Usuario2> ... §rCrea un borrador con destinatario o destinatarios. Uno mínimo.
   - §e/mbox §ca§egregar <Mensaje> §rAgrega el mensaje a el borrador.
   - §e/mbox §ce§enviar §rYa que tienes listo el borrador, este comando lo envía.
+  infoMaster:
   - §e/mbox a§ct§eodos§r (Solo Admins) Envía el borrador a todos los usuarios.
   - §e/mbox a§ct§eodos <mensaje>§r (Solo Admins) Envía el mensaje a todos los usuarios.
   list:

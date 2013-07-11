@@ -2,18 +2,19 @@ package elxris.SpiceCraft.Listener;
 
 import java.util.Random;
 
-import org.bukkit.Effect;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.Creature;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.potion.PotionType;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import elxris.SpiceCraft.Utils.Archivo;
 import elxris.SpiceCraft.Utils.Chat;
@@ -41,15 +42,11 @@ public class MonsterListener implements Listener {
     public boolean check(Entity e, Player p){
         if(p.getItemInHand().getTypeId() == 0){
             String name = e.getType().getName();
-            boolean is = false;
             if(!getCache().isSet("mobs."+name)){
                 return false;
             }
+            Chat.mensaje(p, "mobs.infoHead", name);
             for(String s: getCache().getConfigurationSection("mobs."+name).getKeys(false)){
-                if(!is){
-                    is = !is;
-                    Chat.mensaje(p, "mobs.infoHead", name);
-                }
                 Chat.mensaje(p, "mobs.infoItem", getAmountIn(e, s), s, getAmountOut(e, s), getItemName(e, s));
             }
             return false;
@@ -121,8 +118,17 @@ public class MonsterListener implements Listener {
     public void playEffect(Entity e, Player p){
         Random rndm = new Random();
         if(getCache().getBoolean("config.visual")){
-            int data = PotionType.values()[rndm.nextInt(PotionType.values().length)].getDamageValue();
-            p.getWorld().playEffect(e.getLocation(), Effect.POTION_BREAK, data);
+            int data;
+            do{
+                data = PotionEffectType.values()[rndm.nextInt(PotionEffectType.values().length-1)+1].getId();
+            }while(data == 7||data == 20 || data == 19);
+            float n = rndm.nextFloat()/8f;
+            for(float i = 1; i < 32; i*=2f){
+                if(rndm.nextBoolean()){
+                    p.getWorld().playSound(e.getLocation(), Sound.CHICKEN_EGG_POP, 1.0f, n*i);
+                }
+            }
+            ((LivingEntity)e).addPotionEffect(new PotionEffect(PotionEffectType.getById(data), 100, 0, true));
         }
     }
     public boolean cobrar(Entity e, Player p){
@@ -132,8 +138,9 @@ public class MonsterListener implements Listener {
             return false;
         }
         // Calma al mob.
-        if(e instanceof Creature){
-            ((Creature) e).setTarget(null);
+        if(e instanceof Monster){
+            ((Monster) e).setTarget(null);
+            ((Monster) e).addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 250, 10000));
         }
         dropItem(e, p);
         ItemStack item = p.getItemInHand();

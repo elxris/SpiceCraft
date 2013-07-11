@@ -29,6 +29,9 @@ public class MailBoxCommand extends Comando{
         }
         if(args.length < 1){
             mensaje(jugador, "mbox.info");
+            if(jugador.hasPermission("spicecraft.mail.massive")){
+                mensaje(jugador, "mbox.infoMaster");
+            }
             return true;
         }
         //TODO Crear comandos moderadores.

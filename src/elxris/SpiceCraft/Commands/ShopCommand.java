@@ -71,7 +71,7 @@ public class ShopCommand extends Comando implements TabCompleter{
         if(items.size() == 0){
             mensaje(p, "shop.notExist");
         }else if(items.size() == 1){ // Si sólo hay un resultado.
-            if(arg2 == null && arg3 == null){ // Si no lo hay, muestra información.
+            if(arg2 == null && arg3 == null){ // Si no hay otro argumento, muestra información.
                 f.showItemInfo(p, items.get(0));
             }else if(isCommand("comm.shop.reset", arg2) && arg3 == null){ // Si hay reset, resetea el precio.
                 if(p.hasPermission("spicecraft.shop.master")){

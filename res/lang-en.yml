@@ -45,6 +45,7 @@ mbox:
   - §e/mbox §cn§eew <User> <User2> ... §rCreate a draft to recipient or recipients. One minimum.
   - §e/mbox §ca§edd <Message> §rAdds the message to the draft.
   - §e/mbox §cs§eend §rSince you have the draft ready, this command sends it.
+  infoMaster:
   - §e/mbox sendall §ror §e/mbox sa§r (Only Admins) Send the draft to all users.
   - §e/mbox sendall <Message> §ror §e/mbox sa <Message>§r (Only Admins) Send the message to all users.
   list:

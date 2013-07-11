@@ -57,6 +57,7 @@ public class CommandListener implements Listener{
             if(isSet(command+".*")){
                 return mensaje(p, command+".*");               
             }else if(isItBook(command)){
+                Chat.mensaje(p.getName(), getFc().getStringList(command+".!").get(0));
                 p.getInventory().addItem(makeBook(command));
                 return true;
             }
@@ -83,9 +84,9 @@ public class CommandListener implements Listener{
         ItemStack book = new ItemStack(Material.WRITTEN_BOOK);
         BookMeta meta = (BookMeta) book.getItemMeta();
         List<String> lineas = getFc().getStringList(path+".!");
-        meta.setTitle(lineas.get(0));
-        meta.setAuthor(lineas.get(1));
-        lineas = lineas.subList(2, lineas.size());
+        meta.setTitle(lineas.get(1));
+        meta.setAuthor(lineas.get(2));
+        lineas = lineas.subList(3, lineas.size());
         List<String> paginas = new ArrayList<String>();
         String pagina = new String();
         int linea = 0, caracter = 0;

@@ -4,22 +4,17 @@ config:
 mobs:
   Spider:
     STRING:
-      amountIN: 1
+      amountIN: 2
       amountOUT: 1
       item: WEB
-  Enderman:
-    ENDER_PEARL:
-      amountIN: 16
-      amountOUT: 1
-      item: DRAGON_EGG
   Squid:
     RAW_FISH:
-      amountIN: 1
+      amountIN: 8
       amountOUT: 1
       item: SPONGE
   Blaze:
     SULPHUR:
-      amountIN: 6
+      amountIN: 8
       amountOUT: 1
       item: FIREBALL
   Villager:
