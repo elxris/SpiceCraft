@@ -165,12 +165,15 @@ lib:
 shop:
   info:
   - §b[§cSHOP§b]§r §aAYUDA
+  - §e/shop . §rAbre una ventana que puedes colocar los objetos para venderlos, o bien explorar la tienda y comprar.
+  - Con click izquierdo compras uno, con el derecho compras un stack.
+  - Los items se venden al %s del precio que tiene actualmente.
+  - §bConsultar precios es importante ya que varían con el tiempo.
+  - "O bien tienes los comandos:"
   - §e/shop <item> §rBusca un item. Parte del nombre o id.
   - §e/shop <item> [#] §rMuestra la información de un item. Si al buscar un item se encuentra más de un objeto en la tienda, puedes seleccionar uno de la lista.
   - §e/shop <item> [#] <cantidad>§r Compra un item. Especifica el número de la búsqueda si es necesario.
   - "Ejemplo: §c/shop lana 3 64§r Que compraría 64 piezas del tercer item encontrado con la búsqueda 'lana'."
-  - §bConsultar precios es importante ya que varían con el tiempo.
-  - §e/shop §cv§eender §rVende items al %s del precio que tiene actualmente.
   infoMaster:
   - §e/shop <item> [#] reset §rRestablece el valor de producción al original.
   - §e/shop <item> [#] set <price> §rCambia el precio del item.

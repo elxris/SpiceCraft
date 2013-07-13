@@ -565,7 +565,7 @@ public class Factory extends Savable implements Listener {
                 ItemStack i = f.createItem(p, item, 1);
                 ItemMeta meta = i.getItemMeta();
                 String id = getId(item)+((haveData(item))?":"+getData(item):"");
-                meta.setLore(Strings.getSringList("shop.itemLore",
+                meta.setLore(Strings.getStringList("shop.itemLore",
                         new Econ().getPrecio(getPrice(item)), getProduction(item), id));
                 i.setItemMeta(meta);
                 list.add(i);

@@ -24,7 +24,6 @@ public class Strings{
             return "";
         }
         String texto = "";
-        texto = "";
         for(int e = 0; e < list.size(); e++){
             texto += list.get(e);
             if(e + 1 < list.size()){
@@ -44,7 +43,7 @@ public class Strings{
         }
         return (List<String>) getList(path);
     }
-    public static List<String> getSringList(String path, Object... i){
+    public static List<String> getStringList(String path, Object... i){
         List<String> list = Arrays.asList(String.format(parseList(getStringList(path)), i).split("§r\\n")); 
         return list;
     }

@@ -32,13 +32,13 @@ public class ShopCommand extends Comando implements TabCompleter{
             return true;
         }
         if(args.length == 0){ // Info
-            mensaje(p, "shop.info", (double)getValue("shop.sellRate")*100+"%");
+            mensaje(p, "shop.info", Double.toString(((double)getValue("shop.sellRate"))*100d)+"%");
             if(p.hasPermission("spicecraft.shop.master")){
                 mensaje(p, "shop.infoMaster");
             }
         }else
         if(args.length == 1){
-            if(isCommand("comm.shop.sell", args[0])){ // Vender
+            if(isCommand("comm.shop.gui", args[0])){ // Vender
                 f.sell(p);
             }else{ // Item info.
                 buscar(p, args[0], null, null, null);

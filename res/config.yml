@@ -122,11 +122,8 @@ comm:
     - pay
     - p
   shop:
-    sell:
-    - sell
-    - s
-    - vender
-    - v
+    gui:
+    - .
     set:
     - set
     reset:
