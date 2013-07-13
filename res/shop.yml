@@ -2600,3 +2600,185 @@ item:
     depend:
       WhiteWool: 1
       Diamond: 6
+shop:
+  name: "Tienda"
+  next:
+    LimeDye:
+      name: "Siguiente"
+  previous:
+    RoseRed:
+      name: "Previo"
+  return:
+    OrangeDye:
+      name: "Regresar al menú"
+  sub:
+    Stone:
+      name: "Blocks"
+      sub:
+        Stone: 
+          name: "Piedras"
+          list:
+          - Stone
+          - Cobblestone
+          - Sandstone
+          - SandstoneSmooth
+          - SandstoneChiseled
+          - MossStone
+          - Netherrack
+          - StoneBricks
+          - NetherBrick
+          - EndStone
+        Dirt:
+          name: "Tierra y Arenas"
+          list:
+          - Dirt
+          - Grass
+          - Sand
+          - Gravel
+          - SoulSand
+          - Mycelium
+        OakWood:
+          name: "Maderas"
+          list:
+          - OakWood
+          - OakPlank
+          - OakLeaves
+          - OakSapling
+          - SpruceWood
+          - SprucePlank
+          - SpruceLeaves
+          - SpruceSapling
+          - BirchWood
+          - BirchPlank
+          - BirchLeaves
+          - BirchSapling
+          - JungleWood
+          - JunglePlank
+          - JungleLeaves
+          - JungleSapling
+        WhiteWool:
+          name: "Lana"
+          list:
+          - WhiteWool
+          - OrangeWool
+          - MagentaWool
+          - LightBlueWool
+          - YellowWool
+          - LimeWool
+          - PinkWool
+          - GrayWool
+          - LightGrayWool
+          - CyanWool
+          - PurpleWool
+          - BlueWool
+          - BrownWool
+          - GreenWool
+          - RedWool
+          - BlackWool
+        StoneSlab:
+          name: "Slabs"
+          list:
+          - StoneSlab
+          - SandstoneSlab
+          - CobblestoneSlab
+          - BrickSlab
+          - StoneBrickSlab
+          - NetherBrickSlab
+          - QuartzSlab
+        Sponge:
+          name: "Otros"
+          list:
+          - Sponge
+          - Glass
+          - LapisBlock
+          - BlockGold
+          - BlockIron
+          - BlockDiamond
+          - BlockEmerald
+          - Bricks
+          - Bookshelf
+          - Obsidian
+          - Ice
+          - SnowBlock
+          - ClayBlock
+          - GlowstoneBlock
+          - Pumpkin
+          - Melon
+          - CobblestoneWall
+          - BlockQuartz
+          - HardenedClay
+          - HayBlock
+          - BlockCoal
+    RoseRed:
+      name: "Decoración"
+      sub:
+        Chest:
+          name: "Útiles"
+          list:
+          - Chest
+          - TrappedChest
+          - Furnance
+          - Torch
+          - Ladder
+          - JukeBox
+          - Fence
+          - IronBars
+          - Glasspane
+          - EnchantmentTable
+          - EndPortalFrame
+          - Anvil
+          - Painting
+          - Sign
+          - Bed
+          - ItemFrame
+          - FlowerPot
+          - HumanHead
+          - SkeletonHead
+          - WitherHead
+          - ZombieHead
+          - CreeperHead
+        YellowFlower:
+          name: "Naturales"
+          list:
+          - OakSapling
+          - BirchSapling
+          - SpruceSapling
+          - JungleSapling
+          - OakLeaves
+          - BirchLeaves
+          - SpruceLeaves
+          - JungleLeaves
+          - Cobweb
+          - TallGrass
+          - Fern
+          - DeadBush
+          - YellowFlower
+          - RedFlower
+          - BrownMushroom
+          - RedMushroom
+          - Vines
+          - LilyPad
+    Redstone:
+      name: "Redstone"
+      list:
+      - Redstone
+      - RedstoneTorch
+      - RedstoneRepeater
+      - RedstoneComparator
+      - RedstoneLamp
+    PoweredRail:
+      name: "Transporte"
+      list:
+      - 
+    LavaBucket:
+      name: "Otros"
+    Apple:
+      name: "Comida"
+    WoodenAxe:
+      name: "Herramientas"
+    IronSword:
+      name: "Armas y Armaduras"
+    AwkwardPotion:
+      name: "Pociones"
+    Stick:
+      name: "Materiales"

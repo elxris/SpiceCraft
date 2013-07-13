@@ -1,6 +1,7 @@
 package elxris.SpiceCraft.Utils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.bukkit.configuration.file.FileConfiguration;
@@ -18,6 +19,20 @@ public class Strings{
     private static FileConfiguration getFc() {
         return fc;
     }
+    public static String parseList(List<String> list){
+        if(list == null || list.size() == 0){
+            return "";
+        }
+        String texto = "";
+        texto = "";
+        for(int e = 0; e < list.size(); e++){
+            texto += list.get(e);
+            if(e + 1 < list.size()){
+                texto += "§r\n";
+            }
+        }
+        return texto;
+    }
     // GETTERS
     public static String getString(String path){
         return (String) get(path);
@@ -28,6 +43,10 @@ public class Strings{
             return s;
         }
         return (List<String>) getList(path);
+    }
+    public static List<String> getSringList(String path, Object... i){
+        List<String> list = Arrays.asList(String.format(parseList(getStringList(path)), i).split("§r\\n")); 
+        return list;
     }
     public static int getInt(String path){
         return (int) get(path);

@@ -2,7 +2,6 @@ package elxris.SpiceCraft.Listener;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -11,7 +10,6 @@ import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BookMeta;
-
 import elxris.SpiceCraft.SpiceCraft;
 import elxris.SpiceCraft.Utils.Archivo;
 import elxris.SpiceCraft.Utils.Chat;
@@ -37,6 +35,7 @@ public class CommandListener implements Listener{
             }
         }
     }
+    
     // Muestra un comando
     private boolean getCommand(Player p, String command){
         String[] s = command.split(" ");

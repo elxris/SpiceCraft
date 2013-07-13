@@ -201,6 +201,10 @@ shop:
   - §b[§cSHOP§b]§r §aSe ha fijado el precio satisfactoriamente a %s.
   resetItem:
   - §b[§cSHOP§b]§r §aSe ha reseteado satisfactoriamente a %s.
+  itemLore:
+  - 'Precio: %s'
+  - 'Producción: %s'
+  - 'ID: %s'
 cmd:
   reload:
   - Reload de comandos y configuraciones completo!

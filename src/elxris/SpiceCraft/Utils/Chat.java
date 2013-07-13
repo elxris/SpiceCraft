@@ -14,18 +14,7 @@ public class Chat {
         p.sendMessage(String.format(mensaje, i));
     }
     public static void mensaje(Player p, List<String> list, Object... i){
-        if(list == null || list.size() == 0){
-            return;
-        }
-        String texto = "";
-        texto = "";
-        for(int e = 0; e < list.size(); e++){
-            texto += list.get(e);
-            if(e + 1 < list.size()){
-                texto += "§r\n";
-            }
-        }
-        enviar(p, texto, i);
+        enviar(p, Strings.parseList(list), i);
     }
     public static void mensaje(Player p, String path, Object... i){
         mensaje(p, Strings.getStringList(path), i);

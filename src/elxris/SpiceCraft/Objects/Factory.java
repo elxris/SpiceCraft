@@ -9,21 +9,26 @@ import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.MemoryConfiguration;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.ClickType;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 import elxris.SpiceCraft.SpiceCraft;
 import elxris.SpiceCraft.Utils.Archivo;
 import elxris.SpiceCraft.Utils.Chat;
 import elxris.SpiceCraft.Utils.Econ;
+import elxris.SpiceCraft.Utils.Strings;
 
 public class Factory extends Savable implements Listener {
     private static Archivo file;
-    private static FileConfiguration fc;
+    private static FileConfiguration fc, volatil;
     private static MemoryConfiguration paths;
     private int VEL, STACKFULL;
     private long FRECUENCY;
@@ -369,7 +374,9 @@ public class Factory extends Savable implements Listener {
             Chat.mensaje(p, "shop.creative");
             return;
         }
-        Inventory inv = org.bukkit.Bukkit.createInventory(p, 27, "SHOP");
+        Inventory inv = org.bukkit.Bukkit.createInventory(p, 54, getShopName());
+        FactoryGui gui = new FactoryGui(this, p);
+        gui.updateInventory(inv);
         p.openInventory(inv);
     }
     @EventHandler
@@ -379,21 +386,7 @@ public class Factory extends Savable implements Listener {
             Player p = (Player) event.getPlayer();
             double money = 0;
             for(ItemStack item: inv.getContents()){
-                if(item == null){
-                    continue;
-                }
-                double maxDurab = item.getType().getMaxDurability();
-                double durab = maxDurab - item.getDurability();
-                String id = ""+item.getTypeId();
-                if(item.getDurability() > 0){
-                    if(maxDurab == 0){
-                        id += ":"+item.getDurability();
-                    }
-                }
-                String name = searchItem(id);
-                if(name == null){
-                    name = searchItem(id+":0");
-                }
+                String name = getItemName(item);
                 if(name == null){
                     Chat.mensaje(p, "shop.notExist");
                     addItemToInventory(p, item);
@@ -405,6 +398,8 @@ public class Factory extends Savable implements Listener {
                     continue;
                 }
                 addCountRecursive(name, (double)item.getAmount()/getRecipieMultiplie(name));
+                double maxDurab = item.getType().getMaxDurability();
+                double durab = maxDurab - item.getDurability();
                 if(durab > 0){
                     money += getPrecio(name, item.getAmount())*(durab/maxDurab);
                 }else{
@@ -413,6 +408,26 @@ public class Factory extends Savable implements Listener {
             }
             new Econ().pagar(p, money*SELLRATE);
         }
+        if(event.getInventory().getTitle().contentEquals(getShopName())){
+            new FactoryGui(this, ((Player)event.getPlayer())).close();
+        }
+    }
+    public String getItemName(ItemStack item){
+        if(item == null){
+            return null;
+        }
+        double maxDurab = item.getType().getMaxDurability();
+        String id = ""+item.getTypeId();
+        if(item.getDurability() > 0){
+            if(maxDurab == 0){
+                id += ":"+item.getDurability();
+            }
+        }
+        String name = searchItem(id);
+        if(name == null){
+            name = searchItem(id+":0");
+        }
+        return name;
     }
     // Gestion de archivos.
     private static void setFile(String path){
@@ -438,5 +453,168 @@ public class Factory extends Savable implements Listener {
     public void run() {
         super.run();
         getFile().save(getCache());
+    }
+    private static FileConfiguration getVolatilCache(){
+        if(volatil == null){
+            volatil = new YamlConfiguration();
+        }
+        return volatil;
+    }
+    @EventHandler
+    private void onClickInventory(InventoryClickEvent event){
+        if(!event.getInventory().getName().contentEquals(getShopName())){
+            return;
+        }
+        FactoryGui gui = new FactoryGui(this, ((Player)event.getWhoClicked()));
+        if(event.getCurrentItem() == null){
+            return;
+        }
+        if(event.getRawSlot() < event.getInventory().getSize()){
+            event.setCancelled(true);
+            if(event.getView().getCursor().getTypeId() == 0){
+                if(event.getClick() == ClickType.LEFT){
+                    // TODO Comprar 1 si tiene un displayName o cambiar de path.
+                    if(event.getCurrentItem().getItemMeta().hasDisplayName()){
+                    // Tiene nombre es un menú.
+                        gui.addPath(getItemName(event.getCurrentItem()));
+                        gui.updateInventory(event.getInventory());
+                    }
+                    event.getWhoClicked().getInventory().addItem(event.getCurrentItem());
+                }else if(event.getClick() == ClickType.RIGHT){
+                    // TODO Comprar stack
+                    ItemStack item = new ItemStack(event.getCurrentItem().getTypeId(), event.getCurrentItem().getMaxStackSize());
+                    event.getWhoClicked().getInventory().addItem(item);
+                }
+            }else{
+                // TODO Vender objetos.
+                event.getView().setCursor(null);
+            }
+        }else{
+            // Cancela lo que no sea un clic derecho o izquierdo.
+            if(!(event.getClick() == ClickType.RIGHT
+                    || event.getClick() == ClickType.LEFT)){
+                event.setCancelled(true);
+            }
+            // Si se hace shift click fuera del inventario de la tienda, se vende el stack.
+            // TODO Vender.
+            if(event.getClick() == ClickType.SHIFT_LEFT || event.getClick() == ClickType.SHIFT_RIGHT){
+                event.setCurrentItem(null);
+                event.setCancelled(true);
+            }
+        }
+    }
+    public String getShopName(){
+        return getCache().getString("shop.name");
+    }
+    public class FactoryGui
+    {
+        Factory f;
+        Player p;
+        // 0 - 53 slots.
+        public FactoryGui(Factory f, Player p){
+            this.f = f;
+            this.p = p;
+        }
+        public void updateInventory(Inventory inv){
+            inv.clear();
+            List<ItemStack> items;
+            if(isRelativeSet("list")){
+            // Si existe una lista de objetos.
+                items = getItemList(getPath("list"));
+            }else if(isRelativeSet("sub")){
+            // Si existe un submenu
+                items = getItemMenu(getPath("sub"));
+            }else{
+                return;
+            }
+            int itemsPerPage = 54;
+            if(!isRelativeSet("return")){
+                inv.addItem(getReturn());
+                itemsPerPage--;
+            }
+            if(items.size() > itemsPerPage){
+                itemsPerPage -= 2;
+                if(getPage() > 1){
+                    inv.addItem(getPrev());
+                }
+                if(((items.size()/itemsPerPage)-getPage())>=1){
+                    inv.addItem(getNext());
+                }
+            }
+            int start = (getPage()-1)*itemsPerPage;
+            int count = 0;
+            for(int i = 54-itemsPerPage; i < 54; i++){
+                inv.setItem(start+i, items.get(count));
+                if(++count >= items.size()){
+                    break;
+                }
+            }
+        }
+        public List<ItemStack> getItemList(String path){
+            List<ItemStack> list = new ArrayList<ItemStack>();
+            for(String item : getConfig().getStringList(path+".list")){
+                ItemStack i = f.createItem(p, item, 4);
+                ItemMeta meta = i.getItemMeta();
+                String id = getId(item)+((haveData(item))?":"+getData(item):"");
+                meta.setLore(Strings.getSringList("shop.itemLore", getPrice(item), getProduction(item), id));
+                list.add(i);
+            }
+            return list;
+        }
+        public List<ItemStack> getItemMenu(String path){
+            List<ItemStack> list = new ArrayList<ItemStack>();
+            for(String item : getConfig().getConfigurationSection(path).getKeys(false)){
+                String name = getConfig().getString(path+"."+item+".name");
+                ItemStack i = f.createItem(p, item, 1);
+                ItemMeta m = i.getItemMeta();
+                m.setDisplayName(name);
+                i.setItemMeta(m);
+                list.add(i);
+            }
+            return list;
+        }
+        public ItemStack getNext(){
+            return getItemMenu("shop.next").get(0);
+        }
+        public ItemStack getPrev(){
+            return getItemMenu("shop.previous").get(0);
+        }
+        public ItemStack getReturn(){
+            return getItemMenu("shop.return").get(0);
+        }
+        public String getPath(){
+            if(!getCache().isSet(p.getName()+".set") || !getCache().getBoolean(p.getName()+".set")){
+                getCache().set(p.getName()+".set", true);
+                getCache().set(p.getName()+".path", "shop.");
+            }
+            return getCache().getString(p.getName()+".path");
+        }
+        public boolean isRelativeSet(String s){
+            return getConfig().isSet(getPath(s));
+        }
+        public String getPath(String s){
+            return getPath()+s;
+        }
+        public void setPath(String s){
+            getCache().set(p.getName()+".path", s);
+        }
+        public void addPath(String s){
+            setPath(getPath()+"sub."+s+".");
+        }
+        public int getPage(){
+            return getCache().getInt(p.getName()+".page", 1);
+        }
+        public void setPage(int i){
+            getCache().set(p.getName()+".page", i);
+        }
+        public void close(){
+            getCache().set(p.getName(), null);
+        }
+        public FileConfiguration getCache(){
+            return Factory.getVolatilCache();
+        }
+        public FileConfiguration getConfig(){
+            return Factory.getCache();
+        }
     }
 }
