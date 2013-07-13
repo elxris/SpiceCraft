@@ -61,7 +61,7 @@ public class Archivo {
         if(is == null){
             return false;
         }
-        Scanner s = new Scanner(is, Charsets.ISO_8859_1.displayName()).useDelimiter("\\A");
+        Scanner s = new Scanner(is, Charsets.UTF_8.displayName()).useDelimiter("\\A");
         if(!exist()){
             blankFile(path);
         }

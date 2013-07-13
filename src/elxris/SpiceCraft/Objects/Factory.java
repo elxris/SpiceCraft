@@ -6,6 +6,7 @@ import java.util.Set;
 
 import org.bukkit.GameMode;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.MemoryConfiguration;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -374,43 +375,39 @@ public class Factory extends Savable implements Listener {
             Chat.mensaje(p, "shop.creative");
             return;
         }
-        Inventory inv = org.bukkit.Bukkit.createInventory(p, 54, getShopName());
+        Inventory inv = org.bukkit.Bukkit.createInventory(p, 27, getShopName());
         FactoryGui gui = new FactoryGui(this, p);
         gui.updateInventory(inv);
         p.openInventory(inv);
     }
     @EventHandler
     private void onCloseInventory(org.bukkit.event.inventory.InventoryCloseEvent event){
-        if(event.getInventory().getTitle().contentEquals("SHOP")){
-            Inventory inv = event.getInventory();
-            Player p = (Player) event.getPlayer();
-            double money = 0;
-            for(ItemStack item: inv.getContents()){
-                String name = getItemName(item);
-                if(name == null){
-                    Chat.mensaje(p, "shop.notExist");
-                    addItemToInventory(p, item);
-                    continue;
-                }
-                if(!(p.hasPermission("spicecraft.shop.master")||(getUserSell(name)))){
-                    Chat.mensaje(p, "shop.cantSell");
-                    addItemToInventory(p, item);
-                    continue;
-                }
-                addCountRecursive(name, (double)item.getAmount()/getRecipieMultiplie(name));
-                double maxDurab = item.getType().getMaxDurability();
-                double durab = maxDurab - item.getDurability();
-                if(durab > 0){
-                    money += getPrecio(name, item.getAmount())*(durab/maxDurab);
-                }else{
-                    money += getPrecio(name, item.getAmount());
-                }
-            }
-            new Econ().pagar(p, money*SELLRATE);
-        }
         if(event.getInventory().getTitle().contentEquals(getShopName())){
             new FactoryGui(this, ((Player)event.getPlayer())).close();
         }
+    }
+    public void sellItem(Player p, ItemStack item){
+        double money = 0;
+        String name = getItemName(item);
+        if(name == null){
+            Chat.mensaje(p, "shop.notExist");
+            addItemToInventory(p, item);
+            return;
+        }
+        if(!(p.hasPermission("spicecraft.shop.master")||(getUserSell(name)))){
+            Chat.mensaje(p, "shop.cantSell");
+            addItemToInventory(p, item);
+            return;
+        }
+        addCountRecursive(name, (double)item.getAmount()/getRecipieMultiplie(name));
+        double maxDurab = item.getType().getMaxDurability();
+        double durab = maxDurab - item.getDurability();
+        if(durab > 0){
+            money += getPrecio(name, item.getAmount())*(durab/maxDurab);
+        }else{
+            money += getPrecio(name, item.getAmount());
+        }
+        new Econ().pagar(p, money*SELLRATE);
     }
     public String getItemName(ItemStack item){
         if(item == null){
@@ -445,7 +442,6 @@ public class Factory extends Savable implements Listener {
     private static FileConfiguration getCache(){
         if(fc == null){
             setCache(getFile().load());
-            getCache().setDefaults(Archivo.getDefaultConfig("shop.yml"));
         }
         return fc;
     }
@@ -465,28 +461,41 @@ public class Factory extends Savable implements Listener {
         if(!event.getInventory().getName().contentEquals(getShopName())){
             return;
         }
-        FactoryGui gui = new FactoryGui(this, ((Player)event.getWhoClicked()));
-        if(event.getCurrentItem() == null){
-            return;
-        }
+        Player p = (Player)event.getWhoClicked();
+        p.getWorld().playSound(p.getLocation(), Sound.CLICK, 1.0f, 1.0f);
+        FactoryGui gui = new FactoryGui(this, p);
+        // Si es dentro del inventario de la tienda o no.
         if(event.getRawSlot() < event.getInventory().getSize()){
             event.setCancelled(true);
-            if(event.getView().getCursor().getTypeId() == 0){
-                if(event.getClick() == ClickType.LEFT){
-                    // TODO Comprar 1 si tiene un displayName o cambiar de path.
-                    if(event.getCurrentItem().getItemMeta().hasDisplayName()){
-                    // Tiene nombre es un menú.
-                        gui.addPath(getItemName(event.getCurrentItem()));
-                        gui.updateInventory(event.getInventory());
+            // Si tiene la mano vacía.
+            if(event.getCursor().getTypeId() == 0){
+                if(event.getCurrentItem() == null || event.getCurrentItem().getTypeId() == 0){
+                    return;
+                }
+                ItemStack item = event.getCurrentItem();
+                if(item.getItemMeta().hasDisplayName()){
+                    String itemName = item.getItemMeta().getDisplayName();
+                    if(itemName.contentEquals(gui.getReturn().getItemMeta().getDisplayName())){
+                        gui.close();
+                    }else if(itemName.contentEquals(gui.getNext().getItemMeta().getDisplayName())){
+                        gui.addPage(1);
+                    }else if(itemName.contentEquals(gui.getPrev().getItemMeta().getDisplayName())){
+                        gui.addPage(-1);
+                    }else{
+                        // Si es un menú.
+                        gui.addPath(getItemName(item));
+                        gui.setPage(1);
                     }
-                    event.getWhoClicked().getInventory().addItem(event.getCurrentItem());
-                }else if(event.getClick() == ClickType.RIGHT){
-                    // TODO Comprar stack
-                    ItemStack item = new ItemStack(event.getCurrentItem().getTypeId(), event.getCurrentItem().getMaxStackSize());
-                    event.getWhoClicked().getInventory().addItem(item);
+                    gui.updateInventory(event.getInventory());
+                }else{
+                    if(event.getClick() == ClickType.LEFT){
+                        shop(p, getItemName(item), 1);
+                    }else if(event.getClick() == ClickType.RIGHT){
+                        shop(p, getItemName(item), item.getMaxStackSize());
+                    }
                 }
             }else{
-                // TODO Vender objetos.
+                sellItem(p, event.getCursor());
                 event.getView().setCursor(null);
             }
         }else{
@@ -496,8 +505,8 @@ public class Factory extends Savable implements Listener {
                 event.setCancelled(true);
             }
             // Si se hace shift click fuera del inventario de la tienda, se vende el stack.
-            // TODO Vender.
             if(event.getClick() == ClickType.SHIFT_LEFT || event.getClick() == ClickType.SHIFT_RIGHT){
+                sellItem(p, event.getCurrentItem());
                 event.setCurrentItem(null);
                 event.setCancelled(true);
             }
@@ -510,6 +519,7 @@ public class Factory extends Savable implements Listener {
     {
         Factory f;
         Player p;
+        int size = 27;
         // 0 - 53 slots.
         public FactoryGui(Factory f, Player p){
             this.f = f;
@@ -520,14 +530,14 @@ public class Factory extends Savable implements Listener {
             List<ItemStack> items;
             if(isRelativeSet("list")){
             // Si existe una lista de objetos.
-                items = getItemList(getPath("list"));
+                items = getItemList(getPath());
             }else if(isRelativeSet("sub")){
             // Si existe un submenu
                 items = getItemMenu(getPath("sub"));
             }else{
                 return;
             }
-            int itemsPerPage = 54;
+            int itemsPerPage = size;
             if(!isRelativeSet("return")){
                 inv.addItem(getReturn());
                 itemsPerPage--;
@@ -535,16 +545,15 @@ public class Factory extends Savable implements Listener {
             if(items.size() > itemsPerPage){
                 itemsPerPage -= 2;
                 if(getPage() > 1){
-                    inv.addItem(getPrev());
+                    inv.setItem((size-2)-itemsPerPage, getPrev());
                 }
-                if(((items.size()/itemsPerPage)-getPage())>=1){
-                    inv.addItem(getNext());
+                if(items.size()-(getPage()*itemsPerPage)>=1){
+                    inv.setItem((size-1)-itemsPerPage, getNext());
                 }
             }
-            int start = (getPage()-1)*itemsPerPage;
-            int count = 0;
-            for(int i = 54-itemsPerPage; i < 54; i++){
-                inv.setItem(start+i, items.get(count));
+            int count = (getPage()-1)*itemsPerPage;
+            for(int i = size-itemsPerPage; i < size; i++){
+                inv.setItem(i, items.get(count));
                 if(++count >= items.size()){
                     break;
                 }
@@ -553,10 +562,12 @@ public class Factory extends Savable implements Listener {
         public List<ItemStack> getItemList(String path){
             List<ItemStack> list = new ArrayList<ItemStack>();
             for(String item : getConfig().getStringList(path+".list")){
-                ItemStack i = f.createItem(p, item, 4);
+                ItemStack i = f.createItem(p, item, 1);
                 ItemMeta meta = i.getItemMeta();
                 String id = getId(item)+((haveData(item))?":"+getData(item):"");
-                meta.setLore(Strings.getSringList("shop.itemLore", getPrice(item), getProduction(item), id));
+                meta.setLore(Strings.getSringList("shop.itemLore",
+                        new Econ().getPrecio(getPrice(item)), getProduction(item), id));
+                i.setItemMeta(meta);
                 list.add(i);
             }
             return list;
@@ -585,7 +596,7 @@ public class Factory extends Savable implements Listener {
         public String getPath(){
             if(!getCache().isSet(p.getName()+".set") || !getCache().getBoolean(p.getName()+".set")){
                 getCache().set(p.getName()+".set", true);
-                getCache().set(p.getName()+".path", "shop.");
+                setPath("shop.");
             }
             return getCache().getString(p.getName()+".path");
         }
@@ -606,6 +617,9 @@ public class Factory extends Savable implements Listener {
         }
         public void setPage(int i){
             getCache().set(p.getName()+".page", i);
+        }
+        public void addPage(int i){
+            setPage(getPage()+i);
         }
         public void close(){
             getCache().set(p.getName(), null);

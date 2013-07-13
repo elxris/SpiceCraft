@@ -246,8 +246,6 @@ item:
       Redstone: 1
       Stone: 2
     recipieMultiplie: 6
-    alias:
-    - RailDetector
   StickyPiston:
     id: 29
     price: 0
@@ -546,7 +544,7 @@ item:
     - Librero
   MossStone:
     id: 48
-    price: 50
+    price: 0
     depend:
       Cobblestone: 1
       Seeds: 1
@@ -832,6 +830,11 @@ item:
       Cobblestone: 1
     alias:
     - MuroRoca
+  MossyCobblestoneWall:
+    id: 139
+    price: 0
+    depend:
+      MossStone: 1
   Anvil:
     id: 145
     price: 0
@@ -871,6 +874,14 @@ item:
     price: 0
     depend:
       Quartz: 4
+  ActivatorRail:
+    id: 157
+    price: 0
+    depend:
+      Iron: 6
+      Stick: 2
+      RedstoneTorch: 1
+    recipieMultiplie: 6
   Dropper:
     id: 158
     price: 0
@@ -1646,7 +1657,6 @@ item:
       InkSac: 1
     data: 4
     alias:
-    - LapisLazuli
     - Lapis
     - Blue
     - Azul
@@ -1948,6 +1958,9 @@ item:
       String: 4
       Slimeball: 1
     recipieMultiplie: 2
+  NameTag:
+    id: 421
+    price: 1500
 ## DISC
   13Disc:
     id: 2256
@@ -2064,7 +2077,7 @@ item:
     depend:
       PotionSwiftness: 1
       GlowstoneDust: 1
-    data: 8225
+    data: 8226
   PotionSwiftness2Extended:
     id: 373
     price: 0
@@ -2603,17 +2616,17 @@ item:
 shop:
   name: "Tienda"
   next:
-    LimeDye:
+    EyeEnder:
       name: "Siguiente"
   previous:
-    RoseRed:
+    EnderPearl:
       name: "Previo"
   return:
-    OrangeDye:
-      name: "Regresar al menú"
+    Milk:
+      name: "Menú"
   sub:
-    Stone:
-      name: "Blocks"
+    Bricks:
+      name: "Bloques"
       sub:
         Stone: 
           name: "Piedras"
@@ -2628,6 +2641,7 @@ shop:
           - StoneBricks
           - NetherBrick
           - EndStone
+          - Bricks
         Dirt:
           name: "Tierra y Arenas"
           list:
@@ -2695,7 +2709,6 @@ shop:
           - BlockIron
           - BlockDiamond
           - BlockEmerald
-          - Bricks
           - Bookshelf
           - Obsidian
           - Ice
@@ -2705,15 +2718,16 @@ shop:
           - Pumpkin
           - Melon
           - CobblestoneWall
+          - MossyCobblestoneWall
           - BlockQuartz
           - HardenedClay
           - HayBlock
           - BlockCoal
-    RoseRed:
+    RedFlower:
       name: "Decoración"
       sub:
         Chest:
-          name: "Útiles"
+          name: "Utiles"
           list:
           - Chest
           - TrappedChest
@@ -2766,19 +2780,271 @@ shop:
       - RedstoneRepeater
       - RedstoneComparator
       - RedstoneLamp
-    PoweredRail:
+      - Dispenser
+      - Dropper
+      - NoteBlock
+      - Piston
+      - StickyPiston
+      - TNT
+      - TripwireHook
+      - GoldenPressurePlate
+      - IronPressurePlate
+      - BlockRedstone
+      - Hopper
+      - WoodenDoor
+      - IronDoor
+    Minecart:
       name: "Transporte"
       list:
-      - 
+      - Rail
+      - DetectorRail
+      - PoweredRail
+      - ActivatorRail
+      - Minecart
+      - Saddle
+      - Boat
+      - CarrotOnAStick
     LavaBucket:
       name: "Otros"
+      list:
+      - Bucket
+      - LavaBucket
+      - WaterBucket
+      - Milk
+      - Beacon
+      - Snowball
+      - Paper
+      - Book
+      - BookAndQuill
+      - EnchantedBook
+      - Slimeball
+      - Bone
+      - EnderPearl
+      - EyeEnder
+      - BottleOEnchanting
+      - EmptyMap
+      - Coal
+      - Flint
+      - Diamond
+      - Emerald
+      - Iron
+      - Gold
+      - GoldNugget
+      - Quartz
+      - NetherStar
+      - Stick
+      - String
+      - Feather
+      - Gunpowder
+      - Leather
+      - Clay
+      - GlowstoneDust
+      - Seeds
+      - PumpkinSeeds
+      - MelonSeeds
+      - Wheat
+      - SugarCanes
+      - Egg
+      - Sugar
+      - NetherWart
+      - BlazeRod
+      - Brick
+      - NetherBrickItem
+    ChickenEgg:
+      name: "Huevos"
+      list:
+      - CreeperEgg
+      - SkeletonEgg
+      - SpiderEgg
+      - ZombieEgg
+      - SlimeEgg
+      - GhastEgg
+      - ZombiePigmanEgg
+      - EndermanEgg
+      - CaveSpiderEgg
+      - SilverfishEgg
+      - BlazeEgg
+      - MagmaCubeEgg
+      - BatEgg
+      - WitchEgg
+      - PigEgg
+      - SheepEgg
+      - CowEgg
+      - ChickenEgg
+      - SquidEgg
+      - WolfEgg
+      - MooshroomEgg
+      - OcelotEgg
+      - HorseEgg
+      - VillagerEgg
+    GoldenHorseArmor:
+      name: "Armaduras de caballos"
+      list:
+      - IronHorseArmor
+      - GoldenHorseArmor
+      - DiamondHorseArmor
+    13Disc:
+      name: "Discos"
+      list:
+      - 13Disc
+      - CatDisc
+      - BlocksDisc
+      - ChirpDisc
+      - FarDisc
+      - MallDisc
+      - MellohiDisc
+      - StalDisc
+      - StradDisc
+      - WardDisc
+      - 11Disc
+      - WaitDisc
     Apple:
       name: "Comida"
+      list:
+      - Apple
+      - MushroomStew
+      - Bread
+      - RawPorkchop
+      - CookedPorckchop
+      - GoldenApple
+      - EnchantedGoldenApple
+      - RawFish
+      - Cake
+      - Cookie
+      - MelonSlice
+      - RawBeef
+      - Steak
+      - RawChicken
+      - CookedChiken
+      - RottenFlesh
+      - SpiderEye
+      - Carrot
+      - Potato
+      - BakedPotato
+      - GoldenCarrot
+      - PumpkinPie
     WoodenAxe:
       name: "Herramientas"
+      list:
+      - WoodenShovel
+      - WoodenPickaxe
+      - WoodenAxe
+      - WoodenHoe
+      - StoneShovel
+      - StonePickaxe
+      - StoneAxe
+      - StoneHoe
+      - IronShovel
+      - IronPickaxe
+      - IronAxe
+      - IronHoe
+      - GoldenShovel
+      - GoldenPickaxe
+      - GoldenAxe
+      - GoldenHoe
+      - DiamondShovel
+      - DiamondPickaxe
+      - DiamondAxe
+      - DiamondHoe
+      - FlintAndSteel
+      - Compass
+      - FishingRod
+      - Clock
+      - Shears
+      - Lead
+      - NameTag
     IronSword:
       name: "Armas y Armaduras"
-    AwkwardPotion:
+      list:
+      - WoodenSword
+      - StoneSword
+      - IronSword
+      - GoldenSword
+      - DiamondSword
+      - Bow
+      - Arrow
+      - LeatherCap
+      - LeatherTunic
+      - LeatherPants
+      - LeatherBoots
+      - IronHelmet
+      - IronChestplate
+      - IronLeggins
+      - IronBoots
+      - GoldenHelmet
+      - GoldenChestplate
+      - GoldenLeggings
+      - GoldenBoots
+      - DiamondHelmet
+      - DiamondChestplate
+      - DiamondLeggings
+      - DiamondBoots
+      - ChainHelmet
+      - ChainChestplate
+      - ChainLeggings
+      - ChainBoots
+    PotionFireResistance:
       name: "Pociones"
-    Stick:
-      name: "Materiales"
+      list:
+      - BrewingStand
+      - Cauldron
+      - GlassBottle
+      - GhastTear
+      - FermentedSpiderEye
+      - BlazePowder
+      - MagmaCream
+      - GlisteringMelon
+      - AwkwardPotion
+      - PotionRegeneration
+      - PotionRegenerationExtended
+      - PotionRegeneration2
+      - PotionRegeneration2Extended
+      - PotionSwiftness
+      - PotionSwiftnessExtended
+      - PotionSwiftness2
+      - PotionSwiftness2Extended
+      - PotionFireResistance
+      - PotionFireResistanceExtended
+      - PotionFireResistanceReverted
+      - PotionPoison
+      - PotionPoisonExtended
+      - PotionPoison2
+      - PotionPoison2Extended
+      - PotionHealing
+      - PotionHealing2
+      - PotionHealingReverted
+      - PotionNightVision
+      - PotionNightVisionExtended
+      - PotionWeakness
+      - PotionWeaknessExtended
+      - PotionWeaknessReverted
+      - PotionStrength
+      - PotionStrengthExtended
+      - PotionStrength2
+      - PotionStrength2Extended
+      - PotionSlowness
+      - PotionSlownessExtended
+      - PotionSlownessReverted
+      - PotionHarming
+      - PotionHarming2
+      - PotionHarmingReverted
+      - PotionInvisibility
+      - PotionInvisibilityExtended
+    LimeDye:
+      name: "Colores"
+      list:
+      - RoseRed
+      - CactusGreen
+      - CocoaBeans
+      - LapisLazuli
+      - PurpleDye
+      - CyanDye
+      - LightGrayDye
+      - GrayDye
+      - PinkDye
+      - LimeDye
+      - DandelionYellow
+      - LightBlueDye
+      - MagentaDye
+      - OrangeDye
+      - BoneMeal
