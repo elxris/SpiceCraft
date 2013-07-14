@@ -466,7 +466,7 @@ public class Factory extends Savable implements Listener {
             event.setCancelled(true);
             // Si tiene la mano vacía.
             if(event.getCursor().getTypeId() == 0){
-                if(event.getCurrentItem().getTypeId() == 0){
+                if(event.getCurrentItem() == null || event.getCurrentItem().getTypeId() == 0){
                     return;
                 }
                 ItemStack item = event.getCurrentItem();
@@ -512,7 +512,7 @@ public class Factory extends Savable implements Listener {
             }
             // Si se hace shift click fuera del inventario de la tienda, se vende el stack.
             if(event.getClick() == ClickType.SHIFT_LEFT || event.getClick() == ClickType.SHIFT_RIGHT){
-                if(event.getCurrentItem().getTypeId() == 0){
+                if(event.getCurrentItem() == null || event.getCurrentItem().getTypeId() == 0){
                     return;
                 }
                 ItemStack current = event.getCurrentItem();
