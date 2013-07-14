@@ -31,15 +31,16 @@ public class ShopCommand extends Comando implements TabCompleter{
             mensaje(p, "alert.permission");
             return true;
         }
-        if(args.length == 0){ // Info
-            mensaje(p, "shop.info", Double.toString(((double)getValue("shop.sellRate"))*100d)+"%");
-            if(p.hasPermission("spicecraft.shop.master")){
-                mensaje(p, "shop.infoMaster");
-            }
+        if(args.length == 0){ // Abre la tienda.
+            f.sell(p);
+            mensaje(p, "shop.openInfo");
         }else
         if(args.length == 1){
-            if(isCommand("comm.shop.gui", args[0])){ // Vender
-                f.sell(p);
+            if(isCommand("comm.shop.help", args[0])){ // Vender
+                mensaje(p, "shop.info", Double.toString(((double)getValue("shop.sellRate"))*100d)+"%");
+                if(p.hasPermission("spicecraft.shop.master")){
+                    mensaje(p, "shop.infoMaster");
+                }
             }else{ // Item info.
                 buscar(p, args[0], null, null, null);
             }

@@ -165,8 +165,8 @@ lib:
 shop:
   info:
   - §b[§cSHOP§b]§r §aHELP
-  - §e/shop . §rOpens a window that you can place the items to sell, or explore the store and buy.
-  - With left click buy one, with the right to buy a stack.
+  - §e/shop §rOpens a window that you can place the items to sell, or explore the store and buy.
+  - With left click buy one, with the right to buy a stack.
   - The items are sold at %s of money you currently have.
   - §bCheck prices is important as they vary with time.
   - "Or here's the commands:"
@@ -177,6 +177,8 @@ shop:
   infoMaster:
   - §e/shop <item> [#] reset §rReset the production data to original.
   - §e/shop <item> [#] set <price> §rSet the price value.
+  openInfo:
+  - Welcome to the store. Check the command §b/shop ? §rfor help.
   itemInfo:
   - '§b[§cSHOP§b]§r §aInfo §d%s'
   - '§bPrice: §a%s §e the unit.'

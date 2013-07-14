@@ -122,8 +122,10 @@ comm:
     - pay
     - p
   shop:
-    gui:
-    - .
+    help:
+    - help
+    - info
+    - '?'
     set:
     - set
     reset:

@@ -287,18 +287,14 @@ public class Factory extends Savable implements Listener {
         return true;
     }
     private void addItemsToInventory(Player p, List<ItemStack> items){ // Añade el item al inventario del jugador.
-        ItemStack[] itemsArray = items.toArray(new ItemStack[0]);
-        addItemsToInventory(p, itemsArray);
-    }
-    private void addItemsToInventory(Player p, ItemStack[] itemsArray){
-        for(ItemStack item: p.getInventory().addItem(itemsArray).values()){
-            p.getWorld().dropItem(p.getEyeLocation(), item);
+        for(ItemStack item: items){
+            addItemToInventory(p, item);
         }
     }
     private void addItemToInventory(Player p, ItemStack item){
-        List<ItemStack> itemsArray = new ArrayList<ItemStack>();
-        itemsArray.add(item);
-        addItemsToInventory(p, itemsArray);
+        for(ItemStack i: p.getInventory().addItem(item).values()){
+            p.getWorld().dropItem(p.getLocation(), i);
+        }
     }
     public List<String> lookItems(String item, boolean all){ // Busca items.
         List<String> items = new ArrayList<String>();
@@ -386,18 +382,18 @@ public class Factory extends Savable implements Listener {
             new FactoryGui(this, ((Player)event.getPlayer())).close();
         }
     }
-    public void sellItem(Player p, ItemStack item){
+    public boolean sellItem(Player p, ItemStack item){
         double money = 0;
         String name = getItemName(item);
         if(name == null){
             Chat.mensaje(p, "shop.notExist");
             addItemToInventory(p, item);
-            return;
+            return false;
         }
         if(!(p.hasPermission("spicecraft.shop.master")||(getUserSell(name)))){
             Chat.mensaje(p, "shop.cantSell");
             addItemToInventory(p, item);
-            return;
+            return false;
         }
         addCountRecursive(name, (double)item.getAmount()/getRecipieMultiplie(name));
         double maxDurab = item.getType().getMaxDurability();
@@ -408,6 +404,7 @@ public class Factory extends Savable implements Listener {
             money += getPrecio(name, item.getAmount());
         }
         new Econ().pagar(p, money*SELLRATE);
+        return true;
     }
     public String getItemName(ItemStack item){
         if(item == null){
@@ -469,7 +466,7 @@ public class Factory extends Savable implements Listener {
             event.setCancelled(true);
             // Si tiene la mano vacía.
             if(event.getCursor().getTypeId() == 0){
-                if(event.getCurrentItem() == null || event.getCurrentItem().getTypeId() == 0){
+                if(event.getCurrentItem().getTypeId() == 0){
                     return;
                 }
                 ItemStack item = event.getCurrentItem();
@@ -495,8 +492,17 @@ public class Factory extends Savable implements Listener {
                     }
                 }
             }else{
-                sellItem(p, event.getCursor());
-                event.getView().setCursor(null);
+                ItemStack item = event.getCursor();
+                int amount = item.getAmount();
+                if(event.getClick() == ClickType.LEFT){
+                    sellItem(p, item);
+                    item.setAmount(0);
+                }else if(event.getClick() == ClickType.RIGHT){
+                    item.setAmount(1);
+                    sellItem(p, item);
+                    item.setAmount(--amount);
+                }
+                event.getView().setCursor(item);
             }
         }else{
             // Cancela lo que no sea un clic derecho o izquierdo.
@@ -506,8 +512,12 @@ public class Factory extends Savable implements Listener {
             }
             // Si se hace shift click fuera del inventario de la tienda, se vende el stack.
             if(event.getClick() == ClickType.SHIFT_LEFT || event.getClick() == ClickType.SHIFT_RIGHT){
-                sellItem(p, event.getCurrentItem());
+                if(event.getCurrentItem().getTypeId() == 0){
+                    return;
+                }
+                ItemStack current = event.getCurrentItem();
                 event.setCurrentItem(null);
+                sellItem(p, current);
                 event.setCancelled(true);
             }
         }
