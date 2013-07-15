@@ -17,6 +17,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -35,6 +36,7 @@ public class Factory extends Savable implements Listener {
     private long FRECUENCY;
     private double MULTIPLIER, SELLRATE;
     private boolean VARIABLE;
+    private String shopName;
     public Factory() {
         init();
     }
@@ -378,7 +380,10 @@ public class Factory extends Savable implements Listener {
     }
     @EventHandler
     private void onCloseInventory(org.bukkit.event.inventory.InventoryCloseEvent event){
-        if(event.getInventory().getTitle().contentEquals(getShopName())){
+        if(event.getInventory().getType() != InventoryType.CHEST){
+            return;
+        }
+        if(event.getInventory().getName() == getShopName()){
             new FactoryGui(this, ((Player)event.getPlayer())).close();
         }
     }
@@ -455,7 +460,13 @@ public class Factory extends Savable implements Listener {
     }
     @EventHandler
     private void onClickInventory(InventoryClickEvent event){
-        if(!event.getInventory().getName().contentEquals(getShopName())){
+        if(event.getInventory().getType() != InventoryType.CHEST){
+            return;
+        }
+        if(event.getInventory().getSize() != FactoryGui.SIZE){
+            return;
+        }
+        if(!(event.getInventory().getName() == getShopName())){
             return;
         }
         Player p = (Player)event.getWhoClicked();
@@ -523,13 +534,16 @@ public class Factory extends Savable implements Listener {
         }
     }
     public String getShopName(){
-        return getCache().getString("shop.name");
+        if(shopName == null){
+            shopName = getCache().getString("shop.name");
+        }
+        return shopName;
     }
     public class FactoryGui
     {
         Factory f;
         Player p;
-        int size = 27;
+        public static final int SIZE = 27;
         // 0 - 53 slots.
         public FactoryGui(Factory f, Player p){
             this.f = f;
@@ -547,7 +561,7 @@ public class Factory extends Savable implements Listener {
             }else{
                 return;
             }
-            int itemsPerPage = size;
+            int itemsPerPage = SIZE;
             if(!isRelativeSet("return")){
                 inv.addItem(getReturn());
                 itemsPerPage--;
@@ -555,14 +569,14 @@ public class Factory extends Savable implements Listener {
             if(items.size() > itemsPerPage){
                 itemsPerPage -= 2;
                 if(getPage() > 1){
-                    inv.setItem((size-2)-itemsPerPage, getPrev());
+                    inv.setItem((SIZE-2)-itemsPerPage, getPrev());
                 }
                 if(items.size()-(getPage()*itemsPerPage)>=1){
-                    inv.setItem((size-1)-itemsPerPage, getNext());
+                    inv.setItem((SIZE-1)-itemsPerPage, getNext());
                 }
             }
             int count = (getPage()-1)*itemsPerPage;
-            for(int i = size-itemsPerPage; i < size; i++){
+            for(int i = SIZE-itemsPerPage; i < SIZE; i++){
                 inv.setItem(i, items.get(count));
                 if(++count >= items.size()){
                     break;
@@ -576,7 +590,8 @@ public class Factory extends Savable implements Listener {
                 ItemMeta meta = i.getItemMeta();
                 String id = getId(item)+((haveData(item))?":"+getData(item):"");
                 meta.setLore(Strings.getStringList("shop.itemLore",
-                        new Econ().getPrecio(getPrice(item)), getProduction(item), id));
+                        new Econ().getPrecio(getPrice(item)), new Econ().getPrecio(getPrice(item)*f.SELLRATE),
+                        getProduction(item), id));
                 i.setItemMeta(meta);
                 list.add(i);
             }

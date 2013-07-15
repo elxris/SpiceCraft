@@ -207,7 +207,8 @@ shop:
   resetItem:
   - §b[§cSHOP§b]§r §aIt has successfully reset %s.
   itemLore:
-  - 'Price: %s'
+  - 'Buy: %s'
+  - 'Sell: %s'
   - 'Production: %s'
   - 'ID: %s'
 cmd:

@@ -47,7 +47,7 @@ public class SpiceCraft extends JavaPlugin {
         plugin.getLogger().info(m);
     }
     public static Player getPlayer(String playerName){
-        return plugin.getServer().getPlayer(playerName);
+        return plugin.getServer().getPlayerExact(playerName);
     }
     public static SpiceCraft plugin(){
         return plugin;

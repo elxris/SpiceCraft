@@ -3,22 +3,30 @@ package elxris.SpiceCraft.Objects;
 import org.bukkit.Location;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.entity.Player;
-
+import elxris.SpiceCraft.SpiceCraft;
+import elxris.SpiceCraft.Commands.WarpCommand;
 import elxris.SpiceCraft.Utils.Chat;
 
 public class Warp implements Runnable{
     Location loc;
-    Player jugador;
+    String jugador;
     int tiempo;
+    Saver file;
     Configuration cache;
     String path;
+    long date;
     
-    public Warp(Location location, Player jugador, int tiempo, Configuration cache, String path){
-        setLocation(location);
-        setJugador(jugador);
-        setTiempo(tiempo);
+    public Warp(Saver file, Configuration cache, String path){
+        setFile(file);
         setCache(cache);
         setPath(path);
+        setLocation(WarpCommand.getLocation(path));
+        setJugador((String)get("owner"));
+        setDate((long)get("date"));
+        setTiempo((int)get("time"));
+    }
+    public Object get(String path){
+        return getCache().get(getPath()+"."+path);
     }
     public void setLocation(Location l){
         loc = l;
@@ -26,14 +34,14 @@ public class Warp implements Runnable{
     public Location getLocation(){
         return loc;
     }
-    public void setJugador(Player p){
+    public void setJugador(String p){
         jugador = p;
     }
     public Player getJugador() {
-        return jugador;
+        return SpiceCraft.getPlayer(getJugadorName());
     }
     public String getJugadorName() {
-        return getJugador().getName();
+        return jugador;
     }
     public void setPath(String path) {
         this.path = path;
@@ -41,18 +49,49 @@ public class Warp implements Runnable{
     public String getPath() {
         return path;
     }
-    public void setTiempo(int t){
+    private void setTiempo(int t){
         tiempo = t;
+    }
+    private long getTiempo(){
+        long t = tiempo;
+        t -= ((System.currentTimeMillis() - getDate()));
+        if(t < 0){
+            return 0;
+        }else{
+            return t;
+        }
+    }
+    private void setDate(long date){
+        this.date = date;
+    }
+    private long getDate(){
+        return date;
     }
     public void setCache(Configuration c){
         cache = c;
+    }
+    public Configuration getCache(){
+        return cache;
+    }
+    public void setFile(Saver file){
+        this.file = file;
+    }
+    public Saver getFile(){
+        return file;
+    }
+    public void save(){
+        getFile().save();
+    }
+    public void chat(String s, Object o){
+        if(getJugador() != null){
+            Chat.mensaje(getJugador(), s, o);
+        }
     }
     @Override
     public void run() {
         try {
             cache.set(getPath()+".set", true);
-            cache.set("user."+jugador.getName(), cache.getInt("user."+jugador.getName())+1);
-            int t = tiempo*1000*60;
+            long t = getTiempo();
             t -= (1000*30);
             if(t < 1){
                 t = 1;
@@ -64,22 +103,23 @@ public class Warp implements Runnable{
                 }
                 if(i == 7){
                     i--;
-                    Chat.mensaje(jugador, "tw.remain", 30);
+                    chat("tw.remain", 30);
                     Thread.sleep(15*1000); // Duerme 15 segundos.
                 }else if(i == 6){
                     i--;
-                    Chat.mensaje(jugador, "tw.remain", 15);
+                    chat("tw.remain", 15);
                     Thread.sleep(10*1000);
                 }else{
-                    Chat.mensaje(jugador, "tw.remain", i);
+                    chat("tw.remain", i);
                     i--;
                     Thread.sleep(1000);
                 }
             }
             if(cache.isSet(getPath()+".set")){
-                Chat.mensaje(jugador, "tw.destroyed");
+                chat("tw.destroyed", null);
                 cache.set(getPath(), null);
-                cache.set("user."+jugador.getName(), cache.getInt("user."+jugador.getName())-1);
+                cache.set("user."+getJugadorName(), cache.getInt("user."+getJugadorName())-1);
+                save();
             }
         } catch (Throwable e) {
         }

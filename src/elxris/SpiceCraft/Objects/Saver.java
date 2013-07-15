@@ -8,9 +8,11 @@ public class Saver extends Savable{
     private Archivo archivo;
     private FileConfiguration data;
     
-    public void save(Archivo file, FileConfiguration fc){
+    public Saver(Archivo file){
         setArchivo(file);
-        setData(fc);
+        setData(getArchivo().load());
+    }
+    public void save(){
         super.save();
     }
     public void setArchivo(Archivo archivo) {

@@ -49,20 +49,21 @@ public class LibCommand extends Comando{
                     top();
                 }
                 List<Integer> top = getCache().getIntegerList("top");
-                List<Integer> topTmp = getCache().getIntegerList("top");
-                List<String> list = Strings.getStringList("lib.top");
+                List<Integer> topTmp = new ArrayList<Integer>();
+                List<String> lista = new ArrayList<String>();
+                lista.add(Strings.getString("lib.top"));
                 int contador = 1;
                 for(int k: top){
                     if(!hasBook(k)){
-                        topTmp.remove((Object)k);
                         continue;
                     }
-                    list.add(String.format(
+                    topTmp.add(k);
+                    lista.add(String.format(
                             Strings.getString("lib.topItem"),
                             contador++, item(jugador, k)));
                 }
                 getCache().set("top", topTmp);
-                mensaje(jugador, list);
+                mensaje(jugador, lista);
             }else if(isCommand("comm.lib.pay", args[0])){
                 String list = "";
                 double dinero = 0;

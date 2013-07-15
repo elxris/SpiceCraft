@@ -11,6 +11,9 @@ public class Chat {
         if(mensaje == null || mensaje == ""){
             return;
         }
+        if(p == null){
+            return;
+        }
         p.sendMessage(String.format(mensaje, i));
     }
     public static void mensaje(Player p, List<String> list, Object... i){
