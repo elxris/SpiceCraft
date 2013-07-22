@@ -120,9 +120,9 @@ lib:
   - §e/lib §ct§eop§r Muestra una lista de los 3 libros más vendidos.
   - §e/lib §cv§eender <precio>§r Vende el libro que tienes en mano.
   - §e/lib §cb§eorrar <id>§r Borra el libro indicado
-  - §e/lib §cp§eaga§r Cobra las retribuciones.
+  - §e/lib §cp§eaga§r Cobra las retribuciones. %s del precio del libro.
   sell:
-  - §b[§cLIB§b]§r Has vendido un libro.
+  - §b[§cLIB§b]§r Has vendido un libro. Usa §e/lib p§r para cobrar las retribuciones. %s del precio del libro.
   buy:
   - §b[§cLIB§b]§r Has comprado un libro. Gracias.
   send:

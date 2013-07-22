@@ -1,7 +1,5 @@
 package elxris.SpiceCraft.Commands;
 
-import java.util.List;
-
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.World.Environment;
@@ -16,7 +14,6 @@ import elxris.SpiceCraft.Utils.Chat;
 import elxris.SpiceCraft.Utils.Strings;
 
 public class CompassCommand extends Comando{
-    // TODO Añadir la posibilidad de varios pins. Y accesibles a cualquiera.
     private Archivo file;
     private FileConfiguration cache;
     
@@ -60,15 +57,15 @@ public class CompassCommand extends Comando{
         }
         return true;
     }
-    private boolean isPinSet(String name){
-        if(getCache().isSet("pin."+name+".loc.world")){
+    private boolean isPinSet(Player p, String name){
+        if(getCache().isSet("pin."+p.getName()+"."+name+".loc.world")){
             return true;
         }
         return false;
     }
     private void localizaPin(Player jugador, String name){
-        String path = "pin."+name+".loc";
-        if(isPinSet(name)){
+        String path = "pin."+jugador.getName()+"."+name+".loc";
+        if(isPinSet(jugador, name)){
             World world = SpiceCraft.plugin().getServer().getWorld(getCache().getString(path+".world"));
             int x = getCache().getInt(path+".x");
             int z = getCache().getInt(path+".z");
@@ -79,7 +76,7 @@ public class CompassCommand extends Comando{
         Chat.mensaje(jugador, "upin.noPin");
     }
     private void creaPin(String sX, String sZ, String name, Player jugador){
-        if(isPinSet(name)){
+        if(isPinSet(jugador, name)){
             Chat.mensaje(jugador, "upin.exist");
             return;
         }
@@ -96,31 +93,21 @@ public class CompassCommand extends Comando{
             mensaje(jugador, "alert.error");
             return;
         }
-        if(!addNumPinUsuario(jugador)){
+        if(!getValidUserPins(jugador)){
             mensaje(jugador, "upin.limitPin");
             return;
         }
-        getCache().set("pin."+name+".loc.world", jugador.getWorld().getName());
-        getCache().set("pin."+name+".loc.x", x);
-        getCache().set("pin."+name+".loc.z", z);
-        getCache().set("pin."+name+".player", jugador.getName());
-        
-        //Añade a la lista el nombre del pin.
-        List<String> pinNames = getCache().getStringList("pins");
-        pinNames.add(name);
-        getCache().set("pins", pinNames);
+        String path = "pin."+jugador.getName()+"."+name;
+        getCache().set(path+".loc.world", jugador.getWorld().getName());
+        getCache().set(path+".loc.x", x);
+        getCache().set(path+".loc.z", z);
         
         saveCache();
         mensaje(jugador, "upin.created", name);
     }
     private void borraPin(Player jugador, String name){
-        if(isPinSet(name) && getCache().getString("pin."+name+".player").contentEquals(jugador.getName())){
-            List<String> pinNames = getCache().getStringList("pins");
-            pinNames.remove(name);
-            getCache().set("pins", pinNames);
-            getCache().set("pin."+name, null);            
-            //Quita uno al jugador.
-            removeNumPinUsuario(jugador);
+        if(isPinSet(jugador, name)){
+            getCache().set("pin."+jugador.getName()+"."+name, null);
             saveCache();
             Chat.mensaje(jugador, "upin.del");
             return;
@@ -129,11 +116,16 @@ public class CompassCommand extends Comando{
     }
     private void listaPin(Player jugador){
         String list = "";
-        for(String s: getCache().getStringList("pins")){
+        String path = "pin."+jugador.getName();
+        if(!getCache().isSet(path)){
+            Chat.mensaje(jugador, "upin.noList");
+            return;
+        }
+        for(String s: getCache().getConfigurationSection(path).getKeys(false)){
             list += String.format(Strings.getString("upin.item"),
-                    getCache().getString("pin."+s+".loc.world").toUpperCase(),
-                    s, getCache().getString("pin."+s+".loc.x"),
-                    getCache().getString("pin."+s+".loc.z"));
+                    getCache().getString(path+"."+s+".loc.world").toUpperCase(),
+                    s, getCache().getString(path+"."+s+".loc.x"),
+                    getCache().getString(path+"."+s+".loc.z"));
         }
         if(list == ""){
             Chat.mensaje(jugador, "upin.noList");
@@ -141,34 +133,21 @@ public class CompassCommand extends Comando{
         }
         Chat.mensaje(jugador, "upin.list", list);
     }
-    private boolean setNumPinUsuario(Player jugador, int num){
-        if((int)getValue("upin.maxPerUser") == 0){
+    private boolean getValidUserPins(Player jugador){
+        int maxPerUser = (int)getValue("upin.maxPerUser");
+        if(maxPerUser == 0){
             return true;
         }
         if(jugador.hasPermission("spicecraft.upin.noLimit")){
             return true;
         }
-        String path = "users."+jugador.getName();
-        if(!getCache().isSet(path)){
-            getCache().set(path, 0);
-        }
-        int numero = getCache().getInt(path);
-        if(numero+num <= (int)getValue("upin.maxPerUser")){
-            if(numero+num < 0){
-                getCache().set(path, 0);
-                return true;
-            }
-            getCache().set(path, numero+num);
+        if(!getCache().isSet("pin."+jugador.getName())){
             return true;
-        }else{
-            return false;
         }
-    }
-    private boolean addNumPinUsuario(Player jugador){
-        return setNumPinUsuario(jugador, 1);
-    }
-    private void removeNumPinUsuario(Player jugador){
-        setNumPinUsuario(jugador, -1);
+        if(getCache().getConfigurationSection("pin."+jugador.getName()).getKeys(false).size() < maxPerUser){
+            return true;
+        }
+        return false;
     }
     private void setFile(Archivo file) {
         this.file = file;

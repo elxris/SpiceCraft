@@ -38,7 +38,7 @@ public class LibCommand extends Comando{
         }
         // Muestra la ayuda.
         if(args.length == 0){
-            mensaje(jugador, "lib.info");
+            mensaje(jugador, "lib.info", Double.toString((double)getValue("lib.rate")*100)+"%");
         }else
         // Listar, Top, paga.
         if(args.length == 1){

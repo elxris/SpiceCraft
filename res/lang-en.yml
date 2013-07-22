@@ -120,9 +120,9 @@ lib:
   - §e/lib §ct§eop§r Displays the best sellers.
   - §e/lib §cs§eell <precio>§r Send the book that you have in hand.
   - §e/lib §cd§eel <id>§r If the book is yors, delete the book.
-  - §e/lib §cp§eay§r Collect the remuneration.
+  - §e/lib §cp§eay§r Collect the remuneration. %s of the cost of the book.
   sell:
-  - §b[§cLIB§b]§r You sold a book.
+  - §b[§cLIB§b]§r You sold a book. Use §e/lib p§r to get the remuneration. %s of the cost of the book.
   buy:
   - §b[§cLIB§b]§r You bought a book. Thank you.
   send:
