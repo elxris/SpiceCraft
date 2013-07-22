@@ -22,7 +22,9 @@ public class SpiceCraft extends JavaPlugin {
         plugin = this;
         new CheckConfiguration();
         //Commando Tempowal Warp
-        getCommand("tw").setExecutor(new WarpCommand());
+        WarpCommand tw = new WarpCommand();
+        getCommand("tw").setExecutor(tw);
+        this.getServer().getPluginManager().registerEvents(tw, this);
         //Comando Mail
         mail = new Mail();
         getCommand("mbox").setExecutor(new MailBoxCommand(mail));

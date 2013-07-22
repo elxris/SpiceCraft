@@ -25,12 +25,12 @@ public class MonsterListener implements Listener {
     public static FileConfiguration cache;
     @EventHandler
     public void interactListener(PlayerInteractEntityEvent event){
-        Player p = event.getPlayer();
         Entity entity = event.getRightClicked();
-        if(!p.hasPermission("spicecraft.monster")){
+        if(!(entity instanceof LivingEntity)){
             return;
         }
-        if(!(entity instanceof LivingEntity)){
+        Player p = event.getPlayer();
+        if(!p.hasPermission("spicecraft.monster")){
             return;
         }
         if(check(entity, p)){

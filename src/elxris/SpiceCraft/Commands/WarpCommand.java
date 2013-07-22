@@ -1,5 +1,8 @@
 package elxris.SpiceCraft.Commands;
 
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.server.PluginDisableEvent;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.command.Command;
@@ -16,7 +19,7 @@ import elxris.SpiceCraft.Utils.Chat;
 import elxris.SpiceCraft.Utils.Econ;
 import elxris.SpiceCraft.Utils.Strings;
 
-public class WarpCommand extends Comando{
+public class WarpCommand extends Comando implements Listener{
     private static Saver file;
     private static Configuration cache;
     private static Econ econ;
@@ -28,22 +31,37 @@ public class WarpCommand extends Comando{
     }
     private void init(){
         // Cargar los personales.
-        if(cache.isSet("p")){
-            for(String k: cache.getConfigurationSection("p").getKeys(false)){
-                if(cache.getBoolean(String.format("p.%s.set", k))){
-                    Thread t = new Thread(new Warp(file, cache, "p."+k));
-                    t.start();
+        for(String s: new String[]{"p", "g"}){
+            if(cache.isSet(s)){
+                for(String k: cache.getConfigurationSection(s).getKeys(false)){
+                    if(cache.getBoolean(String.format(s+".%s.set", k))){
+                        cache.set(String.format(s+".%s.date", k), System.currentTimeMillis());
+                        Thread t = new Thread(new Warp(file, cache, s+"."+k));
+                        t.start();
+                    }
                 }
             }
         }
-        if(cache.isSet("g")){
-            for(String k: cache.getConfigurationSection("g").getKeys(false)){
-                if(cache.getBoolean(String.format("g.%s.set", k))){
-                    Thread t = new Thread(new Warp(file, cache, "g."+k));
-                    t.start();
+    }
+    @EventHandler
+    public void onDisable(PluginDisableEvent event){
+        if(event.getPlugin() != SpiceCraft.plugin()){
+            return;
+        }
+        for(String s: new String[]{"p", "g"}){
+            if(cache.isSet(s)){
+                for(String k: cache.getConfigurationSection(s).getKeys(false)){
+                    if(cache.getBoolean(String.format(s+".%s.set", k))){
+                        long time = cache.getInt(String.format(s+".%s.time", k));
+                        long date = cache.getLong(String.format(s+".%s.date", k));
+                        long now = System.currentTimeMillis();
+                        time = time - (now-date);
+                        cache.set(String.format(s+".%s.time", k), time);
+                    }
                 }
             }
         }
+        file.saveNow();
     }
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {

@@ -11,6 +11,7 @@ mail:
   maxChar: 200
   onLogin: true
   onLoginDelay: 5
+  clearOnDays: 15
 upin:
   maxPerUser: 3
 lib:

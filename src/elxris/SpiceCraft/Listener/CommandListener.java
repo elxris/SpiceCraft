@@ -7,6 +7,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BookMeta;
@@ -17,6 +18,7 @@ import elxris.SpiceCraft.Utils.Chat;
 public class CommandListener implements Listener{
     private Archivo file;
     private FileConfiguration fc;
+    private List<String> loginBooks;
     public CommandListener() {
         load("commands.yml");
         init();
@@ -24,6 +26,13 @@ public class CommandListener implements Listener{
     // Inicia y prepara la configuración.
     private void init(){
         fc = new Archivo("commands.yml").load();
+        loginBooks = new ArrayList<String>();
+        for(String k: fc.getKeys(true)){
+            // Si es un libro.
+            if(k.substring(k.length()-2).contentEquals(("!*"))){
+                loginBooks.add("/"+k.substring(0, k.length()-2));
+            }
+        }
     }
     @EventHandler
     public void onCommand(PlayerCommandPreprocessEvent event){
@@ -35,7 +44,16 @@ public class CommandListener implements Listener{
             }
         }
     }
-    
+    @EventHandler
+    public void onNewLogin(PlayerLoginEvent event){
+        Player p = event.getPlayer();
+        if(!p.hasPlayedBefore()){
+            // Si jugó antes.
+            for(String s : loginBooks){
+                getCommand(p, s);
+            }
+        }
+    }
     // Muestra un comando
     private boolean getCommand(Player p, String command){
         String[] s = command.split(" ");
@@ -54,9 +72,9 @@ public class CommandListener implements Listener{
         }
         if(s.length > 0){
             if(isSet(command+".*")){
-                return mensaje(p, command+".*");               
-            }else if(isItBook(command)){
-                Chat.mensaje(p.getName(), getFc().getStringList(command+".!").get(0));
+                return mensaje(p, command+".*");
+            }else if(getBookPath(command) != null){
+                Chat.mensaje(p.getName(), getFc().getStringList(getBookPath(command)).get(0));
                 p.getInventory().addItem(makeBook(command));
                 return true;
             }
@@ -69,11 +87,13 @@ public class CommandListener implements Listener{
         }
         return false;
     }
-    private boolean isItBook(String path){
+    private String getBookPath(String path){
         if(isSet(path+".!")){
-            return true;
+            return path + ".!";
+        }else if(isSet(path+".!*")){
+            return path + ".!*";
         }
-        return false;
+        return null;
     }
     private boolean mensaje(Player p, String path) {
         Chat.mensaje(p, getFc().getStringList(path));
@@ -82,7 +102,7 @@ public class CommandListener implements Listener{
     private ItemStack makeBook(String path){
         ItemStack book = new ItemStack(Material.WRITTEN_BOOK);
         BookMeta meta = (BookMeta) book.getItemMeta();
-        List<String> lineas = getFc().getStringList(path+".!");
+        List<String> lineas = getFc().getStringList(getBookPath(path));
         meta.setTitle(lineas.get(1));
         meta.setAuthor(lineas.get(2));
         lineas = lineas.subList(3, lineas.size());

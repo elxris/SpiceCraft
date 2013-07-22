@@ -15,6 +15,9 @@ public class Saver extends Savable{
     public void save(){
         super.save();
     }
+    public void saveNow(){
+        getArchivo().save(getData());
+    }
     public void setArchivo(Archivo archivo) {
         this.archivo = archivo;
     }
@@ -30,6 +33,6 @@ public class Saver extends Savable{
     @Override
     public void run() {
         super.run();
-        getArchivo().save(getData());
+        saveNow();
     }
 }
