@@ -56,6 +56,7 @@ public class CommandListener implements Listener{
     }
     // Muestra un comando
     private boolean getCommand(Player p, String command){
+        command = command.toLowerCase();
         String[] s = command.split(" ");
         command = command.replace(' ', '.');
         command = command.substring(1);

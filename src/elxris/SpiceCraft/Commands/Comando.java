@@ -43,7 +43,7 @@ public abstract class Comando  implements CommandExecutor{
             return false;
         }
         for(String s: getConfig().getStringList(path)){
-            if(s.contentEquals(command)){
+            if(s.toLowerCase().contentEquals(command.toLowerCase())){
                 return true;
             }
         }
