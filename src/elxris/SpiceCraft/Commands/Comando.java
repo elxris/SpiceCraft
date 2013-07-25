@@ -10,14 +10,17 @@ import elxris.SpiceCraft.SpiceCraft;
 import elxris.SpiceCraft.Utils.Chat;
 
 public abstract class Comando  implements CommandExecutor{
-    public void mensaje(Player p, String mensaje, Object...objects){
-        Chat.mensaje(p, mensaje, objects);
+    public void mensaje(Player p, String path, Object...objects){
+        Chat.mensaje(p, path, objects);
     }
     public void mensaje(String p, String mensaje, Object...objects){
         Chat.mensaje(p, mensaje, objects);
     }
     public void mensaje(Player p, List<String> mensaje, Object...objects){
         Chat.mensaje(p, mensaje, objects);
+    }
+    public Player getPlayer(String p){
+        return SpiceCraft.getPlayer(p);
     }
     public boolean isInteger(String s){
         try {

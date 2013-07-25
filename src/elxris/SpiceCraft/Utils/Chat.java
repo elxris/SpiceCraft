@@ -1,6 +1,7 @@
 package elxris.SpiceCraft.Utils;
 
 import java.util.List;
+import java.util.MissingFormatArgumentException;
 
 import org.bukkit.entity.Player;
 
@@ -14,7 +15,15 @@ public class Chat {
         if(p == null){
             return;
         }
-        p.sendMessage(String.format(mensaje, i));
+        String m;
+        try{
+            m = String.format(mensaje, i);
+            p.sendMessage(m);
+        }catch(MissingFormatArgumentException ex){
+            p.sendMessage(mensaje);
+            SpiceCraft.log("MISSING FORMAT ARGUMENT EXCEPTION \n" +
+                    "Caused by: "+mensaje);
+        }
     }
     public static void mensaje(Player p, List<String> list, Object... i){
         enviar(p, Strings.parseList(list), i);

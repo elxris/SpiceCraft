@@ -65,6 +65,10 @@ public class LibCommand extends Comando{
                 getCache().set("top", topTmp);
                 mensaje(jugador, lista);
             }else if(isCommand("comm.lib.pay", args[0])){
+                if(!getCache().isSet("libro")){
+                    mensaje(jugador, "lib.noPay");
+                    return true;
+                }
                 String list = "";
                 double dinero = 0;
                 for(String libro: getCache().getConfigurationSection("libro").getKeys(false)){
@@ -102,7 +106,8 @@ public class LibCommand extends Comando{
                 if(getEcon().cobrar(jugador, getCache().getDouble("libro."+args[1]+".cost"))){
                     buyBook(jugador, Integer.parseInt(args[1]));
                     mensaje(jugador, "lib.buy");
-                    mensaje(getCache().getString("libro."+args[1]+".autor"), "lib.sell");
+                    mensaje(getPlayer(getCache().getString("libro."+args[1]+".autor")), "lib.sell",
+                            Double.toString((double)getValue("lib.rate")*100)+"%");
                 }else{
                     mensaje(jugador, "lib.noMoney");
                 }

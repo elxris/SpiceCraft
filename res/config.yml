@@ -13,7 +13,7 @@ mail:
   onLoginDelay: 5
   clearOnDays: 15
 upin:
-  maxPerUser: 3
+  maxPerUser: 10
 lib:
   topSize: 3
   rate: 0.6
