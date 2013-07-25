@@ -21,12 +21,12 @@ item:
     - BloqueHierba
   Dirt:
     id: 3
-    price: 0.8
+    price: 0.6
     alias:
     - Tierra
   Cobblestone:
     id: 4
-    price: 0.75
+    price: 0.8
     alias:
     - Roca
   OakPlank:
@@ -96,14 +96,31 @@ item:
     - BroteSelva
   Sand:
     id: 12
-    price: 1
+    price: 0.7
     alias:
     - Arena
   Gravel:
     id: 13
-    price: 1
+    price: 0
+    depend:
+      Sand: 1
     alias:
     - Grava
+  GoldOre:
+    id: 14
+    price: 0
+    depend:
+      Gold: 1
+  IronOre:
+    id: 15
+    price: 0
+    depend:
+      Iron: 1
+  CoalOre:
+    id: 16
+    price: 0
+    depend:
+      Coal: 3
   OakWood:
     id: 17
     price: 0
@@ -180,6 +197,11 @@ item:
       Stick: 2
     alias:
     - Vidrio
+  LapisLazuliOre:
+    id: 21
+    price: 0
+    depend:
+      LapisLazuli: 8
   LapisBlock:
     id: 22
     price: 0
@@ -566,9 +588,15 @@ item:
     - Antorcha
   MobSpawner:
     id: 52
-    price: 4000
+    price: 5000
     alias:
     - Spawner
+  OakWoodStairs:
+    id: 53
+    price: 0
+    depend:
+      OakPlank: 6
+    recipieMultiplie: 4
   Chest:
     id: 54
     price: 0
@@ -576,6 +604,11 @@ item:
       OakPlank: 8
     alias:
     - Cofre
+  DiamondOre:
+    id: 56
+    price: 0
+    depend:
+      Diamond: 3
   BlockDiamond:
     id: 57
     price: 0
@@ -583,7 +616,12 @@ item:
       Diamond: 9
     alias:
     - BloqueDiamante
-  Furnance:
+  CraftingTable:
+    id: 58
+    price: 0
+    depend:
+      OakPlank: 4
+  Furnace:
     id: 61
     price: 0
     depend:
@@ -607,6 +645,33 @@ item:
     recipieMultiplie: 16
     alias:
     - Riel
+  CobblestoneStairs:
+    id: 67
+    price: 0
+    depend:
+      Cobblestone: 6
+    recipieMultiplie: 4
+  Lever:
+    id: 69
+    price: 0
+    depend:
+      Cobblestone: 1
+      Stick: 1
+  StonePressurePlate:
+    id: 70
+    price: 0
+    depend:
+      Stone: 2
+  WoodenPressurePlate:
+    id: 72
+    price: 0
+    depend:
+      OakPlank: 2
+  RedstoneOre:
+    id: 73
+    price: 0
+    depend:
+      Redstone: 4
   RedstoneTorch:
     id: 76
     price: 0
@@ -615,6 +680,11 @@ item:
       Stick: 1
     alias:
     - AntorchaRedstone
+  StoneButton:
+    id: 77
+    price: 0
+    depend:
+      Stone: 1
   Snow:
     id: 78
     price: 0
@@ -624,7 +694,7 @@ item:
     - Nieve
   Ice:
     id: 79
-    price: 3
+    price: 1.75
     alias:
     - Hielo
   SnowBlock:
@@ -669,7 +739,7 @@ item:
     - Calabaza
   Netherrack:
     id: 87
-    price: 0.4
+    price: 0.5
     alias:
     - PiedraNether
     - PiedraAbisal
@@ -687,11 +757,39 @@ item:
       GlowstoneDust: 4
     alias:
     - PiedraBrillante
-  MonsterEgg:
+  JackOLantern:
+    id: 91
+    price: 0
+    depend:
+      Pumpkin: 1
+      Torch: 1
+  Trapdoor:
+    id: 96
+    price: 0
+    depend:
+      OakPlank: 3
+  StoneMonsterEgg:
     id: 97
     price: 3
     depend:
       Stone: 1
+    data: 0
+    alias:
+    - HuevoPiedra
+  CobblestoneMonsterEgg:
+    id: 97
+    price: 3
+    depend:
+      StoneMonsterEgg: 1
+    data: 1
+    alias:
+    - HuevoPiedra
+  StoneBrickMonsterEgg:
+    id: 97
+    price: 3
+    depend:
+      StoneMonsterEgg: 1
+    data: 2
     alias:
     - HuevoPiedra
   StoneBricks:
@@ -699,8 +797,217 @@ item:
     price: 0
     depend:
       Stone: 1
+    data: 0
     alias:
     - PiedraLadrillo
+  MossyStoneBricks:
+    id: 98
+    price: 0
+    depend:
+      StoneBricks: 1
+    data: 1
+  CrackedStoneBricks:
+    id: 98
+    price: 0
+    depend:
+      StoneBricks: 1
+    data: 1
+  ChilseledStoneBricks:
+    id: 98
+    price: 0
+    depend:
+      StoneBricks: 1
+    data: 1
+  HugeBrownMushroom:
+    id: 99
+    price: 0
+    depend:
+      BrownMushroom: 1
+  HugeBrownMushroom1:
+    id: 99
+    price: 0
+    depend:
+      HugeBrownMushroom: 1
+    data: 1
+  HugeBrownMushroom2:
+    id: 99
+    price: 0
+    depend:
+      HugeBrownMushroom: 1
+    data: 2
+  HugeBrownMushroom3:
+    id: 99
+    price: 0
+    depend:
+      HugeBrownMushroom: 1
+    data: 3
+  HugeBrownMushroom4:
+    id: 99
+    price: 0
+    depend:
+      HugeBrownMushroom: 1
+    data: 4
+  HugeBrownMushroom5:
+    id: 99
+    price: 0
+    depend:
+      HugeBrownMushroom: 1
+    data: 5
+  HugeBrownMushroom6:
+    id: 99
+    price: 0
+    depend:
+      HugeBrownMushroom: 1
+    data: 6
+  HugeBrownMushroom7:
+    id: 99
+    price: 0
+    depend:
+      HugeBrownMushroom: 1
+    data: 7
+  HugeBrownMushroom8:
+    id: 99
+    price: 0
+    depend:
+      HugeBrownMushroom: 1
+    data: 8
+  HugeBrownMushroom9:
+    id: 99
+    price: 0
+    depend:
+      HugeBrownMushroom: 1
+    data: 9
+  HugeBrownMushroom10:
+    id: 99
+    price: 0
+    depend:
+      HugeBrownMushroom: 1
+    data: 10
+  HugeBrownMushroom11:
+    id: 99
+    price: 0
+    depend:
+      HugeBrownMushroom: 1
+    data: 11
+  HugeBrownMushroom12:
+    id: 99
+    price: 0
+    depend:
+      HugeBrownMushroom: 1
+    data: 12
+  HugeBrownMushroom13:
+    id: 99
+    price: 0
+    depend:
+      HugeBrownMushroom: 1
+    data: 13
+  HugeBrownMushroom14:
+    id: 99
+    price: 0
+    depend:
+      HugeBrownMushroom: 1
+    data: 14
+  HugeBrownMushroom15:
+    id: 99
+    price: 0
+    depend:
+      HugeBrownMushroom: 1
+    data: 15
+  HugeRedMushroom:
+    id: 100
+    price: 0
+    depend:
+      RedMushroom: 1
+  HugeRedMushroom1:
+    id: 100
+    price: 0
+    depend:
+      HugeRedMushroom: 1
+    data: 1
+  HugeRedMushroom2:
+    id: 100
+    price: 0
+    depend:
+      HugeRedMushroom: 1
+    data: 2
+  HugeRedMushroom3:
+    id: 100
+    price: 0
+    depend:
+      HugeRedMushroom: 1
+    data: 3
+  HugeRedMushroom4:
+    id: 100
+    price: 0
+    depend:
+      HugeRedMushroom: 1
+    data: 4
+  HugeRedMushroom5:
+    id: 100
+    price: 0
+    depend:
+      HugeRedMushroom: 1
+    data: 5
+  HugeRedMushroom6:
+    id: 100
+    price: 0
+    depend:
+      HugeRedMushroom: 1
+    data: 6
+  HugeRedMushroom7:
+    id: 100
+    price: 0
+    depend:
+      HugeRedMushroom: 1
+    data: 7
+  HugeRedMushroom8:
+    id: 100
+    price: 0
+    depend:
+      HugeRedMushroom: 1
+    data: 8
+  HugeRedMushroom9:
+    id: 100
+    price: 0
+    depend:
+      HugeRedMushroom: 1
+    data: 9
+  HugeRedMushroom10:
+    id: 100
+    price: 0
+    depend:
+      HugeRedMushroom: 1
+    data: 10
+  HugeRedMushroom11:
+    id: 100
+    price: 0
+    depend:
+      HugeRedMushroom: 1
+    data: 11
+  HugeRedMushroom12:
+    id: 100
+    price: 0
+    depend:
+      HugeRedMushroom: 1
+    data: 12
+  HugeRedMushroom13:
+    id: 100
+    price: 0
+    depend:
+      HugeRedMushroom: 1
+    data: 13
+  HugeRedMushroom14:
+    id: 100
+    price: 0
+    depend:
+      HugeRedMushroom: 1
+    data: 14
+  HugeRedMushroom15:
+    id: 100
+    price: 0
+    depend:
+      HugeRedMushroom: 1
+    data: 15
   IronBars:
     id: 101
     price: 0
@@ -731,6 +1038,24 @@ item:
     price: 1.2
     alias:
     - Enredadera
+  FenceGate:
+    id: 107
+    price: 0
+    depend:
+      OakPlank: 1
+      Stick: 2
+  BrickStairs:
+    id: 108
+    price: 0
+    depend:
+      Bricks: 6
+    recipieMultiplie: 4
+  StoneBrickStairs:
+    id: 109
+    price: 0
+    depend:
+      StoneBricks: 6
+    recipieMultiplie: 4
   Mycelium:
     id: 110
     price: 50
@@ -758,9 +1083,14 @@ item:
     depend:
       NetherBrick: 1
     alias:
-    - NetherBrickFence
     - VallaNether
     - VallaAbisal
+  NetherBrickStairs:
+    id: 114
+    price: 0
+    depend:
+      NetherBrick: 6
+    recipieMultiplie: 4
   EnchantmentTable:
     id: 116
     price: 100
@@ -774,7 +1104,7 @@ item:
     id: 120
     price: 0
     depend:
-      Diamond: 2
+      EnderPearl: 2
     alias:
     - PortalDelFin
   EndStone:
@@ -789,12 +1119,54 @@ item:
     - HuevoDragon
   RedstoneLamp:
     id: 123
-    price: 10
+    price: 0
     depend:
       Redstone: 1
       GlowstoneBlock: 1
     alias:
     - Lampara
+  OakWoodSlab:
+    id: 126
+    price: 0
+    depend:
+      OakPlank: 1
+    recipieMultiplie: 2
+    data: 0
+  SpruceWoodSlab:
+    id: 126
+    price: 0
+    depend:
+      OakWoodSlab: 1
+    data: 1
+  BirchWoodSlab:
+    id: 126
+    price: 0
+    depend:
+      OakWoodSlab: 1
+    data: 2
+  JungleWoodSlab:
+    id: 126
+    price: 0
+    depend:
+      OakWoodSlab: 1
+    data: 3
+  SandstoneStairs:
+    id: 128
+    price: 0
+    depend:
+      Sandstone: 6
+    recipieMultiplie: 4
+  EmeraldOre:
+    id: 128
+    price: 0
+    depend:
+      Emerald: 3
+  EnderChest:
+    id: 130
+    price: 0
+    depend:
+      Obsidian: 8
+      EyeEnder: 1
   TripwireHook:
     id: 131
     price: 0
@@ -809,11 +1181,26 @@ item:
     - Trampa
   BlockEmerald:
     id: 133
-    price: 20
+    price: 0
     depend:
       Emerald: 9
     alias:
     - BloqueEsmeralda
+  SpruceWoodStairs:
+    id: 134
+    price: 0
+    depend:
+      OakWoodStairs: 1
+  BirchWoodStairs:
+    id: 134
+    price: 0
+    depend:
+      OakWoodStairs: 1
+  JungleWoodStairs:
+    id: 134
+    price: 0
+    depend:
+      OakWoodStairs: 1
   Beacon:
     id: 138
     price: 0
@@ -835,6 +1222,11 @@ item:
     price: 0
     depend:
       MossStone: 1
+  WoodenButton:
+    id: 143
+    price: 0
+    depend:
+      OakPlank: 1
   Anvil:
     id: 145
     price: 0
@@ -858,11 +1250,23 @@ item:
     price: 0
     depend:
       Iron: 2
+  DayLightSensor:
+    id: 151
+    price: 0
+    depend:
+      Glass: 3
+      Quartz: 3
+      OakWoodSlab: 3
   BlockRedstone:
     id: 152
     price: 0
     depend:
       Redstone: 9
+  NetherQuartzOre:
+    id: 153
+    price: 0
+    depend:
+      Quartz: 1
   Hopper:
     id: 154
     price: 0
@@ -874,6 +1278,24 @@ item:
     price: 0
     depend:
       Quartz: 4
+  ChilseledBlockQuartz:
+    id: 155
+    price: 0
+    depend:
+      BlockQuartz: 1
+    data: 1
+  PillarBlockQuartz:
+    id: 155
+    price: 0
+    depend:
+      BlockQuartz: 1
+    data: 2
+  QuartzStairs:
+    id: 156
+    price: 0
+    depend:
+      BlockQuartz: 6
+    recipieMultiplie: 4
   ActivatorRail:
     id: 157
     price: 0
@@ -888,11 +1310,204 @@ item:
     depend:
       Redstone: 1
       Cobblestone: 7
+  WhiteStainedClay:
+    id: 159
+    price: 0
+    depend:
+      HardenedClay: 1
+    data: 0
+  OrangeStainedClay:
+    id: 159
+    price: 0
+    depend:
+      StainedClay: 1
+    data: 1
+  MagentaStainedClay:
+    id: 159
+    price: 0
+    depend:
+      StainedClay: 1
+    data: 2
+  LightBlueStainedClay:
+    id: 159
+    price: 0
+    depend:
+      StainedClay: 1
+    data: 3
+  YellowStainedClay:
+    id: 159
+    price: 0
+    depend:
+      StainedClay: 1
+    data: 4
+  LimeStainedClay:
+    id: 159
+    price: 0
+    depend:
+      StainedClay: 1
+    data: 5
+  PinkStainedClay:
+    id: 159
+    price: 0
+    depend:
+      StainedClay: 1
+    data: 6
+  GrayStainedClay:
+    id: 159
+    price: 0
+    depend:
+      StainedClay: 1
+    data: 7
+  LightGrayStainedClay:
+    id: 159
+    price: 0
+    depend:
+      StainedClay: 1
+    data: 8
+  CyanStainedClay:
+    id: 159
+    price: 0
+    depend:
+      StainedClay: 1
+    data: 9
+  PurpleStainedClay:
+    id: 159
+    price: 0
+    depend:
+      StainedClay: 1
+    data: 10
+  BlueStainedClay:
+    id: 159
+    price: 0
+    depend:
+      StainedClay: 1
+    data: 11
+  BrownStainedClay:
+    id: 159
+    price: 0
+    depend:
+      StainedClay: 1
+    data: 12
+  GreenStainedClay:
+    id: 159
+    price: 0
+    depend:
+      StainedClay: 1
+    data: 13
+  RedStainedClay:
+    id: 159
+    price: 0
+    depend:
+      StainedClay: 1
+    data: 14
+  BlackStainedClay:
+    id: 159
+    price: 0
+    depend:
+      StainedClay: 1
+    data: 15
   HayBlock:
     id: 170
     price: 0
     depend:
       Wheat: 9
+  WhiteCarpet:
+    id: 171
+    price: 0
+    depend:
+      WhiteWool: 2
+    recipieMultiplie: 3
+    data: 0
+  OrangeCarpet:
+    id: 171
+    price: 0
+    depend:
+      WhiteCarpet: 1
+    data: 1
+  MagentaCarpet:
+    id: 171
+    price: 0
+    depend:
+      WhiteCarpet: 1
+    data: 2
+  LightBlueCarpet:
+    id: 171
+    price: 0
+    depend:
+      WhiteCarpet: 1
+    data: 3
+  YellowCarpet:
+    id: 171
+    price: 0
+    depend:
+      WhiteCarpet: 1
+    data: 4
+  LimeCarpet:
+    id: 171
+    price: 0
+    depend:
+      WhiteCarpet: 1
+    data: 5
+  PinkCarpet:
+    id: 171
+    price: 0
+    depend:
+      WhiteCarpet: 1
+    data: 6
+  GrayCarpet:
+    id: 171
+    price: 0
+    depend:
+      WhiteCarpet: 1
+    data: 7
+  LightGrayCarpet:
+    id: 171
+    price: 0
+    depend:
+      WhiteCarpet: 1
+    data: 8
+  CyanCarpet:
+    id: 171
+    price: 0
+    depend:
+      WhiteCarpet: 1
+    data: 9
+  PurpleCarpet:
+    id: 171
+    price: 0
+    depend:
+      WhiteCarpet: 1
+    data: 10
+  BlueCarpet:
+    id: 171
+    price: 0
+    depend:
+      WhiteCarpet: 1
+    data: 11
+  BrownCarpet:
+    id: 171
+    price: 0
+    depend:
+      WhiteCarpet: 1
+    data: 12
+  GreenCarpet:
+    id: 171
+    price: 0
+    depend:
+      WhiteCarpet: 1
+    data: 13
+  RedCarpet:
+    id: 171
+    price: 0
+    depend:
+      WhiteCarpet: 1
+    data: 14
+  BlackCarpet:
+    id: 171
+    price: 0
+    depend:
+      WhiteCarpet: 1
+    data: 15
   HardenedClay:
     id: 172
     price: 0
@@ -936,6 +1551,12 @@ item:
       Stick: 16
     alias:
     - Carbon
+  Charcoal:
+    id: 263
+    price: 0
+    depend:
+      Coal: 1
+    data: 1
   Diamond:
     id: 264
     price: 200
@@ -958,12 +1579,19 @@ item:
     price: 0.25
     alias:
     - Palo
+  Bowl:
+    id: 281
+    price: 0
+    depend:
+      OakPlank: 3
+    recipieMultiplie: 4
   MushroomStew:
     id: 282 
     price: 3
     depend:
       RedMushroom: 1
       BrownMushroom: 1
+      Bowl: 1
     alias:
     - Stew
     - Sopa
@@ -1001,18 +1629,6 @@ item:
       Wheat: 3
     alias:
     - Pan
-  ChainHelmet:
-    id: 302
-    price: 1300
-  ChainChestplate:
-    id: 303
-    price: 2300
-  ChainLeggings:
-    id: 304
-    price: 1300
-  ChainBoots:
-    id: 305
-    price: 1000
   Flint:
     id: 318
     price: 0.25
@@ -1186,6 +1802,18 @@ item:
     price: 15
     alias:
     - BolaSlime
+  MinecartWithChest:
+    id: 342
+    price: 0
+    depend:
+      Minecart: 1
+      Chest: 1
+  MinecartWithFurnace:
+    id: 343
+    price: 0
+    depend:
+      Minecart: 1
+      Furnace: 1
   Egg:
     id: 344
     price: 12
@@ -1448,6 +2076,14 @@ item:
     price: 25
     alias:
     - ThrownExpBottle
+  FireCharge:
+    id: 385
+    price: 0
+    depend:
+      BlazePowder: 1
+      Coal: 1
+      Gunpowder: 1
+    recipieMultiplie: 3
   BookAndQuill:
     id: 386
     price: 0
@@ -1505,6 +2141,11 @@ item:
     alias:
     - PatataCocida
     - PapaCocida
+  PoisonousPotato:
+    id: 394
+    price: 0
+    depend:
+      Potato: 1
   EmptyMap:
     id: 395
     price: 0
@@ -1586,6 +2227,14 @@ item:
     alias:
     - Pay
     - Pie
+  EnchantedBook:
+    id: 403
+    price: 0
+    depend:
+      Book: 1
+      BottleOEnchanting: 120
+    alias:
+    - LibroEncantado
   RedstoneComparator:
     id: 404
     price: 0
@@ -1604,14 +2253,29 @@ item:
     price: 12
     alias:
     - NetherQuartz
-  EnchantedBook:
-    id: 403
+  MinecartWithTNT:
+    id: 407
     price: 0
     depend:
-      Book: 1
-      BottleOEnchanting: 120
-    alias:
-    - LibroEncantado
+      TNT: 1
+      Minecart: 1
+    userBuy: false
+  MinecartWithHopper:
+    id: 408
+    price: 0
+    depend:
+      Hopper: 1
+      Minecart: 1
+  Lead:
+    id: 420
+    price: 0
+    depend:
+      String: 4
+      Slimeball: 1
+    recipieMultiplie: 2
+  NameTag:
+    id: 421
+    price: 1500
 #### DYES
   InkSac:
     id: 351
@@ -1951,16 +2615,6 @@ item:
     data: 120
     alias:
     - HuevoAldeano
-  Lead:
-    id: 420
-    price: 0
-    depend:
-      String: 4
-      Slimeball: 1
-    recipieMultiplie: 2
-  NameTag:
-    id: 421
-    price: 1500
 ## DISC
   13Disc:
     id: 2256
@@ -2595,6 +3249,18 @@ item:
       Gold: 4
     alias:
     - BotasDeOro
+  ChainHelmet:
+    id: 302
+    price: 1300
+  ChainChestplate:
+    id: 303
+    price: 2300
+  ChainLeggings:
+    id: 304
+    price: 1300
+  ChainBoots:
+    id: 305
+    price: 1000
   IronHorseArmor:
     id: 417
     price: 0
@@ -2639,14 +3305,17 @@ shop:
           - MossStone
           - Netherrack
           - StoneBricks
+          - MossyStoneBricks
+          - CrackedStoneBricks
+          - ChilseledStoneBricks
           - NetherBrick
           - EndStone
           - Bricks
         Dirt:
           name: "Tierra y Arenas"
           list:
-          - Dirt
           - Grass
+          - Dirt
           - Sand
           - Gravel
           - SoulSand
@@ -2670,25 +3339,6 @@ shop:
           - JunglePlank
           - JungleLeaves
           - JungleSapling
-        WhiteWool:
-          name: "Lana"
-          list:
-          - WhiteWool
-          - OrangeWool
-          - MagentaWool
-          - LightBlueWool
-          - YellowWool
-          - LimeWool
-          - PinkWool
-          - GrayWool
-          - LightGrayWool
-          - CyanWool
-          - PurpleWool
-          - BlueWool
-          - BrownWool
-          - GreenWool
-          - RedWool
-          - BlackWool
         StoneSlab:
           name: "Slabs"
           list:
@@ -2699,9 +3349,34 @@ shop:
           - StoneBrickSlab
           - NetherBrickSlab
           - QuartzSlab
+          - OakWoodSlab
+          - SpruceWoodSlab
+          - BirchWoodSlab
+          - JungleWoodSlab
+        OakWoodStairs:
+          name: "Escaleras"
+          list:
+          - OakWoodStairs
+          - SpruceWoodStairs
+          - BirchWoodStairs
+          - JungleWoodStairs
+          - CobblestoneStairs
+          - BrickStairs
+          - StoneBrickStairs
+          - NetherBrickStairs
+          - SandstoneStairs
+          - QuartzStairs
         Sponge:
           name: "Otros"
           list:
+          - GoldOre
+          - IronOre
+          - CoalOre
+          - DiamondOre
+          - EmeraldOre
+          - LapisLazuliOre
+          - RedstoneOre
+          - NetherQuartzOre
           - Sponge
           - Glass
           - LapisBlock
@@ -2712,16 +3387,23 @@ shop:
           - Bookshelf
           - Obsidian
           - Ice
+          - Snow
           - SnowBlock
           - ClayBlock
           - GlowstoneBlock
           - Pumpkin
+          - JackOLantern
           - Melon
+          - CobblestoneMonsterEgg
+          - StoneMonsterEgg
+          - StoneBrickMonsterEgg
           - CobblestoneWall
           - MossyCobblestoneWall
           - BlockQuartz
-          - HardenedClay
+          - ChilseledBlockQuartz
+          - PillarBlockQuartz
           - HayBlock
+          - HardenedClay
           - BlockCoal
     RedFlower:
       name: "Decoración"
@@ -2731,15 +3413,20 @@ shop:
           list:
           - Chest
           - TrappedChest
-          - Furnance
+          - EnderChest
+          - Furnace
           - Torch
+          - CraftingTable
           - Ladder
           - JukeBox
           - Fence
+          - FenceGate
+          - NetherFence
           - IronBars
           - Glasspane
           - EnchantmentTable
           - EndPortalFrame
+          - DragonEgg
           - Anvil
           - Painting
           - Sign
@@ -2763,6 +3450,7 @@ shop:
           - SpruceLeaves
           - JungleLeaves
           - Cobweb
+          - Cactus
           - TallGrass
           - Fern
           - DeadBush
@@ -2772,6 +3460,98 @@ shop:
           - RedMushroom
           - Vines
           - LilyPad
+        HugeRedMushroom14:
+          name: "Hongos"
+          list:
+          - HugeRedMushroom
+          - HugeRedMushroom1
+          - HugeRedMushroom2
+          - HugeRedMushroom3
+          - HugeRedMushroom4
+          - HugeRedMushroom5
+          - HugeRedMushroom6
+          - HugeRedMushroom7
+          - HugeRedMushroom8
+          - HugeRedMushroom9
+          - HugeRedMushroom10
+          - HugeRedMushroom11
+          - HugeRedMushroom12
+          - HugeRedMushroom13
+          - HugeRedMushroom14
+          - HugeRedMushroom15
+          - HugeBrownMushroom
+          - HugeBrownMushroom1
+          - HugeBrownMushroom2
+          - HugeBrownMushroom3
+          - HugeBrownMushroom4
+          - HugeBrownMushroom5
+          - HugeBrownMushroom6
+          - HugeBrownMushroom7
+          - HugeBrownMushroom8
+          - HugeBrownMushroom9
+          - HugeBrownMushroom10
+          - HugeBrownMushroom11
+          - HugeBrownMushroom12
+          - HugeBrownMushroom13
+          - HugeBrownMushroom14
+          - HugeBrownMushroom15
+        WhiteWool:
+          name: "Lana"
+          list:
+          - WhiteWool
+          - OrangeWool
+          - MagentaWool
+          - LightBlueWool
+          - YellowWool
+          - LimeWool
+          - PinkWool
+          - GrayWool
+          - LightGrayWool
+          - CyanWool
+          - PurpleWool
+          - BlueWool
+          - BrownWool
+          - GreenWool
+          - RedWool
+          - BlackWool
+        CyanWool:
+          name: "Arcilla"
+          list:
+          - WhiteStainedClay
+          - OrangeStainedClay
+          - MagentaStainedClay
+          - LightBlueStainedClay
+          - YellowStainedClay
+          - LimeStainedClay
+          - PinkStainedClay
+          - GrayStainedClay
+          - LightGrayStainedClay
+          - CyanStainedClay
+          - PurpleStainedClay
+          - BlueStainedClay
+          - BrownStainedClay
+          - GreenStainedClay
+          - RedStainedClay
+          - BlackStainedClay
+        LimeCarpet:
+          name: "Tapetes"
+          list:
+          - WhiteCarpet
+          - OrangeCarpet
+          - MagentaCarpet
+          - LightBlueCarpet
+          - YellowCarpet
+          - LimeCarpet
+          - PinkCarpet
+          - GrayCarpet
+          - LightGrayCarpet
+          - CyanCarpet
+          - PurpleCarpet
+          - BlueCarpet
+          - BrownCarpet
+          - GreenCarpet
+          - RedCarpet
+          - BlackCarpet
     Redstone:
       name: "Redstone"
       list:
@@ -2786,13 +3566,20 @@ shop:
       - Piston
       - StickyPiston
       - TNT
+      - Lever
       - TripwireHook
+      - WoodenPressurePlate
+      - StonePressurePlate
       - GoldenPressurePlate
       - IronPressurePlate
+      - StoneButton
+      - WoodenButton
+      - DayLightSensor
       - BlockRedstone
       - Hopper
       - WoodenDoor
       - IronDoor
+      - Trapdoor
     Minecart:
       name: "Transporte"
       list:
@@ -2801,6 +3588,10 @@ shop:
       - PoweredRail
       - ActivatorRail
       - Minecart
+      - MinecartWithChest
+      - MinecartWithFurnace
+      - MinecartWithTNT
+      - MinecartWithHopper
       - Saddle
       - Boat
       - CarrotOnAStick
@@ -2822,8 +3613,10 @@ shop:
       - EnderPearl
       - EyeEnder
       - BottleOEnchanting
+      - FireCharge
       - EmptyMap
       - Coal
+      - Charcoal
       - Flint
       - Diamond
       - Emerald
@@ -2833,6 +3626,7 @@ shop:
       - Quartz
       - NetherStar
       - Stick
+      - Bowl
       - String
       - Feather
       - Gunpowder
@@ -2909,6 +3703,7 @@ shop:
       - GoldenApple
       - EnchantedGoldenApple
       - RawFish
+      - CookedFish
       - Cake
       - Cookie
       - MelonSlice
@@ -2921,6 +3716,7 @@ shop:
       - Carrot
       - Potato
       - BakedPotato
+      - PoisonousPotato
       - GoldenCarrot
       - PumpkinPie
     WoodenAxe:

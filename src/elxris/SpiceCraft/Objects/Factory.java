@@ -137,7 +137,7 @@ public class Factory extends Savable implements Listener {
         setVel(item, getVel(item)+vel);
     }
     private double getPriceData(String item){
-        return getCache().getDouble("item."+item+".price");
+        return getCache().getDouble("item."+item+".price", 0.0d);
     }
     private double getPrice(String item){
         double price = 0;

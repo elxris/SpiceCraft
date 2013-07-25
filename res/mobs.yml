@@ -1,6 +1,8 @@
 config:
   price: 10.0
   visual: true
+  damage: 1.0
+  xp: 1
 mobs:
   Spider:
     STRING:

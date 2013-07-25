@@ -72,10 +72,8 @@ public class Mail extends Savable{
         int mensajes = 0;
         Set<String> mail = cache.getConfigurationSection("msg").getKeys(false);
         for(String id: mail){
-            for(String s: cache.getConfigurationSection("msg."+id+".usuarios").getKeys(false)){
-                if(cache.getBoolean("msg."+id+".usuarios."+s, false)){
-                    mensajes++;
-                }
+            if(cache.getBoolean("msg."+id+".usuarios."+jugador, false)){
+                mensajes++;
             }
         }
         Chat.mensaje(jugador, "mbox.list", mensajes);

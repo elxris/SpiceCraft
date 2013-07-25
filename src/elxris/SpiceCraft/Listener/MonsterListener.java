@@ -6,6 +6,8 @@ import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.ExperienceOrb;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
@@ -23,6 +25,16 @@ import elxris.SpiceCraft.Utils.Econ;
 public class MonsterListener implements Listener {
     public static Archivo file;
     public static FileConfiguration cache;
+    public static double PRICE, DAMAGE;
+    public static boolean VISUAL;
+    public static int XP;
+    
+    public MonsterListener(){
+        PRICE = getCache().getDouble("config.price");
+        VISUAL = getCache().getBoolean("config.visual");
+        DAMAGE = getCache().getDouble("config.damage", 0.0d);
+        XP = getCache().getInt("config.xp", 0);
+    }
     @EventHandler
     public void interactListener(PlayerInteractEntityEvent event){
         Entity entity = event.getRightClicked();
@@ -117,7 +129,7 @@ public class MonsterListener implements Listener {
     }
     public void playEffect(Entity e, Player p){
         Random rndm = new Random();
-        if(getCache().getBoolean("config.visual")){
+        if(VISUAL){
             int data;
             do{
                 data = PotionEffectType.values()[rndm.nextInt(PotionEffectType.values().length-1)+1].getId();
@@ -130,9 +142,16 @@ public class MonsterListener implements Listener {
             }
             ((LivingEntity)e).addPotionEffect(new PotionEffect(PotionEffectType.getById(data), 100, 0, true));
         }
+        if(DAMAGE > 0){
+            ((LivingEntity) e).damage(DAMAGE);
+        }
+        if(XP > 0){
+            ExperienceOrb orb = (ExperienceOrb) p.getWorld().spawnEntity(p.getLocation(), EntityType.EXPERIENCE_ORB);
+            orb.setExperience(XP);
+        }
     }
     public boolean cobrar(Entity e, Player p){
-        if(!new Econ().cobrar(p, getCache().getDouble("config.price"))){
+        if(!new Econ().cobrar(p, PRICE)){
             // Mensaje de que no tiene dinero suficiente.
             Chat.mensaje(p, "mobs.noMoney");
             return false;
