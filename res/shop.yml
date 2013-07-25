@@ -1586,7 +1586,7 @@ item:
       OakPlank: 3
     recipieMultiplie: 4
   MushroomStew:
-    id: 282 
+    id: 282
     price: 3
     depend:
       RedMushroom: 1
@@ -1746,7 +1746,7 @@ item:
     alias:
     - BolaNieve
   Boat:
-    id: 333 
+    id: 333
     price: 0
     depend:
       OakPlank: 5
@@ -1836,7 +1836,7 @@ item:
     alias:
     - CañaPescar
   Clock:
-    id: 347 
+    id: 347
     price: 0
     depend:
       Gold: 4
@@ -1869,7 +1869,7 @@ item:
     alias:
     - Hueso
   Sugar:
-    id: 353 
+    id: 353
     price: 0
     depend:
       SugarCanes: 1
@@ -3294,7 +3294,7 @@ shop:
     Bricks:
       name: "Bloques"
       sub:
-        Stone: 
+        Stone:
           name: "Piedras"
           list:
           - Stone

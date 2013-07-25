@@ -18,7 +18,9 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
+import org.bukkit.event.server.PluginDisableEvent;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
@@ -385,6 +387,23 @@ public class Factory extends Savable implements Listener {
         }
         if(event.getInventory().getName() == getShopName()){
             new FactoryGui(this, ((Player)event.getPlayer())).close();
+        }
+    }
+    @EventHandler
+    private void onDisable(PluginDisableEvent event){
+        if(event.getPlugin() != SpiceCraft.plugin()){
+            return;
+        }
+        for(Player p : event.getPlugin().getServer().getOnlinePlayers()){
+            InventoryView inv = p.getOpenInventory();
+            if(inv.getType() != InventoryType.CHEST){
+                return;
+            }
+            if(inv.getTitle() != getShopName()){
+                return;
+            }
+            new FactoryGui(this, p).close();
+            inv.close();
         }
     }
     public boolean sellItem(Player p, ItemStack item){
