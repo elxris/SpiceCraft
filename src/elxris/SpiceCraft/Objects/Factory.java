@@ -17,6 +17,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.server.PluginDisableEvent;
 import org.bukkit.inventory.Inventory;
@@ -380,32 +381,6 @@ public class Factory extends Savable implements Listener {
         gui.updateInventory(inv);
         p.openInventory(inv);
     }
-    @EventHandler
-    private void onCloseInventory(org.bukkit.event.inventory.InventoryCloseEvent event){
-        if(event.getInventory().getType() != InventoryType.CHEST){
-            return;
-        }
-        if(event.getInventory().getName() == getShopName()){
-            new FactoryGui(this, ((Player)event.getPlayer())).close();
-        }
-    }
-    @EventHandler
-    private void onDisable(PluginDisableEvent event){
-        if(event.getPlugin() != SpiceCraft.plugin()){
-            return;
-        }
-        for(Player p : event.getPlugin().getServer().getOnlinePlayers()){
-            InventoryView inv = p.getOpenInventory();
-            if(inv.getType() != InventoryType.CHEST){
-                return;
-            }
-            if(inv.getTitle() != getShopName()){
-                return;
-            }
-            new FactoryGui(this, p).close();
-            inv.close();
-        }
-    }
     public boolean sellItem(Player p, ItemStack item){
         double money = 0;
         String name = getItemName(item);
@@ -478,6 +453,23 @@ public class Factory extends Savable implements Listener {
         return volatil;
     }
     @EventHandler
+    private void onDragInventory(InventoryDragEvent event){
+        Inventory inv = event.getInventory();
+        if(inv.getType() != InventoryType.CHEST){
+            return;
+        }
+        if(inv.getSize() != FactoryGui.SIZE){
+            return;
+        }
+        if(inv.getName() == getShopName()){
+            for(int idStack: event.getRawSlots()){
+                if(idStack < event.getInventory().getSize()){
+                    event.setCancelled(true);
+                }
+            }
+        }
+    }
+    @EventHandler
     private void onClickInventory(InventoryClickEvent event){
         if(event.getInventory().getType() != InventoryType.CHEST){
             return;
@@ -489,10 +481,10 @@ public class Factory extends Savable implements Listener {
             return;
         }
         Player p = (Player)event.getWhoClicked();
-        p.getWorld().playSound(p.getLocation(), Sound.CLICK, 1.0f, 1.0f);
         FactoryGui gui = new FactoryGui(this, p);
         // Si es dentro del inventario de la tienda o no.
         if(event.getRawSlot() < event.getInventory().getSize()){
+            p.getWorld().playSound(p.getLocation(), Sound.CLICK, 1.0f, 1.0f);
             event.setCancelled(true);
             // Si tiene la mano vacía.
             if(event.getCursor().getTypeId() == 0){
@@ -537,11 +529,12 @@ public class Factory extends Savable implements Listener {
         }else{
             // Cancela lo que no sea un clic derecho o izquierdo.
             if(!(event.getClick() == ClickType.RIGHT
-                    || event.getClick() == ClickType.LEFT)){
+                    || event.getClick() == ClickType.LEFT
+                    || event.getClick() == ClickType.DOUBLE_CLICK)){
                 event.setCancelled(true);
             }
             // Si se hace shift click fuera del inventario de la tienda, se vende el stack.
-            if(event.getClick() == ClickType.SHIFT_LEFT || event.getClick() == ClickType.SHIFT_RIGHT){
+            if(event.isShiftClick()){
                 if(event.getCurrentItem() == null || event.getCurrentItem().getTypeId() == 0){
                     return;
                 }
@@ -550,6 +543,32 @@ public class Factory extends Savable implements Listener {
                 sellItem(p, current);
                 event.setCancelled(true);
             }
+        }
+    }
+    @EventHandler
+    private void onCloseInventory(org.bukkit.event.inventory.InventoryCloseEvent event){
+        if(event.getInventory().getType() != InventoryType.CHEST){
+            return;
+        }
+        if(event.getInventory().getName() == getShopName()){
+            new FactoryGui(this, ((Player)event.getPlayer())).close();
+        }
+    }
+    @EventHandler
+    private void onDisable(PluginDisableEvent event){
+        if(event.getPlugin() != SpiceCraft.plugin()){
+            return;
+        }
+        for(Player p : event.getPlugin().getServer().getOnlinePlayers()){
+            InventoryView inv = p.getOpenInventory();
+            if(inv.getType() != InventoryType.CHEST){
+                return;
+            }
+            if(inv.getTitle() != getShopName()){
+                return;
+            }
+            new FactoryGui(this, p).close();
+            inv.close();
         }
     }
     public String getShopName(){

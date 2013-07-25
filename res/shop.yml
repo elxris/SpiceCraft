@@ -22,11 +22,13 @@ item:
   Dirt:
     id: 3
     price: 0.6
+##############################
     alias:
     - Tierra
   Cobblestone:
     id: 4
     price: 0.8
+##############################
     alias:
     - Roca
   OakPlank:
@@ -66,6 +68,7 @@ item:
   OakSapling:
     id: 6
     price: 1.5
+##############################
     data: 0
     alias:
     - Sapling
@@ -97,6 +100,7 @@ item:
   Sand:
     id: 12
     price: 0.7
+##############################
     alias:
     - Arena
   Gravel:
@@ -157,6 +161,7 @@ item:
   OakLeaves:
     id: 18
     price: 1
+##############################
     data: 0
     alias:
     - HojasRoble
@@ -187,6 +192,7 @@ item:
   Sponge:
     id: 19
     price: 50
+##############################
     alias:
     - Esponja
   Glass:
@@ -286,6 +292,7 @@ item:
   Shrub:
     id: 31
     price: 0.5
+##############################
     data: 0
   TallGrass:
     id: 31
@@ -447,6 +454,7 @@ item:
   YellowFlower:
     id: 37
     price: 0.8
+##############################
     alias:
     - Flower
     - Flor
@@ -461,6 +469,7 @@ item:
   BrownMushroom:
     id: 39
     price: 1.5
+##############################
     alias:
     - Mushroom
     - Hongo
@@ -575,6 +584,7 @@ item:
   Obsidian:
     id: 49
     price: 80
+##############################
     alias:
     - Obsidiana
   Torch:
@@ -589,6 +599,7 @@ item:
   MobSpawner:
     id: 52
     price: 5000
+##############################
     alias:
     - Spawner
   OakWoodStairs:
@@ -695,6 +706,7 @@ item:
   Ice:
     id: 79
     price: 1.75
+##############################
     alias:
     - Hielo
   SnowBlock:
@@ -707,6 +719,7 @@ item:
   Cactus:
     id: 81
     price: 0.6
+##############################
   ClayBlock:
     id: 82
     price: 0
@@ -740,6 +753,7 @@ item:
   Netherrack:
     id: 87
     price: 0.5
+##############################
     alias:
     - PiedraNether
     - PiedraAbisal
@@ -1036,6 +1050,7 @@ item:
   Vines:
     id: 106
     price: 1.2
+##############################
     alias:
     - Enredadera
   FenceGate:
@@ -1066,6 +1081,7 @@ item:
   LilyPad:
     id: 111
     price: 8
+##############################
     alias:
     - Nenufar
   NetherBrick:
@@ -1110,11 +1126,13 @@ item:
   EndStone:
     id: 121
     price: 2
+##############################
     alias:
     - PiedraDelFin
   DragonEgg:
     id: 122
     price: 12000
+##############################
     alias:
     - HuevoDragon
   RedstoneLamp:
@@ -1532,6 +1550,7 @@ item:
   Apple:
     id: 260
     price: 10
+##############################
     alias:
     - Manzana
   Arrow:
@@ -1560,11 +1579,13 @@ item:
   Diamond:
     id: 264
     price: 200
+##############################
     alias:
     - Diamante
   Iron:
     id: 265
     price: 20
+##############################
     alias:
     - Hierro
   Gold:
@@ -1577,6 +1598,7 @@ item:
   Stick:
     id: 280
     price: 0.25
+##############################
     alias:
     - Palo
   Bowl:
@@ -1598,21 +1620,25 @@ item:
   String:
     id: 287
     price: 0.6
+##############################
     alias:
     - Hilo
   Feather:
     id: 288
     price: 1.4
+##############################
     alias:
     - Pluma
   Gunpowder:
     id: 289
     price: 1.8
+##############################
     alias:
     - Polvora
   Seeds:
     id: 295
     price: 1
+##############################
     alias:
     - Semillas
   Wheat:
@@ -1640,6 +1666,7 @@ item:
   RawPorkchop:
     id: 319
     price: 4
+##############################
     alias:
     - CarnePuerco
   CookedPorckchop:
@@ -1740,9 +1767,11 @@ item:
   Redstone:
     id: 331
     price: 15
+##############################
   Snowball:
     id: 332
     price: 1
+##############################
     alias:
     - BolaNieve
   Boat:
@@ -1755,6 +1784,7 @@ item:
   Leather:
     id: 334
     price: 5
+##############################
     alias:
     - Cuero
   Milk:
@@ -1775,11 +1805,13 @@ item:
   Clay:
     id: 337
     price: 1.2
+##############################
     alias:
     - Arcilla
   SugarCanes:
     id: 338
     price: 0.75
+##############################
     alias:
     - Caña
   Paper:
@@ -1800,6 +1832,7 @@ item:
   Slimeball:
     id: 341
     price: 15
+##############################
     alias:
     - BolaSlime
   MinecartWithChest:
@@ -1817,6 +1850,7 @@ item:
   Egg:
     id: 344
     price: 12
+##############################
     alias:
     - Huevo
   Compass:
@@ -1846,11 +1880,13 @@ item:
   GlowstoneDust:
     id: 348
     price: 4
+##############################
     alias:
     - PolvoPiedraBrillante
   RawFish:
     id: 349
     price: 7
+##############################
     alias:
     - PescadoCrudo
   CookedFish:
@@ -1973,11 +2009,13 @@ item:
   RottenFlesh:
     id: 367
     price: 0.4
+##############################
     alias:
     - CarnePodrida
   EnderPearl:
     id: 368
     price: 15
+##############################
     alias:
     - PerlaEnder
   BlazeRod:
@@ -1990,18 +2028,21 @@ item:
   GhastTear:
     id: 370
     price: 75
+##############################
     alias:
     - Tear
     - Lagrima
   GoldNugget:
     id: 371
     price: 4
+##############################
     alias:
     - Nugget
     - Pepita
   NetherWart:
     id: 372
     price: 8
+##############################
     alias:
     - Verruga
   GlassBottle:
@@ -2014,6 +2055,7 @@ item:
   SpiderEye:
     id: 375
     price: 4
+##############################
     alias:
     - OjoAraña
   FermentedSpiderEye:
@@ -2028,6 +2070,7 @@ item:
   BlazePowder:
     id: 377
     price: 15
+##############################
     alias:
     - Fuego
   MagmaCream:
@@ -2074,6 +2117,7 @@ item:
   BottleOEnchanting:
     id: 384
     price: 25
+##############################
     alias:
     - ThrownExpBottle
   FireCharge:
@@ -2129,6 +2173,7 @@ item:
   Potato:
     id: 392
     price: 1
+##############################
     alias:
     - Patata
     - Papa
@@ -2167,6 +2212,7 @@ item:
   SkeletonHead:
     id: 397
     price: 70
+##############################
     data: 0
     alias:
     - CabezaEsqueleto
@@ -2213,6 +2259,7 @@ item:
   NetherStar:
     id: 399
     price: 6000
+##############################
     alias:
     - EstrellaAbismo
     - Estrella
@@ -2251,6 +2298,7 @@ item:
   Quartz:
     id: 406
     price: 12
+##############################
     alias:
     - NetherQuartz
   MinecartWithTNT:
@@ -2276,10 +2324,12 @@ item:
   NameTag:
     id: 421
     price: 1500
+##############################
 #### DYES
   InkSac:
     id: 351
     price: 6
+##############################
     data: 0
     alias:
     - Tinta
@@ -2428,6 +2478,7 @@ item:
   CreeperEgg:
     id: 383
     price: 150
+##############################
     data: 50
     alias:
     - HuevoCreeper
@@ -2619,6 +2670,7 @@ item:
   13Disc:
     id: 2256
     price: 100
+##############################
   CatDisc:
     id: 2257
     price: 0
@@ -3252,15 +3304,25 @@ item:
   ChainHelmet:
     id: 302
     price: 1300
+##############################
   ChainChestplate:
     id: 303
-    price: 2300
+    price: 0
+    depend:
+      ChainHelmet: 40
+    recipieMultiplie: 25
   ChainLeggings:
     id: 304
-    price: 1300
+    price: 0
+    depend:
+      ChainHelmet: 35
+    recipieMultiplie: 25
   ChainBoots:
     id: 305
-    price: 1000
+    price: 0
+    depend:
+      ChainHelmet: 20
+    recipieMultiplie: 25
   IronHorseArmor:
     id: 417
     price: 0
