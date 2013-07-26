@@ -367,18 +367,15 @@ public class Factory extends Savable implements Listener {
     }
     private int getProduction(String item){
         Map<String, Integer> map = getDepends(item);
-        // Elimina el objeto en sí mismo.
-        if(map.size() > 1){
-            map.remove(map.keySet().iterator().next());
-        }
-        int vel = 1;
+        double sumPrice = 0;
+        double sumProduct = 0;
+        double currPrice;
         for(String s: map.keySet()){
-            int v = getVel(s);
-            if(v > vel){
-                vel = v;
-            }
+            currPrice = getPriceData(s) * map.get(s);
+            sumPrice += currPrice;
+            sumProduct += currPrice * getVel(s);
         }
-        return vel;
+        return ((Double)(sumProduct/sumPrice)).intValue();
     }
     public void sell(Player p){ // Vende
         if(p.getGameMode() == GameMode.CREATIVE){
