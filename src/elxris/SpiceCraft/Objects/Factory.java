@@ -1,7 +1,9 @@
 package elxris.SpiceCraft.Objects;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.bukkit.GameMode;
@@ -65,6 +67,7 @@ public class Factory extends Savable implements Listener {
         VARIABLE = SpiceCraft.plugin().getConfig().getBoolean("shop.variable");
     }
     private void update(String item){
+        
         long time = getSystemTimeHour();
         for(;getTimeHour(item) < time; addTime(item, FRECUENCY)){
             produce(item);
@@ -120,8 +123,9 @@ public class Factory extends Savable implements Listener {
         setCount(item, getCount(item)+count);
     }
     private void addCountRecursive(String item, double count){
-        for(String s: getDepends(item)){
-            addCount(s, count);
+        Map<String, Integer> map = getDepends(item);
+        for(String s: map.keySet()){
+            addCount(s, count*map.get(s));
         }
     }
     private void setVel(String item, int vel){
@@ -143,9 +147,11 @@ public class Factory extends Savable implements Listener {
         return getCache().getDouble("item."+item+".price", 0.0d);
     }
     private double getPrice(String item){
+        Map<String, Integer> map = getDepends(item);
         double price = 0;
-        for(String s: getDepends(item)){
-            price += getPriceData(s) * getRazonPrecio(s) * MULTIPLIER;
+        for(String s: map.keySet()){
+            // Cantidad * Precio * Razon * Multiplicador
+            price += map.get(s) * getPriceData(s) * getRazonPrecio(s) * MULTIPLIER;
         }
         return price/getRecipieMultiplie(item);
     }
@@ -174,21 +180,22 @@ public class Factory extends Savable implements Listener {
     private int getRecipieMultiplie(String item){
         return getCache().getInt("item."+item+".recipieMultiplie", 1);
     }
-    private List<String> getDepends(String item){
-        List<String> dependency = new ArrayList<String>();
+    private Map<String, Integer> getDepends(String item){
+        Map<String, Integer> mapa = new HashMap<String, Integer>();
         update(item);
         if(!getCache().isSet("item."+item+".depend")){ // Si no hay dependencias
-            dependency.add(item);
-            return dependency;
+            mapa.put(item, 1);
+            return mapa;
         }
-        dependency.add(item);
+        mapa.put(item, 1);
         ConfigurationSection memory = getCache().getConfigurationSection("item."+item+".depend");
         for(String s: memory.getKeys(false)){
-            for(int i = memory.getInt(s); i > 0; i--){ // Numero de dependencia para los objetos.
-                dependency.addAll(getDepends(s));
+            Map<String, Integer> dep = getDepends(s);
+            for(String key: dep.keySet()){
+                mapa.put(key, dep.get(key)*memory.getInt(s));
             }
         }
-        return dependency;
+        return mapa;
     }
     private String searchItem(String s){ // Busca el nomrbe real de un objeto.
         makePaths();
@@ -246,7 +253,7 @@ public class Factory extends Savable implements Listener {
             }
         }
         // Da un libro con un encantamiento al azar.
-        if(stack.getType() == Material.ENCHANTED_BOOK){
+        else if(stack.getType() == Material.ENCHANTED_BOOK){
             java.util.Random rndm = new java.util.Random();;
             Enchantment enchant;
             do{
@@ -335,9 +342,10 @@ public class Factory extends Savable implements Listener {
         return lookItems(item, false);
     }
     public void reset(String item){
+        Map<String, Integer> map = getDepends(item);
         item = searchItem(item);
         update(item);
-        for(String s: getDepends(item)){
+        for(String s: map.keySet()){
             setCount(s, VEL);
             setVel(s, VEL);
         }
@@ -358,12 +366,13 @@ public class Factory extends Savable implements Listener {
                 getProduction(item), id);
     }
     private int getProduction(String item){
-        List<String> dep = getDepends(item);
-        if(dep.size() > 1){
-            dep.remove(0);
+        Map<String, Integer> map = getDepends(item);
+        // Elimina el objeto en sí mismo.
+        if(map.size() > 1){
+            map.remove(map.keySet().iterator().next());
         }
         int vel = 1;
-        for(String s: dep){
+        for(String s: map.keySet()){
             int v = getVel(s);
             if(v > vel){
                 vel = v;
@@ -471,6 +480,7 @@ public class Factory extends Savable implements Listener {
     }
     @EventHandler
     private void onClickInventory(InventoryClickEvent event){
+        //long timeI = System.nanoTime();
         if(event.getInventory().getType() != InventoryType.CHEST){
             return;
         }
@@ -544,6 +554,7 @@ public class Factory extends Savable implements Listener {
                 event.setCancelled(true);
             }
         }
+        //Chat.mensaje("elxris", ""+((double)(System.nanoTime()-timeI))/1000000.0d);
     }
     @EventHandler
     private void onCloseInventory(org.bukkit.event.inventory.InventoryCloseEvent event){
@@ -590,12 +601,13 @@ public class Factory extends Savable implements Listener {
         public void updateInventory(Inventory inv){
             inv.clear();
             List<ItemStack> items;
+            int itemsSize;
             if(isRelativeSet("list")){
             // Si existe una lista de objetos.
-                items = getItemList(getPath());
+                itemsSize = getItemListSize(getPath());
             }else if(isRelativeSet("sub")){
             // Si existe un submenu
-                items = getItemMenu(getPath("sub"));
+                itemsSize = getItemMenuSize(getPath("sub"));
             }else{
                 return;
             }
@@ -604,16 +616,25 @@ public class Factory extends Savable implements Listener {
                 inv.addItem(getReturn());
                 itemsPerPage--;
             }
-            if(items.size() > itemsPerPage){
+            if(itemsSize > itemsPerPage){
                 itemsPerPage -= 2;
                 if(getPage() > 1){
                     inv.setItem((SIZE-2)-itemsPerPage, getPrev());
                 }
-                if(items.size()-(getPage()*itemsPerPage)>=1){
+                if(itemsSize-(getPage()*itemsPerPage)>=1){
                     inv.setItem((SIZE-1)-itemsPerPage, getNext());
                 }
             }
-            int count = (getPage()-1)*itemsPerPage;
+            if(isRelativeSet("list")){
+                // Si existe una lista de objetos.
+                    items = getItemList(getPath(), itemsPerPage, getPage());
+            }else if(isRelativeSet("sub")){
+                // Si existe un submenu
+                    items = getItemMenu(getPath("sub"));
+            }else{
+                return;
+            }
+            int count = 0;
             for(int i = SIZE-itemsPerPage; i < SIZE; i++){
                 inv.setItem(i, items.get(count));
                 if(++count >= items.size()){
@@ -621,14 +642,26 @@ public class Factory extends Savable implements Listener {
                 }
             }
         }
-        public List<ItemStack> getItemList(String path){
+        public List<ItemStack> getItemList(String path, int itemsPerPage, int page){
             List<ItemStack> list = new ArrayList<ItemStack>();
+            int limitUP = (page)*itemsPerPage;
+            int limitDOWN = (--page)*itemsPerPage;
+            int count = 0;
             for(String item : getConfig().getStringList(path+".list")){
+                if(count < limitDOWN){
+                    count++;
+                    continue;
+                }else if(count >= limitUP){
+                    break;
+                }
+                count++;
                 ItemStack i = f.createItem(p, item, 1);
                 ItemMeta meta = i.getItemMeta();
                 String id = getId(item)+((haveData(item))?":"+getData(item):"");
+                double precio = getPrice(item);
+                Econ econ = new Econ();
                 meta.setLore(Strings.getStringList("shop.itemLore",
-                        new Econ().getPrecio(getPrice(item)), new Econ().getPrecio(getPrice(item)*f.SELLRATE),
+                        econ.getPrecio(precio), econ.getPrecio(precio*f.SELLRATE),
                         getProduction(item), id));
                 i.setItemMeta(meta);
                 list.add(i);
@@ -646,6 +679,12 @@ public class Factory extends Savable implements Listener {
                 list.add(i);
             }
             return list;
+        }
+        public int getItemListSize(String path){
+            return getConfig().getStringList(path+".list").size();
+        }
+        public int getItemMenuSize(String path){
+            return getConfig().getConfigurationSection(path).getKeys(false).size();
         }
         public ItemStack getNext(){
             return getItemMenu("shop.next").get(0);

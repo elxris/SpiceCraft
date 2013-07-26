@@ -31,7 +31,8 @@ public class Mail extends Savable{
     }
     public void interpreta(){
         if(!cache.isSet("msg")){
-            sendMensajeATodos("Server", Strings.getString("mbox.first"));
+            sendMensajeATodos(SpiceCraft.plugin().getConfig().getString("mail.serverUserName", "Server"),
+                    Strings.getString("mbox.first"));
             return;
         }
         Set<String> listacorreos = cache.getConfigurationSection("msg").getKeys(false);

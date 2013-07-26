@@ -8,6 +8,7 @@ tw:
   price: 20.0
   usePrice: 5.0
 mail:
+  serverUserName: "Server"
   maxChar: 200
   onLogin: true
   onLoginDelay: 5
