@@ -67,28 +67,33 @@ public class Factory extends Savable implements Listener {
         VARIABLE = SpiceCraft.plugin().getConfig().getBoolean("shop.variable");
     }
     private void update(String item){
-        
-        long time = getSystemTimeHour();
-        for(;getTimeHour(item) < time; addTime(item, FRECUENCY)){
-            produce(item);
+        long now = getSystemTimeHour();
+        long time = getTimeHour(item);
+        if(time < now){
+            return;
         }
-    }
-    private void produce(String item){
-        // Producir deacuerdo a un item y su velocidad, y luego cambiar su velocidad.
-        addCount(item, getVel(item));
-        if(getCount(item) < 0){
-            addVel(item, 1);
-        }else if(getCount(item) > 0 && getCount(item) < STACKFULL){
-            if(getVel(item) > VEL){
-                addVel(item, -1);
-            }else if(getVel(item) < VEL){
-                addVel(item, +1);
-            }
-        }else if(getCount(item) > STACKFULL){
-            if(getVel(item) > 1){
-                addVel(item, -1);
+        double count = getCount(item);
+        int vel = getVel(item);
+        for(;time < now; time += FRECUENCY){
+            // Producir deacuerdo a un item y su velocidad, y luego cambiar su velocidad.
+            count += vel;
+            if(count < 0){
+                vel++;
+            }else if (count > 0 && count < STACKFULL) {
+                if(vel > VEL){
+                    vel--;
+                }else{
+                    vel++;
+                }
+            }else if(count > STACKFULL){
+                if(vel > 1){
+                    vel--;
+                }
             }
         }
+        setTime(item, time);
+        setCount(item, count);
+        setVel(item, vel);
     }
     private void setTime(String item, long time) {
         getCache().set("item."+item+".time", time);
@@ -99,10 +104,8 @@ public class Factory extends Savable implements Listener {
         return getCache().getLong("item."+item+".time");
     }
     private long getTimeHour(String item) {
-        return getTime(item) - (getTime(item) % FRECUENCY);
-    }
-    private void addTime(String item, long time){
-        setTime(item, getTime(item)+time);
+        long time = getTime(item);
+        return time - (time % FRECUENCY);
     }
     private long getSystemTime(){ // Obtiene el tiempo del sistema.
         return System.currentTimeMillis();
@@ -139,9 +142,6 @@ public class Factory extends Savable implements Listener {
         }else{
             return VEL;
         }
-    }
-    private void addVel(String item, int vel){
-        setVel(item, getVel(item)+vel);
     }
     private double getPriceData(String item){
         return getCache().getDouble("item."+item+".price", 0.0d);
@@ -183,11 +183,10 @@ public class Factory extends Savable implements Listener {
     private Map<String, Integer> getDepends(String item){
         Map<String, Integer> mapa = new HashMap<String, Integer>();
         update(item);
+        mapa.put(item, 1);
         if(!getCache().isSet("item."+item+".depend")){ // Si no hay dependencias
-            mapa.put(item, 1);
             return mapa;
         }
-        mapa.put(item, 1);
         ConfigurationSection memory = getCache().getConfigurationSection("item."+item+".depend");
         for(String s: memory.getKeys(false)){
             Map<String, Integer> dep = getDepends(s);
@@ -501,11 +500,11 @@ public class Factory extends Savable implements Listener {
                 ItemStack item = event.getCurrentItem();
                 if(item.getItemMeta().hasDisplayName()){
                     String itemName = item.getItemMeta().getDisplayName();
-                    if(itemName.contentEquals(gui.getReturn().getItemMeta().getDisplayName())){
+                    if(itemName.contentEquals(gui.getItemMenuName("shop.return"))){
                         gui.close();
-                    }else if(itemName.contentEquals(gui.getNext().getItemMeta().getDisplayName())){
+                    }else if(itemName.contentEquals(gui.getItemMenuName("shop.next"))){
                         gui.addPage(1);
-                    }else if(itemName.contentEquals(gui.getPrev().getItemMeta().getDisplayName())){
+                    }else if(itemName.contentEquals(gui.getItemMenuName("shop.previous"))){
                         gui.addPage(-1);
                     }else{
                         // Si es un menú.
@@ -631,6 +630,7 @@ public class Factory extends Savable implements Listener {
             }else{
                 return;
             }
+            
             int count = 0;
             for(int i = SIZE-itemsPerPage; i < SIZE; i++){
                 inv.setItem(i, items.get(count));
@@ -641,6 +641,11 @@ public class Factory extends Savable implements Listener {
         }
         public List<ItemStack> getItemList(String path, int itemsPerPage, int page){
             List<ItemStack> list = new ArrayList<ItemStack>();
+            Econ econ = new Econ();
+            ItemStack i;
+            ItemMeta meta;
+            String id;
+            double precio;
             int limitUP = (page)*itemsPerPage;
             int limitDOWN = (--page)*itemsPerPage;
             int count = 0;
@@ -652,11 +657,10 @@ public class Factory extends Savable implements Listener {
                     break;
                 }
                 count++;
-                ItemStack i = f.createItem(p, item, 1);
-                ItemMeta meta = i.getItemMeta();
-                String id = getId(item)+((haveData(item))?":"+getData(item):"");
-                double precio = getPrice(item);
-                Econ econ = new Econ();
+                i = f.createItem(p, item, 1);
+                meta = i.getItemMeta();
+                id = i.getTypeId()+((i.getDurability() > 0)?":"+i.getDurability():"");
+                precio = getPrice(item);
                 meta.setLore(Strings.getStringList("shop.itemLore",
                         econ.getPrecio(precio), econ.getPrecio(precio*f.SELLRATE),
                         getProduction(item), id));
@@ -691,6 +695,10 @@ public class Factory extends Savable implements Listener {
         }
         public ItemStack getReturn(){
             return getItemMenu("shop.return").get(0);
+        }
+        public String getItemMenuName(String path){
+            String item = getConfig().getConfigurationSection(path).getKeys(false).iterator().next();
+            return getConfig().getString(path+"."+item+".name");
         }
         public String getPath(){
             if(!getCache().isSet(p.getName()+".set") || !getCache().getBoolean(p.getName()+".set")){

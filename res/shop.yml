@@ -1574,7 +1574,8 @@ item:
     id: 263
     price: 0
     depend:
-      Coal: 1
+      OakWood: 1
+      Stick: 2
     data: 1
   Diamond:
     id: 264
@@ -2805,13 +2806,6 @@ item:
       PotionFireResistance: 1
       Redstone: 1
     data: 8259
-  PotionFireResistanceReverted:
-    id: 373
-    price: 0
-    depend:
-      PotionFireResistance: 1
-      GlowstoneDust: 1
-    data: 8227
   PotionHealing:
     id: 373
     price: 0
@@ -2819,13 +2813,6 @@ item:
       AwkwardPotion: 1
       GlisteringMelon: 1
     data: 8197
-  PotionHealingReverted:
-    id: 373
-    price: 0
-    depend:
-      PotionHealing: 1
-      Redstone: 1
-    data: 8261
   PotionHealing2:
     id: 373
     price: 0
@@ -2931,13 +2918,6 @@ item:
       PotionWeakness: 1
       Redstone: 1
     data: 8264
-  PotionWeaknessReverted:
-    id: 373
-    price: 0
-    depend:
-      PotionWeakness: 1
-      GlowstoneDust: 1
-    data: 8232
   PotionSlowness:
     id: 373
     price: 0
@@ -2952,13 +2932,6 @@ item:
       PotionSlowness: 1
       Redstone: 1
     data: 8266
-  PotionSlownessReverted:
-    id: 373
-    price: 0
-    depend:
-      PotionSlowness: 1
-      GlowstoneDust: 1
-    data: 8234
   PotionHarming:
     id: 373
     price: 0
@@ -2966,13 +2939,6 @@ item:
       PotionPoison: 1
       FermentedSpiderEye: 1
     data: 8204
-  PotionHarmingReverted:
-    id: 373
-    price: 0
-    depend:
-      PotionHarming: 1
-      Redstone: 1
-    data: 8268
   PotionHarming2:
     id: 373
     price: 0
@@ -3863,29 +3829,24 @@ shop:
       - PotionSwiftness2Extended
       - PotionFireResistance
       - PotionFireResistanceExtended
-      - PotionFireResistanceReverted
       - PotionPoison
       - PotionPoisonExtended
       - PotionPoison2
       - PotionPoison2Extended
       - PotionHealing
       - PotionHealing2
-      - PotionHealingReverted
       - PotionNightVision
       - PotionNightVisionExtended
       - PotionWeakness
       - PotionWeaknessExtended
-      - PotionWeaknessReverted
       - PotionStrength
       - PotionStrengthExtended
       - PotionStrength2
       - PotionStrength2Extended
       - PotionSlowness
       - PotionSlownessExtended
-      - PotionSlownessReverted
       - PotionHarming
       - PotionHarming2
-      - PotionHarmingReverted
       - PotionInvisibility
       - PotionInvisibilityExtended
     LimeDye:
