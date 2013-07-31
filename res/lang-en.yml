@@ -33,7 +33,7 @@ tw:
   - '§b[§cTW§b]§r §a### §cPublic warps list §a###'
   - '%s'
   listItem:
-  - '<%s:%s %s seconds remaining>'
+  - '<%s:%s %s remaining>'
 mbox:
   info:
   - §b[§cMBOX§b]§r §aHELP
@@ -210,6 +210,10 @@ shop:
   - 'Buy: %s'
   - 'Sell: %s'
   - 'Production: %s'
+  - 'ID: %s'
+  userItemLore:
+  - 'Price: %s'
+  - 'Stock: %s'
   - 'ID: %s'
 cmd:
   reload:

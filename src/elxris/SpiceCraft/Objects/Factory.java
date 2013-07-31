@@ -8,7 +8,7 @@ import java.util.Set;
 
 import org.bukkit.GameMode;
 import org.bukkit.Material;
-import org.bukkit.Sound;
+import org.bukkit.configuration.Configuration;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.MemoryConfiguration;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -17,7 +17,6 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.inventory.InventoryType;
@@ -25,46 +24,51 @@ import org.bukkit.event.server.PluginDisableEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 import elxris.SpiceCraft.SpiceCraft;
 import elxris.SpiceCraft.Utils.Archivo;
 import elxris.SpiceCraft.Utils.Chat;
 import elxris.SpiceCraft.Utils.Econ;
-import elxris.SpiceCraft.Utils.Strings;
+import elxris.SpiceCraft.Objects.FactoryGui;
 
-public class Factory extends Savable implements Listener {
-    private static Archivo file;
-    private static FileConfiguration fc, volatil;
-    private static MemoryConfiguration paths;
+public class Factory implements Listener {
+    private static Archivo file, fileUser;
+    private static FileConfiguration fc, fcUser, volatil;
+    private MemoryConfiguration paths;
     private int VEL, STACKFULL;
     private long FRECUENCY;
-    private double MULTIPLIER, SELLRATE;
-    private boolean VARIABLE;
+    public double MULTIPLIER, SELLRATE, USERMULTIPLIER;
+    private boolean VARIABLE, DEFAULTUSERSELL, DEFAULTUSERBUY;
     private String shopName;
     public Factory() {
         init();
+        new FactoryGui(this);
     }
     private void init() {
-        VEL = SpiceCraft.plugin().getConfig().getInt("shop.vel");
+        FileConfiguration config = SpiceCraft.plugin().getConfig();
+        VEL = config.getInt("shop.vel", 8);
         if(VEL < 1){
             VEL = 1;
         }
-        FRECUENCY = SpiceCraft.plugin().getConfig().getLong("shop.freq");
+        FRECUENCY = config.getLong("shop.freq", 1);
         if(FRECUENCY < 1){
             FRECUENCY = 1;
         }
         FRECUENCY *= 60*1000;
-        STACKFULL = SpiceCraft.plugin().getConfig().getInt("shop.full");
+        STACKFULL = config.getInt("shop.full", 64);
         if(STACKFULL < 64){
             STACKFULL = 64;
         }
-        MULTIPLIER = SpiceCraft.plugin().getConfig().getDouble("shop.multiplier");
+        MULTIPLIER = config.getDouble("shop.multiplier", 1.0d);
         if(MULTIPLIER < 0){
             MULTIPLIER = 1;
         }
-        SELLRATE = SpiceCraft.plugin().getConfig().getDouble("shop.sellRate");
-        VARIABLE = SpiceCraft.plugin().getConfig().getBoolean("shop.variable");
+        USERMULTIPLIER = config.getDouble("shop.userMultiplier", 0.8d);
+        SELLRATE = config.getDouble("shop.sellRate", 0.6d);
+        VARIABLE = config.getBoolean("shop.variable");
+        DEFAULTUSERSELL = config.getBoolean("shop.defaultUserSell");
+        DEFAULTUSERBUY = config.getBoolean("shop.defaultUserBuy");
     }
     private void update(String item){
         long now = getSystemTimeHour();
@@ -146,7 +150,7 @@ public class Factory extends Savable implements Listener {
     private double getPriceData(String item){
         return getCache().getDouble("item."+item+".price", 0.0d);
     }
-    private double getPrice(String item){
+    public double getPrice(String item){
         Map<String, Integer> map = getDepends(item);
         double price = 0;
         for(String s: map.keySet()){
@@ -172,10 +176,10 @@ public class Factory extends Savable implements Listener {
         return getCache().getInt("item."+item+".data");
     }
     private boolean getUserBuy(String item){
-        return getCache().getBoolean("item."+item+".userBuy", SpiceCraft.plugin().getConfig().getBoolean("shop.defaultUserBuy"));
+        return getCache().getBoolean("item."+item+".userBuy", DEFAULTUSERBUY);
     }
     private boolean getUserSell(String item){
-        return getCache().getBoolean("item."+item+".userSell", SpiceCraft.plugin().getConfig().getBoolean("shop.defaultUserSell"));
+        return getCache().getBoolean("item."+item+".userSell", DEFAULTUSERSELL);
     }
     private int getRecipieMultiplie(String item){
         return getCache().getInt("item."+item+".recipieMultiplie", 1);
@@ -198,35 +202,38 @@ public class Factory extends Savable implements Listener {
     }
     private String searchItem(String s){ // Busca el nomrbe real de un objeto.
         makePaths();
-        if(paths.isSet(s)){
-            String res = paths.getString(s);
+        if(getPaths().isSet(s)){
+            String res = getPaths().getString(s);
             return res;
         }
         return null;
     }
-    private void makePaths(){
-        if(paths != null){
-           return; 
+    private Configuration getPaths(){
+        if(paths == null){
+            makePaths(); 
         }
+        return paths;
+    }
+    private void makePaths(){
         paths = new MemoryConfiguration();
         Set<String> items = getCache().getConfigurationSection("item").getKeys(false);
         for(String s: items){// Items
-            paths.set(s, s);
+            getPaths().set(s, s);
             if(getCache().isSet("item."+s+".alias")){// Alias
                 List<String> alias = getCache().getStringList("item."+s+".alias");
                 for(String a: alias){
-                    paths.set(a, s);
+                    getPaths().set(a, s);
                 }
             }
         }
         for(String s: items){// IDs
             if(haveData(s)){
                 if(getData(s) == 0){
-                    paths.set(getId(s)+"", s);
+                    getPaths().set(getId(s)+"", s);
                 }
-                paths.set(getId(s)+":"+getData(s), s);
+                getPaths().set(getId(s)+":"+getData(s), s);
             }else{
-                paths.set(getId(s)+"", s);
+                getPaths().set(getId(s)+"", s);
             }
         }
     }
@@ -236,7 +243,7 @@ public class Factory extends Savable implements Listener {
             save();
         }
     }
-    private ItemStack createItem(Player p, String item, int size){
+    public ItemStack createItem(Player p, String item, int size){
         ItemStack stack = new ItemStack(getId(item));
         short data = (short)getData(item);
         if(haveData(item)){
@@ -253,12 +260,14 @@ public class Factory extends Savable implements Listener {
         }
         // Da un libro con un encantamiento al azar.
         else if(stack.getType() == Material.ENCHANTED_BOOK){
+            EnchantmentStorageMeta meta = ((EnchantmentStorageMeta)stack.getItemMeta());
             java.util.Random rndm = new java.util.Random();;
             Enchantment enchant;
             do{
                 enchant = Enchantment.values()[rndm.nextInt(Enchantment.values().length)];
             } while(enchant.canEnchantItem(stack));
-            stack.addUnsafeEnchantment(enchant, 1+rndm.nextInt(enchant.getMaxLevel()));
+            meta.addStoredEnchant(enchant, 1+rndm.nextInt(enchant.getMaxLevel()), true);
+            stack.setItemMeta(meta);
         }
         return stack;
     }
@@ -309,7 +318,6 @@ public class Factory extends Savable implements Listener {
     }
     public List<String> lookItems(String item, boolean all){ // Busca items.
         List<String> items = new ArrayList<String>();
-        makePaths();
         String n = "";
         for(int i = 0; i < item.length(); i++){
             n += "[";
@@ -318,7 +326,7 @@ public class Factory extends Savable implements Listener {
             n += "]";
         }
         item = n;
-        for(String s: paths.getKeys(false)){
+        for(String s: getPaths().getKeys(false)){
             if(items.size() == 18){
                 break;
             }
@@ -364,7 +372,7 @@ public class Factory extends Savable implements Listener {
         Chat.mensaje(p, "shop.itemInfo", itemName, new Econ().getPrecio(getPrecio(item, 1)),
                 getProduction(item), id);
     }
-    private int getProduction(String item){
+    public int getProduction(String item){
         Map<String, Integer> map = getDepends(item);
         double sumPrice = 0;
         double sumProduct = 0;
@@ -376,13 +384,14 @@ public class Factory extends Savable implements Listener {
         }
         return ((Double)(sumProduct/sumPrice)).intValue();
     }
-    public void sell(Player p){ // Vende
+    // Abre el inventario de la tienda.
+    public void sell(Player p){
         if(p.getGameMode() == GameMode.CREATIVE){
             Chat.mensaje(p, "shop.creative");
             return;
         }
         Inventory inv = org.bukkit.Bukkit.createInventory(p, 27, getShopName());
-        FactoryGui gui = new FactoryGui(this, p);
+        FactoryGui gui = new FactoryGui(p);
         gui.updateInventory(inv);
         p.openInventory(inv);
     }
@@ -390,6 +399,11 @@ public class Factory extends Savable implements Listener {
         double money = 0;
         String name = getItemName(item);
         if(name == null){
+            Chat.mensaje(p, "shop.notExist");
+            addItemToInventory(p, item);
+            return false;
+        }
+        if(item.getEnchantments().size() > 0){
             Chat.mensaje(p, "shop.notExist");
             addItemToInventory(p, item);
             return false;
@@ -427,6 +441,12 @@ public class Factory extends Savable implements Listener {
         }
         return name;
     }
+    public String getShopName(){
+        if(shopName == null){
+            shopName = getCache().getString("shop.name");
+        }
+        return shopName;
+    }
     // Gestion de archivos.
     private static void setFile(String path){
         Factory.file = new Archivo(path);
@@ -440,22 +460,35 @@ public class Factory extends Savable implements Listener {
     private static void setCache(FileConfiguration fc){
         Factory.fc = fc;
     }
-    private static FileConfiguration getCache(){
+    public static FileConfiguration getCache(){
         if(fc == null){
             setCache(getFile().load());
         }
         return fc;
     }
-    @Override
-    public void run() {
-        super.run();
-        getFile().save(getCache());
+    private static void setFileUser(String path){
+        Factory.fileUser = new Archivo(path);
     }
-    private static FileConfiguration getVolatilCache(){
+    private static Archivo getFileUser(){
+        if(fileUser == null){
+            setFileUser("shopUser.yml");
+        }
+        return fileUser;
+    }
+    public static FileConfiguration getUserCache(){
+        if(fcUser == null){
+            fcUser = getFileUser().load();
+        }
+        return fcUser;
+    }
+    public static FileConfiguration getVolatilCache(){
         if(volatil == null){
             volatil = new YamlConfiguration();
         }
         return volatil;
+    }
+    private void save(){
+        getFile().save(getCache());
     }
     @EventHandler
     private void onDragInventory(InventoryDragEvent event){
@@ -476,7 +509,7 @@ public class Factory extends Savable implements Listener {
     }
     @EventHandler
     private void onClickInventory(InventoryClickEvent event){
-        //long timeI = System.nanoTime();
+        // TEST long timeI = System.nanoTime();
         if(event.getInventory().getType() != InventoryType.CHEST){
             return;
         }
@@ -487,70 +520,9 @@ public class Factory extends Savable implements Listener {
             return;
         }
         Player p = (Player)event.getWhoClicked();
-        FactoryGui gui = new FactoryGui(this, p);
-        // Si es dentro del inventario de la tienda o no.
-        if(event.getRawSlot() < event.getInventory().getSize()){
-            p.getWorld().playSound(p.getLocation(), Sound.CLICK, 1.0f, 1.0f);
-            event.setCancelled(true);
-            // Si tiene la mano vacía.
-            if(event.getCursor().getTypeId() == 0){
-                if(event.getCurrentItem() == null || event.getCurrentItem().getTypeId() == 0){
-                    return;
-                }
-                ItemStack item = event.getCurrentItem();
-                if(item.getItemMeta().hasDisplayName()){
-                    String itemName = item.getItemMeta().getDisplayName();
-                    if(itemName.contentEquals(gui.getItemMenuName("shop.return"))){
-                        gui.close();
-                    }else if(itemName.contentEquals(gui.getItemMenuName("shop.next"))){
-                        gui.addPage(1);
-                    }else if(itemName.contentEquals(gui.getItemMenuName("shop.previous"))){
-                        gui.addPage(-1);
-                    }else{
-                        // Si es un menú.
-                        gui.addPath(getItemName(item));
-                        gui.setPage(1);
-                    }
-                    gui.updateInventory(event.getInventory());
-                }else{
-                    if(event.getClick() == ClickType.LEFT){
-                        shop(p, getItemName(item), 1);
-                    }else if(event.getClick() == ClickType.RIGHT){
-                        shop(p, getItemName(item), item.getMaxStackSize());
-                    }
-                }
-            }else{
-                ItemStack item = event.getCursor();
-                int amount = item.getAmount();
-                if(event.getClick() == ClickType.LEFT){
-                    sellItem(p, item);
-                    item.setAmount(0);
-                }else if(event.getClick() == ClickType.RIGHT){
-                    item.setAmount(1);
-                    sellItem(p, item);
-                    item.setAmount(--amount);
-                }
-                event.getView().setCursor(item);
-            }
-        }else{
-            // Cancela lo que no sea un clic derecho o izquierdo.
-            if(!(event.getClick() == ClickType.RIGHT
-                    || event.getClick() == ClickType.LEFT
-                    || event.getClick() == ClickType.DOUBLE_CLICK)){
-                event.setCancelled(true);
-            }
-            // Si se hace shift click fuera del inventario de la tienda, se vende el stack.
-            if(event.isShiftClick()){
-                if(event.getCurrentItem() == null || event.getCurrentItem().getTypeId() == 0){
-                    return;
-                }
-                ItemStack current = event.getCurrentItem();
-                event.setCurrentItem(null);
-                sellItem(p, current);
-                event.setCancelled(true);
-            }
-        }
-        //Chat.mensaje("elxris", ""+((double)(System.nanoTime()-timeI))/1000000.0d);
+        FactoryGui gui = new FactoryGui(p);
+        event.setCancelled(gui.click(event));
+        // TEST Chat.mensaje("elxris", ""+((double)(System.nanoTime()-timeI))/1000000.0d);
     }
     @EventHandler
     private void onCloseInventory(org.bukkit.event.inventory.InventoryCloseEvent event){
@@ -558,7 +530,7 @@ public class Factory extends Savable implements Listener {
             return;
         }
         if(event.getInventory().getName() == getShopName()){
-            new FactoryGui(this, ((Player)event.getPlayer())).close();
+            new FactoryGui((Player)event.getPlayer()).close();
         }
     }
     @EventHandler
@@ -574,168 +546,8 @@ public class Factory extends Savable implements Listener {
             if(inv.getTitle() != getShopName()){
                 return;
             }
-            new FactoryGui(this, p).close();
+            new FactoryGui(p).close();
             inv.close();
-        }
-    }
-    public String getShopName(){
-        if(shopName == null){
-            shopName = getCache().getString("shop.name");
-        }
-        return shopName;
-    }
-    public class FactoryGui
-    {
-        Factory f;
-        Player p;
-        public static final int SIZE = 27;
-        // 0 - 53 slots.
-        public FactoryGui(Factory f, Player p){
-            this.f = f;
-            this.p = p;
-        }
-        public void updateInventory(Inventory inv){
-            inv.clear();
-            List<ItemStack> items;
-            int itemsSize;
-            if(isRelativeSet("list")){
-            // Si existe una lista de objetos.
-                itemsSize = getItemListSize(getPath());
-            }else if(isRelativeSet("sub")){
-            // Si existe un submenu
-                itemsSize = getItemMenuSize(getPath("sub"));
-            }else{
-                return;
-            }
-            int itemsPerPage = SIZE;
-            if(!isRelativeSet("return")){
-                inv.addItem(getReturn());
-                itemsPerPage--;
-            }
-            if(itemsSize > itemsPerPage){
-                itemsPerPage -= 2;
-                if(getPage() > 1){
-                    inv.setItem((SIZE-2)-itemsPerPage, getPrev());
-                }
-                if(itemsSize-(getPage()*itemsPerPage)>=1){
-                    inv.setItem((SIZE-1)-itemsPerPage, getNext());
-                }
-            }
-            if(isRelativeSet("list")){
-                // Si existe una lista de objetos.
-                    items = getItemList(getPath(), itemsPerPage, getPage());
-            }else if(isRelativeSet("sub")){
-                // Si existe un submenu
-                    items = getItemMenu(getPath("sub"));
-            }else{
-                return;
-            }
-            
-            int count = 0;
-            for(int i = SIZE-itemsPerPage; i < SIZE; i++){
-                inv.setItem(i, items.get(count));
-                if(++count >= items.size()){
-                    break;
-                }
-            }
-        }
-        public List<ItemStack> getItemList(String path, int itemsPerPage, int page){
-            List<ItemStack> list = new ArrayList<ItemStack>();
-            Econ econ = new Econ();
-            ItemStack i;
-            ItemMeta meta;
-            String id;
-            double precio;
-            int limitUP = (page)*itemsPerPage;
-            int limitDOWN = (--page)*itemsPerPage;
-            int count = 0;
-            for(String item : getConfig().getStringList(path+".list")){
-                if(count < limitDOWN){
-                    count++;
-                    continue;
-                }else if(count >= limitUP){
-                    break;
-                }
-                count++;
-                i = f.createItem(p, item, 1);
-                meta = i.getItemMeta();
-                id = i.getTypeId()+((i.getDurability() > 0)?":"+i.getDurability():"");
-                precio = getPrice(item);
-                meta.setLore(Strings.getStringList("shop.itemLore",
-                        econ.getPrecio(precio), econ.getPrecio(precio*f.SELLRATE),
-                        getProduction(item), id));
-                i.setItemMeta(meta);
-                list.add(i);
-            }
-            return list;
-        }
-        public List<ItemStack> getItemMenu(String path){
-            List<ItemStack> list = new ArrayList<ItemStack>();
-            for(String item : getConfig().getConfigurationSection(path).getKeys(false)){
-                String name = getConfig().getString(path+"."+item+".name");
-                ItemStack i = f.createItem(p, item, 1);
-                ItemMeta m = i.getItemMeta();
-                m.setDisplayName(name);
-                i.setItemMeta(m);
-                list.add(i);
-            }
-            return list;
-        }
-        public int getItemListSize(String path){
-            return getConfig().getStringList(path+".list").size();
-        }
-        public int getItemMenuSize(String path){
-            return getConfig().getConfigurationSection(path).getKeys(false).size();
-        }
-        public ItemStack getNext(){
-            return getItemMenu("shop.next").get(0);
-        }
-        public ItemStack getPrev(){
-            return getItemMenu("shop.previous").get(0);
-        }
-        public ItemStack getReturn(){
-            return getItemMenu("shop.return").get(0);
-        }
-        public String getItemMenuName(String path){
-            String item = getConfig().getConfigurationSection(path).getKeys(false).iterator().next();
-            return getConfig().getString(path+"."+item+".name");
-        }
-        public String getPath(){
-            if(!getCache().isSet(p.getName()+".set") || !getCache().getBoolean(p.getName()+".set")){
-                getCache().set(p.getName()+".set", true);
-                setPath("shop.");
-            }
-            return getCache().getString(p.getName()+".path");
-        }
-        public boolean isRelativeSet(String s){
-            return getConfig().isSet(getPath(s));
-        }
-        public String getPath(String s){
-            return getPath()+s;
-        }
-        public void setPath(String s){
-            getCache().set(p.getName()+".path", s);
-        }
-        public void addPath(String s){
-            setPath(getPath()+"sub."+s+".");
-        }
-        public int getPage(){
-            return getCache().getInt(p.getName()+".page", 1);
-        }
-        public void setPage(int i){
-            getCache().set(p.getName()+".page", i);
-        }
-        public void addPage(int i){
-            setPage(getPage()+i);
-        }
-        public void close(){
-            getCache().set(p.getName(), null);
-        }
-        public FileConfiguration getCache(){
-            return Factory.getVolatilCache();
-        }
-        public FileConfiguration getConfig(){
-            return Factory.getCache();
         }
     }
 }

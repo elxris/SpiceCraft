@@ -12,36 +12,60 @@ import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
 import elxris.SpiceCraft.SpiceCraft;
-import elxris.SpiceCraft.Objects.Saver;
 import elxris.SpiceCraft.Objects.Warp;
 import elxris.SpiceCraft.Utils.Archivo;
 import elxris.SpiceCraft.Utils.Chat;
 import elxris.SpiceCraft.Utils.Econ;
+import elxris.SpiceCraft.Utils.Fecha;
 import elxris.SpiceCraft.Utils.Strings;
 
 public class WarpCommand extends Comando implements Listener{
-    private static Saver file;
+    private static Archivo file;
     private static Configuration cache;
     private static Econ econ;
     public WarpCommand() {
-        WarpCommand.file = new Saver(new Archivo("warps.yml"));
-        WarpCommand.cache = file.getData();
-        WarpCommand.econ = new Econ();
         init();
     }
     private void init(){
         // Cargar los personales.
         for(String s: new String[]{"p", "g"}){
-            if(cache.isSet(s)){
-                for(String k: cache.getConfigurationSection(s).getKeys(false)){
-                    if(cache.getBoolean(String.format(s+".%s.set", k))){
-                        cache.set(String.format(s+".%s.date", k), System.currentTimeMillis());
-                        Thread t = new Thread(new Warp(file, cache, s+"."+k));
+            if(getCache().isSet(s)){
+                for(String k: getCache().getConfigurationSection(s).getKeys(false)){
+                    if(getCache().getBoolean(String.format(s+".%s.set", k))){
+                        getCache().set(String.format(s+".%s.date", k), System.currentTimeMillis());
+                        Thread t = new Thread(new Warp(file, getCache(), s+"."+k));
                         t.start();
                     }
                 }
             }
         }
+    }
+    private static Archivo getFile() {
+        if(file == null){
+            setFile(new Archivo("warps.yml"));
+        }
+        return file;
+    }
+    private static void setFile(Archivo file) {
+        WarpCommand.file = file;
+    }
+    private static Configuration getCache() {
+        if(cache == null){
+            setCache(getFile().load());
+        }
+        return cache;
+    }
+    private static void setCache(Configuration cache) {
+        WarpCommand.cache = cache;
+    }
+    private static Econ getEcon() {
+        if(econ == null){
+            setEcon(new Econ());
+        }
+        return econ;
+    }
+    private static void setEcon(Econ econ) {
+        WarpCommand.econ = econ;
     }
     @EventHandler
     public void onDisable(PluginDisableEvent event){
@@ -49,19 +73,19 @@ public class WarpCommand extends Comando implements Listener{
             return;
         }
         for(String s: new String[]{"p", "g"}){
-            if(cache.isSet(s)){
-                for(String k: cache.getConfigurationSection(s).getKeys(false)){
-                    if(cache.getBoolean(String.format(s+".%s.set", k))){
-                        long time = cache.getInt(String.format(s+".%s.time", k));
-                        long date = cache.getLong(String.format(s+".%s.date", k));
+            if(getCache().isSet(s)){
+                for(String k: getCache().getConfigurationSection(s).getKeys(false)){
+                    if(getCache().getBoolean(String.format(s+".%s.set", k))){
+                        long time = getCache().getInt(String.format(s+".%s.time", k));
+                        long date = getCache().getLong(String.format(s+".%s.date", k));
                         long now = System.currentTimeMillis();
                         time = time - (now-date);
-                        cache.set(String.format(s+".%s.time", k), time);
+                        getCache().set(String.format(s+".%s.time", k), time);
                     }
                 }
             }
         }
-        file.saveNow();
+        file.saveNow(getCache());
     }
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -76,15 +100,15 @@ public class WarpCommand extends Comando implements Listener{
             return true;
         }
         // Crea un registro en el cache, por si se va a usar.
-        if(!cache.isSet(getPath("p.%s.set", jugador))){
-            cache.set(getPath("p.%s.set", jugador), false);
+        if(!getCache().isSet(getPath("p.%s.set", jugador))){
+            getCache().set(getPath("p.%s.set", jugador), false);
         }
         
         // Si no hay argumentos. Shortcut, o info.
         if(args.length < 1){
             // Busca si hay un warp personal para el jugador.
             // Si no, muestra la info.
-            if(cache.getBoolean(getPath("p.%s.set", jugador))){
+            if(getCache().getBoolean(getPath("p.%s.set", jugador))){
                 teleport(jugador, "p.%s");
             }else{
                 chatInfo(jugador);
@@ -93,7 +117,7 @@ public class WarpCommand extends Comando implements Listener{
         // Si hay un argumento. Busca el warp indicado. O si llamó a destruir, destruye.
         if(args.length == 1){
             // Si existe el warp teleporta.
-            if(cache.isSet(String.format("g.%s.set", args[0]))){
+            if(getCache().isSet(String.format("g.%s.set", args[0]))){
                 teleport(jugador, String.format("g.%s", args[0]));
                 return true;
             }else if(isCommand("comm.tw.destroy", args[0])){
@@ -132,11 +156,11 @@ public class WarpCommand extends Comando implements Listener{
         return true;
     }
     public Object get(String path){
-        return cache.get(path);
+        return getCache().get(path);
     }
     private void teleport(Player jugador, String path){
         double precio = (double)getValue("tw.usePrice");
-        if(!econ.cobrar(jugador, precio)){
+        if(!getEcon().cobrar(jugador, precio)){
             mensaje(jugador, "tw.noMoney");
         }else{
             jugador.teleport(getLocation(getPath(path, jugador)));
@@ -144,10 +168,10 @@ public class WarpCommand extends Comando implements Listener{
         }
     }
     public static Location getLocation(String path){
-        World w = SpiceCraft.plugin().getServer().getWorld(cache.getString(path+".world"));
-        Location l = ((Vector)cache.get(path+".warp")).toLocation(w);
-        l.setPitch((float)cache.getDouble(path+".pitch"));
-        l.setYaw((float)cache.getDouble(path+".yaw"));
+        World w = SpiceCraft.plugin().getServer().getWorld(getCache().getString(path+".world"));
+        Location l = ((Vector)getCache().get(path+".warp")).toLocation(w);
+        l.setPitch((float)getCache().getDouble(path+".pitch"));
+        l.setYaw((float)getCache().getDouble(path+".yaw"));
         return l;
     }
     private String getPath(String path, Player jugador) {
@@ -157,18 +181,18 @@ public class WarpCommand extends Comando implements Listener{
         return jugador.getName();
     }
     private void chatInfo(Player jugador){
-        Chat.mensaje(jugador, "tw.info", econ.getPrecio((double)getValue("tw.price")));
+        Chat.mensaje(jugador, "tw.info", getEcon().getPrecio((double)getValue("tw.price")));
     }
     private void crearWarp(Player jugador, int tiempo, String path){
-        cache.set("user."+jugador.getName(), cache.getInt("user."+jugador.getName())+1);
-        cache.set(path+".warp", jugador.getLocation().toVector());
-        cache.set(path+".world", jugador.getWorld().getName());
-        cache.set(path+".pitch", jugador.getLocation().getPitch());
-        cache.set(path+".yaw", jugador.getLocation().getYaw());
-        cache.set(path+".owner", jugador.getName());
-        cache.set(path+".date", System.currentTimeMillis());
-        cache.set(path+".time", tiempo*60*1000);
-        Warp w = new Warp(file, cache, path);
+        getCache().set("user."+jugador.getName(), getCache().getInt("user."+jugador.getName())+1);
+        getCache().set(path+".warp", jugador.getLocation().toVector());
+        getCache().set(path+".world", jugador.getWorld().getName());
+        getCache().set(path+".pitch", jugador.getLocation().getPitch());
+        getCache().set(path+".yaw", jugador.getLocation().getYaw());
+        getCache().set(path+".owner", jugador.getName());
+        getCache().set(path+".date", System.currentTimeMillis());
+        getCache().set(path+".time", tiempo*60*1000);
+        Warp w = new Warp(file, getCache(), path);
         Thread t = new Thread(w);
         t.start();
         save();
@@ -181,7 +205,7 @@ public class WarpCommand extends Comando implements Listener{
             return;
         }
         // Si es ya existe.
-        if(cache.isSet(path+".warp")){
+        if(getCache().isSet(path+".warp")){
             mensaje(jugador, "tw.exist");
             return;
         }
@@ -194,18 +218,18 @@ public class WarpCommand extends Comando implements Listener{
             }
         }
         // Asegura que exista el numero de warps.
-        if(!cache.isSet("user."+getPlayerName(jugador))){
-            cache.set("user."+getPlayerName(jugador), 0);
+        if(!getCache().isSet("user."+getPlayerName(jugador))){
+            getCache().set("user."+getPlayerName(jugador), 0);
         }
         // Si excede a los máximos por usuario.
-        if((int)getValue("tw.maxPerUser") <= cache.getInt("user."+getPlayerName(jugador))){
+        if((int)getValue("tw.maxPerUser") <= getCache().getInt("user."+getPlayerName(jugador))){
             if(!jugador.hasPermission("spicecraft.tw.noWarpLimit")){
                 mensaje(jugador, "tw.warpLimit");
                 return;
             }
         }
         double precio = (double)getValue("tw.price")*minutos;
-        if(!econ.cobrar(jugador, precio)){
+        if(!getEcon().cobrar(jugador, precio)){
             mensaje(jugador, "tw.noMoney");
             return;
         }
@@ -213,11 +237,11 @@ public class WarpCommand extends Comando implements Listener{
         mensaje(jugador, "tw.created", minutos, nombreWarp);
     }
     private void borrarWarp(Player jugador, String path){
-        if(cache.isSet(path+".owner")){
-            if(cache.getString(path+".owner").contentEquals(jugador.getName())
+        if(getCache().isSet(path+".owner")){
+            if(getCache().getString(path+".owner").contentEquals(jugador.getName())
                     || jugador.hasPermission("spicecraft.tw.master")){
-                cache.set(path, null);
-                cache.set("user."+jugador.getName(), cache.getInt("user."+jugador.getName())-1);
+                getCache().set(path, null);
+                getCache().set("user."+jugador.getName(), getCache().getInt("user."+jugador.getName())-1);
                 Chat.mensaje(jugador, "tw.destroyed");
                 save();
                 return;
@@ -230,21 +254,21 @@ public class WarpCommand extends Comando implements Listener{
     }
     private String getlistaWarps(){
         String r = "";
-        if(cache.isSet("g")){
-            for(String s: cache.getConfigurationSection("g").getKeys(false)){
-                if(cache.getBoolean(String.format("g.%s.set", s))){
+        if(getCache().isSet("g")){
+            for(String s: getCache().getConfigurationSection("g").getKeys(false)){
+                if(getCache().getBoolean(String.format("g.%s.set", s))){
                     r += String.format(
                             Strings.getString("tw.listItem")+"\n", 
                             s,
-                            cache.getString("g."+s+".owner"),
-                            (cache.getLong("g."+s+".date")+cache.getLong("g."+s+".time")-System.currentTimeMillis())/1000
-                            );
+                            getCache().getString("g."+s+".owner"),
+                            Fecha.parseTiempo((getCache().getLong("g."+s+".date")+cache.getLong("g."+s+".time")-System.currentTimeMillis())/1000)
+                    );
                 }
             }
         }
         return r;
     }
     private void save(){
-        file.save();
+        getFile().save(getCache());
     }
 }

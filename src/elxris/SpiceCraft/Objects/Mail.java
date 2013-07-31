@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.bukkit.OfflinePlayer;
+import org.bukkit.configuration.Configuration;
 import org.bukkit.configuration.MemoryConfiguration;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -15,78 +16,71 @@ import elxris.SpiceCraft.Utils.Chat;
 import elxris.SpiceCraft.Utils.Fecha;
 import elxris.SpiceCraft.Utils.Strings;
 
-public class Mail extends Savable{
+public class Mail{
     FileConfiguration cache;
-    MemoryConfiguration draft;
+    Configuration draft;
     Archivo archivo;
-    
     public Mail(){
-        archivo = new Archivo("mail.yml");
-        draft = new MemoryConfiguration();
-        load();
-    }
-    public void load(){
-        cache = archivo.load();
         interpreta();
     }
     public void interpreta(){
-        if(!cache.isSet("msg")){
+        if(!getConfig().isSet("msg")){
             sendMensajeATodos(SpiceCraft.plugin().getConfig().getString("mail.serverUserName", "Server"),
                     Strings.getString("mbox.first"));
             return;
         }
-        Set<String> listacorreos = cache.getConfigurationSection("msg").getKeys(false);
+        Set<String> listacorreos = getConfig().getConfigurationSection("msg").getKeys(false);
         for(String k: listacorreos){
-            int usuarios = cache.getConfigurationSection("msg."+k+".usuarios").getKeys(false).size();
+            int usuarios = getConfig().getConfigurationSection("msg."+k+".usuarios").getKeys(false).size();
             if(usuarios == 0 || 
                     System.currentTimeMillis()-Long.parseLong(k) >=
                     SpiceCraft.plugin().getConfig().getLong("mail.clearOnDays", 15)*24*60*60*1000){
                 // Los correos mayores a 15 días (15*24*60*60*1000) milisegundos, se eliminan.
-                cache.set("msg."+k, null);
+                getConfig().set("msg."+k, null);
             }
         }
     }
     public void eliminar(String jugador, Long mail){
-        cache.set("msg."+mail+".usuarios."+jugador, null);
+        getConfig().set("msg."+mail+".usuarios."+jugador, null);
     }
     public void eliminarAll(String jugador){
-        if(!cache.isSet("msg")){
+        if(!getConfig().isSet("msg")){
             return;
         }
-        Set<String> mensajes = cache.getConfigurationSection("msg").getKeys(false);
+        Set<String> mensajes = getConfig().getConfigurationSection("msg").getKeys(false);
         for(String lng: mensajes){
             eliminar(jugador, Long.parseLong(lng));
         }
         save();
     }
     public String[] getMail(Long id){
-        String remitente = cache.getString("msg."+id+".remitente");
-        if(cache.getBoolean("msg."+id+".servidor") == true){
+        String remitente = getConfig().getString("msg."+id+".remitente");
+        if(getConfig().getBoolean("msg."+id+".servidor") == true){
             remitente = "Servidor";
         }
         String[] mail = {remitente,
                 Fecha.formatoFecha(id),
-                cache.getString("msg."+id+".mensaje"), remitente};
+                getConfig().getString("msg."+id+".mensaje"), remitente};
         return mail;
     }
     public void getMailList(String jugador){
         int mensajes = 0;
-        Set<String> mail = cache.getConfigurationSection("msg").getKeys(false);
+        Set<String> mail = getConfig().getConfigurationSection("msg").getKeys(false);
         for(String id: mail){
-            if(cache.getBoolean("msg."+id+".usuarios."+jugador, false)){
+            if(getConfig().getBoolean("msg."+id+".usuarios."+jugador, false)){
                 mensajes++;
             }
         }
         Chat.mensaje(jugador, "mbox.list", mensajes);
     }
-    public void getNextMail(String jugador, Boolean eliminar){ //Obtiene todos los correos.
+    public void getNextMail(String jugador){ //Obtiene todos los correos.
         List<String> mensajes = new ArrayList<String>();
-        Set<String> mail = cache.getConfigurationSection("msg").getKeys(false);
+        Set<String> mail = getConfig().getConfigurationSection("msg").getKeys(false);
         for(String id: mail){
             String path = "msg."+id+".usuarios."+jugador;
-            if(cache.isSet(path)){
+            if(getConfig().isSet(path)){
                 mensajes.add(id);
-                cache.set(path, false);
+                getConfig().set(path, false);
             }
         }
         if(mensajes.size() == 0){
@@ -98,9 +92,6 @@ public class Mail extends Savable{
         for(String lng: mensajes){
             String[] mensaje = getMail(Long.parseLong(lng));
             Chat.mensaje(jugador, "mbox.mail", mensaje);
-            if(eliminar){
-                eliminar(jugador, Long.parseLong(lng));
-            }
         }
         Chat.mensaje(jugador, "mbox.readFinish");
         save();
@@ -109,23 +100,23 @@ public class Mail extends Savable{
         clearBorrador(jugador);
         List<String> destinatarios = checkDestinatarios(jugador, args);
         if(destinatarios.size() >= 1){
-            draft.set(jugador+".destinatarios", destinatarios);
+            getDraft().set(jugador+".destinatarios", destinatarios);
             Chat.mensaje(jugador, "mbox.created");
         }else{
             Chat.mensaje(jugador, "mbox.noPlayerAdded");
         }
     }
     public void setMensaje(String jugador, String mensaje){
-        draft.set(jugador+".mensaje", mensaje);
+        getDraft().set(jugador+".mensaje", mensaje);
     }
     public void addMensaje(String jugador, String mensaje){
-        if(draft.getStringList(jugador+".destinatarios").size() < 1){
+        if(getDraft().getStringList(jugador+".destinatarios").size() < 1){
             Chat.mensaje(jugador, "mbox.noMessage");
             return;
         }
         String mensajeAnterior = "";
-        if(draft.isSet(jugador+".mensaje")){
-            mensajeAnterior = draft.getString(jugador+".mensaje");
+        if(getDraft().isSet(jugador+".mensaje")){
+            mensajeAnterior = getDraft().getString(jugador+".mensaje");
         }
         if(mensajeAnterior.length() > SpiceCraft.plugin().getConfig().getInt("mail.maxChar")){
             if(!SpiceCraft.getPlayer(jugador).hasPermission("spicecraft.mail.noCharLimit")){
@@ -140,7 +131,7 @@ public class Mail extends Savable{
         setMensaje(jugador, "");
     }
     public void clearBorrador(String jugador){
-        draft.set(jugador, null);
+        getDraft().set(jugador, null);
     }
     public void sendMensaje(String jugador, List<String> destinatarios, String mensaje, Boolean servidor){
         destinatarios = checkDestinatarios(jugador, destinatarios.toArray(new String[0]));
@@ -149,11 +140,11 @@ public class Mail extends Savable{
         }
         long fecha = System.currentTimeMillis();
         String path = "msg."+fecha+".";
-        cache.set(path+"remitente", jugador);
-        cache.set(path+"servidor", servidor);
-        cache.set(path+"mensaje", mensaje);
+        getConfig().set(path+"remitente", jugador);
+        getConfig().set(path+"servidor", servidor);
+        getConfig().set(path+"mensaje", mensaje);
         for(String s : destinatarios){
-            cache.set(path+"usuarios."+s, true);
+            getConfig().set(path+"usuarios."+s, true);
         }
         for(String k: destinatarios){
             Chat.mensaje(k, "mbox.catched");
@@ -166,15 +157,15 @@ public class Mail extends Savable{
         if(!hasMensaje(jugador)){
             return;
         }
-        List<String> destinatarios = draft.getStringList(jugador+".destinatarios");
-        String mensaje = draft.getString(jugador+".mensaje");
+        List<String> destinatarios = getDraft().getStringList(jugador+".destinatarios");
+        String mensaje = getDraft().getString(jugador+".mensaje");
         sendMensaje(jugador, destinatarios, mensaje, false);
     }
     public void sendMensajeATodos(String jugador){
         if(!hasMensaje(jugador)){
             return;
         }
-        sendMensajeATodos(jugador, draft.getString(jugador+".mensaje"));
+        sendMensajeATodos(jugador, getDraft().getString(jugador+".mensaje"));
     }
     public void sendMensajeATodos(String jugador, String mensaje){
         if(!jugador.contentEquals("Server") && !SpiceCraft.getPlayer(jugador).hasPermission("spicecraft.mail.massive")){
@@ -198,7 +189,7 @@ public class Mail extends Savable{
         return null;
     }
     public boolean hasMensaje(String jugador){
-        if(!draft.isSet(jugador+".mensaje")){
+        if(!getDraft().isSet(jugador+".mensaje")){
             Chat.mensaje(jugador, "mbox.noMessage");
             return false;
         }
@@ -216,10 +207,25 @@ public class Mail extends Savable{
         }
         return checked;
     }
-    @Override
-    public void run() {
-        super.run();
-        archivo.save(cache);
-        load();
+    private Archivo getArchivo(){
+        if(archivo == null){
+            archivo = new Archivo("mail.yml");
+        }
+        return archivo;
+    }
+    private FileConfiguration getConfig(){
+        if(cache == null){
+            cache = getArchivo().load();
+        }
+        return cache;
+    }
+    private Configuration getDraft(){
+        if(draft == null){
+            draft = new MemoryConfiguration();
+        }
+        return draft;
+    }
+    private void save(){
+        getArchivo().save(getConfig());
     }
 }

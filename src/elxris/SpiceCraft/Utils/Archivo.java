@@ -6,17 +6,19 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Scanner;
 
+import org.bukkit.configuration.Configuration;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import com.google.common.base.Charsets;
 
 import elxris.SpiceCraft.SpiceCraft;
+import elxris.SpiceCraft.Objects.Savable;
 
-public class Archivo {
+public class Archivo extends Savable{
     private File file;
     private String name;
-    
+    private FileConfiguration data;
     public Archivo(String nombre){
         setName(nombre);
         setFile();
@@ -45,12 +47,15 @@ public class Archivo {
         }
         return YamlConfiguration.loadConfiguration(getFile());
     }
-    public void save(FileConfiguration fc){
+    public void saveNow(FileConfiguration fc){
         try {
             fc.save(getFile());
         } catch (IOException e) {
             SpiceCraft.log(Strings.getString("alert.notsaved")+getName());
         }
+    }
+    public void saveNow(Configuration fc){
+        saveNow((FileConfiguration) fc);
     }
     private void saveString(String data){
         try {
@@ -86,5 +91,20 @@ public class Archivo {
         fc = file.load();
         file.getFile().delete();
         return fc;
+    }
+    public void setData(FileConfiguration data){
+        this.data = data;
+    }
+    public void save(FileConfiguration data){
+        setData(data);
+        save();
+    }
+    public void save(Configuration data){
+        save((FileConfiguration)data);
+    }
+    @Override
+    public void run(){
+        super.run();
+        saveNow(this.data);
     }
 }

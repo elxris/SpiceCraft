@@ -9,11 +9,14 @@ public class Fecha {
         long diff = (System.currentTimeMillis() - time);
         String fecha = "";
         fecha += c.get(Calendar.HOUR_OF_DAY)+":"+c.get(Calendar.MINUTE);
-        fecha += tiempoAgo(diff);
+        fecha += " (";
+        fecha += Strings.getString("mbox.timeago");
+        fecha += parseTiempo(diff/1000);
+        fecha += ")";
         fecha += c.get(Calendar.DAY_OF_MONTH)+"/"+Strings.getStringList("f.months").get(c.get(Calendar.MONTH));
         return fecha;
     }
-    public static String unidadFecha(int tiempo, int h, boolean[] primero){
+    private static String unidadFecha(int tiempo, int h, boolean[] primero){
         String fecha = "";
         if(tiempo > 0){
             if(primero[0]){
@@ -28,8 +31,11 @@ public class Fecha {
         }
         return fecha;
     }
-    public static String tiempoAgo(long diff){
-        diff /= 1000;
+    public static String parseTiempo(long seconds){
+        if(seconds < 0){
+            seconds = -seconds;
+        }
+        long diff = seconds;
         String fecha = "";
         // Calcular cuanto tiempo ha pasado.
         boolean[] primero = {false};
@@ -44,10 +50,6 @@ public class Fecha {
         minutos = (int) (diff/(60));
         diff %= (60);
         segundos = (int) (diff);
-        //Guardar cuanto tiempo ha pasado
-        
-        fecha += " (";
-        fecha += Strings.getString("mbox.timeago");
         if(semanas != 0){
             fecha += unidadFecha(semanas, h, primero);
             count++;
@@ -72,8 +74,6 @@ public class Fecha {
             fecha += unidadFecha(segundos, h, primero);
             count++;
         }
-        //Fecha
-        fecha += ") ";
         return fecha;
     }
 }

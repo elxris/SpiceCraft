@@ -39,7 +39,7 @@ public class MailBoxCommand extends Comando{
             mail.getMailList(jugador.getName());
         }else
         if(isCommand("comm.mbox.read", args[0])){
-            mail.getNextMail(jugador.getName(), false);
+            mail.getNextMail(jugador.getName());
         }else
         if(isCommand("comm.mbox.clear", args[0])){
             mail.eliminarAll(jugador.getName());

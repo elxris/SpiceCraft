@@ -2,21 +2,23 @@ package elxris.SpiceCraft.Objects;
 
 import org.bukkit.Location;
 import org.bukkit.configuration.Configuration;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import elxris.SpiceCraft.SpiceCraft;
 import elxris.SpiceCraft.Commands.WarpCommand;
+import elxris.SpiceCraft.Utils.Archivo;
 import elxris.SpiceCraft.Utils.Chat;
 
 public class Warp implements Runnable{
     Location loc;
     String jugador;
     int tiempo;
-    Saver file;
+    Archivo file;
     Configuration cache;
     String path;
     long date;
     
-    public Warp(Saver file, Configuration cache, String path){
+    public Warp(Archivo file, Configuration cache, String path){
         setFile(file);
         setCache(cache);
         setPath(path);
@@ -73,14 +75,14 @@ public class Warp implements Runnable{
     public Configuration getCache(){
         return cache;
     }
-    public void setFile(Saver file){
+    public void setFile(Archivo file){
         this.file = file;
     }
-    public Saver getFile(){
+    public Archivo getFile(){
         return file;
     }
     public void save(){
-        getFile().save();
+        getFile().save((FileConfiguration) getCache());
     }
     public void chat(String s, Object o){
         if(getJugador() != null){
@@ -90,7 +92,7 @@ public class Warp implements Runnable{
     @Override
     public void run() {
         try {
-            cache.set(getPath()+".set", true);
+            getCache().set(getPath()+".set", true);
             long t = getTiempo();
             t -= (1000*30);
             if(t < 1){
@@ -98,7 +100,7 @@ public class Warp implements Runnable{
             }
             Thread.sleep(t); // Duerme hasta que queden 30 segundos.
             for(int i = 7;i > 0;){
-                if(!cache.isSet(getPath()+".set")){
+                if(!getCache().isSet(getPath()+".set")){
                     break;
                 }
                 if(i == 7){
@@ -115,10 +117,10 @@ public class Warp implements Runnable{
                     Thread.sleep(1000);
                 }
             }
-            if(cache.isSet(getPath()+".set")){
+            if(getCache().isSet(getPath()+".set")){
                 chat("tw.destroyed", null);
-                cache.set(getPath(), null);
-                cache.set("user."+getJugadorName(), cache.getInt("user."+getJugadorName())-1);
+                getCache().set(getPath(), null);
+                getCache().set("user."+getJugadorName(), cache.getInt("user."+getJugadorName())-1);
                 save();
             }
         } catch (Throwable e) {
