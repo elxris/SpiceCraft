@@ -82,10 +82,11 @@ public class Econ {
     }
     public String getPrecio(double precio){
         if(econ != null){
+            int digitos = econ.fractionalDigits();
             if(precio == 1){
-                return String.format("%s %s", econ.format(precio), econ.currencyNameSingular());                
+                return String.format("%."+digitos+"f %s", precio, econ.currencyNameSingular());                
             }else{
-                return String.format("%s %s", econ.format(precio), econ.currencyNamePlural());
+                return String.format("%."+digitos+"f %s", precio, econ.currencyNamePlural());
             }
         }
         // Si no

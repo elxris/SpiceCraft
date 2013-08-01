@@ -66,7 +66,6 @@ public class Factory implements Listener {
         }
         USERMULTIPLIER = config.getDouble("shop.userMultiplier", 0.8d);
         SELLRATE = config.getDouble("shop.sellRate", 0.6d);
-        SELLRATE *= MULTIPLIER;
         VARIABLE = config.getBoolean("shop.variable");
         DEFAULTUSERSELL = config.getBoolean("shop.defaultUserSell");
         DEFAULTUSERBUY = config.getBoolean("shop.defaultUserBuy");
@@ -164,7 +163,11 @@ public class Factory implements Listener {
         return getPrice(item, 0);
     }
     private double getRazonPrecio(String item, int acceleracion){
-        return ((double)getVel(item)+acceleracion)/VEL;
+        double vel = (double)getVel(item)+acceleracion;
+        if(vel < 1){
+            vel = 1d;
+        }
+        return vel/VEL;
     }
     public double getPrecio(String item, int cantidad, int acceleracion){
         double r = getPrice(item, acceleracion)*(double)cantidad;
@@ -422,6 +425,7 @@ public class Factory implements Listener {
                 getUserCache().set("userShop."+userShop+".money", 0.0d);
             }
         }
+        gui.pay(p);
         gui.updateInventory(inv);
         p.openInventory(inv);
     }
@@ -451,7 +455,7 @@ public class Factory implements Listener {
         }else{
             money += getPrecio(name, item.getAmount());
         }
-        new Econ().pagar(p, money*SELLRATE);
+        new Econ().pagar(p, money*SELLRATE/MULTIPLIER);
         return true;
     }
     public String getItemName(ItemStack item){

@@ -112,7 +112,7 @@ public class FactoryGui
             id = i.getTypeId()+((i.getDurability() > 0)?":"+i.getDurability():"");
             precio = f.getPrice(item);
             meta.setLore(Strings.getStringList("shop.itemLore",
-                    econ.getPrecio(precio), econ.getPrecio(precio*f.SELLRATE),
+                    econ.getPrecio(precio), econ.getPrecio(precio*f.SELLRATE/f.MULTIPLIER),
                     f.getProduction(item), id));
             i.setItemMeta(meta);
             list.add(i);
@@ -168,7 +168,8 @@ public class FactoryGui
             id = i.getTypeId()+((i.getDurability() > 0)?":"+i.getDurability():"");
             precio = (f.getPrice(item, acc)/f.MULTIPLIER)*f.USERMULTIPLIER;
             meta.setLore(
-                    Strings.getStringList("shop.userItemLore", precio,
+                    Strings.getStringList("shop.userItemLore",
+                    new Econ().getPrecio(precio),
                     stock, production, id));
             i.setItemMeta(meta);
             if(stock > i.getMaxStackSize()){
@@ -225,11 +226,11 @@ public class FactoryGui
             return cancelled;
         }
         if(e.getRawSlot() < e.getInventory().getSize()){
-            cancelled = clickTopCursorSlot(view, click, currentItem);
+            cancelled = clickTopCursorSlot(view, click, currentItem);            
         // Si el click es fuera del inventario de la tienda.
         }else{
             // Cancela lo que no sea un clic derecho, izquierdo o doble click.
-            cancelled = clickBotCursorSlot(view, click, currentItem);
+            cancelled = clickBotCursorSlot(view, click, currentItem);            
         }
         return cancelled;
     }
@@ -432,8 +433,13 @@ public class FactoryGui
         }
         // Si no existe, crealo.
         if(!c.isSet(getPath("items."+item))){
-            setItemStock(item, amount);
-            setItemVel(item, 0);
+            if(c.getConfigurationSection(getPath("items")).getKeys(false).size() < 
+                    SpiceCraft.plugin().getConfig().getInt("shop.userShopSize")){
+                setItemStock(item, amount);
+                setItemVel(item, 0);
+            }else{
+                return;
+            }
         // Si existe, añade más stock.
         }else{
             addItemStock(item, amount);
@@ -459,8 +465,13 @@ public class FactoryGui
         return getUserConfig().getInt(getPath("items."+item+".vel"));
     }
     public void addItemVel(String item, int vel){
-        // TODO Poner limites.
         setItemVel(item, getItemVel(item)+vel);
+        int limit = SpiceCraft.plugin().getConfig().getInt("shop.userVariation");
+        if(getItemVel(item) > limit){
+            setItemVel(item, limit);
+        }else if(getItemVel(item) < -limit){
+            setItemVel(item, -limit);
+        }
     }
     public void setMoney(double money){
         getUserConfig().set(getPath("money"), money);
@@ -477,7 +488,7 @@ public class FactoryGui
         if(p == null){
             return;
         }
-        setPath("userShop."+p.getName());
+        setPath("userShop."+p.getName()+".");
         new Econ().pagar(p, getMoney());
         setMoney(0);
         setPath(path);
