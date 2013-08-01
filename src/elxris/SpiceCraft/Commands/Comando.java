@@ -20,7 +20,7 @@ public abstract class Comando  implements CommandExecutor{
         Chat.mensaje(p, mensaje, objects);
     }
     public Player getPlayer(String p){
-        return SpiceCraft.getPlayer(p);
+        return SpiceCraft.getOnlinePlayer(p);
     }
     public boolean isInteger(String s){
         try {

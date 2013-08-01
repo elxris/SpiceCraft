@@ -167,8 +167,10 @@ shop:
   - §b[§cSHOP§b]§r §aHELP
   - §e/shop §rOpens a window that you can place the items to sell, or explore the store and buy.
   - With left click buy one, with the right to buy a stack.
-  - The items are sold at %s of money you currently have.
+  - The items are sold at %.2f%% of money you currently have.
   - §bCheck prices is important as they vary with time.
+  - §e/shop @<name> §rOpens a user store. Or yours if you put only @.
+  - Buy at a particular store is %.2f%% cheaper, and if you sell you get %.2f%% more earnings.
   - "Or here's the commands:"
   - §e/shop <item> §rFind an item. Part of the name or id.
   - §e/shop <item> [#] §rDisplays an item infomation. If the search for an item is more than one item in the store, you can select one from the list.
@@ -179,6 +181,8 @@ shop:
   - §e/shop <item> [#] set <price> §rSet the price value.
   openInfo:
   - Welcome to the store. Check the command §b/shop ? §rfor help.
+  openUserInfo:
+  - Welcome to %s's store. Check the command §b/shop ? §rfor help.
   itemInfo:
   - '§b[§cSHOP§b]§r §aInfo §d%s'
   - '§bPrice: §a%s §e the unit.'
@@ -206,6 +210,10 @@ shop:
   - §b[§cSHOP§b]§r §aIt has successfully fixed the price of %s.
   resetItem:
   - §b[§cSHOP§b]§r §aIt has successfully reset %s.
+  userNotFound:
+  - §b[§cSHOP§b]§r §aPlayer not found.
+  userBuyUser:
+  - §b[§cSHOP§b]§r §a%s has bought %s %s in your store.
   itemLore:
   - 'Buy: %s'
   - 'Sell: %s'
@@ -214,7 +222,12 @@ shop:
   userItemLore:
   - 'Price: %s'
   - 'Stock: %s'
+  - 'Production: %s'
   - 'ID: %s'
+  positiveProduction:
+  - '§a%s§r'
+  negativeProduction:
+  - '§c%s§r'
 cmd:
   reload:
   - Reload commands and configurations, complete!

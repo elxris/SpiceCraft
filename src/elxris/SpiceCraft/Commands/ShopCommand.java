@@ -27,6 +27,13 @@ public class ShopCommand extends Comando implements TabCompleter{
         }else{
             return true;
         }
+        if(args.length == 1 && isCommand("comm.shop.userPrefix", args[0].charAt(0)+"")){
+            return onSlashShop(p, command, label, args);
+        }else{
+            return onShop(p, command, label, args);
+        }
+    }
+    public boolean onShop(Player p, Command command, String label, String[] args){
         if(!p.hasPermission("spicecraft.shop")){
             mensaje(p, "alert.permission");
             return true;
@@ -36,8 +43,10 @@ public class ShopCommand extends Comando implements TabCompleter{
             mensaje(p, "shop.openInfo");
         }else
         if(args.length == 1){
-            if(isCommand("comm.shop.help", args[0])){ // Vender
-                mensaje(p, "shop.info", Double.toString(((double)getValue("shop.sellRate"))*100d)+"%");
+            if(isCommand("comm.shop.help", args[0])){ // Imprime la ayuda.
+                mensaje(p, "shop.info", (f.SELLRATE*100d),
+                        (f.USERMULTIPLIER/f.MULTIPLIER*100d),
+                        ((f.USERMULTIPLIER/f.SELLRATE-1)*100d));
                 if(p.hasPermission("spicecraft.shop.master")){
                     mensaje(p, "shop.infoMaster");
                 }
@@ -51,6 +60,23 @@ public class ShopCommand extends Comando implements TabCompleter{
         }else if(args.length == 4){
             buscar(p, args[0], args[1], args[2], args[3]);
         }
+        return true;
+    }
+    public boolean onSlashShop(Player p, Command command, String label, String[] args){
+        String arg = args[0].substring(1);
+        if(arg.length() == 0){
+            arg = p.getName();
+        }
+        List<String> players = SpiceCraft.getOfflinePlayerNamesMatch(arg);
+        String shopName;
+        if(players.size() != 1){
+            Chat.mensaje(p, "shop.userNotFound");
+            return true;
+        }else{
+            shopName = players.get(0);
+            Chat.mensaje(p, "shop.openUserInfo", shopName);
+        }
+        f.sell(p, shopName);
         return true;
     }
     @Override

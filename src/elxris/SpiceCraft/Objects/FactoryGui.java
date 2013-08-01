@@ -3,6 +3,7 @@ package elxris.SpiceCraft.Objects;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -13,6 +14,9 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+
+import elxris.SpiceCraft.SpiceCraft;
+import elxris.SpiceCraft.Utils.Chat;
 import elxris.SpiceCraft.Utils.Econ;
 import elxris.SpiceCraft.Utils.Strings;
 
@@ -35,14 +39,15 @@ public class FactoryGui
         inv.clear();
         List<ItemStack> items;
         int itemsSize;
+        // Si existe una lista de objetos.
         if(isRelativeSet("list")){
-            // Si existe una lista de objetos.
-            itemsSize = getItemListSize(getPath());
+            itemsSize = getItemListSize();
+        // Si existe un submenu
         }else if(isRelativeSet("sub")){
-            // Si existe un submenu
-            itemsSize = getItemMenuSize(getPath("sub"));
+            itemsSize = getItemMenuSize();
+        // Si es una tienda de usuario.
         }else if(isUserShop()){
-            itemsSize = getItemUserSize(getPath("items"));
+            itemsSize = getItemUserSize();
         }else{
             return;
         }
@@ -72,7 +77,9 @@ public class FactoryGui
         }else{
             return;
         }
-        
+        if(items == null || items.size() == 0){
+            return;
+        }
         int count = 0;
         for(int i = SIZE-itemsPerPage; i < SIZE; i++){
             inv.setItem(i, items.get(count));
@@ -125,15 +132,19 @@ public class FactoryGui
         return list;
     }
     public List<ItemStack> getItemUser(String path, int itemsPerPage, int page){
+        if(getItemUserSize() == 0){
+            return null;
+        }
         List<ItemStack> list = new ArrayList<ItemStack>();
         ItemStack i;
         ItemMeta meta;
-        String id;
+        String id, production;
+        int acc, stock;
         double precio;
         int limitUP = (page)*itemsPerPage;
         int limitDOWN = (--page)*itemsPerPage;
         int count = 0;
-        ConfigurationSection config = getConfig().getConfigurationSection(path);
+        ConfigurationSection config = getUserConfig().getConfigurationSection(path);
         for(String item : config.getKeys(false)){
             if(count < limitDOWN){
                 count++;
@@ -141,25 +152,47 @@ public class FactoryGui
             }else if(count >= limitUP){
                 break;
             }
+            stock = getItemStock(item);
+            if(stock <= 0){
+                continue;
+            }
             i = f.createItem(p, item, 1);
             meta = i.getItemMeta();
+            production = f.getProduction(item)+"";
+            acc = getItemVel(item);
+            if(acc < 0){
+                production += String.format(Strings.getString("shop.negativeProduction"), acc);
+            }else if(acc > 0){
+                production += String.format(Strings.getString("shop.positiveProduction"), "+"+acc);
+            }
             id = i.getTypeId()+((i.getDurability() > 0)?":"+i.getDurability():"");
-            precio = (f.getPrice(item)/f.MULTIPLIER)*f.USERMULTIPLIER;
-            meta.setLore(Strings.getStringList("shop.userItemLore", precio,
-                    config.get(item), id));
+            precio = (f.getPrice(item, acc)/f.MULTIPLIER)*f.USERMULTIPLIER;
+            meta.setLore(
+                    Strings.getStringList("shop.userItemLore", precio,
+                    stock, production, id));
             i.setItemMeta(meta);
+            if(stock > i.getMaxStackSize()){
+                stock = i.getMaxStackSize();
+            }
+            i.setAmount(stock);
             list.add(i);
         }
         return list;
     }
-    public int getItemListSize(String path){
+    public int getItemListSize(){
+        String path = getPath();
         return getConfig().getStringList(path+".list").size();
     }
-    public int getItemMenuSize(String path){
+    public int getItemMenuSize(){
+        String path = getPath("sub");
         return getConfig().getConfigurationSection(path).getKeys(false).size();
     }
-    public int getItemUserSize(String path){
-        return getConfig().getConfigurationSection(path).getKeys(false).size();
+    public int getItemUserSize(){
+        String path = getPath("items");
+        if(getUserConfig().isSet(path)){
+            return getUserConfig().getConfigurationSection(path).getKeys(false).size();
+        }
+            return 0;
     }
     public ItemStack getNext(){
         if(itemNext == null){
@@ -184,34 +217,55 @@ public class FactoryGui
     */
     public boolean click(final InventoryClickEvent e){
         boolean cancelled = false;
-        ItemStack cursor = e.getCursor();
-        int currentItem = e.getRawSlot();
         InventoryView view = e.getView();
         ClickType click = e.getClick();
+        int currentItem = e.getRawSlot();
         // Si el click es dentro del inventario de la tienda.
+        if(currentItem < 0){
+            return cancelled;
+        }
         if(e.getRawSlot() < e.getInventory().getSize()){
-            cancelled = clickTopCursorSlot(view, click, cursor, currentItem);
+            cancelled = clickTopCursorSlot(view, click, currentItem);
         // Si el click es fuera del inventario de la tienda.
         }else{
             // Cancela lo que no sea un clic derecho, izquierdo o doble click.
-            cancelled = clickBotCursorSlot(view, click, cursor, currentItem);
+            cancelled = clickBotCursorSlot(view, click, currentItem);
         }
         return cancelled;
     }
     // Click en la tienda con algo en mano y algo en el slot.
-    public boolean clickTopCursorSlot(InventoryView view, ClickType click, ItemStack cursor, int currentItem){
+    public boolean clickTopCursorSlot(InventoryView view, ClickType click, int currentItem){
         boolean cancelled = false;
         // Si tiene el cursor está vacio.
-        if(cursor.getTypeId() == 0){
+        if(view.getCursor().getTypeId() == 0){
             clickTopSlot(view, click, currentItem);
         // Si el cursor tiene objeto.
         }else{
+            clickTopCursor(view, click, currentItem);
+        }
+        cancelled = true;
+        return cancelled;
+    }
+    // Click en la tienda con algo en mano.
+    public void clickTopCursor(InventoryView view, ClickType click, int currentItem){
+        // Si es una tienda de usuario.
+        if(isUserShop()){
+            // Si es dueño
+            if(isOwnShop()){
+                addCursorToShop(view, click);
+                updateInventory(view.getTopInventory());
+            // Si no es dueño, no puede modificar tienda.
+            }else{
+                return;
+            }
+        }else{
+            ItemStack cursor = view.getCursor();
             int amount = cursor.getAmount();
             // Si es izquierdo, vende el stack.
             if(click == ClickType.LEFT){
                 f.sellItem(p, cursor);
                 cursor.setAmount(0);
-            // Si es derecho, vende uno.
+                // Si es derecho, vende uno.
             }else if(click == ClickType.RIGHT){
                 cursor.setAmount(1);
                 f.sellItem(p, cursor);
@@ -219,12 +273,6 @@ public class FactoryGui
             }
             view.setCursor(cursor);
         }
-        cancelled = true;
-        return cancelled;
-    }
-    // Click en la tienda con algo en mano.
-    public void clickTopCursor(InventoryView view, ClickType click, ItemStack cursor){
-        
     }
     // Click en la tienda con algo en el slot.
     public void clickTopSlot(InventoryView view, ClickType click, int currentItem){
@@ -250,42 +298,192 @@ public class FactoryGui
             updateInventory(view.getTopInventory());
         // Si no es un objeto-menú, es un item de la tienda.
         }else{
-            // Se compra uno.
-            if(click == ClickType.LEFT){
-                f.shop(p, f.getItemName(current), 1);
-            // Se compra un stack.
-            }else if(click == ClickType.RIGHT){
-                f.shop(p, f.getItemName(current), current.getMaxStackSize());
+            String item = f.getItemName(current);
+            FileConfiguration c = getUserConfig();
+            // Si es una tienda
+            if(isUserShop()){
+                // Si es su tienda.
+                if(isOwnShop()){
+                    // Si es con shift regresa todo al inventario.
+                    if(click.isShiftClick()){
+                        f.addItemsToInventory(p, f.createItems(p, item, c.getInt(getPath("items."+item+".amount"))));
+                        c.set(getPath("items."+item), null);
+                    // Si es izquierdo, ponlo más caro.
+                    }else if(click.isLeftClick()){
+                        addItemVel(item, +1);
+                    // Si es derecho, ponlo más barato.
+                    }else if(click.isRightClick()){
+                        addItemVel(item, -1);
+                    }
+                    updateInventory(view.getTopInventory());
+                // Si no es su tienda, compra.
+                }else{
+                    int stock = getItemStock(item);
+                    int amount;
+                    // Si es con shift o derecho compra un stack.
+                    if(click.isShiftClick() || click.isRightClick()){
+                        amount = current.getMaxStackSize();
+                    // Si es izquierdo, compra uno.
+                    }else if(click.isLeftClick()){
+                        amount = 1;
+                    }else{
+                        return;
+                    }
+                    // Si no hay suficiente para un stack, haz un stack pequeño. Y elimina.
+                    if(amount > stock){
+                        amount = stock;
+                    }
+                    String user = getPath().substring("userShop.".length()-1);
+                    user = user.substring(0, user.length()-2);
+                    if(f.shopUser(p, item, amount, getItemVel(item))){
+                        Chat.mensaje(SpiceCraft.getOnlineExactPlayer(user), "shop.userBuyUser",
+                                p.getName(), amount, item);
+                        addMoney(f.getPrecio(item, amount, getItemVel(item))/f.MULTIPLIER*f.USERMULTIPLIER);
+                        addItemStock(item, -amount);
+                        if(getItemStock(item) <= 0){
+                            getUserConfig().set(getPath("items."+item), null);
+                        }
+                    }
+                    pay(user);
+                    updateInventory(view.getTopInventory());
+                }
+            // Si es la tienda del servidor
+            }else{
+                // Se compra uno.
+                if(click == ClickType.LEFT){
+                    f.shop(p, f.getItemName(current), 1);
+                    // Se compra un stack.
+                }else if(click == ClickType.RIGHT){
+                    f.shop(p, f.getItemName(current), current.getMaxStackSize());
+                }
             }
         }
     }
     // Click fuera de la tienda con algo en el cursor y en el slot.
-    public boolean clickBotCursorSlot(InventoryView view, ClickType click, ItemStack cursor, int currentItem){
+    public boolean clickBotCursorSlot(InventoryView view, ClickType click, int currentItem){
         boolean cancelled = false;
-        ItemStack current = view.getItem(currentItem);
         if(!(click == ClickType.RIGHT
                 || click == ClickType.LEFT
                 || click == ClickType.DOUBLE_CLICK)){
             cancelled = true;
         }
-        // Si se hace shift click fuera del inventario de la tienda, se vende el stack.
+        cancelled = clickBotSlot(view, click, currentItem);
+        return cancelled;
+    }
+    // Click fuera de la tienda con algo en el cursor.
+    public void clickBotCursor(InventoryView view, ClickType click, int currentItem){
+        
+    }
+    // Click fuera de la tienda con algo en el slot.
+    public boolean clickBotSlot(InventoryView view, ClickType click, int currentItem){
+        boolean cancelled = false;
+        ItemStack current = view.getItem(currentItem);
         if(click.isShiftClick()){
             if(current.getTypeId() == 0){
                 return cancelled;
             }
-            view.setItem(currentItem, null);
-            f.sellItem(p, current);
-            cancelled = true;
+        }
+        if(isUserShop()){
+            // Si es propia.
+            if(isOwnShop()){
+                if(click.isShiftClick()){
+                    // Pon en la tienda como si el objeto estuviera en tu mano.
+                    if(view.getCursor().getTypeId() == current.getTypeId()){
+                        current.setAmount(current.getAmount()+view.getCursor().getAmount());
+                    }
+                    view.setItem(currentItem, null);
+                    view.setCursor(current);
+                    addCursorToShop(view, click);
+                    updateInventory(view.getTopInventory());
+                }
+            }else{
+                if(click.isShiftClick()){
+                    cancelled = true;
+                }
+            }
+        }else{
+            // Si se hace shift click fuera del inventario de la tienda, se vende el stack.
+            if(click.isShiftClick()){
+                view.setItem(currentItem, null);
+                f.sellItem(p, current);
+                cancelled = true;
+            }
         }
         return cancelled;
     }
-    // Click fuera de la tienda con algo en el cursor.
-    public void clickBotCursor(InventoryView view, ClickType click, ItemStack cursor){
-        
+    private void addCursorToShop(InventoryView view, ClickType click){
+        ItemStack cursor = view.getCursor();
+        int amount = cursor.getAmount();
+        FileConfiguration c = getUserConfig();
+        String item = f.getItemName(cursor);
+        if(cursor.getItemMeta().hasEnchants()){
+            return;
+        }
+        if(cursor.getDurability()>0){
+            if(cursor.getType().getMaxDurability() > 0){
+                return;
+            }
+        }
+        if(cursor.getType() == Material.ENCHANTED_BOOK){
+            return;
+        }
+        if(click.isRightClick()){
+            amount = 1;
+        }
+        // Si no existe, crealo.
+        if(!c.isSet(getPath("items."+item))){
+            setItemStock(item, amount);
+            setItemVel(item, 0);
+        // Si existe, añade más stock.
+        }else{
+            addItemStock(item, amount);
+        }
+        cursor.setAmount(cursor.getAmount() - amount);
+        view.setCursor(cursor);
     }
-    // Click fuera de la tienda con algo en el slot.
-    public void clickBotSlot(InventoryView view, ClickType click, ItemStack currentItem){
-        
+    public void setItemStock(String item, int amount){
+        getUserConfig().set(getPath("items."+item+".amount"), amount);
+        f.save();
+    }
+    public int getItemStock(String item){
+        return getUserConfig().getInt(getPath("items."+item+".amount"));
+    }
+    public void addItemStock(String item, int amount){
+        setItemStock(item, getItemStock(item)+amount);
+    }
+    public void setItemVel(String item, int vel){
+        getUserConfig().set(getPath("items."+item+".vel"), vel);
+        f.save();
+    }
+    public int getItemVel(String item){
+        return getUserConfig().getInt(getPath("items."+item+".vel"));
+    }
+    public void addItemVel(String item, int vel){
+        // TODO Poner limites.
+        setItemVel(item, getItemVel(item)+vel);
+    }
+    public void setMoney(double money){
+        getUserConfig().set(getPath("money"), money);
+        f.save();
+    }
+    public double getMoney(){
+        return getUserConfig().getDouble(getPath("money"));
+    }
+    public void addMoney(double money){
+        setMoney(getMoney()+money);
+    }
+    public void pay(Player p){
+        String path = getPath();
+        if(p == null){
+            return;
+        }
+        setPath("userShop."+p.getName());
+        new Econ().pagar(p, getMoney());
+        setMoney(0);
+        setPath(path);
+    }
+    public void pay(String player){
+        pay(SpiceCraft.getOnlineExactPlayer(player));
     }
     public String getPath(){
         if(!getCache().isSet(p.getName()+".set") || !getCache().getBoolean(p.getName()+".set")){
@@ -301,6 +499,8 @@ public class FactoryGui
         return getPath()+s;
     }
     public void setPath(String s){
+        // Nos aseguramos que está inicializada la tienda.
+        getPath();
         getCache().set(p.getName()+".path", s);
     }
     public void addPath(String s){
@@ -322,12 +522,21 @@ public class FactoryGui
         p.getWorld().playSound(p.getLocation(), Sound.CLICK, 1.0f, 1.0f);
     }
     public boolean isUserShop(){
-        return isRelativeSet("items");
+        return getUserConfig().isSet(getPath("money"));
+    }
+    public boolean isOwnShop(){
+        if(isUserShop()){
+            return getPath().contentEquals("userShop."+p.getName()+".");
+        }
+        return false;
     }
     public FileConfiguration getCache(){
         return Factory.getVolatilCache();
     }
     public FileConfiguration getConfig(){
         return Factory.getCache();
+    }
+    public FileConfiguration getUserConfig(){
+        return Factory.getUserCache();
     }
 }

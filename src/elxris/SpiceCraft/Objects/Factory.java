@@ -66,6 +66,7 @@ public class Factory implements Listener {
         }
         USERMULTIPLIER = config.getDouble("shop.userMultiplier", 0.8d);
         SELLRATE = config.getDouble("shop.sellRate", 0.6d);
+        SELLRATE *= MULTIPLIER;
         VARIABLE = config.getBoolean("shop.variable");
         DEFAULTUSERSELL = config.getBoolean("shop.defaultUserSell");
         DEFAULTUSERBUY = config.getBoolean("shop.defaultUserBuy");
@@ -150,24 +151,30 @@ public class Factory implements Listener {
     private double getPriceData(String item){
         return getCache().getDouble("item."+item+".price", 0.0d);
     }
-    public double getPrice(String item){
+    public double getPrice(String item, int acceleracion){
         Map<String, Integer> map = getDepends(item);
         double price = 0;
         for(String s: map.keySet()){
             // Cantidad * Precio * Razon * Multiplicador
-            price += map.get(s) * getPriceData(s) * getRazonPrecio(s) * MULTIPLIER;
+            price += map.get(s) * getPriceData(s) * getRazonPrecio(s, acceleracion);
         }
-        return price/getRecipieMultiplie(item);
+        return price/getRecipieMultiplie(item)*MULTIPLIER;
     }
-    private double getRazonPrecio(String item){
-        return (double)getVel(item)/VEL;
+    public double getPrice(String item){
+        return getPrice(item, 0);
     }
-    private double getPrecio(String item, int cantidad){
-        double r = getPrice(item)*(double)cantidad;
+    private double getRazonPrecio(String item, int acceleracion){
+        return ((double)getVel(item)+acceleracion)/VEL;
+    }
+    public double getPrecio(String item, int cantidad, int acceleracion){
+        double r = getPrice(item, acceleracion)*(double)cantidad;
         if(r < 0){
             r = 0;
         }
         return r;
+    }
+    private double getPrecio(String item, int cantidad){
+        return getPrecio(item, cantidad, 0);
     }
     private int getId(String item){
         return getCache().getInt("item."+item+".id");
@@ -271,7 +278,7 @@ public class Factory implements Listener {
         }
         return stack;
     }
-    private List<ItemStack> createItems(Player p, String item, int num){
+    public List<ItemStack> createItems(Player p, String item, int num){
         List<ItemStack> items = new ArrayList<ItemStack>();
         int maxStack = Material.getMaterial(getId(item)).getMaxStackSize();
         if(num%maxStack > 0){
@@ -306,12 +313,26 @@ public class Factory implements Listener {
         addCountRecursive(item_real, (double)cantidad/getRecipieMultiplie(item_real)*(-1d));
         return true;
     }
-    private void addItemsToInventory(Player p, List<ItemStack> items){ // Añade el item al inventario del jugador.
+    public boolean shopUser(Player p, String item, int cantidad, int acceleracion){
+        String item_real = searchItem(item);
+        if(item_real == null){
+            Chat.mensaje(p, "shop.notExist");
+            return false;
+        }
+        Econ econ = new Econ();
+        if(!econ.cobrar(p, getPrecio(item_real, cantidad, acceleracion)/MULTIPLIER*USERMULTIPLIER)){
+            Chat.mensaje(p, "shop.noMoney");
+            return false;
+        }
+        addItemsToInventory(p, createItems(p, item_real, cantidad));
+        return true;
+    }
+    public void addItemsToInventory(Player p, List<ItemStack> items){ // Añade el item al inventario del jugador.
         for(ItemStack item: items){
             addItemToInventory(p, item);
         }
     }
-    private void addItemToInventory(Player p, ItemStack item){
+    public void addItemToInventory(Player p, ItemStack item){
         for(ItemStack i: p.getInventory().addItem(item).values()){
             p.getWorld().dropItem(p.getLocation(), i);
         }
@@ -386,12 +407,21 @@ public class Factory implements Listener {
     }
     // Abre el inventario de la tienda.
     public void sell(Player p){
+        sell(p, null);
+    }
+    public void sell(Player p, String userShop){
         if(p.getGameMode() == GameMode.CREATIVE){
             Chat.mensaje(p, "shop.creative");
             return;
         }
         Inventory inv = org.bukkit.Bukkit.createInventory(p, 27, getShopName());
         FactoryGui gui = new FactoryGui(p);
+        if(userShop != null){
+            gui.setPath("userShop."+userShop+".");
+            if(!gui.isUserShop()){
+                getUserCache().set("userShop."+userShop+".money", 0.0d);
+            }
+        }
         gui.updateInventory(inv);
         p.openInventory(inv);
     }
@@ -487,8 +517,9 @@ public class Factory implements Listener {
         }
         return volatil;
     }
-    private void save(){
+    public void save(){
         getFile().save(getCache());
+        getFileUser().save(getUserCache());
     }
     @EventHandler
     private void onDragInventory(InventoryDragEvent event){

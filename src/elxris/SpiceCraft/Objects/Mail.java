@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.configuration.MemoryConfiguration;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -119,7 +118,7 @@ public class Mail{
             mensajeAnterior = getDraft().getString(jugador+".mensaje");
         }
         if(mensajeAnterior.length() > SpiceCraft.plugin().getConfig().getInt("mail.maxChar")){
-            if(!SpiceCraft.getPlayer(jugador).hasPermission("spicecraft.mail.noCharLimit")){
+            if(!SpiceCraft.getOnlinePlayer(jugador).hasPermission("spicecraft.mail.noCharLimit")){
                 Chat.mensaje(jugador, "mbox.limit", SpiceCraft.plugin().getConfig().getInt("mail.maxChar"));
                 return;
             }
@@ -168,12 +167,12 @@ public class Mail{
         sendMensajeATodos(jugador, getDraft().getString(jugador+".mensaje"));
     }
     public void sendMensajeATodos(String jugador, String mensaje){
-        if(!jugador.contentEquals("Server") && !SpiceCraft.getPlayer(jugador).hasPermission("spicecraft.mail.massive")){
+        if(!jugador.contentEquals("Server") && !SpiceCraft.getOnlinePlayer(jugador).hasPermission("spicecraft.mail.massive")){
             return;
         }
         List<String> destinatarios = new ArrayList<String>();
-        for(OfflinePlayer p: SpiceCraft.plugin().getServer().getOfflinePlayers()){
-            destinatarios.add(p.getName());
+        for(String p: SpiceCraft.getOfflinePlayerNames()){
+            destinatarios.add(p);
         }
         sendMensaje(jugador, destinatarios, mensaje, true);
     }

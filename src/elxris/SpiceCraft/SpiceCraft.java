@@ -1,5 +1,9 @@
 package elxris.SpiceCraft;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -49,8 +53,35 @@ public class SpiceCraft extends JavaPlugin {
     public static void log(String m){
         plugin.getLogger().info(m);
     }
-    public static Player getPlayer(String playerName){
-        return plugin.getServer().getPlayerExact(playerName);
+    public static Player getOnlinePlayer(String playerName){
+        return plugin().getServer().getPlayer(playerName);
+    }
+    public static Player getOnlineExactPlayer(String playerName){
+        return plugin().getServer().getPlayerExact(playerName);
+    }
+    public static List<String> getOfflinePlayerNamesMatch(String player){
+        String players[] = getOfflinePlayerNames();
+        List<String> jugadores = new ArrayList<String>();
+        for(String p : players){
+            if(p.toLowerCase().contains(player.toLowerCase())){
+                if(p.toLowerCase().contentEquals(player.toLowerCase())){
+                    jugadores = new ArrayList<String>();
+                    jugadores.add(p);
+                    break;
+                }else{
+                    jugadores.add(p);
+                }
+            }
+        };
+        return jugadores;
+    }
+    public static String[] getOfflinePlayerNames(){
+        OfflinePlayer players[] = plugin.getServer().getOfflinePlayers();
+        String playerNames[] = new String[players.length];
+        for(int i = 0; i < players.length; i++){
+            playerNames[i] = players[i].getName();
+        }
+        return playerNames;
     }
     public static SpiceCraft plugin(){
         return plugin;

@@ -32,10 +32,10 @@ public class Chat {
         mensaje(p, Strings.getStringList(path), i);
     }
     public static void mensaje(String p, String m, Object... i){
-        if(SpiceCraft.getPlayer(p) == null){
+        Player jugador = SpiceCraft.getOnlinePlayer(p);
+        if(jugador == null){
             return;
         }
-        Player jugador = SpiceCraft.getPlayer(p);
         if(Strings.getStringList(m) == null){
             enviar(jugador, m);
             return;

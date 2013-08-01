@@ -19,12 +19,14 @@ lib:
   topSize: 3
   rate: 0.6
 shop:
-  multiplier: 1.0
-  userMultiplier: 0.8
-  sellRate: 0.6
+  multiplier: 1.5
+  userMultiplier: 1.0
+  sellRate: 0.5
   full: 4096
   vel: 8
   freq: 30
+  userVariation: 3
+  userShopSize: 50
   variable: true
   defaultUserSell: true
   defaultUserBuy: true
@@ -133,3 +135,5 @@ comm:
     - set
     reset:
     - reset
+    userPrefix:
+    - '@'

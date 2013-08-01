@@ -40,7 +40,7 @@ public class Warp implements Runnable{
         jugador = p;
     }
     public Player getJugador() {
-        return SpiceCraft.getPlayer(getJugadorName());
+        return SpiceCraft.getOnlinePlayer(getJugadorName());
     }
     public String getJugadorName() {
         return jugador;

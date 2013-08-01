@@ -167,8 +167,10 @@ shop:
   - §b[§cSHOP§b]§r §aAYUDA
   - §e/shop §rAbre una ventana que puedes colocar los objetos para venderlos, o bien explorar la tienda y comprar.
   - Con click izquierdo compras uno, con el derecho compras un stack.
-  - Los items se venden al %s del precio que tiene actualmente.
+  - Los items se venden al %.2f%% del precio que tiene actualmente.
   - §bConsultar precios es importante ya que varían con el tiempo.
+  - §e/shop @<nombre> §rAbre la tienda de un usuario. O la tuya si solo pones @
+  - Comprar a una tienda particular es %.2f%% más barato, y vender obtienes %.2f%% mas de ganancias.
   - "O bien tienes los comandos:"
   - §e/shop <item> §rBusca un item. Parte del nombre o id.
   - §e/shop <item> [#] §rMuestra la información de un item. Si al buscar un item se encuentra más de un objeto en la tienda, puedes seleccionar uno de la lista.
@@ -178,7 +180,9 @@ shop:
   - §e/shop <item> [#] reset §rRestablece el valor de producción al original.
   - §e/shop <item> [#] set <price> §rCambia el precio del item.
   openInfo:
-  - Bienvendio a la tienda. Consulta §b/shop ? §rpara ayuda.
+  - Bienvenido a la tienda. Consulta §b/shop ? §rpara ayuda.
+  openUserInfo:
+  - Bienvenido a la tienda de %s. Consulta §b/shop ? §rpara ayuda.
   itemInfo:
   - '§b[§cSHOP§b]§r §aInfo §d%s'
   - '§bPrecio: §a%s §ela unidad.'
@@ -206,6 +210,10 @@ shop:
   - §b[§cSHOP§b]§r §aSe ha fijado el precio satisfactoriamente a %s.
   resetItem:
   - §b[§cSHOP§b]§r §aSe ha reseteado satisfactoriamente a %s.
+  userNotFound:
+  - §b[§cSHOP§b]§r §aNo se ha encontrado el usuario.
+  userBuyUser:
+  - §b[§cSHOP§b]§r §a%s ha comprado %s %s en tu tienda.
   itemLore:
   - 'Compra: %s'
   - 'Venta: %s'
@@ -214,7 +222,12 @@ shop:
   userItemLore:
   - 'Precio: %s'
   - 'Stock: %s'
+  - 'Producción: %s'
   - 'ID: %s'
+  positiveProduction:
+  - '§a%s§r'
+  negativeProduction:
+  - '§c%s§r'
 cmd:
   reload:
   - Reload de comandos y configuraciones completo!
