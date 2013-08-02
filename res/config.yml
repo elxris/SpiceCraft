@@ -30,6 +30,8 @@ shop:
   variable: true
   defaultUserSell: true
   defaultUserBuy: true
+econ:
+  logg: true
 comm:
   tw:
     new:
