@@ -167,7 +167,8 @@ public class Mail{
         sendMensajeATodos(jugador, getDraft().getString(jugador+".mensaje"));
     }
     public void sendMensajeATodos(String jugador, String mensaje){
-        if(!jugador.contentEquals("Server") && !SpiceCraft.getOnlinePlayer(jugador).hasPermission("spicecraft.mail.massive")){
+        if(!jugador.contentEquals(SpiceCraft.plugin().getConfig().getString("mail.serverUserName", "Server")) 
+                && !SpiceCraft.getOnlinePlayer(jugador).hasPermission("spicecraft.mail.massive")){
             return;
         }
         List<String> destinatarios = new ArrayList<String>();

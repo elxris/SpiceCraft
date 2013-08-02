@@ -433,8 +433,9 @@ public class FactoryGui
         }
         // Si no existe, crealo.
         if(!c.isSet(getPath("items."+item))){
-            if(c.getConfigurationSection(getPath("items")).getKeys(false).size() < 
-                    SpiceCraft.plugin().getConfig().getInt("shop.userShopSize")){
+            if(!c.isSet(getPath("items"))
+                    ||(c.getConfigurationSection(getPath("items")).getKeys(false).size() < 
+                    SpiceCraft.plugin().getConfig().getInt("shop.userShopSize"))){
                 setItemStock(item, amount);
                 setItemVel(item, 0);
             }else{
