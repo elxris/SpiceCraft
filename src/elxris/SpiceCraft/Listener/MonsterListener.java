@@ -151,11 +151,13 @@ public class MonsterListener implements Listener {
         }
     }
     public boolean cobrar(Entity e, Player p){
-        if(!new Econ().cobrar(p, PRICE)){
+        Econ econ = new Econ();
+        if(!econ.cobrar(p, PRICE)){
             // Mensaje de que no tiene dinero suficiente.
             Chat.mensaje(p, "mobs.noMoney");
             return false;
         }
+        econ.getLogg().logg("Mobs", p, "convert", e.getType().getName(), 0, PRICE);
         // Calma al mob.
         if(e instanceof Monster){
             ((Monster) e).setTarget(null);

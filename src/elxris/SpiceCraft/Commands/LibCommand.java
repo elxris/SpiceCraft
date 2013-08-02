@@ -12,16 +12,14 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BookMeta;
 
 import elxris.SpiceCraft.Utils.Archivo;
-import elxris.SpiceCraft.Utils.Econ;
 import elxris.SpiceCraft.Utils.Strings;
 
 public class LibCommand extends Comando{
     private Archivo file;
     private FileConfiguration cache;
-    private Econ econ;
+    
     public LibCommand() {
         setFile(new Archivo("lib.yml"));
-        setEcon(new Econ());
     }
     @Override
     public boolean onCommand(CommandSender sender, Command comando, String label,
@@ -82,6 +80,7 @@ public class LibCommand extends Comando{
                     }
                 }
                 if(getEcon().pagar(jugador, dinero)){
+                    getEcon().getLogg().logg("Lib", jugador, "receive", "for sell some books", 0, dinero);
                     mensaje(jugador, "lib.pay", list, getEcon().getPrecio(dinero));
                 }else{
                     mensaje(jugador, "lib.noPay");
@@ -103,7 +102,9 @@ public class LibCommand extends Comando{
                     mensaje(jugador, "lib.noBook");
                     return true;
                 }
-                if(getEcon().cobrar(jugador, getCache().getDouble("libro."+args[1]+".cost"))){
+                double precio = getCache().getDouble("libro."+args[1]+".cost");
+                if(getEcon().cobrar(jugador, precio)){
+                    getEcon().getLogg().logg("Lib", jugador, "pay for", "book"+args[1], 0, precio);
                     buyBook(jugador, Integer.parseInt(args[1]));
                     mensaje(jugador, "lib.buy");
                     mensaje(getPlayer(getCache().getString("libro."+args[1]+".autor")), "lib.sell",
@@ -196,7 +197,7 @@ public class LibCommand extends Comando{
         return String.format(Strings.getString(path), id,
                 getCache().getString("libro."+id+".title"),
                 getCache().getString("libro."+id+".autor"),
-                econ.getPrecio(getCache().getDouble("libro."+id+".cost")));
+                getEcon().getPrecio(getCache().getDouble("libro."+id+".cost")));
     }
     private String item(int id){
         return item("lib.item", id);
@@ -397,10 +398,5 @@ public class LibCommand extends Comando{
     private void load(){
         setCache(getFile().load());
     }
-    public void setEcon(Econ econ) {
-        this.econ = econ;
-    }
-    public Econ getEcon() {
-        return econ;
-    }
+    
 }

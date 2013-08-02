@@ -6,14 +6,22 @@ public class Fecha {
     public static String formatoFecha(long time){
         Calendar c = Calendar.getInstance();
         c.setTimeInMillis(time);
-        long diff = (System.currentTimeMillis() - time);
-        String fecha = "";
+        String fecha = new String();
+        fecha += c.get(Calendar.DAY_OF_MONTH)+"/"+Strings.getStringList("f.months").get(c.get(Calendar.MONTH));
+        fecha += " ";
         fecha += c.get(Calendar.HOUR_OF_DAY)+":"+c.get(Calendar.MINUTE);
-        fecha += " (";
+        return fecha;
+    }
+    public static String formatoFechaDiff(long time){
+        return formatoFecha(time)+" "+formatoDiff(time);
+    }
+    public static String formatoDiff(long time){
+        long diff = (System.currentTimeMillis() - time);
+        String fecha = new String();
+        fecha += "(";
         fecha += Strings.getString("mbox.timeago");
         fecha += parseTiempo(diff/1000);
         fecha += ")";
-        fecha += c.get(Calendar.DAY_OF_MONTH)+"/"+Strings.getStringList("f.months").get(c.get(Calendar.MONTH));
         return fecha;
     }
     private static String unidadFecha(int tiempo, int h, boolean[] primero){

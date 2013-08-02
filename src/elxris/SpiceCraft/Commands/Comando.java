@@ -8,8 +8,10 @@ import org.bukkit.entity.Player;
 
 import elxris.SpiceCraft.SpiceCraft;
 import elxris.SpiceCraft.Utils.Chat;
+import elxris.SpiceCraft.Utils.Econ;
 
-public abstract class Comando  implements CommandExecutor{
+public abstract class Comando implements CommandExecutor{
+    private static Econ econ;
     public void mensaje(Player p, String path, Object...objects){
         Chat.mensaje(p, path, objects);
     }
@@ -54,5 +56,14 @@ public abstract class Comando  implements CommandExecutor{
     }
     public Object getValue(String path){
         return getConfig().get(path);
+    }
+    public void setEcon(Econ econ) {
+        Comando.econ = econ;
+    }
+    public Econ getEcon() {
+        if(econ == null){
+            setEcon(new Econ());
+        }
+        return econ;
     }
 }

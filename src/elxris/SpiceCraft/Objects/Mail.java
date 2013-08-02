@@ -58,7 +58,7 @@ public class Mail{
             remitente = "Servidor";
         }
         String[] mail = {remitente,
-                Fecha.formatoFecha(id),
+                Fecha.formatoFechaDiff(id),
                 getConfig().getString("msg."+id+".mensaje"), remitente};
         return mail;
     }

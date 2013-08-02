@@ -11,6 +11,7 @@ public class Econ {
     private static Economy econ = null;
     private static boolean setup = false;
     private Player jugador;
+    private static EconLogger logg;
     public Econ() {
         if (!setup && !setupEconomy()) {
             SpiceCraft.log(Strings.getString("alert.noEconomy"));
@@ -93,5 +94,11 @@ public class Econ {
     }
     private void mensaje(Player p, String mensaje, Object...objects){
         Chat.mensaje(p, mensaje, objects);
+    }
+    public EconLogger getLogg(){
+        if(logg == null){
+            logg = new EconLogger();
+        }
+        return logg;
     }
 }

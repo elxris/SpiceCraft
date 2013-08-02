@@ -333,9 +333,9 @@ public class FactoryGui
                     // Si no hay suficiente para un stack, haz un stack pequeño. Y elimina.
                     if(amount > stock){
                         amount = stock;
-                    }
-                    String user = getPath().substring("userShop.".length()-1);
-                    user = user.substring(0, user.length()-2);
+                    }                    
+                    String user = getPath().substring("userShop.".length());
+                    user = user.substring(0, user.length()-1);
                     if(f.shopUser(p, item, amount, getItemVel(item))){
                         Chat.mensaje(SpiceCraft.getOnlineExactPlayer(user), "shop.userBuyUser",
                                 p.getName(), amount, item);
@@ -490,8 +490,11 @@ public class FactoryGui
             return;
         }
         setPath("userShop."+p.getName()+".");
-        new Econ().pagar(p, getMoney());
-        setMoney(0);
+        Econ e = new Econ();
+        if(e.pagar(p, getMoney())){
+            e.getLogg().logg("Shop", p, "receive", "for sell some objects", 0, getMoney());
+            setMoney(0);
+        }
         setPath(path);
     }
     public void pay(String player){

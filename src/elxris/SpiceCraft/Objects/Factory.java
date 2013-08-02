@@ -308,10 +308,12 @@ public class Factory implements Listener {
             return false;
         }
         Econ econ = new Econ();
-        if(!econ.cobrar(p, getPrecio(item_real, cantidad))){
+        double precio = getPrecio(item_real, cantidad);
+        if(!econ.cobrar(p, precio)){
             Chat.mensaje(p, "shop.noMoney");
             return false;
         }
+        econ.getLogg().logg("Shop", p, "buy", item_real, cantidad, precio);
         addItemsToInventory(p, createItems(p, item_real, cantidad));
         addCountRecursive(item_real, (double)cantidad/getRecipieMultiplie(item_real)*(-1d));
         return true;
@@ -323,10 +325,15 @@ public class Factory implements Listener {
             return false;
         }
         Econ econ = new Econ();
-        if(!econ.cobrar(p, getPrecio(item_real, cantidad, acceleracion)/MULTIPLIER*USERMULTIPLIER)){
+        double precio = getPrecio(item_real, cantidad, acceleracion)/MULTIPLIER*USERMULTIPLIER;
+        if(!econ.cobrar(p, precio)){
             Chat.mensaje(p, "shop.noMoney");
             return false;
         }
+        String user = new FactoryGui(p).getPath().substring("userShop.".length());
+        user = user.substring(0, user.length()-1);
+        econ.getLogg().logg("Shop", p, "buy to "+user
+            , item_real, cantidad, precio);
         addItemsToInventory(p, createItems(p, item_real, cantidad));
         return true;
     }
@@ -455,7 +462,9 @@ public class Factory implements Listener {
         }else{
             money += getPrecio(name, item.getAmount());
         }
-        new Econ().pagar(p, money*SELLRATE/MULTIPLIER);
+        Econ econ = new Econ();
+        econ.pagar(p, money*SELLRATE/MULTIPLIER);
+        econ.getLogg().logg("Shop", p, "sell", name, item.getAmount(), money);
         return true;
     }
     public String getItemName(ItemStack item){

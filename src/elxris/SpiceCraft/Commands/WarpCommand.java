@@ -15,14 +15,12 @@ import elxris.SpiceCraft.SpiceCraft;
 import elxris.SpiceCraft.Objects.Warp;
 import elxris.SpiceCraft.Utils.Archivo;
 import elxris.SpiceCraft.Utils.Chat;
-import elxris.SpiceCraft.Utils.Econ;
 import elxris.SpiceCraft.Utils.Fecha;
 import elxris.SpiceCraft.Utils.Strings;
 
 public class WarpCommand extends Comando implements Listener{
     private static Archivo file;
     private static Configuration cache;
-    private static Econ econ;
     public WarpCommand() {
         init();
     }
@@ -57,15 +55,6 @@ public class WarpCommand extends Comando implements Listener{
     }
     private static void setCache(Configuration cache) {
         WarpCommand.cache = cache;
-    }
-    private static Econ getEcon() {
-        if(econ == null){
-            setEcon(new Econ());
-        }
-        return econ;
-    }
-    private static void setEcon(Econ econ) {
-        WarpCommand.econ = econ;
     }
     @EventHandler
     public void onDisable(PluginDisableEvent event){
@@ -163,6 +152,7 @@ public class WarpCommand extends Comando implements Listener{
         if(!getEcon().cobrar(jugador, precio)){
             mensaje(jugador, "tw.noMoney");
         }else{
+            getEcon().getLogg().logg("TW", jugador, "pay for", "teleporting", 0, precio);
             jugador.teleport(getLocation(getPath(path, jugador)));
             mensaje(jugador, "tw.teleported");
         }
@@ -233,6 +223,7 @@ public class WarpCommand extends Comando implements Listener{
             mensaje(jugador, "tw.noMoney");
             return;
         }
+        getEcon().getLogg().logg("TW", jugador, "create", "minutes", minutos, precio);
         crearWarp(jugador, minutos, path);
         mensaje(jugador, "tw.created", minutos, nombreWarp);
     }

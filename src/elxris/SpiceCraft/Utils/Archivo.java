@@ -57,12 +57,13 @@ public class Archivo extends Savable{
     public void saveNow(Configuration fc){
         saveNow((FileConfiguration) fc);
     }
-    private void saveString(String data){
+    public void saveString(String data){
         try {
-            FileWriter fw = new FileWriter(getFile());
-            fw.write(data);
+            FileWriter fw = new FileWriter(getFile(), true);
+            fw.append(data);
             fw.close();
-        } catch (IOException e) {}
+        } catch (IOException e) {
+        }
     }
     public boolean loadResourse(String path){ // Carga un recurso del jar y lo guarda en el archivo.
         InputStream is = SpiceCraft.plugin().getResource("res/"+path);
