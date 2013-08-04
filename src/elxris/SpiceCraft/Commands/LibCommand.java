@@ -2,7 +2,6 @@ package elxris.SpiceCraft.Commands;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -72,8 +71,9 @@ public class LibCommand extends Comando{
                 for(String libro: getCache().getConfigurationSection("libro").getKeys(false)){
                     int k = Integer.parseInt(libro);
                     if(isMyBook(jugador, k)){
-                        if(getRetributions(k) > 0){
-                            dinero += getRetributions(k);
+                        double retributions = getRetributions(k);
+                        if(retributions > 0){
+                            dinero += retributions;
                             setRetributions(k);
                             list = list.concat(item(k));
                         }
@@ -85,6 +85,7 @@ public class LibCommand extends Comando{
                 }else{
                     mensaje(jugador, "lib.noPay");
                 }
+                save();
             }
         }else
         // Comprar, Info, Vender, Borrar
@@ -94,10 +95,11 @@ public class LibCommand extends Comando{
                     mensaje(jugador, "alert.permission");
                     return true;
                 }
-                if(!isInteger(args[1])){
+                if(!isInteger(args[1], Character.MAX_RADIX)){
                     mensaje(jugador, "alert.noInteger");
                     return true;
                 }
+                args[1] = Integer.toString(Integer.parseInt(args[1], Character.MAX_RADIX));
                 if(!hasBook(args[1])){
                     mensaje(jugador, "lib.noBook");
                     return true;
@@ -113,10 +115,11 @@ public class LibCommand extends Comando{
                     mensaje(jugador, "lib.noMoney");
                 }
             }else if(isCommand("comm.lib.info", args[0])){
-                if(!isInteger(args[1])){
+                if(!isInteger(args[1], Character.MAX_RADIX)){
                     mensaje(jugador, "alert.noInteger");
                     return true;
                 }
+                args[1] = Integer.toString(Integer.parseInt(args[1], Character.MAX_RADIX));
                 if(!hasBook(args[1])){
                     mensaje(jugador, "lib.noBook");
                     return true;
@@ -166,10 +169,11 @@ public class LibCommand extends Comando{
                 mensaje(jugador, "lib.send");
                 save();
             }else if(isCommand("comm.lib.del", args[0])){
-                if(!isInteger(args[1])){
+                if(!isInteger(args[1], Character.MAX_RADIX)){
                     mensaje(jugador, "alert.noInteger");
                     return true;
                 }
+                args[1] = Integer.toString(Integer.parseInt(args[1], Character.MAX_RADIX));
                 if(!hasBook(args[1])){
                     mensaje(jugador, "lib.noBook");
                     return true;
@@ -194,7 +198,7 @@ public class LibCommand extends Comando{
         return true;
     }
     private String item(String path, int id){
-        return String.format(Strings.getString(path), id,
+        return String.format(Strings.getString(path), Integer.toString(id, Character.MAX_RADIX),
                 getCache().getString("libro."+id+".title"),
                 getCache().getString("libro."+id+".autor"),
                 getEcon().getPrecio(getCache().getDouble("libro."+id+".cost")));
@@ -277,11 +281,8 @@ public class LibCommand extends Comando{
     }
     private boolean sellBook(BookMeta book, double price){
         int id = 0;
-        for(boolean n = false; !n;){
-            id = new Random().nextInt(10000);
-            if(!hasBook(id)){
-                n = true;
-            }
+        if(getCache().isSet("libro")){
+            for(id = getCache().getConfigurationSection("libro").getKeys(false).size(); hasBook(id); id++);
         }
         String path = "libro."+id;
         getCache().set(path+".autor", book.getAuthor());

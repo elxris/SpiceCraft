@@ -133,9 +133,9 @@ lib:
   - §b[§cLIB§b]§r §aBOOK INFO
   - '§bAuthor: §c%s'
   - '§bTitle: §c%S'
-  - '§bPages: §c%d'
+  - '§bPages: §c%s'
   - '§bPrice: §c%s'
-  - '§bSales: §c%d'
+  - '§bSales: §c%s'
   noMoney:
   - §b[§cLIB§b]§r You do not have enough money to buy a book.
   noHand:
@@ -149,9 +149,9 @@ lib:
   list:
   - '§b[§cLIB§b]§r §a### §cBooklist <%d/%d> §a###'
   itemMe:
-  - '§d[%d] ::%s:: <%s>{%s}'
+  - '§d[%s] ::%s:: <%s>{%s}'
   item:
-  - '§b[%d] ::%s:: <%s>{%s}'
+  - '§b[%s] ::%s:: <%s>{%s}'
   top:
   - '§b[§cLIB§b]§r §a### §cTop Books §a###'
   topItem:

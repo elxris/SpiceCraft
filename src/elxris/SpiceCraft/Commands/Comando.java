@@ -24,13 +24,16 @@ public abstract class Comando implements CommandExecutor{
     public Player getPlayer(String p){
         return SpiceCraft.getOnlinePlayer(p);
     }
-    public boolean isInteger(String s){
+    public boolean isInteger(String s, int radix){
         try {
-            Integer.parseInt(s);
+            Integer.parseInt(s, radix);
             return true;
         } catch (Exception e) {
             return false;
         }
+    }
+    public boolean isInteger(String s){
+        return isInteger(s, 10);
     }
     public boolean isDouble(String s){
         try {
