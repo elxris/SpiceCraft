@@ -83,10 +83,10 @@ public class Factory implements Listener {
             count += vel;
             if(count < 0){
                 vel++;
-            }else if (count > 0 && count < STACKFULL) {
+            }else if (count >= 0 && count <= STACKFULL) {
                 if(vel > VEL){
                     vel--;
-                }else{
+                }else if(vel < VEL){
                     vel++;
                 }
             }else if(count > STACKFULL){
