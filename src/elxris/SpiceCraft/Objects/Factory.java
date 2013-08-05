@@ -73,7 +73,7 @@ public class Factory implements Listener {
     private void update(String item){
         long now = getSystemTimeHour();
         long time = getTimeHour(item);
-        if(time < now){
+        if(time >= now){
             return;
         }
         double count = getCount(item);
@@ -115,7 +115,8 @@ public class Factory implements Listener {
         return System.currentTimeMillis();
     }
     private long getSystemTimeHour(){ // Obtiene el tiempo del sistema menos el resto de la frecuencia.
-        return getSystemTime() - (getSystemTime() % FRECUENCY);
+        long time = getSystemTime();
+        return time - (time % FRECUENCY);
     }
     private void setCount(String item, double count){
         getCache().set("item."+item+".count", count);

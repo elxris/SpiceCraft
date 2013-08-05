@@ -1,3 +1,5 @@
+## Los bloques que se obtienen al cocinarse tienen dos sticks en sus dependencias.
+## Hay algunas anotaciones especiales en algunos objetos.
 item:
 ## BLOCKS
   Stone:
@@ -12,10 +14,10 @@ item:
     userBuy: true
   Grass:
     id: 2
-    price: 0
+    price: 1
+##############################    
     depend:
       Dirt: 1
-      Seeds: 1
     alias:
     - Pasto
     - BloqueHierba
@@ -106,6 +108,7 @@ item:
   Gravel:
     id: 13
     price: 0
+##############################
     depend:
       Sand: 1
     alias:
@@ -123,6 +126,7 @@ item:
   CoalOre:
     id: 16
     price: 0
+    ## Drops
     depend:
       Coal: 3
   OakWood:
@@ -206,6 +210,7 @@ item:
   LapisLazuliOre:
     id: 21
     price: 0
+    ## Drops
     depend:
       LapisLazuli: 8
   LapisBlock:
@@ -285,6 +290,7 @@ item:
   Cobweb:
     id: 30
     price: 0
+##############################
     depend:
       String: 2
     alias:
@@ -564,6 +570,7 @@ item:
     alias:
     - Bomba
     userBuy: false
+############################## userBuy: false <<< Por ser tnt, no se permite comprar. :D
   Bookshelf:
     id: 47
     price: 0
@@ -576,6 +583,7 @@ item:
   MossStone:
     id: 48
     price: 0
+##############################
     depend:
       Cobblestone: 1
       Seeds: 1
@@ -760,6 +768,7 @@ item:
   SoulSand:
     id: 88
     price: 0
+##############################
     depend:
       Gravel: 1
     alias:
@@ -785,6 +794,7 @@ item:
   StoneMonsterEgg:
     id: 97
     price: 3
+##############################
     depend:
       Stone: 1
     data: 0
@@ -817,6 +827,7 @@ item:
   MossyStoneBricks:
     id: 98
     price: 0
+############################## Yo lo dejaría al mismo precio que los stonebricks, aunque son dificiles de conseguir, pero son decorativos. Ayudaría a hacer bonitas construcciones.
     depend:
       StoneBricks: 1
     data: 1
@@ -835,6 +846,7 @@ item:
   HugeBrownMushroom:
     id: 99
     price: 0
+##############################
     depend:
       BrownMushroom: 1
   HugeBrownMushroom1:
@@ -930,6 +942,7 @@ item:
   HugeRedMushroom:
     id: 100
     price: 0
+############################## Si modificaste el brown, modifica este.
     depend:
       RedMushroom: 1
   HugeRedMushroom1:
@@ -1074,6 +1087,7 @@ item:
   Mycelium:
     id: 110
     price: 50
+##############################
     depend:
       Dirt: 1
     alias:
@@ -1119,6 +1133,7 @@ item:
   EndPortalFrame:
     id: 120
     price: 0
+############################## Me la inventé.
     depend:
       EnderPearl: 2
     alias:
@@ -1177,6 +1192,7 @@ item:
   EmeraldOre:
     id: 128
     price: 0
+############################## Por los drops con un pico de fortuna.
     depend:
       Emerald: 3
   EnderChest:
@@ -1238,8 +1254,10 @@ item:
   MossyCobblestoneWall:
     id: 139
     price: 0
+############################## Dejaría el precio igual a la normal porque es decorativo que esté mossy.
     depend:
       MossStone: 1
+    data: 1
   WoodenButton:
     id: 143
     price: 0
@@ -1550,6 +1568,12 @@ item:
   Apple:
     id: 260
     price: 0
+## La comida depende de http://www.minecraftwiki.net/wiki/Food#Foods
+## El "Food points" entre dos, sin contar los decimales.
+## Es decir la manzana tiene 4 food points por tanto, depede de 2 patatas.
+## Si la carne cruda de vaca tiene 3 food points, depende de 2 patatas.
+## Si la rebanada de melón tiene 2 food points, depende de 1 patata.
+## Es el sistema más justo que se me ocurrió.
     depend:
       Potato: 2
     alias:
@@ -1567,6 +1591,7 @@ item:
   Coal:
     id: 263
     price: 0
+##############################
     depend:
       Stick: 16
     alias:
@@ -1574,6 +1599,7 @@ item:
   Charcoal:
     id: 263
     price: 0
+##############################
     depend:
       OakWood: 1
       Stick: 2
@@ -1646,6 +1672,7 @@ item:
   Wheat:
     id: 296
     price: 0
+##############################
     depend:
       Seeds: 1
     alias:
@@ -1660,6 +1687,7 @@ item:
   Flint:
     id: 318
     price: 0.25
+##############################
     depend:
       Gravel: 1
     alias:
@@ -1732,18 +1760,18 @@ item:
   WaterBucket:
     id: 326
     price: 0
+##############################
     depend:
       Bucket: 1
-      Ice: 1
     alias:
     - Water
     - Agua
   LavaBucket:
     id: 327
     price: 0
+##############################
     depend:
       Bucket: 1
-      Obsidian: 1
     alias:
     - Lava
   Minecart:
@@ -1756,6 +1784,7 @@ item:
   Saddle:
     id: 329
     price: 0
+##############################
     depend:
       Leather: 2
     alias:
@@ -1793,6 +1822,7 @@ item:
   Milk:
     id: 335
     price: 3
+##############################
     depend:
       Bucket: 1
     alias:
@@ -1968,6 +1998,10 @@ item:
   PumpkinSeeds:
     id: 361
     price: 0
+## PumpkinSeeds depende de MelonSeeds
+## PumpkinSeeds depende de MelonSlice, por crafteo.
+## MelonSlice depdnede de una papa.
+## Finalmente PumpkinSeeds depende de una papa.
     depend:
       MelonSeeds: 1
     alias:
@@ -1975,6 +2009,7 @@ item:
   MelonSeeds:
     id: 362
     price: 0
+############################## 
     depend:
       MelonSlice: 1
     alias:
@@ -2121,7 +2156,11 @@ item:
   BottleOEnchanting:
     id: 384
     price: 25
-##############################
+## Cada botella puede dropear 3 a 11 puntos de xp.
+## Para llegar al nivel 30 necesitas 825 puntos de xp.
+## Con una media de 7 puntos por botella. Necesitas ~120 botellas.
+## Pensé en el costo de 30 niveles. 3,000$
+## 3,000/120 = 25
     alias:
     - ThrownExpBottle
   FireCharge:
@@ -2144,6 +2183,7 @@ item:
   Emerald:
     id: 388
     price: 0
+##############################
     depend:
       Coal: 1
       Redstone: 1
@@ -2177,7 +2217,7 @@ item:
   Potato:
     id: 392
     price: 1
-##############################
+## De esto depende muchas cosas.
     alias:
     - Patata
     - Papa
@@ -2281,6 +2321,11 @@ item:
   EnchantedBook:
     id: 403
     price: 0
+## Este objeto se auto encanta al azar.
+## 120 Botellas dan 30 niveles.
+## Supone que los libros se obtienen al nivel 30.
+## Quizá, si es mucho, mejor será 80 botellas. (lvl 25)
+## O 50 botellas. (lvl 20)
     depend:
       Book: 1
       BottleOEnchanting: 120
@@ -2330,6 +2375,7 @@ item:
     price: 1500
 ##############################
 #### DYES
+#### Estos precios deberán ser revisados. Algunos dependen de sus recetas, otros del inkSac.
   InkSac:
     id: 351
     price: 6
@@ -2479,6 +2525,8 @@ item:
     - Blanco
     - PolvoHueso
 ## EGGS
+## Si vas a prohibir su compra o venta, asegurate de
+## ponerles a todos userBuy: false, o userSell: false
   CreeperEgg:
     id: 383
     price: 150
@@ -2736,7 +2784,6 @@ item:
     price: 0
     depend:
       GlassBottle: 1
-      Ice: 1
       NetherWart: 1
     data: 16
   PotionRegeneration:
@@ -3273,7 +3320,7 @@ item:
   ChainHelmet:
     id: 302
     price: 1300
-##############################
+## Si estableces este precio las demás armaduras estarán equilibradas.
   ChainChestplate:
     id: 303
     price: 0
@@ -3295,6 +3342,8 @@ item:
   IronHorseArmor:
     id: 417
     price: 0
+## Te recomiendo que dejes esto así. Creo que la receta es equilibrada.
+## He tomado la primera receta de las armaduras (actualmente la receta está borrada)
     depend:
       WhiteWool: 1
       Iron: 6
