@@ -1549,8 +1549,9 @@ item:
     - YesqueroHierro
   Apple:
     id: 260
-    price: 10
-##############################
+    price: 0
+    depend:
+      Potato: 2
     alias:
     - Manzana
   Arrow:
@@ -1667,7 +1668,8 @@ item:
   RawPorkchop:
     id: 319
     price: 4
-##############################
+    depend:
+      Potato: 2
     alias:
     - CarnePuerco
   CookedPorckchop:
@@ -1886,8 +1888,9 @@ item:
     - PolvoPiedraBrillante
   RawFish:
     id: 349
-    price: 7
-##############################
+    price: 0
+    depend:
+      Potato: 1
     alias:
     - PescadoCrudo
   CookedFish:
@@ -1958,7 +1961,7 @@ item:
     id: 360
     price: 0
     depend:
-      Potato: 2
+      Potato: 1
     alias:
     - PedazoMelon
     - PedazoSandia
@@ -1981,7 +1984,7 @@ item:
     id: 363
     price: 0
     depend:
-      Potato: 3
+      Potato: 2
     alias:
     - FileteCrudo
   Steak:
@@ -1996,7 +1999,7 @@ item:
     id: 365
     price: 0
     depend:
-      Potato: 2
+      Potato: 1
     alias:
     - PolloCrudo
   CookedChiken:
@@ -2168,7 +2171,7 @@ item:
     id: 391
     price: 0
     depend:
-      Potato: 5
+      Potato: 2
     alias:
     - Zanahoria
   Potato:

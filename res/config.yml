@@ -1,5 +1,6 @@
 # SpiceCraft by elxris
 # Fork me on github: https://github.com/elxris/SpiceCraft
+# Wiki on https://github.com/elxris/SpiceCraft/wiki
 lang: en
 tw:
   maxTime: 120
@@ -19,9 +20,10 @@ lib:
   topSize: 3
   rate: 0.6
 shop:
-  multiplier: 1.5
-  userMultiplier: 1.0
-  sellRate: 0.5
+  ## Don't modify this unless you know what you are doing.
+  multiplier: 4.0
+  userMultiplier: 2.0
+  sellRate: 1.0
   full: 4096
   vel: 8
   freq: 30
