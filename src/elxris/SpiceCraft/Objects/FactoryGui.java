@@ -52,28 +52,35 @@ public class FactoryGui
             return;
         }
         int itemsPerPage = SIZE;
+        int page = getPage();
         // Si es la tienda del servidor, y no es una tienda particular, incluye un return;
         if(!isRelativeSet("return") && !isUserShop()){
             inv.addItem(getReturn());
             itemsPerPage--;
         }
+        // Si hay más objetos de los que caben en una página.
         if(itemsSize > itemsPerPage){
             itemsPerPage -= 2;
-            if(getPage() > 1){
+        }else if(itemsSize <= itemsPerPage){
+            page = 1;
+        }
+        if(itemsSize > itemsPerPage){
+            // Si la página es mayor a 1
+            if(page > 1){
                 inv.setItem((SIZE-2)-itemsPerPage, getPrev());
             }
-            if(itemsSize-(getPage()*itemsPerPage)>=1){
+            if(itemsSize-(page*itemsPerPage)>=1){
                 inv.setItem((SIZE-1)-itemsPerPage, getNext());
             }
         }
         if(isRelativeSet("list")){
             // Si existe una lista de objetos.
-            items = getItemList(getPath(), itemsPerPage, getPage());
+            items = getItemList(getPath(), itemsPerPage, page);
         }else if(isRelativeSet("sub")){
             // Si existe un submenu
             items = getItemMenu(getPath("sub"));
         }else if(isUserShop()){
-            items = getItemUser(getPath("items"), itemsPerPage, getPage());
+            items = getItemUser(getPath("items"), itemsPerPage, page);
         }else{
             return;
         }
@@ -379,6 +386,7 @@ public class FactoryGui
     public boolean clickBotSlot(InventoryView view, ClickType click, int currentItem){
         boolean cancelled = false;
         ItemStack current = view.getItem(currentItem);
+        ItemStack cursor = view.getCursor();
         if(click.isShiftClick()){
             if(current.getTypeId() == 0){
                 return cancelled;
@@ -389,10 +397,13 @@ public class FactoryGui
             if(isOwnShop()){
                 if(click.isShiftClick()){
                     // Pon en la tienda como si el objeto estuviera en tu mano.
-                    if(view.getCursor().getTypeId() == current.getTypeId()){
-                        current.setAmount(current.getAmount()+view.getCursor().getAmount());
+                    if(cursor.isSimilar(current)){
+                        current.setAmount(current.getAmount()+cursor.getAmount());
+                        view.setItem(currentItem, null);
+                    }else{
+                        view.setItem(currentItem, cursor);
+                        cancelled = true;
                     }
-                    view.setItem(currentItem, null);
                     view.setCursor(current);
                     addCursorToShop(view, click);
                     updateInventory(view.getTopInventory());

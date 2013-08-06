@@ -297,14 +297,15 @@ public class Factory implements Listener {
     private boolean haveData(String item){
         return getCache().isSet("item."+item+".data");
     }
-    // Comandos de la tienda.
-    public boolean shop(Player p, String item, int cantidad){ // Compra
+    // Compra un objeto
+    public boolean shop(Player p, String item, int cantidad){
         String item_real = searchItem(item);
         if(item_real == null){
             Chat.mensaje(p, "shop.notExist");
             return false;
         }
-        if(!(p.hasPermission("spicecraft.shop.master")||(getUserBuy(item)))){
+        if(!(p.hasPermission("spicecraft.shop.master")||(getUserBuy(item))
+                ||p.hasPermission("spicecraft.shop.itemBuy."+item))){
             Chat.mensaje(p, "shop.cantBuy");
             return false;
         }
@@ -450,7 +451,8 @@ public class Factory implements Listener {
             addItemToInventory(p, item);
             return false;
         }
-        if(!(p.hasPermission("spicecraft.shop.master")||(getUserSell(name)))){
+        if(!(p.hasPermission("spicecraft.shop.master")||(getUserSell(name))
+                ||p.hasPermission("spicecraft.shop.itemSell."+name))){
             Chat.mensaje(p, "shop.cantSell");
             addItemToInventory(p, item);
             return false;

@@ -27,7 +27,7 @@ shop:
   full: 4096
   vel: 8
   freq: 30
-  userVariation: 3
+  userVariation: 8
   userShopSize: 50
   variable: true
   defaultUserSell: true
