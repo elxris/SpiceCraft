@@ -581,7 +581,6 @@ public class Factory implements Listener {
         getFileUser().save(getUserCache());
     }
     public void saveNow(){
-        getFile().saveNow(getCache());
         getFileUser().saveNow(getUserCache());
     }
     @EventHandler
