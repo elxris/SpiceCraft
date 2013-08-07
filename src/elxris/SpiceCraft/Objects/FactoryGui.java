@@ -2,6 +2,7 @@ package elxris.SpiceCraft.Objects;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -181,7 +182,7 @@ public class FactoryGui
                     stock, production, id));
             i.setItemMeta(meta);
             if(stock > i.getMaxStackSize()){
-                stock = i.getMaxStackSize();
+                //stock = i.getMaxStackSize();
             }
             i.setAmount(stock);
             list.add(i);
@@ -252,6 +253,7 @@ public class FactoryGui
         }else{
             clickTopCursor(view, click, currentItem);
         }
+        playSound();
         cancelled = true;
         return cancelled;
     }
@@ -554,7 +556,8 @@ public class FactoryGui
         getCache().set(p.getName(), null);
     }
     public void playSound(){
-        p.getWorld().playSound(p.getLocation(), Sound.CLICK, 1.0f, 1.0f);
+        Random rndm = new Random();
+        p.getWorld().playSound(p.getLocation(), Sound.CLICK, 0.8f, (rndm.nextFloat()/5f)+0.8f);
     }
     public boolean isUserShop(){
         return getUserConfig().isSet(getPath("money"));
