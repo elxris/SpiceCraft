@@ -425,9 +425,12 @@ public class FactoryGui
     }
     private void addCursorToShop(InventoryView view, ClickType click){
         ItemStack cursor = view.getCursor();
+        String item = f.getItemName(cursor);
+        if(item == null){
+            return;
+        }
         int amount = cursor.getAmount();
         FileConfiguration c = getUserConfig();
-        String item = f.getItemName(cursor);
         if(cursor.getItemMeta().hasEnchants()){
             return;
         }

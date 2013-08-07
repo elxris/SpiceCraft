@@ -1680,7 +1680,7 @@ item:
     - Oro
   Stick:
     id: 280
-    price: 0.625
+    price: 1.0
     userSell: false
 ##############################
     alias:
@@ -2947,211 +2947,241 @@ item:
     id: 373
     price: 0
     depend:
-      AwkwardPotion: 1
+      AwkwardPotion: 3
       GhastTear: 1
+    recipieMultiplie: 3
     data: 8193
   PotionRegenerationExtended:
     id: 373
     price: 0
     depend:
-      PotionRegeneration: 1
+      PotionRegeneration: 3
       Redstone: 1
+    recipieMultiplie: 3
     data: 8257
   PotionRegeneration2:
     id: 373
     price: 0
     depend:
-      PotionRegeneration: 1
+      PotionRegeneration: 3
       GlowstoneDust: 1
+    recipieMultiplie: 3
     data: 8225
   PotionRegeneration2Extended:
     id: 373
     price: 0
     depend:
-      PotionRegeneration2: 1
+      PotionRegeneration2: 3
       Redstone: 1
+    recipieMultiplie: 3
     data: 8289
   PotionSwiftness:
     id: 373
     price: 0
     depend:
-      AwkwardPotion: 1
+      AwkwardPotion: 3
       Sugar: 1
+    recipieMultiplie: 3
     data: 8194
   PotionSwiftnessExtended:
     id: 373
     price: 0
     depend:
-      PotionSwiftness: 1
+      PotionSwiftness: 3
       Redstone: 1
+    recipieMultiplie: 3
     data: 8258
   PotionSwiftness2:
     id: 373
     price: 0
     depend:
-      PotionSwiftness: 1
+      PotionSwiftness: 3
       GlowstoneDust: 1
+    recipieMultiplie: 3
     data: 8226
   PotionSwiftness2Extended:
     id: 373
     price: 0
     depend:
-      PotionSwiftness2: 1
+      PotionSwiftness2: 3
       Redstone: 1
+    recipieMultiplie: 3
     data: 8290
   PotionFireResistance:
     id: 373
     price: 0
     depend:
-      AwkwardPotion: 1
+      AwkwardPotion: 3
       MagmaCream: 1
+    recipieMultiplie: 3
     data: 8195
   PotionFireResistanceExtended:
     id: 373
     price: 0
     depend:
-      PotionFireResistance: 1
+      PotionFireResistance: 3
       Redstone: 1
+    recipieMultiplie: 3
     data: 8259
   PotionHealing:
     id: 373
     price: 0
     depend:
-      AwkwardPotion: 1
+      AwkwardPotion: 3
       GlisteringMelon: 1
+    recipieMultiplie: 3
     data: 8197
   PotionHealing2:
     id: 373
     price: 0
     depend:
-      PotionHealing: 1
+      PotionHealing: 3
       GlowstoneDust: 1
+    recipieMultiplie: 3
     data: 8229
   PotionNightVision:
     id: 373
     price: 0
     depend:
-      AwkwardPotion: 1
+      AwkwardPotion: 3
       GoldenCarrot: 1
+    recipieMultiplie: 3
     data: 8198
   PotionNightVisionExtended:
     id: 373
     price: 0
     depend:
-      PotionNightVision: 1
+      PotionNightVision: 3
       Redstone: 1
+    recipieMultiplie: 3
     data: 8262
   PotionStrength:
     id: 373
     price: 0
     depend:
-      AwkwardPotion: 1
+      AwkwardPotion: 3
       BlazePowder: 1
+    recipieMultiplie: 3
     data: 8201
   PotionStrengthExtended:
     id: 373
     price: 0
     depend:
-      PotionStrength: 1
+      PotionStrength: 3
       Redstone: 1
+    recipieMultiplie: 3
     data: 8265
   PotionStrength2:
     id: 373
     price: 0
     depend:
-      PotionStrength: 1
+      PotionStrength: 3
       GlowstoneDust: 1
+    recipieMultiplie: 3
     data: 8233
   PotionStrength2Extended:
     id: 373
     price: 0
     depend:
-      PotionStrength2: 1
+      PotionStrength2: 3
       Redstone: 1
+    recipieMultiplie: 3
     data: 8297
   PotionInvisibility:
     id: 373
     price: 0
     depend:
-      PotionNightVision: 1
+      PotionNightVision: 3
       FermentedSpiderEye: 1
+    recipieMultiplie: 3
     data: 8206
   PotionInvisibilityExtended:
     id: 373
     price: 0
     depend:
-      PotionInvisibility: 1
+      PotionInvisibility: 3
       Redstone: 1
+    recipieMultiplie: 3
     data: 8270
   PotionPoison:
     id: 373
     price: 0
     depend:
-      AwkwardPotion: 1
+      AwkwardPotion: 3
       SpiderEye: 1
+    recipieMultiplie: 3
     data: 8196
   PotionPoisonExtended:
     id: 373
     price: 0
     depend:
-      PotionPoison: 1
+      PotionPoison: 3
       Redstone: 1
+    recipieMultiplie: 3
     data: 8260
   PotionPoison2:
     id: 373
     price: 0
     depend:
-      PotionPoison: 1
+      PotionPoison: 3
       GlowstoneDust: 1
+    recipieMultiplie: 3
     data: 8228
   PotionPoison2Extended:
     id: 373
     price: 0
     depend:
-      PotionPoison2: 1
+      PotionPoison2: 3
       Redstone: 1
+    recipieMultiplie: 3
     data: 8292
   PotionWeakness:
     id: 373
     price: 0
     depend:
-      AwkwardPotion: 1
+      AwkwardPotion: 3
       FermentedSpiderEye: 1
+    recipieMultiplie: 3
     data: 8200
   PotionWeaknessExtended:
     id: 373
     price: 0
     depend:
-      PotionWeakness: 1
+      PotionWeakness: 3
       Redstone: 1
+    recipieMultiplie: 3
     data: 8264
   PotionSlowness:
     id: 373
     price: 0
     depend:
-      PotionSwiftness: 1
+      PotionSwiftness: 3
       FermentedSpiderEye: 1
+    recipieMultiplie: 3
     data: 8202
   PotionSlownessExtended:
     id: 373
     price: 0
     depend:
-      PotionSlowness: 1
+      PotionSlowness: 3
       Redstone: 1
+    recipieMultiplie: 3
     data: 8266
   PotionHarming:
     id: 373
     price: 0
     depend:
-      PotionPoison: 1
+      PotionPoison: 3
       FermentedSpiderEye: 1
+    recipieMultiplie: 3
     data: 8204
   PotionHarming2:
     id: 373
     price: 0
     depend:
-      PotionHarming: 1
+      PotionHarming: 3
       GlowstoneDust: 1
+    recipieMultiplie: 3
     data: 8236
   ## Tools and Armor
   IronShovel:
