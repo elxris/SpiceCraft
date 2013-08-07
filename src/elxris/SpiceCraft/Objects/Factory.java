@@ -131,7 +131,7 @@ public class Factory implements Listener {
         setCount(item, getCount(item)+count);
     }
     private void addCountRecursive(String item, double count){
-        Map<String, Integer> map = getDepends(item);
+        Map<String, Double> map = getDepends(item);
         for(String s: map.keySet()){
             addCount(s, count*map.get(s));
         }
@@ -152,13 +152,13 @@ public class Factory implements Listener {
         return getCache().getDouble("item."+item+".price", 0.0d);
     }
     public double getPrice(String item, int acceleracion){
-        Map<String, Integer> map = getDepends(item);
+        Map<String, Double> map = getDepends(item);
         double price = 0;
         for(String s: map.keySet()){
             // Cantidad * Precio * Razon * Multiplicador
             price += map.get(s) * getPriceData(s) * getRazonPrecio(s, acceleracion);
         }
-        return price/getRecipieMultiplie(item)*MULTIPLIER;
+        return price*MULTIPLIER;
     }
     public double getPrice(String item){
         return getPrice(item, 0);
@@ -229,18 +229,18 @@ public class Factory implements Listener {
     private int getRecipieMultiplie(String item){
         return getCache().getInt("item."+item+".recipieMultiplie", 1);
     }
-    private Map<String, Integer> getDepends(String item){
-        Map<String, Integer> mapa = new HashMap<String, Integer>();
+    private Map<String, Double> getDepends(String item){
+        Map<String, Double> mapa = new HashMap<String, Double>();
         update(item);
-        mapa.put(item, 1);
+        mapa.put(item, 1d);
         if(!getCache().isSet("item."+item+".depend")){ // Si no hay dependencias
             return mapa;
         }
         ConfigurationSection memory = getCache().getConfigurationSection("item."+item+".depend");
         for(String s: memory.getKeys(false)){
-            Map<String, Integer> dep = getDepends(s);
+            Map<String, Double> dep = getDepends(s);
             for(String key: dep.keySet()){
-                mapa.put(key, dep.get(key)*memory.getInt(s));
+                mapa.put(key, (dep.get(key)*memory.getDouble(s))/(double)getRecipieMultiplie(item));
             }
         }
         return mapa;
@@ -350,7 +350,7 @@ public class Factory implements Listener {
         }
         econ.getLogg().logg("Shop", p, "buy", item_real, cantidad, precio);
         addItemsToInventory(p, createItems(p, item_real, cantidad));
-        addCountRecursive(item_real, (double)cantidad/getRecipieMultiplie(item_real)*(-1d));
+        addCountRecursive(item_real, cantidad*(-1d));
         return true;
     }
     public boolean shopUser(Player p, String item, int cantidad, int acceleracion){
@@ -415,7 +415,7 @@ public class Factory implements Listener {
         return lookItems(item, false);
     }
     public void reset(String item){
-        Map<String, Integer> map = getDepends(item);
+        Map<String, Double> map = getDepends(item);
         item = searchItem(item);
         update(item);
         for(String s: map.keySet()){
@@ -439,7 +439,7 @@ public class Factory implements Listener {
                 getProduction(item), id);
     }
     public int getProduction(String item){
-        Map<String, Integer> map = getDepends(item);
+        Map<String, Double> map = getDepends(item);
         double sumPrice = 0;
         double sumProduct = 0;
         double currPrice;
@@ -500,7 +500,7 @@ public class Factory implements Listener {
             addItemToInventory(p, item);
             return false;
         }
-        addCountRecursive(name, (double)item.getAmount()/getRecipieMultiplie(name));
+        addCountRecursive(name, (double)item.getAmount());
         double maxDurab = item.getType().getMaxDurability();
         double durab = maxDurab - item.getDurability();
         if(durab > 0){
