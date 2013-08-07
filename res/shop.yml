@@ -14,7 +14,7 @@ item:
     userBuy: true
   Grass:
     id: 2
-    price: 1.0
+    price: 0.5
 ##############################    
     depend:
       Dirt: 1
@@ -1161,12 +1161,11 @@ item:
     - PiedraDelFin
   DragonEgg:
     id: 122
-    price: 0
+    price: 500000
 ##############################
     alias:
     - HuevoDragon
     userSell: false
-    userBuy: false
   RedstoneLamp:
     id: 123
     price: 0
@@ -2210,7 +2209,7 @@ item:
     userSell: false
   EyeEnder:
     id: 381
-    price: 5
+    price: 0
     depend:
       EnderPearl: 1
       BlazePowder: 1
@@ -2388,15 +2387,13 @@ item:
     - Pie
   EnchantedBook:
     id: 403
-    price: 0
+    price: 1250
 ## Este objeto se auto encanta al azar.
 ## 120 Botellas dan 30 niveles.
 ## Supone que los libros se obtienen al nivel 30.
 ## Quizá, si es mucho, mejor será 80 botellas. (lvl 25)
 ## O 50 botellas. (lvl 20)
-    depend:
-      Book: 1
-      BottleOEnchanting: 120
+    userSell: false
     alias:
     - LibroEncantado
   RedstoneComparator:
@@ -2610,9 +2607,7 @@ item:
     - Naranja
   BoneMeal:
     id: 351
-    price: 0
-    depend:
-      InkSac: 1
+    price: 0.3
     data: 15
     alias:
     - White

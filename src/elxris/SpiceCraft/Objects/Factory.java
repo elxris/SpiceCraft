@@ -186,7 +186,7 @@ public class Factory implements Listener {
     private int getData(String item){
         return getCache().getInt("item."+item+".data");
     }
-    private boolean getUserBuy(Player p, String item){
+    public boolean getUserBuy(Player p, String item){
         // Si tiene master
         if(p.hasPermission("spicecraft.shop.master")){
             return true;
@@ -206,7 +206,7 @@ public class Factory implements Listener {
             }
         }
     }
-    private boolean getUserSell(Player p, String item){
+    public boolean getUserSell(Player p, String item){
      // Si tiene master
         if(p.hasPermission("spicecraft.shop.master")){
             return true;

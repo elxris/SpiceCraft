@@ -104,7 +104,7 @@ public class FactoryGui
         ItemStack i;
         ItemMeta meta;
         String id;
-        double precio;
+        double precioBuy, precioSell;
         int limitUP = (page)*itemsPerPage;
         int limitDOWN = (--page)*itemsPerPage;
         int count = 0;
@@ -119,9 +119,16 @@ public class FactoryGui
             i = f.createItem(p, item, 1);
             meta = i.getItemMeta();
             id = i.getTypeId()+((i.getDurability() > 0)?":"+i.getDurability():"");
-            precio = f.getPrice(item);
+            precioBuy = f.getPrice(item);
+            precioSell = precioBuy*f.SELLRATE/f.MULTIPLIER;
+            if(!f.getUserBuy(p, item)){
+                precioBuy = 0d;
+            }
+            if(!f.getUserSell(p, item)){
+                precioSell = 0d;
+            }
             meta.setLore(Strings.getStringList("shop.itemLore",
-                    econ.getPrecio(precio), econ.getPrecio(precio*f.SELLRATE/f.MULTIPLIER),
+                    econ.getPrecio(precioBuy), econ.getPrecio(precioSell),
                     f.getProduction(item), id));
             i.setItemMeta(meta);
             list.add(i);
