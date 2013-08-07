@@ -186,11 +186,45 @@ public class Factory implements Listener {
     private int getData(String item){
         return getCache().getInt("item."+item+".data");
     }
-    private boolean getUserBuy(String item){
-        return getCache().getBoolean("item."+item+".userBuy", DEFAULTUSERBUY);
+    private boolean getUserBuy(Player p, String item){
+        // Si tiene master
+        if(p.hasPermission("spicecraft.shop.master")){
+            return true;
+        }else{
+            // Si tiene puesto un permiso especial de objeto.
+            if(p.isPermissionSet("spicecraft.shop.itemBuy."+item)){
+                // Devuelve el permiso
+                return p.hasPermission("spicecraft.shop.itemBuy."+item);
+            }else{
+                // Si no puede comprar.
+                if(p.hasPermission("spicecraft.shop.server.buy")){
+                    // Devuelve el objeto
+                    return getCache().getBoolean("item."+item+".userBuy", DEFAULTUSERBUY);
+                }else{
+                    return false;
+                }
+            }
+        }
     }
-    private boolean getUserSell(String item){
-        return getCache().getBoolean("item."+item+".userSell", DEFAULTUSERSELL);
+    private boolean getUserSell(Player p, String item){
+     // Si tiene master
+        if(p.hasPermission("spicecraft.shop.master")){
+            return true;
+        }else{
+            // Si tiene puesto un permiso especial de objeto.
+            if(p.isPermissionSet("spicecraft.shop.itemSell."+item)){
+                // Devuelve el permiso
+                return p.hasPermission("spicecraft.shop.itemSell."+item);
+            }else{
+                // Si no puede vender.
+                if(p.hasPermission("spicecraft.shop.server.sell")){
+                    // Devuelve el objeto
+                    return getCache().getBoolean("item."+item+".userSell", DEFAULTUSERSELL);
+                }else{
+                    return false;
+                }
+            }
+        }
     }
     private int getRecipieMultiplie(String item){
         return getCache().getInt("item."+item+".recipieMultiplie", 1);
@@ -304,8 +338,7 @@ public class Factory implements Listener {
             Chat.mensaje(p, "shop.notExist");
             return false;
         }
-        if(!(p.hasPermission("spicecraft.shop.master")||(getUserBuy(item))
-                ||p.hasPermission("spicecraft.shop.itemBuy."+item))){
+        if(!getUserBuy(p, item)){
             Chat.mensaje(p, "shop.cantBuy");
             return false;
         }
@@ -418,10 +451,21 @@ public class Factory implements Listener {
         return ((Double)(sumProduct/sumPrice)).intValue();
     }
     // Abre el inventario de la tienda.
-    public void sell(Player p){
-        sell(p, null);
+    public void openInventory(Player p){
+        openInventory(p, null);
     }
-    public void sell(Player p, String userShop){
+    public void openInventory(Player p, String userShop){
+        if(userShop == null){
+            if(!p.hasPermission("spicecraft.shop.server.open")){
+                Chat.mensaje(p, "alert.permission");
+                return;
+            }
+        }else{
+            if(!p.hasPermission("spicecraft.shop.private.open")){
+                Chat.mensaje(p, "alert.permission");
+                return;
+            }
+        }
         if(p.getGameMode() == GameMode.CREATIVE){
             Chat.mensaje(p, "shop.creative");
             return;
@@ -451,8 +495,7 @@ public class Factory implements Listener {
             addItemToInventory(p, item);
             return false;
         }
-        if(!(p.hasPermission("spicecraft.shop.master")||(getUserSell(name))
-                ||p.hasPermission("spicecraft.shop.itemSell."+name))){
+        if(!getUserSell(p, name)){
             Chat.mensaje(p, "shop.cantSell");
             addItemToInventory(p, item);
             return false;
@@ -537,6 +580,10 @@ public class Factory implements Listener {
         getFile().save(getCache());
         getFileUser().save(getUserCache());
     }
+    public void saveNow(){
+        getFile().saveNow(getCache());
+        getFileUser().saveNow(getUserCache());
+    }
     @EventHandler
     private void onDragInventory(InventoryDragEvent event){
         Inventory inv = event.getInventory();
@@ -596,5 +643,6 @@ public class Factory implements Listener {
             new FactoryGui(p).close();
             inv.close();
         }
+        saveNow();
     }
 }

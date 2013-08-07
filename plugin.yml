@@ -54,5 +54,17 @@ permissions:
     default: true
   spicecraft.shop.master:
     default: op
+  spicecraft.shop.server.open:
+    default: true
+  spicecraft.shop.server.sell:
+    default: true
+  spicecraft.shop.server.buy:
+    default: true
+  spicecraft.shop.private.open:
+    default: true
+  spicecraft.shop.private.sell:
+    default: true
+  spicecraft.shop.private.buy:
+    default: true
   spicecraft.monster:
     default: true

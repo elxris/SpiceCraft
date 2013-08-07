@@ -94,6 +94,7 @@ public class FactoryGui
                 break;
             }
         }
+        f.save();
     }
     public List<ItemStack> getItemList(String path, int itemsPerPage, int page){
         List<ItemStack> list = new ArrayList<ItemStack>();
@@ -233,11 +234,11 @@ public class FactoryGui
             return cancelled;
         }
         if(e.getRawSlot() < e.getInventory().getSize()){
-            cancelled = clickTopCursorSlot(view, click, currentItem);            
+            cancelled = clickTopCursorSlot(view, click, currentItem);
         // Si el click es fuera del inventario de la tienda.
         }else{
             // Cancela lo que no sea un clic derecho, izquierdo o doble click.
-            cancelled = clickBotCursorSlot(view, click, currentItem);            
+            cancelled = clickBotCursorSlot(view, click, currentItem);
         }
         return cancelled;
     }
@@ -326,6 +327,10 @@ public class FactoryGui
                     updateInventory(view.getTopInventory());
                 // Si no es su tienda, compra.
                 }else{
+                    if(!p.hasPermission("spicecraft.shop.private.buy")){
+                        Chat.mensaje(p, "alert.permission");
+                        return;
+                    }
                     int stock = getItemStock(item);
                     int amount;
                     // Si es con shift o derecho compra un stack.
@@ -424,6 +429,10 @@ public class FactoryGui
         return cancelled;
     }
     private void addCursorToShop(InventoryView view, ClickType click){
+        if(!p.hasPermission("spicecraft.shop.private.sell")){
+            Chat.mensaje(p, "alert.permission");
+            return;
+        }
         ItemStack cursor = view.getCursor();
         String item = f.getItemName(cursor);
         if(item == null){
@@ -464,7 +473,6 @@ public class FactoryGui
     }
     public void setItemStock(String item, int amount){
         getUserConfig().set(getPath("items."+item+".amount"), amount);
-        f.save();
     }
     public int getItemStock(String item){
         return getUserConfig().getInt(getPath("items."+item+".amount"));
@@ -474,7 +482,6 @@ public class FactoryGui
     }
     public void setItemVel(String item, int vel){
         getUserConfig().set(getPath("items."+item+".vel"), vel);
-        f.save();
     }
     public int getItemVel(String item){
         return getUserConfig().getInt(getPath("items."+item+".vel"));
@@ -490,7 +497,6 @@ public class FactoryGui
     }
     public void setMoney(double money){
         getUserConfig().set(getPath("money"), money);
-        f.save();
     }
     public double getMoney(){
         return getUserConfig().getDouble(getPath("money"));
