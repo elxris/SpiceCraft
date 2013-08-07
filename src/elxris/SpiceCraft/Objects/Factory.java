@@ -237,10 +237,16 @@ public class Factory implements Listener {
             return mapa;
         }
         ConfigurationSection memory = getCache().getConfigurationSection("item."+item+".depend");
+        int multiplie = getRecipieMultiplie(item);
         for(String s: memory.getKeys(false)){
             Map<String, Double> dep = getDepends(s);
             for(String key: dep.keySet()){
-                mapa.put(key, (dep.get(key)*memory.getDouble(s))/(double)getRecipieMultiplie(item));
+                double d = (dep.get(key)*memory.getDouble(s))/(double)multiplie;
+                if(!mapa.containsKey(key)){
+                    mapa.put(key, d);
+                }else{
+                    mapa.put(key, mapa.get(key)+d);
+                }
             }
         }
         return mapa;

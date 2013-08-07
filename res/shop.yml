@@ -2940,8 +2940,9 @@ item:
     id: 373
     price: 0
     depend:
-      GlassBottle: 1
+      GlassBottle: 3
       NetherWart: 1
+    recipieMultiplie: 3
     data: 16
   PotionRegeneration:
     id: 373
@@ -3525,7 +3526,7 @@ item:
     - BotasDeOro
   ChainHelmet:
     id: 302
-    price: 1300
+    price: 0
     userSell: false
     depend: 
       Emerald: 8
@@ -4110,6 +4111,7 @@ shop:
     LimeDye:
       name: "Colores"
       list:
+      - InkSac
       - RoseRed
       - CactusGreen
       - CocoaBeans
