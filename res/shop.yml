@@ -37,7 +37,7 @@ item:
     id: 5
     price: 0
     depend:
-      Coal: 0.125
+      Stick: 2
     data: 0
     alias:
     - Plank

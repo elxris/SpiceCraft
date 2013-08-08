@@ -15,6 +15,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.SkullMeta;
 
 import elxris.SpiceCraft.SpiceCraft;
 import elxris.SpiceCraft.Utils.Chat;
@@ -172,7 +173,7 @@ public class FactoryGui
             if(stock <= 0){
                 continue;
             }
-            i = f.createItem(p.getName(), item, 1);
+            i = f.createItem(getUserShopName(), item, 1);
             meta = i.getItemMeta();
             production = f.getProduction(item)+"";
             acc = getItemVel(item);
@@ -229,6 +230,11 @@ public class FactoryGui
         }
         return itemReturn;
     }
+    public String getUserShopName() {
+        String user = getPath().substring("userShop.".length());
+        user = user.substring(0, user.length()-1);
+        return user;
+    }
     /*
     click[Top/Bot][Cursor][Slot]
     */
@@ -280,11 +286,11 @@ public class FactoryGui
             ItemStack cursor = view.getCursor();
             int amount = cursor.getAmount();
             // Si es izquierdo, vende el stack.
-            if(click == ClickType.LEFT && !click.isShiftClick()){
+            if(click == ClickType.LEFT){
                 f.sellItem(p, cursor);
                 cursor.setAmount(0);
                 // Si es derecho, vende uno.
-            }else if(click == ClickType.LEFT && click.isShiftClick()){
+            }else if(click == ClickType.RIGHT){
                 cursor.setAmount(1);
                 f.sellItem(p, cursor);
                 cursor.setAmount(--amount);
@@ -355,8 +361,7 @@ public class FactoryGui
                     if(amount > stock){
                         amount = stock;
                     }
-                    String user = getPath().substring("userShop.".length());
-                    user = user.substring(0, user.length()-1);
+                    String user = getUserShopName();
                     if(f.shopUser(p, item, amount, getItemVel(item))){
                         Chat.mensaje(SpiceCraft.getOnlineExactPlayer(user), "shop.userBuyUser",
                                 p.getName(), amount, item);
@@ -372,10 +377,10 @@ public class FactoryGui
             // Si es la tienda del servidor
             }else{
                 // Se compra uno.
-                if(click == ClickType.LEFT){
+                if(!click.isShiftClick() && click.isLeftClick()){
                     f.shop(p, f.getItemName(current), 1);
                     // Se compra un stack.
-                }else if(click == ClickType.RIGHT){
+                }else if(click.isShiftClick() && click.isLeftClick()){
                     f.shop(p, f.getItemName(current), current.getMaxStackSize());
                 }
             }
@@ -384,8 +389,8 @@ public class FactoryGui
     // Click fuera de la tienda con algo en el cursor y en el slot.
     public boolean clickBotCursorSlot(InventoryView view, ClickType click, int currentItem){
         boolean cancelled = false;
-        if(!(click == ClickType.RIGHT
-                || click == ClickType.LEFT
+        if(!(click.isRightClick()
+                || click.isLeftClick()
                 || click == ClickType.DOUBLE_CLICK)){
             cancelled = true;
         }
@@ -455,6 +460,13 @@ public class FactoryGui
         if(cursor.getDurability()>0){
             if(cursor.getType().getMaxDurability() > 0){
                 return;
+            }
+        }
+        if(cursor.getType() == Material.SKULL_ITEM){
+            if(cursor.getDurability() == 3){
+                if(!((SkullMeta) cursor.getItemMeta()).getOwner().contentEquals(view.getPlayer().getName())){
+                    return;
+                }
             }
         }
         if(cursor.getType() == Material.ENCHANTED_BOOK){
@@ -564,7 +576,7 @@ public class FactoryGui
     }
     public void playSound(){
         Random rndm = new Random();
-        p.getWorld().playSound(p.getLocation(), Sound.CLICK, 0.6f, (rndm.nextFloat()/5f)+0.8f);
+        p.getWorld().playSound(p.getLocation(), Sound.CLICK, 0.2f, (rndm.nextFloat()/5f)+0.8f);
     }
     public boolean isUserShop(){
         return getUserConfig().isSet(getPath("money"));

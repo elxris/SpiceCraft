@@ -373,8 +373,7 @@ public class Factory implements Listener {
             Chat.mensaje(p, "shop.noMoney");
             return false;
         }
-        String user = new FactoryGui(p).getPath().substring("userShop.".length());
-        user = user.substring(0, user.length()-1);
+        String user = new FactoryGui(p).getUserShopName();
         econ.getLogg().logg("Shop", p, "buy to "+user
             , item_real, cantidad, precio);
         addItemsToInventory(p, createItems(user, item_real, cantidad));
