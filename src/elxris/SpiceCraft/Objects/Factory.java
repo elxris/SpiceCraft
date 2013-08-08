@@ -294,7 +294,7 @@ public class Factory implements Listener {
             save();
         }
     }
-    public ItemStack createItem(Player p, String item, int size){
+    public ItemStack createItem(String p, String item, int size){
         ItemStack stack = new ItemStack(getId(item));
         short data = (short)getData(item);
         if(haveData(item)){
@@ -305,7 +305,7 @@ public class Factory implements Listener {
         if(stack.getType() == Material.SKULL_ITEM){
             if(data == 3){
                 SkullMeta skull = (SkullMeta) stack.getItemMeta();
-                skull.setOwner(p.getName());
+                skull.setOwner(p);
                 stack.setItemMeta(skull);
             }
         }
@@ -322,7 +322,7 @@ public class Factory implements Listener {
         }
         return stack;
     }
-    public List<ItemStack> createItems(Player p, String item, int num){
+    public List<ItemStack> createItems(String p, String item, int num){
         List<ItemStack> items = new ArrayList<ItemStack>();
         int maxStack = Material.getMaterial(getId(item)).getMaxStackSize();
         if(num%maxStack > 0){
@@ -355,7 +355,7 @@ public class Factory implements Listener {
             return false;
         }
         econ.getLogg().logg("Shop", p, "buy", item_real, cantidad, precio);
-        addItemsToInventory(p, createItems(p, item_real, cantidad));
+        addItemsToInventory(p, createItems(p.getName(), item_real, cantidad));
         addCountRecursive(item_real, cantidad*(-1d));
         return true;
     }
@@ -375,7 +375,7 @@ public class Factory implements Listener {
         user = user.substring(0, user.length()-1);
         econ.getLogg().logg("Shop", p, "buy to "+user
             , item_real, cantidad, precio);
-        addItemsToInventory(p, createItems(p, item_real, cantidad));
+        addItemsToInventory(p, createItems(user, item_real, cantidad));
         return true;
     }
     public void addItemsToInventory(Player p, List<ItemStack> items){ // Añade el item al inventario del jugador.

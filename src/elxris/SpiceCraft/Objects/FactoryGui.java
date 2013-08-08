@@ -116,7 +116,7 @@ public class FactoryGui
                 break;
             }
             count++;
-            i = f.createItem(p, item, 1);
+            i = f.createItem(p.getName(), item, 1);
             meta = i.getItemMeta();
             id = i.getTypeId()+((i.getDurability() > 0)?":"+i.getDurability():"");
             precioBuy = f.getPrice(item);
@@ -139,7 +139,7 @@ public class FactoryGui
         List<ItemStack> list = new ArrayList<ItemStack>();
         for(String item : getConfig().getConfigurationSection(path).getKeys(false)){
             String name = getConfig().getString(path+"."+item+".name");
-            ItemStack i = f.createItem(p, item, 1);
+            ItemStack i = f.createItem(p.getName(), item, 1);
             ItemMeta m = i.getItemMeta();
             m.setDisplayName(name);
             i.setItemMeta(m);
@@ -172,7 +172,7 @@ public class FactoryGui
             if(stock <= 0){
                 continue;
             }
-            i = f.createItem(p, item, 1);
+            i = f.createItem(p.getName(), item, 1);
             meta = i.getItemMeta();
             production = f.getProduction(item)+"";
             acc = getItemVel(item);
@@ -324,7 +324,7 @@ public class FactoryGui
                 if(isOwnShop()){
                     // Si es con shift regresa todo al inventario.
                     if(click.isShiftClick()){
-                        f.addItemsToInventory(p, f.createItems(p, item, c.getInt(getPath("items."+item+".amount"))));
+                        f.addItemsToInventory(p, f.createItems(p.getName(), item, c.getInt(getPath("items."+item+".amount"))));
                         c.set(getPath("items."+item), null);
                     // Si es izquierdo, ponlo más caro.
                     }else if(click.isLeftClick()){
