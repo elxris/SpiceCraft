@@ -31,7 +31,7 @@ public class ShopCommand extends Comando implements TabCompleter{
             mensaje(p, "alert.permission");
             return true;
         }
-        if(args.length == 1 && isCommand("comm.shop.userPrefix", args[0].charAt(0)+"")){
+        if(( args.length == 1 || args.length == 2 ) && isCommand("comm.shop.userPrefix", args[0])){
             return onSlashShop(p, command, label, args);
         }else{
             return onShop(p, command, label, args);
@@ -71,9 +71,13 @@ public class ShopCommand extends Comando implements TabCompleter{
             mensaje(p, "alert.permission");
             return true;
         }
-        String arg = args[0].substring(1);
-        if(arg.length() == 0){
+        String arg = "";
+        if(args.length == 1){
             arg = p.getName();
+        }else if(args.length == 2){
+            arg = args[1];
+        }
+        if(arg.length() == 0){
         }
         List<String> players = SpiceCraft.getOfflinePlayerNamesMatch(arg);
         String shopName;

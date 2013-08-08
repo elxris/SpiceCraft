@@ -82,7 +82,9 @@ public class Factory implements Listener {
             // Producir deacuerdo a un item y su velocidad, y luego cambiar su velocidad.
             count += vel;
             if(count < 0){
-                vel++;
+                if(vel < VEL*2){
+                    vel++;
+                }
             }else if (count >= 0 && count <= STACKFULL) {
                 if(vel > VEL){
                     vel--;
@@ -124,7 +126,7 @@ public class Factory implements Listener {
         save();
     }
     private double getCount(String item){
-        isSet("item."+item+".count", VEL);
+        isSet("item."+item+".count", STACKFULL/2);
         return getCache().getDouble("item."+item+".count");
     }
     private void addCount(String item, double count){

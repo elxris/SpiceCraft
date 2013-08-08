@@ -166,10 +166,11 @@ shop:
   info:
   - §b[§cSHOP§b]§r §aHELP
   - §e/shop §rOpens a window that you can place the items to sell, or explore the store and buy.
-  - With left click buy one, with the right to buy a stack.
+  - With click buy one, with shift + click buy a stack.
   - The items are sold at %.2f%% of money you currently have.
   - §bCheck prices is important as they vary with time.
-  - §e/shop @<name> §rOpens a user store. Or yours if you put only @.
+  - §e/shop @ <name> §rOpens a user store. Or yours if you put only /shop @
+  - In your store you can change prices, left click > expensive, right click > cheaper, shift + click get back your thigs.
   - Buy at a particular store is %.2f%% cheaper, and if you sell you get %.2f%% more earnings.
   - "Or here's the commands:"
   - §e/shop <item> §rFind an item. Part of the name or id.

@@ -166,10 +166,11 @@ shop:
   info:
   - §b[§cSHOP§b]§r §aAYUDA
   - §e/shop §rAbre una ventana que puedes colocar los objetos para venderlos, o bien explorar la tienda y comprar.
-  - Con click izquierdo compras uno, con el derecho compras un stack.
+  - Con click compras uno, con shift + click compras un stack.
   - Los items se venden al %.2f%% del precio que tiene actualmente.
   - §bConsultar precios es importante ya que varían con el tiempo.
-  - §e/shop @<nombre> §rAbre la tienda de un usuario. O la tuya si solo pones @
+  - §e/shop @ <nombre> §rAbre la tienda de un usuario. O la tuya si solo pones @
+  - En tu tienda, puedes cambiar tus precios, click izq aumenta, click derecho diminuye, shift + click saca el objeto.
   - Comprar a una tienda particular es %.2f%% más barato, y vender obtienes %.2f%% mas de ganancias.
   - "O bien tienes los comandos:"
   - §e/shop <item> §rBusca un item. Parte del nombre o id.
