@@ -7,7 +7,7 @@ item:
     price: 0
     depend:
       Cobblestone: 1
-      Stick: 2
+      Coal: 0.125
     alias:
     - Piedra
     userSell: true
@@ -37,7 +37,7 @@ item:
     id: 5
     price: 0
     depend:
-      Stick: 2
+      Coal: 0.125
     data: 0
     alias:
     - Plank
@@ -209,7 +209,7 @@ item:
     price: 0
     depend:
       Sand: 1
-      Stick: 2
+      Coal: 0.125
     alias:
     - Vidrio
   LapisLazuliOre:
@@ -303,7 +303,7 @@ item:
     - Telaraña
   Shrub:
     id: 31
-    price: 0.5
+    price: 0.15
 ##############################
     data: 0
   TallGrass:
@@ -850,11 +850,11 @@ item:
   CrackedStoneBricks:
     id: 98
     price: 160
-    data: 1
+    data: 2
   ChilseledStoneBricks:
     id: 98
     price: 200
-    data: 1
+    data: 3
   HugeBrownMushroom:
     id: 99
     price: 10
@@ -1083,7 +1083,7 @@ item:
     price: 0
     depend:
       OakPlank: 1
-      Stick: 2
+      Coal: 0.125
     userSell: false
   BrickStairs:
     id: 108
@@ -1161,7 +1161,7 @@ item:
     - PiedraDelFin
   DragonEgg:
     id: 122
-    price: 500000
+    price: 50000
 ##############################
     alias:
     - HuevoDragon
@@ -1297,6 +1297,7 @@ item:
     depend:
       Chest: 1
       TripwireHook: 1
+    userSell: false
   GoldenPressurePlate:
     id: 147
     price: 0
@@ -1307,6 +1308,7 @@ item:
     price: 0
     depend:
       Iron: 2
+    userSell: false
   DayLightSensor:
     id: 151
     price: 0
@@ -1359,7 +1361,7 @@ item:
     price: 0
     depend:
       Iron: 6
-      Stick: 2
+      Coal: 0.125
       RedstoneTorch: 1
     recipieMultiplie: 6
     userSell: false
@@ -1604,7 +1606,7 @@ item:
     price: 0
     depend:
       ClayBlock: 1
-      Stick: 2
+      Coal: 0.125
   BlockCoal:
     id: 173
     price: 0
@@ -1654,7 +1656,7 @@ item:
 ##############################
     depend:
       OakWood: 1
-      Stick: 2
+      Coal: 0.125
     userSell: false
     data: 1
   Diamond:
@@ -1693,7 +1695,7 @@ item:
     recipieMultiplie: 4
   MushroomStew:
     id: 282
-    price: 3
+    price: 0
     depend:
       RedMushroom: 1
       BrownMushroom: 1
@@ -1763,7 +1765,7 @@ item:
     price: 0
     depend:
       RawPorkchop: 1
-      Stick: 2
+      Coal: 0.125
     alias:
     - CarnePuercoCocida
   Painting:
@@ -1897,7 +1899,7 @@ item:
     price: 0
     depend:
       Clay: 1
-      Stick: 2
+      Coal: 0.125
     alias:
     - Ladrillo
   Clay:
@@ -2095,7 +2097,7 @@ item:
     price: 0
     depend:
       RawBeef: 1
-      Stick: 2
+      Coal: 0.125
     alias:
     - Filete
   RawChicken:
@@ -2110,7 +2112,7 @@ item:
     price: 0
     depend:
       RawChicken: 1
-      Stick: 2
+      Coal: 0.125
     alias:
     - PolloRostizado
   RottenFlesh:
@@ -2292,7 +2294,7 @@ item:
     price: 0
     depend:
       Potato: 1
-      Stick: 2
+      Coal: 0.125
     alias:
     - PatataCocida
     - PapaCocida
@@ -2408,7 +2410,7 @@ item:
     price: 0
     depend:
       Netherrack: 1
-      Stick: 2
+      Coal: 0.125
   Quartz:
     id: 406
     price: 6
@@ -2468,7 +2470,7 @@ item:
     price: 0
     depend:
       Cactus: 1
-      Stick: 2
+      Coal: 0.125
     data: 2
     alias:
     - Green
@@ -3184,7 +3186,7 @@ item:
     id: 256
     price: 0
     depend:
-      Stick: 2
+      Coal: 0.125
       Iron: 1
     alias:
     - PalaDeHierro
@@ -3193,7 +3195,7 @@ item:
     id: 257
     price: 0
     depend:
-      Stick: 2
+      Coal: 0.125
       Iron: 3
     alias:
     - PicoDeHierro
@@ -3202,7 +3204,7 @@ item:
     id: 258
     price: 0
     depend:
-      Stick: 2
+      Coal: 0.125
       Iron: 3
     alias:
     - HachaDeHierro
@@ -3237,7 +3239,7 @@ item:
     id: 269
     price: 0
     depend:
-      Stick: 2
+      Coal: 0.125
       OakPlank: 1
     alias:
     - PalaDeMadera
@@ -3246,7 +3248,7 @@ item:
     id: 270
     price: 0
     depend:
-      Stick: 2
+      Coal: 0.125
       OakPlank: 3
     alias:
     - PicodeMadera
@@ -3255,7 +3257,7 @@ item:
     id: 271
     price: 0
     depend:
-      Stick: 2
+      Coal: 0.125
       OakPlank: 3
     alias:
     - HachaDeMadera
@@ -3273,7 +3275,7 @@ item:
     id: 273
     price: 0
     depend:
-      Stick: 2
+      Coal: 0.125
       Stone: 1
     alias:
     - PalaDePiedra
@@ -3282,7 +3284,7 @@ item:
     id: 274
     price: 0
     depend:
-      Stick: 2
+      Coal: 0.125
       Stone: 3
     alias:
     - PicoDePiedra
@@ -3291,7 +3293,7 @@ item:
     id: 275
     price: 0
     depend:
-      Stick: 2
+      Coal: 0.125
       Stone: 3
     alias:
     - HachaDePiedra
@@ -3308,7 +3310,7 @@ item:
     id: 277
     price: 0
     depend:
-      Stick: 2
+      Coal: 0.125
       Diamond: 1
     alias:
     - PalaDeDiamante
@@ -3316,7 +3318,7 @@ item:
     id: 278
     price: 0
     depend:
-      Stick: 2
+      Coal: 0.125
       Diamond: 3
     alias:
     - PicoDeDiamante
@@ -3324,7 +3326,7 @@ item:
     id: 279
     price: 0
     depend:
-      Stick: 2
+      Coal: 0.125
       Diamond: 3
     alias:
     - HachaDeDiamante
@@ -3340,7 +3342,7 @@ item:
     id: 284
     price: 0
     depend:
-      Stick: 2
+      Coal: 0.125
       Gold: 2
     alias:
     - PalaDeOro
@@ -3348,7 +3350,7 @@ item:
     id: 285
     price: 0
     depend:
-      Stick: 2
+      Coal: 0.125
       Gold: 3
     alias:
     - PicoDeOro
@@ -3356,7 +3358,7 @@ item:
     id: 286
     price: 0
     depend:
-      Stick: 2
+      Coal: 0.125
       Gold: 3
     alias:
     - HachaDeOro
@@ -3364,7 +3366,7 @@ item:
     id: 290
     price: 0
     depend:
-      Stick: 2
+      Coal: 0.125
       OakPlank: 2
     alias:
     - AzadonDeMadera
@@ -3373,7 +3375,7 @@ item:
     id: 291
     price: 0
     depend:
-      Stick: 2
+      Coal: 0.125
       Stone: 2
     alias:
     - AzadonDePiedra
@@ -3382,7 +3384,7 @@ item:
     id: 292
     price: 0
     depend:
-      Stick: 2
+      Coal: 0.125
       Iron: 2
     alias:
     - AzadonDeHierro
@@ -3391,7 +3393,7 @@ item:
     id: 293
     price: 0
     depend:
-      Stick: 2
+      Coal: 0.125
       Diamond: 2
     alias:
     - AzadonDeDiamante
@@ -3399,7 +3401,7 @@ item:
     id: 294
     price: 0
     depend:
-      Stick: 2
+      Coal: 0.125
       Gold: 2
     alias:
     - AzadonDeOro

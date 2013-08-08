@@ -280,11 +280,11 @@ public class FactoryGui
             ItemStack cursor = view.getCursor();
             int amount = cursor.getAmount();
             // Si es izquierdo, vende el stack.
-            if(click == ClickType.LEFT){
+            if(click == ClickType.LEFT && !click.isShiftClick()){
                 f.sellItem(p, cursor);
                 cursor.setAmount(0);
                 // Si es derecho, vende uno.
-            }else if(click == ClickType.RIGHT){
+            }else if(click == ClickType.LEFT && click.isShiftClick()){
                 cursor.setAmount(1);
                 f.sellItem(p, cursor);
                 cursor.setAmount(--amount);
@@ -343,10 +343,10 @@ public class FactoryGui
                     int stock = getItemStock(item);
                     int amount;
                     // Si es con shift o derecho compra un stack.
-                    if(click.isShiftClick() || click.isRightClick()){
+                    if(click.isShiftClick() && click.isLeftClick()){
                         amount = current.getMaxStackSize();
                     // Si es izquierdo, compra uno.
-                    }else if(click.isLeftClick()){
+                    }else if(!click.isShiftClick() && click.isLeftClick()){
                         amount = 1;
                     }else{
                         return;
@@ -354,7 +354,7 @@ public class FactoryGui
                     // Si no hay suficiente para un stack, haz un stack pequeño. Y elimina.
                     if(amount > stock){
                         amount = stock;
-                    }                    
+                    }
                     String user = getPath().substring("userShop.".length());
                     user = user.substring(0, user.length()-1);
                     if(f.shopUser(p, item, amount, getItemVel(item))){
@@ -564,7 +564,7 @@ public class FactoryGui
     }
     public void playSound(){
         Random rndm = new Random();
-        p.getWorld().playSound(p.getLocation(), Sound.CLICK, 0.8f, (rndm.nextFloat()/5f)+0.8f);
+        p.getWorld().playSound(p.getLocation(), Sound.CLICK, 0.6f, (rndm.nextFloat()/5f)+0.8f);
     }
     public boolean isUserShop(){
         return getUserConfig().isSet(getPath("money"));
