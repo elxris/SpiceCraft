@@ -323,6 +323,7 @@ public class FactoryGui
         // Si no es un objeto-menú, es un item de la tienda.
         }else{
             String item = f.getItemName(current);
+            ItemStack currentStack = f.createItem(p.getName(), item, 1);
             FileConfiguration c = getUserConfig();
             // Si es una tienda
             if(isUserShop()){
@@ -330,8 +331,21 @@ public class FactoryGui
                 if(isOwnShop()){
                     // Si es con shift regresa todo al inventario.
                     if(click.isShiftClick()){
-                        f.addItemsToInventory(p, f.createItems(p.getName(), item, c.getInt(getPath("items."+item+".amount"))));
-                        c.set(getPath("items."+item), null);
+                        int amount = 0;
+                        for(ItemStack k: view.getBottomInventory().getContents()){
+                            if(k == null){
+                                amount += currentStack.getMaxStackSize();
+                            }else if(k.isSimilar(currentStack)){
+                                amount += currentStack.getMaxStackSize()-k.getAmount();
+                            }
+                        }
+                        if(amount > getItemStock(item)){
+                            amount = getItemStock(item);
+                            c.set(getPath("items."+item), null);
+                        }else{
+                            addItemStock(item, -amount);
+                        }
+                        f.addItemsToInventory(p, f.createItems(p.getName(), item, amount));
                     // Si es izquierdo, ponlo más caro.
                     }else if(click.isLeftClick()){
                         addItemVel(item, +1);
