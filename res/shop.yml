@@ -1,7 +1,4 @@
-## Los bloques que se obtienen al cocinarse tienen dos sticks en sus dependencias.
-## Hay algunas anotaciones especiales en algunos objetos.
 item:
-## BLOCKS
   Stone:
     id: 1
     price: 0
@@ -15,7 +12,6 @@ item:
   Grass:
     id: 2
     price: 0.5
-##############################    
     depend:
       Dirt: 1
     alias:
@@ -24,13 +20,11 @@ item:
   Dirt:
     id: 3
     price: 1.0
-##############################
     alias:
     - Tierra
   Cobblestone:
     id: 4
     price: 0.6
-##############################
     alias:
     - Roca
   OakPlank:
@@ -71,7 +65,6 @@ item:
   OakSapling:
     id: 6
     price: 1.0
-##############################
     data: 0
     alias:
     - Sapling
@@ -103,14 +96,12 @@ item:
   Sand:
     id: 12
     price: 1.0
-##############################
     alias:
     - Arena
     userSell: false
   Gravel:
     id: 13
     price: 0
-##############################
     depend:
       Sand: 1
     alias:
@@ -129,7 +120,6 @@ item:
   CoalOre:
     id: 16
     price: 0
-    ## Drops
     depend:
       Coal: 3
   OakWood:
@@ -168,7 +158,6 @@ item:
   OakLeaves:
     id: 18
     price: 0.2
-##############################
     data: 0
     alias:
     - HojasRoble
@@ -199,7 +188,6 @@ item:
   Sponge:
     id: 19
     price: 50
-##############################
     alias:
     - Esponja
     userSell: false
@@ -215,7 +203,6 @@ item:
   LapisLazuliOre:
     id: 21
     price: 0
-    ## Drops
     depend:
       LapisLazuli: 8
   LapisBlock:
@@ -298,13 +285,11 @@ item:
   Cobweb:
     id: 30
     price: 20.0
-##############################
     alias:
     - Telaraña
   Shrub:
     id: 31
     price: 0.15
-##############################
     data: 0
   TallGrass:
     id: 31
@@ -466,7 +451,6 @@ item:
   YellowFlower:
     id: 37
     price: 0.28
-##############################
     alias:
     - Flower
     - Flor
@@ -479,7 +463,6 @@ item:
   BrownMushroom:
     id: 39
     price: 0.2
-##############################
     alias:
     - Mushroom
     - Hongo
@@ -576,7 +559,6 @@ item:
     alias:
     - Bomba
     userBuy: false
-############################## userBuy: false <<< Por ser tnt, no se permite comprar. :D
   Bookshelf:
     id: 47
     price: 0
@@ -589,13 +571,11 @@ item:
   MossStone:
     id: 48
     price: 22
-##############################
     alias:
     - PiedraMusgosa
   Obsidian:
     id: 49
     price: 18
-##############################
     alias:
     - Obsidiana
   Torch:
@@ -610,7 +590,6 @@ item:
   MobSpawner:
     id: 52
     price: 5000
-##############################
     alias:
     - Spawner
     userBuy: false
@@ -673,6 +652,7 @@ item:
     recipieMultiplie: 16
     alias:
     - Riel
+    userSell: false
   CobblestoneStairs:
     id: 67
     price: 0
@@ -724,7 +704,6 @@ item:
   Ice:
     id: 79
     price: 0.5
-##############################
     alias:
     - Hielo
   SnowBlock:
@@ -737,7 +716,6 @@ item:
   Cactus:
     id: 81
     price: 0.1
-##############################
   ClayBlock:
     id: 82
     price: 0
@@ -772,16 +750,13 @@ item:
   Netherrack:
     id: 87
     price: 0.1
-##############################
     alias:
     - PiedraNether
     - PiedraAbisal
   SoulSand:
     id: 88
     price: 0
-##############################
     depend:
-      Gravel: 1
     alias:
     - ArenaAlmas
   GlowstoneBlock:
@@ -806,7 +781,6 @@ item:
   StoneMonsterEgg:
     id: 97
     price: 3
-##############################
     depend:
       Stone: 1
     userSell: false
@@ -845,7 +819,6 @@ item:
   MossyStoneBricks:
     id: 98
     price: 160
-############################## Yo lo dejaría al mismo precio que los stonebricks, aunque son dificiles de conseguir, pero son decorativos. Ayudaría a hacer bonitas construcciones.
     data: 1
   CrackedStoneBricks:
     id: 98
@@ -858,7 +831,6 @@ item:
   HugeBrownMushroom:
     id: 99
     price: 10
-##############################
   HugeBrownMushroom1:
     id: 99
     price: 0
@@ -952,7 +924,6 @@ item:
   HugeRedMushroom:
     id: 100
     price: 10
-############################## Si modificaste el brown, modifica este.
     depend:
       RedMushroom: 1
   HugeRedMushroom1:
@@ -1075,7 +1046,6 @@ item:
   Vines:
     id: 106
     price: 0.25
-##############################
     alias:
     - Enredadera
   FenceGate:
@@ -1100,14 +1070,12 @@ item:
   Mycelium:
     id: 110
     price: 80
-##############################
     alias:
     - Micelio
     userSell: false
   LilyPad:
     id: 111
     price: 40
-##############################
     alias:
     - Nenufar
     userSell: false
@@ -1146,7 +1114,6 @@ item:
   EndPortalFrame:
     id: 120
     price: 0
-############################## Me la inventé.
     depend:
       EnderPearl: 2
     alias:
@@ -1156,13 +1123,11 @@ item:
   EndStone:
     id: 121
     price: 1
-##############################
     alias:
     - PiedraDelFin
   DragonEgg:
     id: 122
     price: 50000
-##############################
     alias:
     - HuevoDragon
     userSell: false
@@ -1179,6 +1144,7 @@ item:
     price: 0
     depend:
       OakPlank: 1
+    userSell: false
     recipieMultiplie: 2
     data: 0
   SpruceWoodSlab:
@@ -1209,7 +1175,6 @@ item:
   EmeraldOre:
     id: 128
     price: 0
-############################## Por los drops con un pico de fortuna.
     depend:
       Emerald: 3
   EnderChest:
@@ -1236,6 +1201,7 @@ item:
     price: 0
     depend:
       Emerald: 9
+    userSell: false
     alias:
     - BloqueEsmeralda
   SpruceWoodStairs:
@@ -1273,7 +1239,6 @@ item:
   MossyCobblestoneWall:
     id: 139
     price: 0
-############################## Dejaría el precio igual a la normal porque es decorativo que esté mossy.
     depend:
       MossStone: 1
     data: 1
@@ -1383,7 +1348,7 @@ item:
     id: 159
     price: 0
     depend:
-      StainedClay: 8
+      HardenedClay: 8
       OrangeDye: 1
     recipieMultiplie: 8
     data: 1
@@ -1391,7 +1356,7 @@ item:
     id: 159
     price: 0
     depend:
-      StainedClay: 8
+      HardenedClay: 8
       MagentaDye: 1
     recipieMultiplie: 8
     data: 2
@@ -1399,7 +1364,7 @@ item:
     id: 159
     price: 0
     depend:
-      StainedClay: 8
+      HardenedClay: 8
       LightBlueDye: 1
     recipieMultiplie: 8
     data: 3
@@ -1407,7 +1372,7 @@ item:
     id: 159
     price: 0
     depend:
-      StainedClay: 8
+      HardenedClay: 8
       DandelionYellow: 1
     recipieMultiplie: 8
     data: 4
@@ -1415,7 +1380,7 @@ item:
     id: 159
     price: 0
     depend:
-      StainedClay: 8
+      HardenedClay: 8
       LimeDye: 1
     recipieMultiplie: 8
     data: 5
@@ -1423,7 +1388,7 @@ item:
     id: 159
     price: 0
     depend:
-      StainedClay: 8
+      HardenedClay: 8
       PinkDye: 1
     recipieMultiplie: 8
     data: 6
@@ -1431,7 +1396,7 @@ item:
     id: 159
     price: 0
     depend:
-      StainedClay: 8
+      HardenedClay: 8
       GrayDye: 1
     recipieMultiplie: 8
     data: 7
@@ -1439,7 +1404,7 @@ item:
     id: 159
     price: 0
     depend:
-      StainedClay: 8
+      HardenedClay: 8
       LightGrayDye: 1
     recipieMultiplie: 8
     data: 8
@@ -1447,7 +1412,7 @@ item:
     id: 159
     price: 0
     depend:
-      StainedClay: 8
+      HardenedClay: 8
       CyanDye: 1
     recipieMultiplie: 8
     data: 9
@@ -1455,7 +1420,7 @@ item:
     id: 159
     price: 0
     depend:
-      StainedClay: 8
+      HardenedClay: 8
       PurpleDye: 1
     recipieMultiplie: 8
     data: 10
@@ -1463,7 +1428,7 @@ item:
     id: 159
     price: 0
     depend:
-      StainedClay: 8
+      HardenedClay: 8
       LapisLazuli: 1
     recipieMultiplie: 8
     data: 11
@@ -1471,7 +1436,7 @@ item:
     id: 159
     price: 0
     depend:
-      StainedClay: 8
+      HardenedClay: 8
       CocoaBeans: 1
     recipieMultiplie: 8
     data: 12
@@ -1479,7 +1444,7 @@ item:
     id: 159
     price: 0
     depend:
-      StainedClay: 8
+      HardenedClay: 8
       CactusGreen: 1
     recipieMultiplie: 8
     data: 13
@@ -1487,7 +1452,7 @@ item:
     id: 159
     price: 0
     depend:
-      StainedClay: 8
+      HardenedClay: 8
       RoseRed: 1
     recipieMultiplie: 8
     data: 14
@@ -1495,7 +1460,7 @@ item:
     id: 159
     price: 0
     depend:
-      StainedClay: 8
+      HardenedClay: 8
       InkSac: 1
     recipieMultiplie: 8
     data: 15
@@ -1612,7 +1577,6 @@ item:
     price: 0
     depend:
       Coal: 9
-## ITEMS
   FlintAndSteel:
     id: 259
     price: 0
@@ -1626,12 +1590,6 @@ item:
   Apple:
     id: 260
     price: 5
-## La comida depende de http://www.minecraftwiki.net/wiki/Food#Foods
-## El "Food points" entre dos, sin contar los decimales.
-## Es decir la manzana tiene 4 food points por tanto, depede de 2 patatas.
-## Si la carne cruda de vaca tiene 3 food points, depende de 2 patatas.
-## Si la rebanada de melón tiene 2 food points, depende de 1 patata.
-## Es el sistema más justo que se me ocurrió.
     alias:
     - Manzana
   Arrow:
@@ -1647,13 +1605,11 @@ item:
   Coal:
     id: 263
     price: 4
-##############################
     alias:
     - Carbon
   Charcoal:
     id: 263
     price: 0
-##############################
     depend:
       OakWood: 1
       Coal: 0.125
@@ -1662,13 +1618,11 @@ item:
   Diamond:
     id: 264
     price: 200
-##############################
     alias:
     - Diamante
   Iron:
     id: 265
     price: 20
-##############################
     alias:
     - Hierro
     userSell: false
@@ -1683,7 +1637,6 @@ item:
     id: 280
     price: 1.0
     userSell: false
-##############################
     alias:
     - Palo
   Bowl:
@@ -1706,32 +1659,27 @@ item:
   String:
     id: 287
     price: 1.0
-##############################
     alias:
     - Hilo
   Feather:
     id: 288
     price: 1.0
-##############################
     alias:
     - Pluma
   Gunpowder:
     id: 289
     price: 50.0
-##############################
     alias:
     - Polvora
     userSell: false
   Seeds:
     id: 295
     price: 0.1
-##############################
     alias:
     - Semillas
   Wheat:
     id: 296
     price: 0.5
-##############################
     depend:
       Seeds: 1
     alias:
@@ -1747,9 +1695,7 @@ item:
   Flint:
     id: 318
     price: 0.25
-##############################
     depend:
-      Gravel: 1
     alias:
     - Pedernal
     - Yesquero
@@ -1823,7 +1769,6 @@ item:
   WaterBucket:
     id: 326
     price: 0
-##############################
     depend:
       Bucket: 1
     alias:
@@ -1833,7 +1778,6 @@ item:
   LavaBucket:
     id: 327
     price: 0.1
-##############################
     depend:
       Bucket: 1
     alias:
@@ -1850,7 +1794,6 @@ item:
   Saddle:
     id: 329
     price: 200
-##############################
     alias:
     - Asiento
   IronDoor:
@@ -1864,11 +1807,9 @@ item:
   Redstone:
     id: 331
     price: 2
-##############################
   Snowball:
     id: 332
     price: 0.1
-##############################
     alias:
     - BolaNieve
   Boat:
@@ -1882,13 +1823,11 @@ item:
   Leather:
     id: 334
     price: 4
-##############################
     alias:
     - Cuero
   Milk:
     id: 335
     price: 0.1
-##############################
     depend:
       Bucket: 1
     alias:
@@ -1905,13 +1844,11 @@ item:
   Clay:
     id: 337
     price: 2.0
-##############################
     alias:
     - Arcilla
   SugarCanes:
     id: 338
     price: 0.1
-##############################
     alias:
     - Caña
   Paper:
@@ -1932,7 +1869,6 @@ item:
   Slimeball:
     id: 341
     price: 16
-##############################
     alias:
     - BolaSlime
     userSell: false
@@ -1953,7 +1889,6 @@ item:
   Egg:
     id: 344
     price: 1
-##############################
     alias:
     - Huevo
   Compass:
@@ -1984,7 +1919,6 @@ item:
   GlowstoneDust:
     id: 348
     price: 10
-##############################
     alias:
     - PolvoPiedraBrillante
   RawFish:
@@ -2068,10 +2002,6 @@ item:
   PumpkinSeeds:
     id: 361
     price: 0
-## PumpkinSeeds depende de MelonSeeds
-## PumpkinSeeds depende de MelonSlice, por crafteo.
-## MelonSlice depdnede de una papa.
-## Finalmente PumpkinSeeds depende de una papa.
     depend:
       MelonSeeds: 1
     alias:
@@ -2079,7 +2009,6 @@ item:
   MelonSeeds:
     id: 362
     price: 0
-############################## 
     depend:
       MelonSlice: 1
     alias:
@@ -2118,13 +2047,11 @@ item:
   RottenFlesh:
     id: 367
     price: 0.4
-##############################
     alias:
     - CarnePodrida
   EnderPearl:
     id: 368
     price: 2
-##############################
     alias:
     - PerlaEnder
     userSell: false
@@ -2138,21 +2065,18 @@ item:
   GhastTear:
     id: 370
     price: 75
-##############################
     alias:
     - Tear
     - Lagrima
   GoldNugget:
     id: 371
     price: 5
-##############################
     alias:
     - Nugget
     - Pepita
   NetherWart:
     id: 372
     price: 1
-##############################
     alias:
     - Verruga
   GlassBottle:
@@ -2165,7 +2089,6 @@ item:
   SpiderEye:
     id: 375
     price: 1
-##############################
     alias:
     - OjoAraña
   FermentedSpiderEye:
@@ -2180,7 +2103,6 @@ item:
   BlazePowder:
     id: 377
     price: 0.75
-##############################
     alias:
     - Fuego
   MagmaCream:
@@ -2228,11 +2150,6 @@ item:
   BottleOEnchanting:
     id: 384
     price: 50
-## Cada botella puede dropear 3 a 11 puntos de xp.
-## Para llegar al nivel 30 necesitas 825 puntos de xp.
-## Con una media de 7 puntos por botella. Necesitas ~120 botellas.
-## Pensé en el costo de 30 niveles. 3,000$
-## 3,000/120 = 25
     alias:
     - ThrownExpBottle
     userSell: false
@@ -2256,7 +2173,7 @@ item:
   Emerald:
     id: 388
     price: 225
-##############################
+    userSell: false
     alias:
     - Esmeralda
     userSell: false
@@ -2285,7 +2202,6 @@ item:
   Potato:
     id: 392
     price: 0.75
-## De esto depende muchas cosas.
     alias:
     - Patata
     - Papa
@@ -2324,7 +2240,6 @@ item:
   SkeletonHead:
     id: 397
     price: 7500
-##############################
     data: 0
     alias:
     - CabezaEsqueleto
@@ -2372,7 +2287,6 @@ item:
   NetherStar:
     id: 399
     price: 25000
-##############################
     alias:
     - EstrellaAbismo
     - Estrella
@@ -2390,11 +2304,6 @@ item:
   EnchantedBook:
     id: 403
     price: 1250
-## Este objeto se auto encanta al azar.
-## 120 Botellas dan 30 niveles.
-## Supone que los libros se obtienen al nivel 30.
-## Quizá, si es mucho, mejor será 80 botellas. (lvl 25)
-## O 50 botellas. (lvl 20)
     userSell: false
     alias:
     - LibroEncantado
@@ -2414,7 +2323,6 @@ item:
   Quartz:
     id: 406
     price: 6
-##############################
     alias:
     - NetherQuartz
   MinecartWithTNT:
@@ -2443,13 +2351,9 @@ item:
     id: 421
     price: 1250
     userSell: false
-##############################
-#### DYES
-#### Estos precios deberán ser revisados. Algunos dependen de sus recetas, otros del inkSac.
   InkSac:
     id: 351
     price: 6.5
-##############################
     data: 0
     alias:
     - Tinta
@@ -2478,7 +2382,6 @@ item:
   CocoaBeans:
     id: 351
     price: 0
-##############################
     depend:
       InkSac: 1
     data: 3
@@ -2490,7 +2393,6 @@ item:
   LapisLazuli:
     id: 351
     price: 0
-##############################
     depend:
       InkSac: 1
     data: 4
@@ -2616,13 +2518,9 @@ item:
     - Blanco
     - PolvoHueso
     userSell: false
-## EGGS
-## Si vas a prohibir su compra o venta, asegurate de
-## ponerles a todos userBuy: false, o userSell: false
   CreeperEgg:
     id: 383
     price: 150
-##############################
     data: 50
     alias:
     - HuevoCreeper
@@ -2850,11 +2748,11 @@ item:
     - HuevoAldeano
     userSell: false
     userBuy: false
-## DISC
   13Disc:
     id: 2256
     price: 100
-##############################
+    userSell: false
+    userBuy: false
   CatDisc:
     id: 2257
     price: 0
@@ -2932,7 +2830,6 @@ item:
       13Disc: 1
     userSell: false
     userBuy: false
-## POTIONS
   AwkwardPotion:
     id: 373
     price: 0
@@ -3181,8 +3078,6 @@ item:
       GlowstoneDust: 1
     recipieMultiplie: 3
     data: 8236
-  ## Tools and Armor
-  IronShovel:
     id: 256
     price: 0
     depend:
@@ -3235,7 +3130,6 @@ item:
     alias:
     - EspadaDeMadera
     userSell: false
-  WoodenShovel:
     id: 269
     price: 0
     depend:
@@ -3271,7 +3165,6 @@ item:
     alias:
     - EspadaDePiedra
     userSell: false
-  StoneShovel:
     id: 273
     price: 0
     depend:
@@ -3306,7 +3199,6 @@ item:
       Diamond: 2
     alias:
     - EspadaDeDiamante
-  DiamondShovel:
     id: 277
     price: 0
     depend:
@@ -3338,7 +3230,6 @@ item:
       Gold: 2
     alias:
     - EspadaDeOro
-  GoldenShovel:
     id: 284
     price: 0
     depend:
@@ -3525,9 +3416,8 @@ item:
     id: 302
     price: 0
     userSell: false
-    depend: 
+    depend:
       Emerald: 8
-## Si estableces este precio las demás armaduras estarán equilibradas.
   ChainChestplate:
     id: 303
     price: 0
@@ -3552,34 +3442,32 @@ item:
   IronHorseArmor:
     id: 417
     price: 2500
-## Te recomiendo que dejes esto así. Creo que la receta es equilibrada.
-## He tomado la primera receta de las armaduras (actualmente la receta está borrada)
-    userSell: false 
+    userSell: false
   GoldenHorseArmor:
     id: 418
     price: 3750
-    userSell: false 
+    userSell: false
   DiamondHorseArmor:
     id: 419
     price: 5000
-    userSell: false 
+    userSell: false
 shop:
-  name: "Tienda"
+  name: Tienda
   next:
     EyeEnder:
-      name: "Siguiente"
+      name: Siguiente
   previous:
     EnderPearl:
-      name: "Previo"
+      name: Previo
   return:
     Milk:
-      name: "Menú"
+      name: Menú
   sub:
     Bricks:
-      name: "Bloques"
+      name: Bloques
       sub:
         Stone:
-          name: "Piedras"
+          name: Piedras
           list:
           - Stone
           - Cobblestone
@@ -3596,7 +3484,7 @@ shop:
           - EndStone
           - Bricks
         Dirt:
-          name: "Tierra y Arenas"
+          name: Tierra y Arenas
           list:
           - Grass
           - Dirt
@@ -3605,7 +3493,7 @@ shop:
           - SoulSand
           - Mycelium
         OakWood:
-          name: "Maderas"
+          name: Maderas
           list:
           - OakWood
           - OakPlank
@@ -3624,7 +3512,7 @@ shop:
           - JungleLeaves
           - JungleSapling
         StoneSlab:
-          name: "Slabs"
+          name: Slabs
           list:
           - StoneSlab
           - SandstoneSlab
@@ -3638,7 +3526,7 @@ shop:
           - BirchWoodSlab
           - JungleWoodSlab
         OakWoodStairs:
-          name: "Escaleras"
+          name: Escaleras
           list:
           - OakWoodStairs
           - SpruceWoodStairs
@@ -3651,7 +3539,7 @@ shop:
           - SandstoneStairs
           - QuartzStairs
         Sponge:
-          name: "Otros"
+          name: Otros
           list:
           - GoldOre
           - IronOre
@@ -3690,10 +3578,10 @@ shop:
           - HardenedClay
           - BlockCoal
     RedFlower:
-      name: "Decoración"
+      name: Decoración
       sub:
         Chest:
-          name: "Utiles"
+          name: Utiles
           list:
           - Chest
           - TrappedChest
@@ -3723,7 +3611,7 @@ shop:
           - ZombieHead
           - CreeperHead
         YellowFlower:
-          name: "Naturales"
+          name: Naturales
           list:
           - OakSapling
           - BirchSapling
@@ -3745,7 +3633,7 @@ shop:
           - Vines
           - LilyPad
         HugeRedMushroom14:
-          name: "Hongos"
+          name: Hongos
           list:
           - HugeRedMushroom
           - HugeRedMushroom1
@@ -3780,7 +3668,7 @@ shop:
           - HugeBrownMushroom14
           - HugeBrownMushroom15
         WhiteWool:
-          name: "Lana"
+          name: Lana
           list:
           - WhiteWool
           - OrangeWool
@@ -3799,7 +3687,7 @@ shop:
           - RedWool
           - BlackWool
         CyanWool:
-          name: "Arcilla"
+          name: Arcilla
           list:
           - WhiteStainedClay
           - OrangeStainedClay
@@ -3818,7 +3706,7 @@ shop:
           - RedStainedClay
           - BlackStainedClay
         LimeCarpet:
-          name: "Tapetes"
+          name: Tapetes
           list:
           - WhiteCarpet
           - OrangeCarpet
@@ -3837,7 +3725,7 @@ shop:
           - RedCarpet
           - BlackCarpet
     Redstone:
-      name: "Redstone"
+      name: Redstone
       list:
       - Redstone
       - RedstoneTorch
@@ -3865,7 +3753,7 @@ shop:
       - IronDoor
       - Trapdoor
     Minecart:
-      name: "Transporte"
+      name: Transporte
       list:
       - Rail
       - DetectorRail
@@ -3880,7 +3768,7 @@ shop:
       - Boat
       - CarrotOnAStick
     LavaBucket:
-      name: "Otros"
+      name: Otros
       list:
       - Bucket
       - LavaBucket
@@ -3929,7 +3817,7 @@ shop:
       - Brick
       - NetherBrickItem
     ChickenEgg:
-      name: "Huevos"
+      name: Huevos
       list:
       - CreeperEgg
       - SkeletonEgg
@@ -3956,13 +3844,13 @@ shop:
       - HorseEgg
       - VillagerEgg
     GoldenHorseArmor:
-      name: "Armaduras de caballos"
+      name: Armaduras de caballos
       list:
       - IronHorseArmor
       - GoldenHorseArmor
       - DiamondHorseArmor
     13Disc:
-      name: "Discos"
+      name: Discos
       list:
       - 13Disc
       - CatDisc
@@ -3977,7 +3865,7 @@ shop:
       - 11Disc
       - WaitDisc
     Apple:
-      name: "Comida"
+      name: Comida
       list:
       - Apple
       - MushroomStew
@@ -4004,7 +3892,7 @@ shop:
       - GoldenCarrot
       - PumpkinPie
     WoodenAxe:
-      name: "Herramientas"
+      name: Herramientas
       list:
       - WoodenShovel
       - WoodenPickaxe
@@ -4034,7 +3922,7 @@ shop:
       - Lead
       - NameTag
     IronSword:
-      name: "Armas y Armaduras"
+      name: Armas y Armaduras
       list:
       - WoodenSword
       - StoneSword
@@ -4064,7 +3952,7 @@ shop:
       - ChainLeggings
       - ChainBoots
     PotionFireResistance:
-      name: "Pociones"
+      name: Pociones
       list:
       - BrewingStand
       - Cauldron
@@ -4106,7 +3994,7 @@ shop:
       - PotionInvisibility
       - PotionInvisibilityExtended
     LimeDye:
-      name: "Colores"
+      name: Colores
       list:
       - InkSac
       - RoseRed
