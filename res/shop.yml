@@ -3078,10 +3078,11 @@ item:
       GlowstoneDust: 1
     recipieMultiplie: 3
     data: 8236
+  IronShovel:
     id: 256
     price: 0
     depend:
-      Coal: 0.125
+      Stick: 2
       Iron: 1
     alias:
     - PalaDeHierro
@@ -3090,7 +3091,7 @@ item:
     id: 257
     price: 0
     depend:
-      Coal: 0.125
+      Stick: 2
       Iron: 3
     alias:
     - PicoDeHierro
@@ -3099,7 +3100,7 @@ item:
     id: 258
     price: 0
     depend:
-      Coal: 0.125
+      Stick: 2
       Iron: 3
     alias:
     - HachaDeHierro
@@ -3130,11 +3131,12 @@ item:
     alias:
     - EspadaDeMadera
     userSell: false
+  WoodenShovel:
     id: 269
     price: 0
     depend:
-      Coal: 0.125
-      OakPlank: 1
+      Stick: 1
+      OakPlank: 2
     alias:
     - PalaDeMadera
     userSell: false
@@ -3142,7 +3144,7 @@ item:
     id: 270
     price: 0
     depend:
-      Coal: 0.125
+      Stick: 2
       OakPlank: 3
     alias:
     - PicodeMadera
@@ -3151,7 +3153,7 @@ item:
     id: 271
     price: 0
     depend:
-      Coal: 0.125
+      Stick: 2
       OakPlank: 3
     alias:
     - HachaDeMadera
@@ -3165,10 +3167,11 @@ item:
     alias:
     - EspadaDePiedra
     userSell: false
+  StoneShovel:
     id: 273
     price: 0
     depend:
-      Coal: 0.125
+      Stick: 2
       Stone: 1
     alias:
     - PalaDePiedra
@@ -3177,7 +3180,7 @@ item:
     id: 274
     price: 0
     depend:
-      Coal: 0.125
+      Stick: 2
       Stone: 3
     alias:
     - PicoDePiedra
@@ -3186,7 +3189,7 @@ item:
     id: 275
     price: 0
     depend:
-      Coal: 0.125
+      Stick: 2
       Stone: 3
     alias:
     - HachaDePiedra
@@ -3199,10 +3202,11 @@ item:
       Diamond: 2
     alias:
     - EspadaDeDiamante
+  DiamondShovel:
     id: 277
     price: 0
     depend:
-      Coal: 0.125
+      Stick: 2
       Diamond: 1
     alias:
     - PalaDeDiamante
@@ -3210,7 +3214,7 @@ item:
     id: 278
     price: 0
     depend:
-      Coal: 0.125
+      Stick: 2
       Diamond: 3
     alias:
     - PicoDeDiamante
@@ -3218,7 +3222,7 @@ item:
     id: 279
     price: 0
     depend:
-      Coal: 0.125
+      Stick: 2
       Diamond: 3
     alias:
     - HachaDeDiamante
@@ -3230,10 +3234,11 @@ item:
       Gold: 2
     alias:
     - EspadaDeOro
+  GoldenShovel:
     id: 284
     price: 0
     depend:
-      Coal: 0.125
+      Stick: 2
       Gold: 2
     alias:
     - PalaDeOro
@@ -3241,7 +3246,7 @@ item:
     id: 285
     price: 0
     depend:
-      Coal: 0.125
+      Stick: 2
       Gold: 3
     alias:
     - PicoDeOro
@@ -3249,7 +3254,7 @@ item:
     id: 286
     price: 0
     depend:
-      Coal: 0.125
+      Stick: 2
       Gold: 3
     alias:
     - HachaDeOro
@@ -3257,7 +3262,7 @@ item:
     id: 290
     price: 0
     depend:
-      Coal: 0.125
+      Stick: 2
       OakPlank: 2
     alias:
     - AzadonDeMadera
@@ -3266,7 +3271,7 @@ item:
     id: 291
     price: 0
     depend:
-      Coal: 0.125
+      Stick: 2
       Stone: 2
     alias:
     - AzadonDePiedra
@@ -3275,7 +3280,7 @@ item:
     id: 292
     price: 0
     depend:
-      Coal: 0.125
+      Stick: 2
       Iron: 2
     alias:
     - AzadonDeHierro
@@ -3284,7 +3289,7 @@ item:
     id: 293
     price: 0
     depend:
-      Coal: 0.125
+      Stick: 2
       Diamond: 2
     alias:
     - AzadonDeDiamante
@@ -3292,7 +3297,7 @@ item:
     id: 294
     price: 0
     depend:
-      Coal: 0.125
+      Stick: 2
       Gold: 2
     alias:
     - AzadonDeOro

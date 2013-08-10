@@ -79,8 +79,10 @@ public class Factory implements Listener {
         double count = getCount(item);
         int vel = getVel(item);
         for(;time < now; time += FRECUENCY){
+            if(count < STACKFULL / 2){
+                count += vel;
+            }
             // Producir deacuerdo a un item y su velocidad, y luego cambiar su velocidad.
-            count += vel;
             if(count < 0){
                 if(vel < VEL*2){
                     vel++;
