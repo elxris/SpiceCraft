@@ -24,9 +24,8 @@ shop:
   multiplier: 4.0
   userMultiplier: 2.0
   sellRate: 1.0
-  full: 4096
   vel: 8
-  freq: 30
+  freq: 1
   userVariation: 8
   userShopSize: 50
   variable: true

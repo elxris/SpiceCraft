@@ -36,14 +36,21 @@ public class Factory implements Listener {
     private static Archivo file, fileUser;
     private static FileConfiguration fc, fcUser, volatil;
     private MemoryConfiguration paths;
-    private int VEL, STACKFULL;
+    private int VEL, MIDDLE;
     private long FRECUENCY;
     public double MULTIPLIER, SELLRATE, USERMULTIPLIER;
     private boolean VARIABLE, DEFAULTUSERSELL, DEFAULTUSERBUY;
     private String shopName;
+    private int EUCLIDE[];
     public Factory() {
         init();
         new FactoryGui(this);
+        EUCLIDE = new int[(VEL*2)+1];
+        for(int i = 1; i <= VEL*2; i++){
+            int eu = (int)Math.exp(VEL*2-i+1);
+            EUCLIDE[i] = eu;
+        }
+        MIDDLE = (getEuclide(VEL)+getEuclide(VEL+1))/2;
     }
     private void init() {
         FileConfiguration config = SpiceCraft.plugin().getConfig();
@@ -56,10 +63,6 @@ public class Factory implements Listener {
             FRECUENCY = 1;
         }
         FRECUENCY *= 60*1000;
-        STACKFULL = config.getInt("shop.full", 64);
-        if(STACKFULL < 64){
-            STACKFULL = 64;
-        }
         MULTIPLIER = config.getDouble("shop.multiplier", 1.0d);
         if(MULTIPLIER < 0){
             MULTIPLIER = 1;
@@ -79,24 +82,11 @@ public class Factory implements Listener {
         double count = getCount(item);
         int vel = getVel(item);
         for(;time < now; time += FRECUENCY){
-            if(count < STACKFULL / 2){
+            vel = calculateEuclide(count);
+            if(count < MIDDLE){
                 count += vel;
-            }
-            // Producir deacuerdo a un item y su velocidad, y luego cambiar su velocidad.
-            if(count < 0){
-                if(vel < VEL*2){
-                    vel++;
-                }
-            }else if (count >= 0 && count <= STACKFULL) {
-                if(vel > VEL){
-                    vel--;
-                }else if(vel < VEL){
-                    vel++;
-                }
-            }else if(count > STACKFULL){
-                if(vel > 1){
-                    vel--;
-                }
+            }else{
+                count -= vel; 
             }
         }
         setTime(item, time);
@@ -128,7 +118,7 @@ public class Factory implements Listener {
         save();
     }
     private double getCount(String item){
-        isSet("item."+item+".count", STACKFULL/2);
+        isSet("item."+item+".count", MIDDLE);
         return getCache().getDouble("item."+item+".count");
     }
     private void addCount(String item, double count){
@@ -254,6 +244,18 @@ public class Factory implements Listener {
             }
         }
         return mapa;
+    }
+    public int getEuclide(int vel){
+        return EUCLIDE[vel];
+    }
+    public int calculateEuclide(double count){
+        int i = (VEL*2);
+        for(; i > 0 ; i--){
+            if(count <= getEuclide(i)){
+                return i;
+            }
+        }
+        return i;
     }
     private String searchItem(String s){ // Busca el nomrbe real de un objeto.
         makePaths();
