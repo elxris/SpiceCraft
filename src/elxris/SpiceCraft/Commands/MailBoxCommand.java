@@ -52,7 +52,7 @@ public class MailBoxCommand extends Comando{
         }
         if(isCommand("comm.mbox.new", args[0])){
             if(args.length > 1){
-                mail.createBorrador(jugador.getName(), cortarArray(1, args));              
+                mail.createBorrador(jugador.getName(), cortarArray(1, args));
             }
         }else if(isCommand("comm.mbox.add", args[0])){
             if(args.length > 1){
@@ -60,7 +60,7 @@ public class MailBoxCommand extends Comando{
             }
         }else if(isCommand("comm.mbox.send", args[0])){
             if(args.length == 1){
-                mail.sendMensaje(jugador.getName());                
+                mail.sendMensaje(jugador.getName());
             }else if(args.length >= 3){
                 List<String> destinatario = new ArrayList<String>();
                 destinatario.add(args[1]);

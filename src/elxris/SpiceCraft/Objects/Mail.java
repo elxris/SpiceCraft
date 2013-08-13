@@ -137,6 +137,10 @@ public class Mail{
         if(destinatarios.size() < 1){
             return;
         }
+        if(isFlooding(jugador)){
+            Chat.mensaje(SpiceCraft.getOnlineExactPlayer(jugador), "mbox.flood");
+            return;
+        }
         long fecha = System.currentTimeMillis();
         String path = "msg."+fecha+".";
         getConfig().set(path+"remitente", jugador);
@@ -194,6 +198,24 @@ public class Mail{
             return false;
         }
         return true;
+    }
+    public boolean isFlooding(String jugador){
+        long fecha = System.currentTimeMillis();
+        String[] mails = getConfig().getConfigurationSection("msg").getKeys(false).toArray(new String[0]);
+        int count = SpiceCraft.plugin().getConfig().getInt("mail.maxMailsIn15Minutes", 10);
+        for(int i = mails.length-1; i >= 0; i--){
+            if(Long.parseLong(mails[i])+15*60*1000 > fecha){
+                if(getConfig().getString("msg."+mails[i]+".remitente").contentEquals(jugador)){
+                    count--;
+                }
+                if(count <= 0){
+                    return true;
+                }
+            }else{
+                break;
+            }
+        }
+        return false;
     }
     public List<String> checkDestinatarios(String jugador, String[] destinatarios){
         List<String> checked = new ArrayList<String>();

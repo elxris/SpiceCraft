@@ -83,6 +83,8 @@ mbox:
   - §b[§cMBOX§b]§r §cPrimero debes crear un borrador. §e/mbox para más ayuda.
   first:
   - Ahora puedes enviar correos!
+  flood:
+  - Demasiados mensajes en tan poco tiempo, espera un momento.
 upin:
   info:
   - §b[§cUPIN§b]§r §aAYUDA

@@ -83,6 +83,8 @@ mbox:
   - §b[§cMBOX§b]§r §cFirst you must create a draft. §e/mbox for help.
   first:
   - Now you can send emails!
+  flood:
+  - You are flooding the mail. Wait a minute.
 upin:
   info:
   - §b[§cUPIN§b]§r §aHELP
