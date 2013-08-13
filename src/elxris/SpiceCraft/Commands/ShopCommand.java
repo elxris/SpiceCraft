@@ -157,25 +157,6 @@ public class ShopCommand extends Comando implements TabCompleter{
                     Chat.mensaje(p, "alert.permission");
                 }
             }
-        }else if(arg3 != null && arg4 == null){ // Si hay una cantidad, compra.
-            if(!isInteger(arg3)){
-                mensaje(p, "alert.noInteger");
-                return;
-            }
-            shop(p, item, arg3);
-        }
-    }
-    private void shop(Player p, String item, String cantidad){
-        if(!isInteger(cantidad)){
-            mensaje(p, "alert.noInteger");
-            return;
-        }
-        if(Integer.parseInt(cantidad) < 1){
-            mensaje(p, "alert.positive");
-            return;
-        }
-        if(f.shop(p, item, Integer.parseInt(cantidad))){
-            mensaje(p, "shop.shoped");
         }
     }
 }

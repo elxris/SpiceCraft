@@ -30,6 +30,7 @@ import elxris.SpiceCraft.SpiceCraft;
 import elxris.SpiceCraft.Utils.Archivo;
 import elxris.SpiceCraft.Utils.Chat;
 import elxris.SpiceCraft.Utils.Econ;
+import elxris.SpiceCraft.Utils.Strings;
 import elxris.SpiceCraft.Objects.FactoryGui;
 
 public class Factory implements Listener {
@@ -430,7 +431,7 @@ public class Factory implements Listener {
         item = searchItem(item);
         update(item);
         for(String s: map.keySet()){
-            setCount(s, VEL);
+            setCount(s, MIDDLE);
             setVel(s, VEL);
         }
     }
@@ -442,12 +443,29 @@ public class Factory implements Listener {
     }
     public void showItemInfo(Player p, String itemName){
         String item = searchItem(itemName);
-        String id = getId(item)+"";
-        if(haveData(item)){
-            id = id.concat(":"+getData(item));
+        List<String> list = new ArrayList<String>();
+        List<Double> precios = new ArrayList<Double>();
+        ConfigurationSection cache = getUserCache().getConfigurationSection("userShop");
+        String format = Strings.getString("shop.itemSearch");
+        int vel, amount, i;
+        double precio;
+        Econ econ = new Econ();
+        for(String user: cache.getKeys(false)){
+            if(cache.isSet(user+".items."+item)){
+                vel = cache.getInt(user+".items."+item+".vel");
+                precio = getPrecio(item, 1, vel);
+                for(i = 0; i < list.size(); i++){
+                    if(precio < precios.get(i)){
+                        break;
+                    }
+                }
+                amount = cache.getInt(user+".items."+item+".amount");
+                precios.add(i, precio);
+                list.add(i, String.format(format, user, econ.getPrecio(precio), amount));
+            }
         }
-        Chat.mensaje(p, "shop.itemInfo", itemName, new Econ().getPrecio(getPrecio(item, 1)),
-                getProduction(item), id);
+        Chat.mensaje(p, "shop.searchHead", item);
+        Chat.mensaje(p, list);
     }
     public int getProduction(String item){
         Map<String, Double> map = getDepends(item);

@@ -172,11 +172,9 @@ shop:
   - §e/shop @ <nombre> §rAbre la tienda de un usuario. O la tuya si solo pones @
   - En tu tienda, puedes cambiar tus precios, click izq aumenta, click derecho diminuye, shift + click saca el objeto.
   - Comprar a una tienda particular es %.2f%% más barato, y vender obtienes %.2f%% mas de ganancias.
-  - "O bien tienes los comandos:"
+  - "Si estás buscando un objeto:"
   - §e/shop <item> §rBusca un item. Parte del nombre o id.
   - §e/shop <item> [#] §rMuestra la información de un item. Si al buscar un item se encuentra más de un objeto en la tienda, puedes seleccionar uno de la lista.
-  - §e/shop <item> [#] <cantidad>§r Compra un item. Especifica el número de la búsqueda si es necesario.
-  - "Ejemplo: §c/shop lana 3 64§r Que compraría 64 piezas del tercer item encontrado con la búsqueda 'lana'."
   infoMaster:
   - §e/shop <item> [#] reset §rRestablece el valor de producción al original.
   - §e/shop <item> [#] set <price> §rCambia el precio del item.
@@ -184,11 +182,6 @@ shop:
   - Bienvenido a la tienda. Consulta §b/shop ? §rpara ayuda.
   openUserInfo:
   - Bienvenido a la tienda de %s. Consulta §b/shop ? §rpara ayuda.
-  itemInfo:
-  - '§b[§cSHOP§b]§r §aInfo §d%s'
-  - '§bPrecio: §a%s §ela unidad.'
-  - '§bProducción: §a%s'
-  - '§bID: §a%s'
   shoped:
   - §b[§cSHOP§b]§r §aGracias por tu compra.
   searchHead:
@@ -229,6 +222,8 @@ shop:
   - '§a%s§r'
   negativeProduction:
   - '§c%s§r'
+  itemSearch:
+  - '§c§b%s: §a%s §cx §e%s'
 cmd:
   reload:
   - Reload de comandos y configuraciones completo!
