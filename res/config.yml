@@ -14,6 +14,7 @@ mail:
   onLogin: true
   onLoginDelay: 5
   clearOnDays: 15
+  maxMailsIn15Minutes: 10
 upin:
   maxPerUser: 10
 lib:
