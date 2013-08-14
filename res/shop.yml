@@ -19,12 +19,12 @@ item:
     - BloqueHierba
   Dirt:
     id: 3
-    price: 1.0
+    price: 0.6
     alias:
     - Tierra
   Cobblestone:
     id: 4
-    price: 0.6
+    price: 0.8
     alias:
     - Roca
   OakPlank:
@@ -37,7 +37,6 @@ item:
     - Plank
     - TablaRoble
     - Tabla
-    userSell: false
   SprucePlank:
     id: 5
     price: 0
@@ -64,7 +63,7 @@ item:
     - TablaSelva
   OakSapling:
     id: 6
-    price: 1.0
+    price: 0.4
     data: 0
     alias:
     - Sapling
@@ -95,10 +94,9 @@ item:
     - BroteSelva
   Sand:
     id: 12
-    price: 1.0
+    price: 0.7
     alias:
     - Arena
-    userSell: false
   Gravel:
     id: 13
     price: 0
@@ -106,7 +104,6 @@ item:
       Sand: 1
     alias:
     - Grava
-    userSell: false
   GoldOre:
     id: 14
     price: 0
@@ -121,7 +118,7 @@ item:
     id: 16
     price: 0
     depend:
-      Coal: 3
+      Coal: 1
   OakWood:
     id: 17
     price: 0
@@ -190,8 +187,6 @@ item:
     price: 50
     alias:
     - Esponja
-    userSell: false
-    userBuy: false
   Glass:
     id: 20
     price: 0
@@ -204,7 +199,7 @@ item:
     id: 21
     price: 0
     depend:
-      LapisLazuli: 8
+      LapisLazuli: 6
   LapisBlock:
     id: 22
     price: 0
@@ -229,7 +224,6 @@ item:
     data: 0
     alias:
     - Arenisca
-    userSell: false
   SandstoneChiseled:
     id: 24
     price: 0
@@ -238,7 +232,6 @@ item:
     data: 1
     alias:
     - AreniscaCincelada
-    userSell: false
   SandstoneSmooth:
     id: 24
     price: 0
@@ -247,7 +240,6 @@ item:
     data: 2
     alias:
     - AreniscaSuave
-    userSell: false
   NoteBlock:
     id: 25
     price: 0
@@ -284,12 +276,14 @@ item:
     - PistonPegajoso
   Cobweb:
     id: 30
-    price: 20.0
+    price: 0
+    depend:
+      String: 4
     alias:
     - Telaraña
   Shrub:
     id: 31
-    price: 0.15
+    price: 0.2
     data: 0
   TallGrass:
     id: 31
@@ -450,7 +444,7 @@ item:
     - LanaNegra
   YellowFlower:
     id: 37
-    price: 0.28
+    price: 0.3
     alias:
     - Flower
     - Flor
@@ -479,19 +473,18 @@ item:
     - SetaRoja
   BlockGold:
     id: 41
-    price: 20
+    price: 0
     depend:
       Gold: 9
     alias:
     - BloqueOro
   BlockIron:
     id: 42
-    price: 20
+    price: 0
     depend:
       Iron: 9
     alias:
     - BloqueHierro
-    userSell: false
   StoneSlab:
     id: 44
     price: 0
@@ -504,7 +497,6 @@ item:
     price: 0
     depend:
       Sandstone: 3
-    userSell: false
     data: 1
     recipieMultiplie: 6
   CobblestoneSlab:
@@ -558,7 +550,6 @@ item:
       Gunpowder: 5
     alias:
     - Bomba
-    userBuy: false
   Bookshelf:
     id: 47
     price: 0
@@ -570,12 +561,14 @@ item:
     - Librero
   MossStone:
     id: 48
-    price: 22
+    price: 0
+    depend:
+      Cobblestone: 4
     alias:
     - PiedraMusgosa
   Obsidian:
     id: 49
-    price: 18
+    price: 15
     alias:
     - Obsidiana
   Torch:
@@ -589,18 +582,15 @@ item:
     - Antorcha
   MobSpawner:
     id: 52
-    price: 5000
+    price: 15000
     alias:
     - Spawner
-    userBuy: false
-    userSell: false
   OakWoodStairs:
     id: 53
     price: 0
     depend:
       OakPlank: 6
     recipieMultiplie: 4
-    userSell: false
   Chest:
     id: 54
     price: 0
@@ -608,12 +598,11 @@ item:
       OakPlank: 8
     alias:
     - Cofre
-    userSell: false
   DiamondOre:
     id: 56
     price: 0
     depend:
-      Diamond: 3
+      Diamond: 2
   BlockDiamond:
     id: 57
     price: 0
@@ -626,7 +615,6 @@ item:
     price: 0
     depend:
       OakPlank: 4
-    userSell: false
   Furnace:
     id: 61
     price: 0
@@ -642,7 +630,6 @@ item:
     recipieMultiplie: 3
     alias:
     - Escalera
-    userSell: false
   Rail:
     id: 66
     price: 0
@@ -652,7 +639,6 @@ item:
     recipieMultiplie: 16
     alias:
     - Riel
-    userSell: false
   CobblestoneStairs:
     id: 67
     price: 0
@@ -675,12 +661,11 @@ item:
     price: 0
     depend:
       OakPlank: 2
-    userSell: false
   RedstoneOre:
     id: 73
     price: 0
     depend:
-      Redstone: 4
+      Redstone: 5
   RedstoneTorch:
     id: 76
     price: 0
@@ -715,7 +700,7 @@ item:
     - BloqueNieve
   Cactus:
     id: 81
-    price: 0.1
+    price: 0.15
   ClayBlock:
     id: 82
     price: 0
@@ -739,7 +724,6 @@ item:
       Stick: 3
     alias:
     - Valla
-    userSell: false
   Pumpkin:
     id: 86
     price: 0
@@ -749,14 +733,15 @@ item:
     - Calabaza
   Netherrack:
     id: 87
-    price: 0.1
+    price: 0.15
     alias:
     - PiedraNether
     - PiedraAbisal
   SoulSand:
     id: 88
-    price: 0
+    price: 0.25
     depend:
+      Sand: 1
     alias:
     - ArenaAlmas
   GlowstoneBlock:
@@ -777,37 +762,30 @@ item:
     price: 0
     depend:
       OakPlank: 3
-    userSell: false
   StoneMonsterEgg:
     id: 97
-    price: 3
+    price: 0
     depend:
-      Stone: 1
-    userSell: false
-    userBuy: false
+      Stone: 5
     data: 0
     alias:
     - HuevoPiedra
   CobblestoneMonsterEgg:
     id: 97
-    price: 3
+    price: 0
     depend:
       StoneMonsterEgg: 1
     data: 1
     alias:
     - HuevoPiedra
-    userSell: false
-    userBuy: false
   StoneBrickMonsterEgg:
     id: 97
-    price: 3
+    price: 0
     depend:
       StoneMonsterEgg: 1
     data: 2
     alias:
     - HuevoPiedra
-    userSell: false
-    userBuy: false
   StoneBricks:
     id: 98
     price: 0
@@ -818,19 +796,27 @@ item:
     - PiedraLadrillo
   MossyStoneBricks:
     id: 98
-    price: 160
+    price: 0
+    depend:
+      StoneBricks: 1
     data: 1
   CrackedStoneBricks:
     id: 98
-    price: 160
+    price: 0
+    depend:
+      StoneBricks: 1
     data: 2
   ChilseledStoneBricks:
     id: 98
-    price: 200
+    price: 0
+    depend:
+      StoneBricks: 1
     data: 3
   HugeBrownMushroom:
     id: 99
-    price: 10
+    price: 0
+    depend:
+      BrownMushroom: 1
   HugeBrownMushroom1:
     id: 99
     price: 0
@@ -923,7 +909,7 @@ item:
     data: 15
   HugeRedMushroom:
     id: 100
-    price: 10
+    price: 0
     depend:
       RedMushroom: 1
   HugeRedMushroom1:
@@ -1025,7 +1011,6 @@ item:
     alias:
     - RejaHierro
     - Barrotes
-    userSell: false
   Glasspane:
     id: 102
     price: 0
@@ -1034,7 +1019,6 @@ item:
     recipieMultiplie: 16
     alias:
     - PanelVidrio
-    userSell: false
   Melon:
     id: 103
     price: 0
@@ -1054,7 +1038,6 @@ item:
     depend:
       OakPlank: 1
       Coal: 0.125
-    userSell: false
   BrickStairs:
     id: 108
     price: 0
@@ -1072,13 +1055,11 @@ item:
     price: 80
     alias:
     - Micelio
-    userSell: false
   LilyPad:
     id: 111
     price: 40
     alias:
     - Nenufar
-    userSell: false
   NetherBrick:
     id: 112
     price: 0
@@ -1104,7 +1085,7 @@ item:
     recipieMultiplie: 4
   EnchantmentTable:
     id: 116
-    price: 100
+    price: 0
     depend:
       Book: 1
       Diamond: 2
@@ -1118,8 +1099,6 @@ item:
       EnderPearl: 2
     alias:
     - PortalDelFin
-    userSell: false
-    userBuy: false
   EndStone:
     id: 121
     price: 1
@@ -1130,7 +1109,6 @@ item:
     price: 50000
     alias:
     - HuevoDragon
-    userSell: false
   RedstoneLamp:
     id: 123
     price: 0
@@ -1144,7 +1122,6 @@ item:
     price: 0
     depend:
       OakPlank: 1
-    userSell: false
     recipieMultiplie: 2
     data: 0
   SpruceWoodSlab:
@@ -1170,7 +1147,6 @@ item:
     price: 0
     depend:
       Sandstone: 6
-    userSell: false
     recipieMultiplie: 4
   EmeraldOre:
     id: 128
@@ -1195,13 +1171,11 @@ item:
     - Tripwire
     - Gancho
     - Trampa
-    userSell: false
   BlockEmerald:
     id: 133
     price: 0
     depend:
       Emerald: 9
-    userSell: false
     alias:
     - BloqueEsmeralda
   SpruceWoodStairs:
@@ -1226,7 +1200,6 @@ item:
       Glass: 5
       NetherStar: 1
       Obsidian: 3
-    userSell: false
     alias:
     - Faro
   CobblestoneWall:
@@ -1247,7 +1220,6 @@ item:
     price: 0
     depend:
       OakPlank: 1
-    userSell: false
   Anvil:
     id: 145
     price: 0
@@ -1255,14 +1227,12 @@ item:
       Iron: 31
     alias:
     - Yunque
-    userSell: false
   TrappedChest:
     id: 146
     price: 0
     depend:
       Chest: 1
       TripwireHook: 1
-    userSell: false
   GoldenPressurePlate:
     id: 147
     price: 0
@@ -1273,7 +1243,6 @@ item:
     price: 0
     depend:
       Iron: 2
-    userSell: false
   DayLightSensor:
     id: 151
     price: 0
@@ -1297,7 +1266,6 @@ item:
     depend:
       Chest: 1
       Iron: 5
-    userSell: false
   BlockQuartz:
     id: 155
     price: 0
@@ -1329,7 +1297,6 @@ item:
       Coal: 0.125
       RedstoneTorch: 1
     recipieMultiplie: 6
-    userSell: false
   Dropper:
     id: 158
     price: 0
@@ -1586,15 +1553,16 @@ item:
     alias:
     - PedernalHierro
     - YesqueroHierro
-    userSell: false
   Apple:
     id: 260
-    price: 5
+    price: 0
+    depend:
+      Potato: 2
     alias:
     - Manzana
   Arrow:
     id: 262
-    price: 1
+    price: 0
     depend:
       Flint: 1
       Feather: 1
@@ -1613,7 +1581,6 @@ item:
     depend:
       OakWood: 1
       Coal: 0.125
-    userSell: false
     data: 1
   Diamond:
     id: 264
@@ -1625,7 +1592,6 @@ item:
     price: 20
     alias:
     - Hierro
-    userSell: false
   Gold:
     id: 266
     price: 0
@@ -1635,8 +1601,7 @@ item:
     - Oro
   Stick:
     id: 280
-    price: 1.0
-    userSell: false
+    price: 0.5
     alias:
     - Palo
   Bowl:
@@ -1644,7 +1609,6 @@ item:
     price: 0
     depend:
       OakPlank: 3
-    userSell: false
     recipieMultiplie: 4
   MushroomStew:
     id: 282
@@ -1658,33 +1622,31 @@ item:
     - Sopa
   String:
     id: 287
-    price: 1.0
+    price: 0.5
     alias:
     - Hilo
   Feather:
     id: 288
-    price: 1.0
+    price: 1.2
     alias:
     - Pluma
   Gunpowder:
     id: 289
-    price: 50.0
+    price: 5.0
     alias:
     - Polvora
-    userSell: false
   Seeds:
     id: 295
-    price: 0.1
+    price: 0.3
     alias:
     - Semillas
   Wheat:
     id: 296
-    price: 0.5
+    price: 0
     depend:
       Seeds: 1
     alias:
     - Trigo
-    userSell: false
   Bread:
     id: 297
     price: 0
@@ -1694,8 +1656,9 @@ item:
     - Pan
   Flint:
     id: 318
-    price: 0.25
+    price: 0.1
     depend:
+      Gravel: 1
     alias:
     - Pedernal
     - Yesquero
@@ -1749,7 +1712,6 @@ item:
     recipieMultiplie: 3
     alias:
     - Letrero
-    userSell: false
   WoodenDoor:
     id: 324
     price: 0
@@ -1757,7 +1719,6 @@ item:
       OakPlank: 6
     alias:
     - PuertaMadera
-    userSell: false
   Bucket:
     id: 325
     price: 0
@@ -1765,7 +1726,6 @@ item:
       Iron: 3
     alias:
     - Cubeta
-    userSell: false
   WaterBucket:
     id: 326
     price: 0
@@ -1774,7 +1734,6 @@ item:
     alias:
     - Water
     - Agua
-    userSell: false
   LavaBucket:
     id: 327
     price: 0.1
@@ -1782,7 +1741,6 @@ item:
       Bucket: 1
     alias:
     - Lava
-    userSell: false
   Minecart:
     id: 328
     price: 0
@@ -1790,10 +1748,11 @@ item:
       Iron: 6
     alias:
     - Carrito
-    userSell: false
   Saddle:
     id: 329
-    price: 200
+    price: 0
+    depend:
+      Leather: 8
     alias:
     - Asiento
   IronDoor:
@@ -1803,7 +1762,6 @@ item:
       Iron: 6
     alias:
     - PuertaMetal
-    userSell: false
   Redstone:
     id: 331
     price: 2
@@ -1819,7 +1777,6 @@ item:
       OakPlank: 5
     alias:
     - Bote
-    userSell: false
   Leather:
     id: 334
     price: 4
@@ -1832,7 +1789,6 @@ item:
       Bucket: 1
     alias:
     - Leche
-    userSell: false
   Brick:
     id: 336
     price: 0
@@ -1848,7 +1804,7 @@ item:
     - Arcilla
   SugarCanes:
     id: 338
-    price: 0.1
+    price: 0.2
     alias:
     - Caña
   Paper:
@@ -1871,24 +1827,21 @@ item:
     price: 16
     alias:
     - BolaSlime
-    userSell: false
   MinecartWithChest:
     id: 342
     price: 0
     depend:
       Minecart: 1
       Chest: 1
-    userSell: false
   MinecartWithFurnace:
     id: 343
     price: 0
     depend:
       Minecart: 1
       Furnace: 1
-    userSell: false
   Egg:
     id: 344
-    price: 1
+    price: 1.2
     alias:
     - Huevo
   Compass:
@@ -1899,7 +1852,6 @@ item:
       Redstone: 1
     alias:
     - Compas
-    userSell: false
   FishingRod:
     id: 346
     price: 0
@@ -1918,19 +1870,22 @@ item:
     - Reloj
   GlowstoneDust:
     id: 348
-    price: 10
+    price: 7.5
     alias:
     - PolvoPiedraBrillante
   RawFish:
     id: 349
-    price: 1
+    price: 0
+    depend:
+      Potato: 2
     alias:
     - PescadoCrudo
   CookedFish:
     id: 350
-    price: 0.5
+    price: 0
     depend:
       RawFish: 1
+      Coal: 0.125
     alias:
     - PescadoCocido
   Bone:
@@ -1964,7 +1919,6 @@ item:
       OakPlank: 3
     alias:
     - Cama
-    userSell: false
   RedstoneRepeater:
     id: 356
     price: 0
@@ -1990,7 +1944,6 @@ item:
       Iron: 2
     alias:
     - Tijeras
-    userSell: false
   MelonSlice:
     id: 360
     price: 0
@@ -2046,15 +1999,14 @@ item:
     - PolloRostizado
   RottenFlesh:
     id: 367
-    price: 0.4
+    price: 0.3
     alias:
     - CarnePodrida
   EnderPearl:
     id: 368
-    price: 2
+    price: 0.8
     alias:
     - PerlaEnder
-    userSell: false
   BlazeRod:
     id: 369
     price: 0
@@ -2064,7 +2016,7 @@ item:
     - VaraLlameante
   GhastTear:
     id: 370
-    price: 75
+    price: 125
     alias:
     - Tear
     - Lagrima
@@ -2076,7 +2028,7 @@ item:
     - Pepita
   NetherWart:
     id: 372
-    price: 1
+    price: 0.85
     alias:
     - Verruga
   GlassBottle:
@@ -2088,12 +2040,12 @@ item:
     - Botella
   SpiderEye:
     id: 375
-    price: 1
+    price: 0.6
     alias:
     - OjoAraña
   FermentedSpiderEye:
     id: 376
-    price: 0.25
+    price: 0
     depend:
       Sugar: 1
       SpiderEye: 1
@@ -2102,7 +2054,7 @@ item:
     - OjoArañaFermentado
   BlazePowder:
     id: 377
-    price: 0.75
+    price: 1.25
     alias:
     - Fuego
   MagmaCream:
@@ -2130,7 +2082,6 @@ item:
       Iron: 7
     alias:
     - Caldero
-    userSell: false
   EyeEnder:
     id: 381
     price: 0
@@ -2149,10 +2100,9 @@ item:
     - SandiaReluciente
   BottleOEnchanting:
     id: 384
-    price: 50
+    price: 35
     alias:
     - ThrownExpBottle
-    userSell: false
   FireCharge:
     id: 385
     price: 0
@@ -2172,11 +2122,11 @@ item:
     - LibroPluma
   Emerald:
     id: 388
-    price: 225
-    userSell: false
+    price: 0
+    depend:
+      Diamond: 1
     alias:
     - Esmeralda
-    userSell: false
   ItemFrame:
     id: 389
     price: 0
@@ -2239,18 +2189,18 @@ item:
     - ZanahoriaOro
   SkeletonHead:
     id: 397
-    price: 7500
+    price: 3000
     data: 0
     alias:
     - CabezaEsqueleto
-    userSell: false
   WitherHead:
     id: 397
-    price: 7500
+    price: 0
+    depend:
+      SkeletonHead: 1
     data: 1
     alias:
     - CabezaWither
-    userSell: false
   ZombieHead:
     id: 397
     price: 0
@@ -2259,14 +2209,14 @@ item:
     data: 2
     alias:
     - CabezaZombie
-    userSell: false
   HumanHead:
     id: 397
-    price: 5000
+    price: 0
+    depend:
+      SkeletonHead: 1
     data: 3
     alias:
     - CabezaHumano
-    userSell: false
   CreeperHead:
     id: 397
     price: 0
@@ -2275,7 +2225,6 @@ item:
     data: 4
     alias:
     - CabezaCreeper
-    userSell: false
   CarrotOnAStick:
     id: 398
     price: 0
@@ -2303,8 +2252,10 @@ item:
     - Pie
   EnchantedBook:
     id: 403
-    price: 1250
-    userSell: false
+    price: 0
+    depend:
+      Book: 1
+      BottleOEnchanting: 100
     alias:
     - LibroEncantado
   RedstoneComparator:
@@ -2331,15 +2282,12 @@ item:
     depend:
       TNT: 1
       Minecart: 1
-    userBuy: false
-    userSell: false
   MinecartWithHopper:
     id: 408
     price: 0
     depend:
       Hopper: 1
       Minecart: 1
-    userSell: false
   Lead:
     id: 420
     price: 0
@@ -2350,7 +2298,6 @@ item:
   NameTag:
     id: 421
     price: 1250
-    userSell: false
   InkSac:
     id: 351
     price: 6.5
@@ -2358,7 +2305,6 @@ item:
     alias:
     - Tinta
     - Negro
-    userSell: false
   RoseRed:
     id: 351
     price: 0
@@ -2389,7 +2335,6 @@ item:
     - Brown
     - Cafe
     - Chocolate
-    userSell: false
   LapisLazuli:
     id: 351
     price: 0
@@ -2400,7 +2345,6 @@ item:
     - Lapis
     - Blue
     - Azul
-    userSell: false
   PurpleDye:
     id: 351
     price: 0
@@ -2517,15 +2461,12 @@ item:
     - White
     - Blanco
     - PolvoHueso
-    userSell: false
   CreeperEgg:
     id: 383
     price: 150
     data: 50
     alias:
     - HuevoCreeper
-    userSell: false
-    userBuy: false
   SkeletonEgg:
     id: 383
     price: 0
@@ -2534,8 +2475,6 @@ item:
     data: 51
     alias:
     - HuevoEsqueleto
-    userSell: false
-    userBuy: false
   SpiderEgg:
     id: 383
     price: 0
@@ -2544,8 +2483,6 @@ item:
     data: 52
     alias:
     - HuevoAraña
-    userSell: false
-    userBuy: false
   ZombieEgg:
     id: 383
     price: 0
@@ -2554,8 +2491,6 @@ item:
     data: 54
     alias:
     - HuevoZombie
-    userSell: false
-    userBuy: false
   SlimeEgg:
     id: 383
     price: 0
@@ -2564,8 +2499,6 @@ item:
     data: 55
     alias:
     - HuevoSlime
-    userSell: false
-    userBuy: false
   GhastEgg:
     id: 383
     price: 0
@@ -2574,8 +2507,6 @@ item:
     data: 56
     alias:
     - HuevoGhast
-    userSell: false
-    userBuy: false
   ZombiePigmanEgg:
     id: 383
     price: 0
@@ -2584,8 +2515,6 @@ item:
     data: 57
     alias:
     - HuevoZombieCerdo
-    userSell: false
-    userBuy: false
   EndermanEgg:
     id: 383
     price: 0
@@ -2594,8 +2523,6 @@ item:
     data: 58
     alias:
     - HuevoEnderman
-    userSell: false
-    userBuy: false
   CaveSpiderEgg:
     id: 383
     price: 0
@@ -2604,8 +2531,6 @@ item:
     data: 59
     alias:
     - HuevoArañaDeCueva
-    userSell: false
-    userBuy: false
   SilverfishEgg:
     id: 383
     price: 0
@@ -2614,8 +2539,6 @@ item:
     data: 60
     alias:
     - HuevoLepisma
-    userSell: false
-    userBuy: false
   BlazeEgg:
     id: 383
     price: 0
@@ -2624,8 +2547,6 @@ item:
     data: 61
     alias:
     - HuevoLlama
-    userSell: false
-    userBuy: false
   MagmaCubeEgg:
     id: 383
     price: 0
@@ -2634,8 +2555,6 @@ item:
     data: 62
     alias:
     - HuevoMagma
-    userSell: false
-    userBuy: false
   WitchEgg:
     id: 383
     price: 0
@@ -2644,8 +2563,6 @@ item:
     data: 66
     alias:
     - HuevoBruja
-    userSell: false
-    userBuy: false
   BatEgg:
     id: 383
     price: 0
@@ -2654,44 +2571,38 @@ item:
     data: 65
     alias:
     - HuevoMurcielago
-    userSell: false
-    userBuy: false
   PigEgg:
     id: 383
-    price: 5000
+    price: 0
     depend:
       CreeperEgg: 1
     data: 90
     alias:
     - HuevoCerdo
-    userSell: false
   SheepEgg:
     id: 383
-    price: 5000
+    price: 0
     depend:
       CreeperEgg: 1
     data: 91
     alias:
     - HuevoOveja
-    userSell: false
   CowEgg:
     id: 383
-    price: 5000
+    price: 0
     depend:
       CreeperEgg: 1
     data: 92
     alias:
     - HuevoVaca
-    userSell: false
   ChickenEgg:
     id: 383
-    price: 5000
+    price: 0
     depend:
       CreeperEgg: 1
     data: 93
     alias:
     - HuevoGallina
-    userSell: false
   SquidEgg:
     id: 383
     price: 0
@@ -2700,44 +2611,38 @@ item:
     data: 94
     alias:
     - HuevoCalamar
-    userSell: false
-    userBuy: false
   WolfEgg:
     id: 383
-    price: 8000
+    price: 0
     depend:
       CreeperEgg: 1
     data: 95
     alias:
     - HuevoLobo
-    userSell: false
   MooshroomEgg:
     id: 383
-    price: 7000
+    price: 0
     depend:
       CreeperEgg: 1
     data: 96
     alias:
     - HuevoVacaSeta
-    userSell: false
   OcelotEgg:
     id: 383
-    price: 9000
+    price: 0
     depend:
       CreeperEgg: 1
     data: 98
     alias:
     - HuevoOcelote
-    userSell: false
   HorseEgg:
     id: 383
-    price: 5500
+    price: 0
     depend:
       CreeperEgg: 1
     data: 100
     alias:
     - HuevoCaballo
-    userSell: false
   VillagerEgg:
     id: 383
     price: 0
@@ -2746,90 +2651,64 @@ item:
     data: 120
     alias:
     - HuevoAldeano
-    userSell: false
-    userBuy: false
   13Disc:
     id: 2256
-    price: 100
-    userSell: false
-    userBuy: false
+    price: 500
   CatDisc:
     id: 2257
     price: 0
     depend:
       13Disc: 1
-    userSell: false
-    userBuy: false
   BlocksDisc:
     id: 2258
     price: 0
     depend:
       13Disc: 1
-    userSell: false
-    userBuy: false
   ChirpDisc:
     id: 2259
     price: 0
     depend:
       13Disc: 1
-    userSell: false
-    userBuy: false
   FarDisc:
     id: 2260
     price: 0
     depend:
       13Disc: 1
-    userSell: false
-    userBuy: false
   MallDisc:
     id: 2261
     price: 0
     depend:
       13Disc: 1
-    userSell: false
-    userBuy: false
   MellohiDisc:
     id: 2262
     price: 0
     depend:
       13Disc: 1
-    userSell: false
-    userBuy: false
   StalDisc:
     id: 2263
     price: 0
     depend:
       13Disc: 1
-    userSell: false
-    userBuy: false
   StradDisc:
     id: 2264
     price: 0
     depend:
       13Disc: 1
-    userSell: false
-    userBuy: false
   WardDisc:
     id: 2265
     price: 0
     depend:
       13Disc: 1
-    userSell: false
-    userBuy: false
   11Disc:
     id: 2266
     price: 0
     depend:
       13Disc: 1
-    userSell: false
-    userBuy: false
   WaitDisc:
     id: 2267
     price: 0
     depend:
       13Disc: 1
-    userSell: false
-    userBuy: false
   AwkwardPotion:
     id: 373
     price: 0
@@ -3086,7 +2965,6 @@ item:
       Iron: 1
     alias:
     - PalaDeHierro
-    userSell: false
   IronPickaxe:
     id: 257
     price: 0
@@ -3095,7 +2973,6 @@ item:
       Iron: 3
     alias:
     - PicoDeHierro
-    userSell: false
   IronAxe:
     id: 258
     price: 0
@@ -3104,7 +2981,6 @@ item:
       Iron: 3
     alias:
     - HachaDeHierro
-    userSell: false
   Bow:
     id: 261
     price: 0
@@ -3121,7 +2997,6 @@ item:
       Iron: 2
     alias:
     - EspadaDeHierro
-    userSell: false
   WoodenSword:
     id: 268
     price: 0
@@ -3130,7 +3005,6 @@ item:
       OakPlank: 2
     alias:
     - EspadaDeMadera
-    userSell: false
   WoodenShovel:
     id: 269
     price: 0
@@ -3139,7 +3013,6 @@ item:
       OakPlank: 2
     alias:
     - PalaDeMadera
-    userSell: false
   WoodenPickaxe:
     id: 270
     price: 0
@@ -3148,7 +3021,6 @@ item:
       OakPlank: 3
     alias:
     - PicodeMadera
-    userSell: false
   WoodenAxe:
     id: 271
     price: 0
@@ -3157,7 +3029,6 @@ item:
       OakPlank: 3
     alias:
     - HachaDeMadera
-    userSell: false
   StoneSword:
     id: 272
     price: 0
@@ -3166,7 +3037,6 @@ item:
       Stone: 2
     alias:
     - EspadaDePiedra
-    userSell: false
   StoneShovel:
     id: 273
     price: 0
@@ -3175,7 +3045,6 @@ item:
       Stone: 1
     alias:
     - PalaDePiedra
-    userSell: false
   StonePickaxe:
     id: 274
     price: 0
@@ -3184,7 +3053,6 @@ item:
       Stone: 3
     alias:
     - PicoDePiedra
-    userSell: false
   StoneAxe:
     id: 275
     price: 0
@@ -3193,7 +3061,6 @@ item:
       Stone: 3
     alias:
     - HachaDePiedra
-    userSell: false
   DiamondSword:
     id: 276
     price: 0
@@ -3266,7 +3133,6 @@ item:
       OakPlank: 2
     alias:
     - AzadonDeMadera
-    userSell: false
   StoneHoe:
     id: 291
     price: 0
@@ -3275,7 +3141,6 @@ item:
       Stone: 2
     alias:
     - AzadonDePiedra
-    userSell: false
   IronHoe:
     id: 292
     price: 0
@@ -3284,7 +3149,6 @@ item:
       Iron: 2
     alias:
     - AzadonDeHierro
-    userSell: false
   DiamondHoe:
     id: 293
     price: 0
@@ -3336,7 +3200,6 @@ item:
       Iron: 5
     alias:
     - CascoDeHierro
-    userSell: false
   IronChestplate:
     id: 307
     price: 0
@@ -3344,7 +3207,6 @@ item:
       Iron: 8
     alias:
     - PetoDeHierro
-    userSell: false
   IronLeggins:
     id: 308
     price: 0
@@ -3352,7 +3214,6 @@ item:
       Iron: 7
     alias:
     - PantalonesDeHierro
-    userSell: false
   IronBoots:
     id: 309
     price: 0
@@ -3360,7 +3221,6 @@ item:
       Iron: 4
     alias:
     - BotasDeHierro
-    userSell: false
   DiamondHelmet:
     id: 310
     price: 0
@@ -3420,7 +3280,6 @@ item:
   ChainHelmet:
     id: 302
     price: 0
-    userSell: false
     depend:
       Emerald: 8
   ChainChestplate:
@@ -3429,50 +3288,53 @@ item:
     depend:
       ChainHelmet: 40
     recipieMultiplie: 25
-    userSell: false
   ChainLeggings:
     id: 304
     price: 0
     depend:
       ChainHelmet: 35
     recipieMultiplie: 25
-    userSell: false
   ChainBoots:
     id: 305
     price: 0
     depend:
       ChainHelmet: 20
     recipieMultiplie: 25
-    userSell: false
   IronHorseArmor:
     id: 417
-    price: 2500
-    userSell: false
+    price: 0
+    depend:
+      Iron: 6
+      WhiteWool: 1
   GoldenHorseArmor:
     id: 418
-    price: 3750
-    userSell: false
+    price: 0
+    depend:
+      Gold: 6
+      WhiteWool: 1
   DiamondHorseArmor:
     id: 419
-    price: 5000
-    userSell: false
+    price: 0
+    depend:
+      Diamond: 6
+      WhiteWool: 1
 shop:
-  name: Tienda
+  name: Shop
   next:
     EyeEnder:
-      name: Siguiente
+      name: Next
   previous:
     EnderPearl:
-      name: Previo
+      name: Prev
   return:
     Milk:
-      name: Menú
+      name: Menu
   sub:
     Bricks:
-      name: Bloques
+      name: Blocks
       sub:
         Stone:
-          name: Piedras
+          name: Stones
           list:
           - Stone
           - Cobblestone
@@ -3489,7 +3351,7 @@ shop:
           - EndStone
           - Bricks
         Dirt:
-          name: Tierra y Arenas
+          name: Dirts & Sands
           list:
           - Grass
           - Dirt
@@ -3498,7 +3360,7 @@ shop:
           - SoulSand
           - Mycelium
         OakWood:
-          name: Maderas
+          name: Woods
           list:
           - OakWood
           - OakPlank
@@ -3531,7 +3393,7 @@ shop:
           - BirchWoodSlab
           - JungleWoodSlab
         OakWoodStairs:
-          name: Escaleras
+          name: Stairs
           list:
           - OakWoodStairs
           - SpruceWoodStairs
@@ -3544,7 +3406,7 @@ shop:
           - SandstoneStairs
           - QuartzStairs
         Sponge:
-          name: Otros
+          name: Others
           list:
           - GoldOre
           - IronOre
@@ -3582,11 +3444,12 @@ shop:
           - HayBlock
           - HardenedClay
           - BlockCoal
+          - MobSpawner
     RedFlower:
-      name: Decoración
+      name: Decoration
       sub:
         Chest:
-          name: Utiles
+          name: Utils
           list:
           - Chest
           - TrappedChest
@@ -3616,7 +3479,7 @@ shop:
           - ZombieHead
           - CreeperHead
         YellowFlower:
-          name: Naturales
+          name: Nature
           list:
           - OakSapling
           - BirchSapling
@@ -3638,7 +3501,7 @@ shop:
           - Vines
           - LilyPad
         HugeRedMushroom14:
-          name: Hongos
+          name: Mushrooms
           list:
           - HugeRedMushroom
           - HugeRedMushroom1
@@ -3673,7 +3536,7 @@ shop:
           - HugeBrownMushroom14
           - HugeBrownMushroom15
         WhiteWool:
-          name: Lana
+          name: Wool
           list:
           - WhiteWool
           - OrangeWool
@@ -3692,7 +3555,7 @@ shop:
           - RedWool
           - BlackWool
         CyanWool:
-          name: Arcilla
+          name: Clay
           list:
           - WhiteStainedClay
           - OrangeStainedClay
@@ -3711,7 +3574,7 @@ shop:
           - RedStainedClay
           - BlackStainedClay
         LimeCarpet:
-          name: Tapetes
+          name: Carpets
           list:
           - WhiteCarpet
           - OrangeCarpet
@@ -3758,7 +3621,7 @@ shop:
       - IronDoor
       - Trapdoor
     Minecart:
-      name: Transporte
+      name: Transport
       list:
       - Rail
       - DetectorRail
@@ -3773,7 +3636,7 @@ shop:
       - Boat
       - CarrotOnAStick
     LavaBucket:
-      name: Otros
+      name: Misc
       list:
       - Bucket
       - LavaBucket
@@ -3822,7 +3685,7 @@ shop:
       - Brick
       - NetherBrickItem
     ChickenEgg:
-      name: Huevos
+      name: Eggs
       list:
       - CreeperEgg
       - SkeletonEgg
@@ -3849,13 +3712,13 @@ shop:
       - HorseEgg
       - VillagerEgg
     GoldenHorseArmor:
-      name: Armaduras de caballos
+      name: Horse Armor
       list:
       - IronHorseArmor
       - GoldenHorseArmor
       - DiamondHorseArmor
     13Disc:
-      name: Discos
+      name: Discs
       list:
       - 13Disc
       - CatDisc
@@ -3870,7 +3733,7 @@ shop:
       - 11Disc
       - WaitDisc
     Apple:
-      name: Comida
+      name: Food
       list:
       - Apple
       - MushroomStew
@@ -3897,7 +3760,7 @@ shop:
       - GoldenCarrot
       - PumpkinPie
     WoodenAxe:
-      name: Herramientas
+      name: Tools
       list:
       - WoodenShovel
       - WoodenPickaxe
@@ -3927,7 +3790,7 @@ shop:
       - Lead
       - NameTag
     IronSword:
-      name: Armas y Armaduras
+      name: Weapons & Armor
       list:
       - WoodenSword
       - StoneSword
@@ -3957,7 +3820,7 @@ shop:
       - ChainLeggings
       - ChainBoots
     PotionFireResistance:
-      name: Pociones
+      name: Potions
       list:
       - BrewingStand
       - Cauldron
@@ -3999,7 +3862,7 @@ shop:
       - PotionInvisibility
       - PotionInvisibilityExtended
     LimeDye:
-      name: Colores
+      name: Colors
       list:
       - InkSac
       - RoseRed
