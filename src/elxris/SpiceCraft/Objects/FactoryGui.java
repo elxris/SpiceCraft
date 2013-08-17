@@ -345,7 +345,14 @@ public class FactoryGui
                         }else{
                             addItemStock(item, -amount);
                         }
-                        f.addItemsToInventory(p, f.createItems(p.getName(), item, amount));
+                        double cost = 0;
+                        List<ItemStack> items = f.createItems(p.getName(), item, amount);
+                        for(ItemStack i: items){
+                            cost += ((double)i.getAmount()/(double)i.getMaxStackSize())*f.TAXPERREMOVEDSTACK;
+                        }
+                        new Econ().cobrar(p, cost);
+                        new Econ().getLogg().logg("Shop", p, "tax for remove items", item, amount, cost);
+                        f.addItemsToInventory(p, items);
                     // Si es izquierdo, ponlo más caro.
                     }else if(click.isLeftClick()){
                         addItemVel(item, +1);

@@ -29,6 +29,7 @@ shop:
   freq: 1
   userVariation: 8
   userShopSize: 50
+  taxPerRemovedStack: 100
   variable: true
   defaultUserSell: true
   defaultUserBuy: true

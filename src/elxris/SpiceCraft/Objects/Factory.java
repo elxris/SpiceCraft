@@ -39,7 +39,7 @@ public class Factory implements Listener {
     private MemoryConfiguration paths;
     private int VEL, MIDDLE;
     private long FRECUENCY;
-    public double MULTIPLIER, SELLRATE, USERMULTIPLIER;
+    public double MULTIPLIER, SELLRATE, USERMULTIPLIER, TAXPERREMOVEDSTACK;
     private boolean VARIABLE, DEFAULTUSERSELL, DEFAULTUSERBUY;
     private String shopName;
     private int EUCLIDE[];
@@ -73,6 +73,7 @@ public class Factory implements Listener {
         VARIABLE = config.getBoolean("shop.variable");
         DEFAULTUSERSELL = config.getBoolean("shop.defaultUserSell");
         DEFAULTUSERBUY = config.getBoolean("shop.defaultUserBuy");
+        TAXPERREMOVEDSTACK = config.getDouble("shop.taxPerRemovedStack", 100d);
     }
     private void update(String item){
         long now = getSystemTimeHour();
