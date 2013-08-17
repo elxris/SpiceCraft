@@ -3554,7 +3554,7 @@ shop:
           - GreenWool
           - RedWool
           - BlackWool
-        CyanWool:
+        WhiteStainedClay:
           name: Clay
           list:
           - WhiteStainedClay
