@@ -396,6 +396,7 @@ public class Factory implements Listener {
     }
     public List<String> lookItems(String item, boolean all){ // Busca items.
         List<String> items = new ArrayList<String>();
+        List<String> response = new ArrayList<String>();
         String n = "";
         for(int i = 0; i < item.length(); i++){
             n += "[";
@@ -405,9 +406,6 @@ public class Factory implements Listener {
         }
         item = n;
         for(String s: getPaths().getKeys(false)){
-            if(items.size() == 18){
-                break;
-            }
             // Si encuentra un matche completo.
             if(s.matches("^"+item+"$")){
                 if(all){
@@ -421,7 +419,13 @@ public class Factory implements Listener {
                 items.add(s);
             }
         }
-        return items;
+        for(String s: items){
+            response.add(s);
+            if(response.size() == 18){
+                break;
+            }
+        }
+        return response;
     }
     public List<String> lookItems(String item){
         return lookItems(item, false);
