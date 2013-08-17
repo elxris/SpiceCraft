@@ -109,33 +109,29 @@ public class CommandListener implements Listener{
         lineas = lineas.subList(3, lineas.size());
         List<String> paginas = new ArrayList<String>();
         String pagina = new String();
-        int linea = 0, caracter = 0;
+        int caracter = 0;
         for(String i: lineas){
-            if(linea >= 14 || i.length() == 0){
-                paginas.add(pagina);
-                pagina = new String();
-                caracter = 0;
-                linea = 0;
-                if(i.length() == 0){
-                    continue;
-                }
-            }
-            String palabras[] = i.split("\\s");
+            String palabras[] = i.split("[ ]");
             for(int e = 0; e < palabras.length; e++){
-                if(caracter + palabras[e].length() > 230){
+                if(caracter + palabras[e].length() > 255){
                     paginas.add(pagina);
                     pagina = new String();
                     caracter = 0;
-                    linea = 0;
                 }
-                pagina += " "+palabras[e];
+                if(palabras[e].contentEquals("[\n]")){
+                    pagina += "{";
+                }else{
+                    if(caracter != 0){
+                        pagina += " ";
+                    }
+                    pagina += palabras[e];
+                }
                 caracter += palabras[e].length()+1;
             }
-            pagina += "\n";
-            caracter += 4;
-            linea++;
+            paginas.add(pagina);
+            pagina = new String();
+            caracter = 0;
         }
-        paginas.add(pagina);
         meta.setPages(paginas);
         book.setItemMeta(meta);
         return book;
