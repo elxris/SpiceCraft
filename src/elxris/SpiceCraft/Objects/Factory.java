@@ -88,7 +88,7 @@ public class Factory implements Listener {
             if(count < MIDDLE){
                 count += vel;
             }else{
-                count -= vel; 
+                count -= (VEL*2+1)-vel;
             }
         }
         setTime(item, time);
