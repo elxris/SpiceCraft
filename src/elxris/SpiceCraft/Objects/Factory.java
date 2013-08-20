@@ -82,9 +82,8 @@ public class Factory implements Listener {
             return;
         }
         double count = getCount(item);
-        int vel = getVel(item);
         for(;time < now; time += FRECUENCY){
-            vel = calculateEuclide(count);
+            int vel = calculateEuclide(count);
             if(count < MIDDLE){
                 count += vel;
             }else{
@@ -93,7 +92,6 @@ public class Factory implements Listener {
         }
         setTime(item, time);
         setCount(item, count);
-        setVel(item, vel);
     }
     private void setTime(String item, long time) {
         getCache().set("item."+item+".time", time);
@@ -132,14 +130,9 @@ public class Factory implements Listener {
             addCount(s, count*map.get(s));
         }
     }
-    private void setVel(String item, int vel){
-        getCache().set("item."+item+".vel", vel);
-        save();
-    }
     private int getVel(String item){
         if(VARIABLE){
-            isSet("item."+item+".vel", VEL);
-            return getCache().getInt("item."+item+".vel");
+            return calculateEuclide(getCount(item));
         }else{
             return VEL;
         }
@@ -437,7 +430,6 @@ public class Factory implements Listener {
         update(item);
         for(String s: map.keySet()){
             setCount(s, MIDDLE);
-            setVel(s, VEL);
         }
     }
     public void setPrice(String item, Double NewPrice){
