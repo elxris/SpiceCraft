@@ -26,7 +26,7 @@ shop:
   userMultiplier: 2.0
   sellRate: 1.0
   vel: 8
-  interventionMiliseconds: 1.0
+  interventionSeconds: 60
   difficultyLevel: 1
   userVariation: 8
   userShopSize: 50

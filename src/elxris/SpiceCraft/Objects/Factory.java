@@ -59,10 +59,11 @@ public class Factory implements Listener {
         if(VEL < 1){
             VEL = 1;
         }
-        FRECUENCY = config.getLong("shop.interventionMiliseconds", 1);
+        FRECUENCY = config.getLong("shop.interventionSeconds", 60);
         if(FRECUENCY < 0){
             FRECUENCY = 0;
         }
+        FRECUENCY *= 1000;
         MULTIPLIER = config.getDouble("shop.multiplier", 4d);
         if(MULTIPLIER < 0){
             MULTIPLIER = 1;
