@@ -26,7 +26,8 @@ shop:
   userMultiplier: 2.0
   sellRate: 1.0
   vel: 8
-  freq: 1
+  interventionMiliseconds: 1.0
+  difficultyLevel: 1
   userVariation: 8
   userShopSize: 50
   taxPerRemovedStack: 100

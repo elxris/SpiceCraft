@@ -37,7 +37,7 @@ public class Factory implements Listener {
     private static Archivo file, fileUser;
     private static FileConfiguration fc, fcUser, volatil;
     private MemoryConfiguration paths;
-    private int VEL, MIDDLE;
+    private int VEL, MIDDLE, DIFFICULTY;
     private long FRECUENCY;
     public double MULTIPLIER, SELLRATE, USERMULTIPLIER, TAXPERREMOVEDSTACK;
     private boolean VARIABLE, DEFAULTUSERSELL, DEFAULTUSERBUY;
@@ -48,34 +48,49 @@ public class Factory implements Listener {
         new FactoryGui(this);
         EUCLIDE = new int[(VEL*2)+1];
         for(int i = 1; i <= VEL*2; i++){
-            int eu = (int)Math.exp(VEL*2-i+1);
+            int eu = (int)Math.exp(VEL*2-i+DIFFICULTY);
             EUCLIDE[i] = eu;
         }
         MIDDLE = (getEuclide(VEL)+getEuclide(VEL+1))/2;
     }
     private void init() {
         FileConfiguration config = SpiceCraft.plugin().getConfig();
-        VEL = config.getInt("shop.vel", 8);
+        VEL = config.getInt("shop.velocity", 8);
         if(VEL < 1){
             VEL = 1;
         }
-        FRECUENCY = config.getLong("shop.freq", 1);
-        if(FRECUENCY < 1){
-            FRECUENCY = 1;
+        FRECUENCY = config.getLong("shop.interventionMiliseconds", 1);
+        if(FRECUENCY < 0){
+            FRECUENCY = 0;
         }
-        FRECUENCY *= 60*1000;
-        MULTIPLIER = config.getDouble("shop.multiplier", 1.0d);
+        MULTIPLIER = config.getDouble("shop.multiplier", 4d);
         if(MULTIPLIER < 0){
             MULTIPLIER = 1;
         }
-        USERMULTIPLIER = config.getDouble("shop.userMultiplier", 0.8d);
-        SELLRATE = config.getDouble("shop.sellRate", 0.6d);
-        VARIABLE = config.getBoolean("shop.variable");
-        DEFAULTUSERSELL = config.getBoolean("shop.defaultUserSell");
-        DEFAULTUSERBUY = config.getBoolean("shop.defaultUserBuy");
+        USERMULTIPLIER = config.getDouble("shop.userMultiplier", 2d);
+        if(USERMULTIPLIER < 0){
+            USERMULTIPLIER = 1;
+        }
+        SELLRATE = config.getDouble("shop.sellRate", 1d);
+        if(SELLRATE < 0){
+            SELLRATE = 1;
+        }
+        VARIABLE = config.getBoolean("shop.variable", true);
+        DEFAULTUSERSELL = config.getBoolean("shop.defaultUserSell", true);
+        DEFAULTUSERBUY = config.getBoolean("shop.defaultUserBuy", true);
         TAXPERREMOVEDSTACK = config.getDouble("shop.taxPerRemovedStack", 100d);
+        if(TAXPERREMOVEDSTACK < 0){
+            TAXPERREMOVEDSTACK = 0;
+        }
+        DIFFICULTY = config.getInt("shop.difficultyLevel", 1);
+        if(DIFFICULTY < 1){
+            DIFFICULTY = 1;
+        }
     }
     private void update(String item){
+        if(FRECUENCY == 0){
+            return;
+        }
         long now = getSystemTimeHour();
         long time = getTimeHour(item);
         if(time >= now){
