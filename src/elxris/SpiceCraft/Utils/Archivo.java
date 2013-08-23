@@ -72,7 +72,7 @@ public class Archivo extends Savable{
         }
         Scanner s = new Scanner(is, Charsets.UTF_8.displayName()).useDelimiter("\\A");
         if(!exist()){
-            blankFile(path);
+            blankFile(getName());
         }
         saveString(s.next());
         return true;

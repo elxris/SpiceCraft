@@ -18,18 +18,31 @@ public class CheckConfiguration {
         FileConfiguration defaults = Archivo.getDefaultConfig("config.yml");
         if(p().getConfig().getKeys(true).size() == 0){
             Archivo file = new Archivo("config.yml");
-            file.save(defaults);
+            file.loadResourse("config.yml");
             p().reloadConfig();
         }
         register(defaults);
-        Archivo lang = new Archivo("lang-"+p().getConfig().getString("lang")+".yml");
+        String langCode = p().getConfig().getString("lang");
+        Archivo lang = new Archivo("lang-"+langCode+".yml");
+        // Si no existe el archivo de idioma.
         if(!lang.exist()){
-            if(!lang.loadResourse("lang-"+p().getConfig().getString("lang")+".yml")){
-                lang = new Archivo("lang-"+defaults.getString("lang")+".yml");
-                lang.loadResourse("lang-"+defaults.getString("lang")+".yml");
+            // Si no existe el recurso en el Plugin
+            if(!lang.loadResourse("lang-"+langCode+".yml")){
+                lang = new Archivo("lang-"+langCode+".yml");
+                langCode = defaults.getString("lang");
+                lang.loadResourse("lang-"+langCode+".yml");
             }
         }
-        new Strings(lang.load());
+        // Carga la configuración del usuario
+        FileConfiguration langConfig = lang.load();
+        // Carga la configuracion por defecto.
+        Archivo langTmp = new Archivo("lang.yml.tmp");
+        langTmp.loadResourse("lang-"+langCode+".yml");
+        // Establece por defecto la configuración.
+        langConfig.setDefaults(langTmp.load());
+        // Borra la configuración por defecto temporal.
+        langTmp.getFile().delete();
+        new Strings(langConfig);
     }
     // Registra las configuraciones que no existan en el config.yml del cliente.
     private void register(FileConfiguration fc){

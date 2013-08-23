@@ -29,15 +29,15 @@ public class Chat {
         enviar(p, Strings.parseList(list), i);
     }
     public static void mensaje(Player p, String path, Object... i){
+        if(Strings.getStringList(path) == null){
+            enviar(p, path);
+            return;
+        }
         mensaje(p, Strings.getStringList(path), i);
     }
     public static void mensaje(String p, String m, Object... i){
         Player jugador = SpiceCraft.getOnlinePlayer(p);
         if(jugador == null){
-            return;
-        }
-        if(Strings.getStringList(m) == null){
-            enviar(jugador, m);
             return;
         }
         mensaje(jugador, m, i);
