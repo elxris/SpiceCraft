@@ -11,7 +11,6 @@ import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BookMeta;
-import elxris.SpiceCraft.SpiceCraft;
 import elxris.SpiceCraft.Utils.Archivo;
 import elxris.SpiceCraft.Utils.Chat;
 
@@ -62,14 +61,6 @@ public class CommandListener implements Listener{
         command = command.substring(1);
         if(s[0].contains("/root")){
             return false;
-        }
-        if(s[0].contains("/spicecraftreload")){
-            if(p.hasPermission("spicecraft.cmd.reload")){
-                SpiceCraft.reload();
-                reload();
-                Chat.mensaje((Player) p, "cmd.reload");
-                return true;
-            }
         }
         if(s.length > 0){
             if(isSet(command+".*")){
@@ -140,7 +131,7 @@ public class CommandListener implements Listener{
         setFile(new Archivo(name));
         setFc(getFile().load());
     }
-    private void reload(){
+    public void reload(){
         setFc(getFile().load());
     }
     //Getters y Setters

@@ -10,10 +10,10 @@ import org.bukkit.plugin.java.JavaPlugin;
 import elxris.SpiceCraft.Commands.CompassCommand;
 import elxris.SpiceCraft.Commands.LibCommand;
 import elxris.SpiceCraft.Commands.MailBoxCommand;
+import elxris.SpiceCraft.Commands.ReloadCommand;
 import elxris.SpiceCraft.Commands.ShopCommand;
 import elxris.SpiceCraft.Commands.WarpCommand;
 import elxris.SpiceCraft.Listener.CommandListener;
-import elxris.SpiceCraft.Listener.CompassListener;
 import elxris.SpiceCraft.Listener.MailListener;
 import elxris.SpiceCraft.Listener.MonsterListener;
 import elxris.SpiceCraft.Objects.Mail;
@@ -24,6 +24,9 @@ public class SpiceCraft extends JavaPlugin {
     
     public void onEnable(){
         plugin = this;
+        init();
+    }
+    public void init(){
         new CheckConfiguration();
         //Commando Tempowal Warp
         WarpCommand tw = new WarpCommand();
@@ -38,7 +41,7 @@ public class SpiceCraft extends JavaPlugin {
         //Listener Command
         this.getServer().getPluginManager().registerEvents(new CommandListener(), this);
         //Listiener Compass
-        this.getServer().getPluginManager().registerEvents(new CompassListener(), this);
+        //this.getServer().getPluginManager().registerEvents(new CompassListener(), this);
         //Comando Compass
         getCommand("upin").setExecutor(new CompassCommand());
         //Comando Librería
@@ -49,6 +52,8 @@ public class SpiceCraft extends JavaPlugin {
         getCommand("shop").setTabCompleter(shop);
         //Listener Mosnter
         this.getServer().getPluginManager().registerEvents(new MonsterListener(), this);
+        // Reload
+        getCommand("/spicecraft").setExecutor(new ReloadCommand());
     }
     public static void log(String m){
         plugin.getLogger().info(m);
@@ -88,9 +93,5 @@ public class SpiceCraft extends JavaPlugin {
     }
     public static String getVersion(){
         return plugin.getDescription().getVersion();
-    }
-    public static void reload(){
-        plugin.reloadConfig();
-        new CheckConfiguration();
     }
 }

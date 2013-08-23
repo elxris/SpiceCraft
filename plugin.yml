@@ -17,7 +17,11 @@ commands:
     permission: spicecraft.shop
   cmd:
     permission: spicecraft.cmd
+  /spicecraft:
+    permission: spicecraft.reload
 permissions:
+  spicecraft.reload:
+    default: op
   spicecraft.tw:
     default: true
   spicecraft.tw.noMaxTime:
