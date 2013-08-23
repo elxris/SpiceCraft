@@ -211,6 +211,8 @@ shop:
   - §b[§cSHOP§b]§r §aPlayer not found.
   userBuyUser:
   - §b[§cSHOP§b]§r §a%s has bought %s %s in your store.
+  outOfStock:
+  - §b[§cSHOP§b]§r §aThere is no more %s in your store.
   itemLore:
   - 'Buy: %s'
   - 'Sell: %s'

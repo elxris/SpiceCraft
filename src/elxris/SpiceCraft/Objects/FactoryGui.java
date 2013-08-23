@@ -171,6 +171,10 @@ public class FactoryGui
             }
             stock = getItemStock(item);
             if(stock <= 0){
+                if(isOwnShop()){
+                    Chat.mensaje(p, "shop.outOfStock", item);
+                    getUserConfig().set(getPath("items."+item), null);
+                }
                 continue;
             }
             i = f.createItem(getUserShopName(), item, 1);
@@ -388,9 +392,6 @@ public class FactoryGui
                                 p.getName(), amount, item);
                         addMoney(f.getPrecio(item, amount, getItemVel(item))/f.MULTIPLIER*f.USERMULTIPLIER);
                         addItemStock(item, -amount);
-                        if(getItemStock(item) <= 0){
-                            getUserConfig().set(getPath("items."+item), null);
-                        }
                     }
                     pay(user);
                     updateInventory(view.getTopInventory());

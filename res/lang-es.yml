@@ -211,6 +211,8 @@ shop:
   - §b[§cSHOP§b]§r §aNo se ha encontrado el usuario.
   userBuyUser:
   - §b[§cSHOP§b]§r §a%s ha comprado %s %s en tu tienda.
+  outOfStock:
+  - §b[§cSHOP§b]§r §aSe ha terminado el stock de %s en tu tienda.
   itemLore:
   - 'Compra: %s'
   - 'Venta: %s'
