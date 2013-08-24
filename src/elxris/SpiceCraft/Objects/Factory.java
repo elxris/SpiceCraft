@@ -169,9 +169,13 @@ public class Factory implements Listener {
         return getPrice(item, 0);
     }
     private double getRazonPrecio(String item, int acceleracion){
-        double vel = (double)getVel(item)+acceleracion;
+        double vel = getVel(item)+acceleracion;
         if(vel < 1){
-            vel = 1d;
+            if(acceleracion >= 0){
+                vel = 1d;
+            }else{
+                return (double)1/(VEL-(double)vel);
+            }
         }
         return vel/VEL;
     }
