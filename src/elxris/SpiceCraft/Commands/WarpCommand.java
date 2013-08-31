@@ -148,7 +148,7 @@ public class WarpCommand extends Comando implements Listener{
         return getCache().get(path);
     }
     private void teleport(Player jugador, String path){
-        double precio = (double)getValue("tw.usePrice");
+        double precio = getDouble("tw.usePrice");
         if(!getEcon().cobrar(jugador, precio)){
             mensaje(jugador, "tw.noMoney");
         }else{
@@ -171,7 +171,7 @@ public class WarpCommand extends Comando implements Listener{
         return jugador.getName();
     }
     private void chatInfo(Player jugador){
-        Chat.mensaje(jugador, "tw.info", getEcon().getPrecio((double)getValue("tw.price")));
+        Chat.mensaje(jugador, "tw.info", getEcon().getPrecio(getDouble("tw.price")));
     }
     private void crearWarp(Player jugador, int tiempo, String path){
         getCache().set("user."+jugador.getName(), getCache().getInt("user."+jugador.getName())+1);
@@ -201,9 +201,9 @@ public class WarpCommand extends Comando implements Listener{
         }
         int minutos = Integer.parseInt(tiempo);
         //Si está fuera de rango.
-        if(!(minutos >= (int)getValue("tw.minTime") && minutos <= (int)getValue("tw.maxTime"))){
+        if(!(minutos >= getInt("tw.minTime") && minutos <= getInt("tw.maxTime"))){
             if(!jugador.hasPermission("spicecraft.tw.noMaxTime")){
-                mensaje(jugador, "tw.timeLimit", (int)getValue("tw.minTime"), (int)getValue("tw.maxTime"));
+                mensaje(jugador, "tw.timeLimit", getInt("tw.minTime"), getInt("tw.maxTime"));
                 return;                
             }
         }
@@ -212,13 +212,13 @@ public class WarpCommand extends Comando implements Listener{
             getCache().set("user."+getPlayerName(jugador), 0);
         }
         // Si excede a los máximos por usuario.
-        if((int)getValue("tw.maxPerUser") <= getCache().getInt("user."+getPlayerName(jugador))){
+        if(getInt("tw.maxPerUser") <= getCache().getInt("user."+getPlayerName(jugador))){
             if(!jugador.hasPermission("spicecraft.tw.noWarpLimit")){
                 mensaje(jugador, "tw.warpLimit");
                 return;
             }
         }
-        double precio = (double)getValue("tw.price")*minutos;
+        double precio = getDouble("tw.price")*(double)minutos;
         if(!getEcon().cobrar(jugador, precio)){
             mensaje(jugador, "tw.noMoney");
             return;

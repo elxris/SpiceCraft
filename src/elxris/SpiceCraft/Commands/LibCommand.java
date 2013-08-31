@@ -35,7 +35,7 @@ public class LibCommand extends Comando{
         }
         // Muestra la ayuda.
         if(args.length == 0){
-            mensaje(jugador, "lib.info", Double.toString((double)getValue("lib.rate")*100)+"%");
+            mensaje(jugador, "lib.info", Double.toString(getDouble("lib.rate")*100d)+"%");
         }else
         // Listar, Top, paga.
         if(args.length == 1){
@@ -110,7 +110,7 @@ public class LibCommand extends Comando{
                     buyBook(jugador, Integer.parseInt(args[1]));
                     mensaje(jugador, "lib.buy");
                     mensaje(getPlayer(getCache().getString("libro."+args[1]+".autor")), "lib.sell",
-                            Double.toString((double)getValue("lib.rate")*100)+"%");
+                            Double.toString(getDouble("lib.rate")*100d)+"%");
                 }else{
                     mensaje(jugador, "lib.noMoney");
                 }
@@ -248,7 +248,7 @@ public class LibCommand extends Comando{
             result.add(i, libros[n]);
             n++;
         }
-        int index = (int)getValue("lib.topSize");
+        int index = getInt("lib.topSize");
         if(result.size() < index){
             index = result.size();
         }
@@ -256,7 +256,7 @@ public class LibCommand extends Comando{
     }
     private double getRetributions(int id){
         double diff = getCache().getInt("libro."+id+".count")-getCache().getInt("libro."+id+".payed");
-        double percent = (double)getValue("lib.rate");
+        double percent = getDouble("lib.rate");
         double price = getCache().getInt("libro."+id+".cost");
         return price*percent*diff;
     }

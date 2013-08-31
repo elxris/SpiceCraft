@@ -134,7 +134,7 @@ public class CompassCommand extends Comando{
         Chat.mensaje(jugador, "upin.list", list);
     }
     private boolean getValidUserPins(Player jugador){
-        int maxPerUser = (int)getValue("upin.maxPerUser");
+        int maxPerUser = getInt("upin.maxPerUser");
         if(maxPerUser == 0){
             return true;
         }
