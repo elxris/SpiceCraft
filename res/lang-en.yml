@@ -25,7 +25,7 @@ tw:
   exist:
   - §b[§cTW§b]§r Already exists.
   timeLimit:
-  - §b[§cTW§b]§r It should not be more than %d minutes or less than %d minute.
+  - §b[§cTW§b]§r It should not be less than %d minutes or more than %d minutes.
   warpLimit:
   - §b[§cTW§b]§r You can not make another warp, you have many.
   noOwner:
