@@ -471,6 +471,11 @@ public class Factory implements Listener {
         Econ econ = new Econ();
         for(String user: cache.getKeys(false)){
             if(cache.isSet(user+".items."+item)){
+                amount = cache.getInt(user+".items."+item+".amount");
+                // Revisa que tenga stock para aparecer en la lista.
+                if(amount <= 0){
+                    continue;
+                }
                 vel = cache.getInt(user+".items."+item+".vel");
                 precio = (getPrice(item, vel)/MULTIPLIER)*USERMULTIPLIER;
                 for(i = 0; i < list.size(); i++){
@@ -478,7 +483,6 @@ public class Factory implements Listener {
                         break;
                     }
                 }
-                amount = cache.getInt(user+".items."+item+".amount");
                 precios.add(i, precio);
                 list.add(i, String.format(format, user, econ.getPrecio(precio), amount));
             }
