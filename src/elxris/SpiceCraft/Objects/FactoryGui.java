@@ -172,8 +172,10 @@ public class FactoryGui
             stock = getItemStock(item);
             if(stock <= 0){
                 if(isOwnShop()){
-                    Chat.mensaje(p, "shop.outOfStock", item);
-                    getUserConfig().set(getPath("items."+item), null);
+                    if(getUserConfig().isSet(getPath("items."+item+".amount"))){
+                        Chat.mensaje(p, "shop.outOfStock", item);
+                        getUserConfig().set(getPath("items."+item+".amount"), null);
+                    }
                 }
                 continue;
             }
