@@ -34,8 +34,8 @@ import elxris.SpiceCraft.Utils.Strings;
 import elxris.SpiceCraft.Objects.FactoryGui;
 
 public class Factory implements Listener {
-    private static Archivo file, fileUser;
-    private static FileConfiguration fc, fcUser, volatil;
+    private static Archivo file, fileUser, fileData;
+    private static FileConfiguration fc, fcUser, volatil, fcData;
     private MemoryConfiguration paths;
     private int VEL, MIDDLE, DIFFICULTY;
     private long FRECUENCY;
@@ -110,12 +110,14 @@ public class Factory implements Listener {
         setCount(item, count);
     }
     private void setTime(String item, long time) {
-        getCache().set("item."+item+".time", time);
+        // DATA
+        getDataCache().set("item."+item+".time", time);
         save();
     }
     private long getTime(String item) {
+        // DATA
         isSet("item."+item+".time", getSystemTimeHour());
-        return getCache().getLong("item."+item+".time");
+        return getDataCache().getLong("item."+item+".time");
     }
     private long getTimeHour(String item) {
         long time = getTime(item);
@@ -129,13 +131,13 @@ public class Factory implements Listener {
         return time - (time % FRECUENCY);
     }
     private void setCount(String item, double count){
-        getCache().set("item."+item+".count", count);
+        getDataCache().set("item."+item+".count", count);
         getTime(item);
         save();
     }
     private double getCount(String item){
         isSet("item."+item+".count", MIDDLE);
-        return getCache().getDouble("item."+item+".count");
+        return getDataCache().getDouble("item."+item+".count");
     }
     private void addCount(String item, double count){
         setCount(item, getCount(item)+count);
@@ -310,8 +312,8 @@ public class Factory implements Listener {
         }
     }
     private void isSet(String path, Object value){
-        if(!getCache().isSet(path)){
-            getCache().set(path, value);
+        if(!getDataCache().isSet(path)){
+            getDataCache().set(path, value);
             save();
         }
     }
@@ -610,6 +612,15 @@ public class Factory implements Listener {
         }
         return fileUser;
     }
+    private static void setFileData(String path){
+        Factory.fileData = new Archivo(path);
+    }
+    private static Archivo getFileData(){
+        if(fileData == null){
+            setFileData("shopData.yml");
+        }
+        return fileData;
+    }
     public static FileConfiguration getUserCache(){
         if(fcUser == null){
             fcUser = getFileUser().load();
@@ -622,11 +633,19 @@ public class Factory implements Listener {
         }
         return volatil;
     }
+    public static FileConfiguration getDataCache(){
+        if(fcData == null){
+            fcData = getFileData().load();
+        }
+        return fcData;
+    }
     public void save(){
         getFile().save(getCache());
         getFileUser().save(getUserCache());
+        getFileData().save(getDataCache());
     }
     public void saveNow(){
+        getFileData().save(getDataCache());
         getFileUser().saveNow(getUserCache());
     }
     @EventHandler
