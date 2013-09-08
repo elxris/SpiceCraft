@@ -507,6 +507,7 @@ public class Factory implements Listener {
         openInventory(p, null);
     }
     public void openInventory(Player p, String userShop){
+        // userShop == null => Tienda del servidor
         if(userShop == null){
             if(!p.hasPermission("spicecraft.shop.server.open")){
                 Chat.mensaje(p, "alert.permission");
@@ -526,11 +527,10 @@ public class Factory implements Listener {
         FactoryGui gui = new FactoryGui(p);
         if(userShop != null){
             gui.setPath("userShop."+userShop+".");
-            if(!gui.isUserShop()){
-                getUserCache().set("userShop."+userShop+".money", 0.0d);
+            if(gui.isOwnShop()){
+                gui.pay(p);
             }
         }
-        gui.pay(p);
         gui.updateInventory(inv);
         p.openInventory(inv);
     }
