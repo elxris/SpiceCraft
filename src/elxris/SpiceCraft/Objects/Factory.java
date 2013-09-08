@@ -649,7 +649,7 @@ public class Factory implements Listener {
         getFileData().save(getDataCache());
     }
     public void saveNow(){
-        getFileData().save(getDataCache());
+        getFileData().saveNow(getDataCache());
         getFileUser().saveNow(getUserCache());
     }
     @EventHandler
@@ -697,6 +697,7 @@ public class Factory implements Listener {
     }
     @EventHandler
     private void onDisable(PluginDisableEvent event){
+        saveNow();
         if(event.getPlugin() != SpiceCraft.plugin()){
             return;
         }
@@ -711,6 +712,5 @@ public class Factory implements Listener {
             new FactoryGui(p).close();
             inv.close();
         }
-        saveNow();
     }
 }
