@@ -173,6 +173,7 @@ shop:
   - Los items se venden al %.2f%% del precio que tiene actualmente.
   - §bConsultar precios es importante ya que varían con el tiempo.
   - §e/shop @ <nombre> §rAbre la tienda de un usuario. O la tuya si solo pones @
+  - §e/shop ! <mensaje> §rSi quieres un mensaje personalizado para quien entre en tu tienda.
   - En tu tienda, puedes cambiar tus precios, click izq aumenta, click derecho diminuye, shift + click saca el objeto.
   - Comprar a una tienda particular es %.2f%% más barato, y vender obtienes %.2f%% mas de ganancias.
   - "Si estás buscando un objeto:"
@@ -213,6 +214,10 @@ shop:
   - §b[§cSHOP§b]§r §a%s ha comprado %s %s en tu tienda.
   outOfStock:
   - §b[§cSHOP§b]§r §aSe ha terminado el stock de %s en tu tienda.
+  setMessage:
+  - §b[§cSHOP§b]§r Mensaje establecido satisfactoriamente.
+  message:
+  - §b[§cSHOP§b]§r §a%s.- §r%s
   itemLore:
   - 'Compra: %s'
   - 'Venta: %s'

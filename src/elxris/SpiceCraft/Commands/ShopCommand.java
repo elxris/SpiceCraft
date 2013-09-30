@@ -33,6 +33,15 @@ public class ShopCommand extends Comando implements TabCompleter{
         }
         if(( args.length == 1 || args.length == 2 ) && isCommand("comm.shop.userPrefix", args[0])){
             return onSlashShop(p, command, label, args);
+        }else if(isCommand("comm.shop.messageSetter", args[0]) && args.length > 1){
+            String message = new String();
+            for(int i = 1; i < args.length; i++){
+                message += args[i];
+                message += " ";
+            }
+            Factory.getUserCache().set("userShop."+p.getName()+".message", message);
+            Chat.mensaje(p, "shop.setMessage");
+            return true;
         }else{
             return onShop(p, command, label, args);
         }
@@ -77,16 +86,19 @@ public class ShopCommand extends Comando implements TabCompleter{
         }else if(args.length == 2){
             arg = args[1];
         }
-        if(arg.length() == 0){
-        }
-        List<String> players = SpiceCraft.getOfflinePlayerNamesMatch(arg);
         String shopName;
+        List<String> players = SpiceCraft.getOfflinePlayerNamesMatch(arg);
         if(players.size() != 1){
             Chat.mensaje(p, "shop.userNotFound");
             return true;
         }else{
             shopName = players.get(0);
-            Chat.mensaje(p, "shop.openUserInfo", shopName);
+            // Si existe un mensaje establecido, se muestra en su lugar.
+            if(Factory.getUserCache().isSet("userShop."+shopName+".message")){
+                Chat.mensaje(p, "shop.message", shopName, Factory.getUserCache().getString("userShop."+shopName+".message"));
+            }else{
+                Chat.mensaje(p, "shop.openUserInfo", shopName);
+            }
         }
         f.openInventory(p, shopName);
         return true;

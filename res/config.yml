@@ -144,3 +144,5 @@ comm:
     - reset
     userPrefix:
     - '@'
+    messageSetter:
+    - '!'
