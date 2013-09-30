@@ -2,6 +2,7 @@
 # Fork me on github: https://github.com/elxris/SpiceCraft
 # Wiki on https://github.com/elxris/SpiceCraft/wiki
 lang: en
+# en-English | es-Spanish
 tw:
   maxTime: 120
   minTime: 1
@@ -30,7 +31,7 @@ shop:
   difficultyLevel: 1
   userVariation: 8
   userShopSize: 50
-  taxPerRemovedStack: 100
+  taxPerRemovedStack: 100.0
   variable: true
   defaultUserSell: true
   defaultUserBuy: true

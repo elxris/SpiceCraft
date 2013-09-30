@@ -29,6 +29,9 @@ public class Chat {
         enviar(p, Strings.parseList(list), i);
     }
     public static void mensaje(Player p, String path, Object... i){
+        if(path == null){
+            return;
+        }
         if(Strings.getStringList(path) == null){
             enviar(p, path);
             return;

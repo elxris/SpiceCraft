@@ -603,7 +603,7 @@ public class FactoryGui
         p.getWorld().playSound(p.getLocation(), Sound.CLICK, 0.2f, (rndm.nextFloat()/5f)+0.8f);
     }
     public boolean isUserShop(){
-        return getUserConfig().isSet(getPath("money"));
+        return getPath().startsWith("userShop.");
     }
     public boolean isOwnShop(){
         if(isUserShop()){
