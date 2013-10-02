@@ -33,7 +33,7 @@ public class ShopCommand extends Comando implements TabCompleter{
         }
         if(( args.length == 1 || args.length == 2 ) && isCommand("comm.shop.userPrefix", args[0])){
             return onSlashShop(p, command, label, args);
-        }else if(isCommand("comm.shop.messageSetter", args[0]) && args.length > 1){
+        }else if(args.length > 1 && isCommand("comm.shop.messageSetter", args[0])){
             String message = new String();
             for(int i = 1; i < args.length; i++){
                 message += args[i];
