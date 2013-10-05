@@ -214,7 +214,13 @@ public class FactoryGui
     public int getItemUserSize(){
         String path = getPath("items");
         if(getUserConfig().isSet(path)){
-            return getUserConfig().getConfigurationSection(path).getKeys(false).size();
+            int count = 0;
+            for(String item : getUserConfig().getConfigurationSection(path).getKeys(false)){
+                if(getItemStock(item) > 0){
+                    count++;
+                }
+            }
+            return count;
         }
             return 0;
     }
@@ -520,7 +526,7 @@ public class FactoryGui
         getUserConfig().set(getPath("items."+item+".amount"), amount);
     }
     public int getItemStock(String item){
-        return getUserConfig().getInt(getPath("items."+item+".amount"));
+        return getUserConfig().getInt(getPath("items."+item+".amount"), 0);
     }
     public void addItemStock(String item, int amount){
         setItemStock(item, getItemStock(item)+amount);
