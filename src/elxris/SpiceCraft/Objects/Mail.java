@@ -137,7 +137,7 @@ public class Mail{
         if(destinatarios.size() < 1){
             return;
         }
-        if(isFlooding(jugador)){
+        if(!servidor && isFlooding(jugador)){
             Chat.mensaje(SpiceCraft.getOnlineExactPlayer(jugador), "mbox.flood");
             return;
         }
