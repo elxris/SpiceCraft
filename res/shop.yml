@@ -22,6 +22,12 @@ item:
     price: 0.6
     alias:
     - Tierra
+  Podzol:
+    id: 3
+    price: 0
+    depend:
+      Mycelium: 1
+    data: 2
   Cobblestone:
     id: 4
     price: 0.8
@@ -61,6 +67,18 @@ item:
     data: 3
     alias:
     - TablaSelva
+  AcaciaPlank:
+    id: 5
+    price: 0
+    depend:
+      OakPlank: 1
+    data: 4
+  DarkOakPlank:
+    id: 5
+    price: 0
+    depend:
+      OakPlank: 1
+    data: 5
   OakSapling:
     id: 6
     price: 0.4
@@ -92,11 +110,29 @@ item:
     data: 3
     alias:
     - BroteSelva
+  AcaciaSapling:
+    id: 6
+    price: 0
+    depend:
+      OakSapling: 1
+    data: 4
+  DarkOakSapling:
+    id: 6
+    price: 0
+    depend:
+      OakSapling: 1
+    data: 5
   Sand:
     id: 12
     price: 0.7
     alias:
     - Arena
+  RedSand:
+    id: 12
+    price: 0
+    depend:
+      Sand: 1
+    data: 1
   Gravel:
     id: 13
     price: 0
@@ -448,12 +484,60 @@ item:
     alias:
     - Flower
     - Flor
-  RedFlower:
+  Poppy:
     id: 38
     price: 0.1
     alias:
     - Rose
     - Rosa
+  BlueOrchild:
+    id: 38
+    price: 0
+    depend:
+      LightBlueDye: 1
+    data: 1
+  Allium:
+    id: 38
+    price: 0
+    depend:
+      MagentaDye: 1
+    data: 2
+  AzureBluet:
+    id: 38
+    price: 0
+    depend:
+      LightGrayDye: 1
+    data: 3
+  RedTulip:
+    id: 38
+    price: 0
+    depend:
+      RoseRed: 1
+    data: 4
+  OrangeTulip:
+    id: 38
+    price: 0
+    depend:
+      OrangeDye: 1
+    data: 5
+  WhiteTulip:
+    id: 38
+    price: 0
+    depend:
+      LightGrayDye: 1
+    data: 6
+  PinkTulip:
+    id: 38
+    price: 0
+    depend:
+      PinkTulip: 1
+    data: 7
+  OxeyeDaisy:
+    id: 38
+    price: 0
+    depend:
+      LightGrayDye: 1
+    data: 8
   BrownMushroom:
     id: 39
     price: 0.2
@@ -757,6 +841,134 @@ item:
     depend:
       Pumpkin: 1
       Torch: 1
+  WhiteStainedGlass:
+    id: 95
+    price: 0
+    depend:
+      Glass: 8
+      BoneMeal: 1
+    recipieMultiplie: 8
+    data: 0
+  OrangeStainedGlass:
+    id: 95
+    price: 0
+    depend:
+      Glass: 8
+      OrangeDye: 1
+    recipieMultiplie: 8
+    data: 1
+  MagentaStainedGlass:
+    id: 95
+    price: 0
+    depend:
+      Glass: 8
+      MagentaDye: 1
+    recipieMultiplie: 8
+    data: 2
+  LightBlueStainedGlass:
+    id: 95
+    price: 0
+    depend:
+      Glass: 8
+      LightBlueDye: 1
+    recipieMultiplie: 8
+    data: 3
+  YellowStainedGlass:
+    id: 95
+    price: 0
+    depend:
+      Glass: 8
+      DandelionYellow: 1
+    recipieMultiplie: 8
+    data: 4
+  LimeStainedGlass:
+    id: 95
+    price: 0
+    depend:
+      Glass: 8
+      LimeDye: 1
+    recipieMultiplie: 8
+    data: 5
+  PinkStainedGlass:
+    id: 95
+    price: 0
+    depend:
+      Glass: 8
+      PinkDye: 1
+    recipieMultiplie: 8
+    data: 6
+  GrayStainedGlass:
+    id: 95
+    price: 0
+    depend:
+      Glass: 8
+      GrayDye: 1
+    recipieMultiplie: 8
+    data: 7
+  LightGrayStainedGlass:
+    id: 95
+    price: 0
+    depend:
+      Glass: 8
+      LightGrayDye: 1
+    recipieMultiplie: 8
+    data: 8
+  CyanStainedGlass:
+    id: 95
+    price: 0
+    depend:
+      Glass: 8
+      CyanDye: 1
+    recipieMultiplie: 8
+    data: 9
+  PurpleStainedGlass:
+    id: 95
+    price: 0
+    depend:
+      Glass: 8
+      PurpleDye: 1
+    recipieMultiplie: 8
+    data: 10
+  BlueStainedGlass:
+    id: 95
+    price: 0
+    depend:
+      Glass: 8
+      LapisLazuli: 1
+    recipieMultiplie: 8
+    data: 11
+  BrownStainedGlass:
+    id: 95
+    price: 0
+    depend:
+      Glass: 8
+      CocoaBeans: 1
+    recipieMultiplie: 8
+    data: 12
+  GreenStainedGlass:
+    id: 95
+    price: 0
+    depend:
+      Glass: 8
+      CactusGreen: 1
+    recipieMultiplie: 8
+    data: 13
+  RedStainedGlass:
+    id: 95
+    price: 0
+    depend:
+      Glass: 8
+      RoseRed: 1
+    recipieMultiplie: 8
+    data: 14
+  BlackStainedGlass:
+    id: 95
+    price: 0
+    depend:
+      Glass: 8
+      InkSac: 1
+    recipieMultiplie: 8
+    data: 15
   Trapdoor:
     id: 96
     price: 0
@@ -1142,6 +1354,18 @@ item:
     depend:
       OakWoodSlab: 1
     data: 3
+  AcaciaWoodSlab:
+    id: 126
+    price: 0
+    depend:
+      OakWoodSlab: 1
+    data: 4
+  DarkOakWoodSlab:
+    id: 126
+    price: 0
+    depend:
+      OakWoodSlab: 1
+    data: 5
   SandstoneStairs:
     id: 128
     price: 0
@@ -1431,6 +1655,152 @@ item:
       InkSac: 1
     recipieMultiplie: 8
     data: 15
+  WhiteStainedGlassPane:
+    id: 160
+    price: 0
+    depend:
+      WhiteStainedGlass: 6
+    recipieMultiplie: 16
+    data: 0
+  OrangeStainedGlassPane:
+    id: 160
+    price: 0
+    depend:
+      OrangeStainedGlass: 6
+    recipieMultiplie: 16
+    data: 1
+  MagentaStainedGlassPane:
+    id: 160
+    price: 0
+    depend:
+      MagentaStainedGlass: 6
+    recipieMultiplie: 16
+    data: 2
+  LightBlueStainedGlassPane:
+    id: 160
+    price: 0
+    depend:
+      LightBlueStainedGlass: 6
+    recipieMultiplie: 16
+    data: 3
+  YellowStainedGlassPane:
+    id: 160
+    price: 0
+    depend:
+      YellowStainedGlass: 6
+    recipieMultiplie: 16
+    data: 4
+  LimeStainedGlassPane:
+    id: 160
+    price: 0
+    depend:
+      LimeStainedGlass: 6
+    recipieMultiplie: 16
+    data: 5
+  PinkStainedGlassPane:
+    id: 160
+    price: 0
+    depend:
+      PinkStainedGlass: 6
+    recipieMultiplie: 16
+    data: 6
+  GrayStainedGlassPane:
+    id: 160
+    price: 0
+    depend:
+      GrayStainedGlass: 6
+    recipieMultiplie: 16
+    data: 7
+  LightGrayStainedGlassPane:
+    id: 160
+    price: 0
+    depend:
+      LightGrayStainedGlass: 6
+    recipieMultiplie: 16
+    data: 8
+  CyanStainedGlassPane:
+    id: 160
+    price: 0
+    depend:
+      CyanStainedGlass: 6
+    recipieMultiplie: 16
+    data: 9
+  PurpleStainedGlassPane:
+    id: 160
+    price: 0
+    depend:
+      PurpleStainedGlass: 6
+    recipieMultiplie: 16
+    data: 10
+  BlueStainedGlassPane:
+    id: 160
+    price: 0
+    depend:
+      BlueStainedGlass: 6
+    recipieMultiplie: 16
+    data: 11
+  BrownStainedGlassPane:
+    id: 160
+    price: 0
+    depend:
+      BrownStainedGlass: 6
+    recipieMultiplie: 16
+    data: 12
+  GreenStainedGlassPane:
+    id: 160
+    price: 0
+    depend:
+      GreenStainedGlass: 6
+    recipieMultiplie: 16
+    data: 13
+  RedStainedGlassPane:
+    id: 160
+    price: 0
+    depend:
+      RedStainedGlass: 6
+    recipieMultiplie: 16
+    data: 14
+  BlackStainedGlassPane:
+    id: 160
+    price: 0
+    depend:
+      BlackStainedGlass: 6
+    recipieMultiplie: 16
+    data: 15
+  AcaciaLeaves:
+    id: 161
+    price: 0
+    depend:
+      OakLeaves: 1
+    data: 0
+  DarkOakLeaves:
+    id: 161
+    price: 0
+    depend:
+      OakLeaves: 1
+    data: 1
+  AcaciaWood:
+    id: 162
+    price: 0
+    depend:
+      OakWood: 1
+    data: 0
+  DarkOakWood:
+    id: 162
+    price: 0
+    depend:
+      OakWood: 1
+    data: 1
+  AcaciaWoodStairs:
+    id: 163
+    price: 0
+    depend:
+      OakWoodStairs: 1
+  DarkOakWoodStairs:
+    id: 164
+    price: 0
+    depend:
+      OakWoodStairs: 1
   HayBlock:
     id: 170
     price: 0
@@ -1544,6 +1914,47 @@ item:
     price: 0
     depend:
       Coal: 9
+  PackedIce:
+    id: 174
+    price: 0
+    depend:
+      Ice: 4
+  Sunflower:
+    id: 175
+    price: 0
+    depend:
+      DandelionYellow: 2
+    data: 0
+  Liliac:
+    id: 175
+    price: 0
+    depend:
+      MagentaDye: 2
+    data: 1
+  DoubleTallGrass:
+    id: 175
+    price: 0
+    depend:
+      TallGrass: 2
+    data: 2
+  LargeFern:
+    id: 175
+    price: 0
+    depend:
+      Fern: 2
+    data: 3
+  RoseBush:
+    id: 175
+    price: 0
+    depend:
+      RoseRed: 2
+    data: 4
+  Peony:
+    id: 175
+    price: 0
+    depend:
+      PinkDye: 2
+    data: 5
   FlintAndSteel:
     id: 259
     price: 0
@@ -1880,6 +2291,24 @@ item:
       Potato: 2
     alias:
     - PescadoCrudo
+  Salmon:
+    id: 349
+    price: 0
+    depend:
+      RawFish: 1
+    data: 1
+  ClownFish:
+    id: 349
+    price: 0
+    depend:
+      RawFish: 1
+    data: 2
+  Pufferfish:
+    id: 349
+    price: 0
+    depend:
+      RawFish: 1
+    data: 3
   CookedFish:
     id: 350
     price: 0
@@ -1888,6 +2317,13 @@ item:
       Coal: 0.125
     alias:
     - PescadoCocido
+  CookedSalmon:
+    id: 350
+    price: 0
+    depend:
+      Salmon: 1
+      Coal: 0.125
+    data: 1
   Bone:
     id: 352
     price: 0
@@ -2309,8 +2745,7 @@ item:
     id: 351
     price: 0
     depend:
-      RedFlower: 1
-    recipieMultiplie: 2
+      Poppy: 1
     data: 1
     alias:
     - Red
@@ -2416,7 +2851,6 @@ item:
     price: 0
     depend:
       YellowFlower: 1
-    recipieMultiplie: 2
     data: 11
     alias:
     - Yellow
@@ -3010,7 +3444,7 @@ item:
     price: 0
     depend:
       Stick: 1
-      OakPlank: 2
+      OakPlank: 1
     alias:
     - PalaDeMadera
   WoodenPickaxe:
@@ -3106,7 +3540,7 @@ item:
     price: 0
     depend:
       Stick: 2
-      Gold: 2
+      Gold: 1
     alias:
     - PalaDeOro
   GoldenPickaxe:
@@ -3356,6 +3790,7 @@ shop:
           - Grass
           - Dirt
           - Sand
+          - RedSand
           - Gravel
           - SoulSand
           - Mycelium
@@ -3378,6 +3813,14 @@ shop:
           - JunglePlank
           - JungleLeaves
           - JungleSapling
+          - AcaciaWood
+          - AcaciaPlank
+          - AcaciaLeaves
+          - AcaciaSapling
+          - DarkOakWood
+          - DarkOakPlank
+          - DarkOakLeaves
+          - DarkOakSapling
         StoneSlab:
           name: Slabs
           list:
@@ -3392,6 +3835,8 @@ shop:
           - SpruceWoodSlab
           - BirchWoodSlab
           - JungleWoodSlab
+          - AcaciaWoodSlab
+          - DarkOakWoodSlab
         OakWoodStairs:
           name: Stairs
           list:
@@ -3399,6 +3844,8 @@ shop:
           - SpruceWoodStairs
           - BirchWoodStairs
           - JungleWoodStairs
+          - AcaciaWoodStairs
+          - DarkOakWoodStairs
           - CobblestoneStairs
           - BrickStairs
           - StoneBrickStairs
@@ -3426,6 +3873,7 @@ shop:
           - Bookshelf
           - Obsidian
           - Ice
+          - PackedIce
           - Snow
           - SnowBlock
           - ClayBlock
@@ -3445,7 +3893,7 @@ shop:
           - HardenedClay
           - BlockCoal
           - MobSpawner
-    RedFlower:
+    Poppy:
       name: Decoration
       sub:
         Chest:
@@ -3495,7 +3943,21 @@ shop:
           - Fern
           - DeadBush
           - YellowFlower
-          - RedFlower
+          - Poppy
+          - BlueOrchild
+          - Allium
+          - AzureBluet
+          - RedTulip
+          - OrangeTulip
+          - WhiteTulip
+          - PinkTulip
+          - OxeyeDaisy
+          - Sunflower
+          - Liliac
+          - DoubleTallGrass
+          - LargeFern
+          - RoseBush
+          - Peony
           - BrownMushroom
           - RedMushroom
           - Vines
@@ -3554,7 +4016,7 @@ shop:
           - GreenWool
           - RedWool
           - BlackWool
-        WhiteStainedClay:
+        BlueStainedClay:
           name: Clay
           list:
           - WhiteStainedClay
@@ -3592,6 +4054,46 @@ shop:
           - GreenCarpet
           - RedCarpet
           - BlackCarpet
+        BlueStainedGlassPane:
+          name: Glass
+          list:
+          - Glass
+          - WhiteStainedGlassPane
+          - OrangeStainedGlassPane
+          - MagentaStainedGlassPane
+          - LightBlueStainedGlassPane
+          - YellowStainedGlassPane
+          - LimeStainedGlassPane
+          - PinkStainedGlassPane
+          - GrayStainedGlassPane
+          - LightGrayStainedGlassPane
+          - CyanStainedGlassPane
+          - PurpleStainedGlassPane
+          - BlueStainedGlassPane
+          - BrownStainedGlassPane
+          - GreenStainedGlassPane
+          - RedStainedGlassPane
+          - BlackStainedGlassPane
+        RedStainedGlass:
+          name: Glasspane
+          list:
+          - Glasspane
+          - WhiteStainedGlass
+          - OrangeStainedGlass
+          - MagentaStainedGlass
+          - LightBlueStainedGlass
+          - YellowStainedGlass
+          - LimeStainedGlass
+          - PinkStainedGlass
+          - GrayStainedGlass
+          - LightGrayStainedGlass
+          - CyanStainedGlass
+          - PurpleStainedGlass
+          - BlueStainedGlass
+          - BrownStainedGlass
+          - GreenStainedGlass
+          - RedStainedGlass
+          - BlackStainedGlass
     Redstone:
       name: Redstone
       list:
@@ -3743,7 +4245,11 @@ shop:
       - GoldenApple
       - EnchantedGoldenApple
       - RawFish
+      - Salmon
+      - ClownFish
+      - Pufferfish
       - CookedFish
+      - CookedSalmon
       - Cake
       - Cookie
       - MelonSlice
