@@ -464,6 +464,7 @@ public class Factory implements Listener {
         String item = searchItem(itemName);
         List<String> list = new ArrayList<String>();
         List<Double> precios = new ArrayList<Double>();
+        // Obtiene la raíz de todas la tiendas de los usuarios.
         ConfigurationSection cache = getUserCache().getConfigurationSection("userShop");
         String format = Strings.getString("shop.itemSearch");
         int vel, amount, i;
@@ -560,8 +561,9 @@ public class Factory implements Listener {
         }else{
             money += getPrecio(name, item.getAmount());
         }
+        money *= SELLRATE/MULTIPLIER;
         Econ econ = new Econ();
-        econ.pagar(p, money*SELLRATE/MULTIPLIER);
+        econ.pagar(p, money);
         econ.getLogg().logg("Shop", p, "sell", name, item.getAmount(), money);
         return true;
     }
