@@ -1373,7 +1373,7 @@ item:
       Sandstone: 6
     recipieMultiplie: 4
   EmeraldOre:
-    id: 128
+    id: 129
     price: 0
     depend:
       Emerald: 3
