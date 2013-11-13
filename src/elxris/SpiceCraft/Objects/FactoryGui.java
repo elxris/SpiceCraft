@@ -222,7 +222,7 @@ public class FactoryGui
             }
             return count;
         }
-            return 0;
+        return 0;
     }
     public ItemStack getNext(){
         if(itemNext == null){
@@ -508,7 +508,7 @@ public class FactoryGui
         // Si no existe, crealo.
         if(!c.isSet(getPath("items."+item))){
             if(!c.isSet(getPath("items"))
-                    ||(c.getConfigurationSection(getPath("items")).getKeys(false).size() < 
+                    ||(getItemUserSize() < 
                     SpiceCraft.plugin().getConfig().getInt("shop.userShopSize"))){
                 setItemStock(item, amount);
                 setItemVel(item, 0);
