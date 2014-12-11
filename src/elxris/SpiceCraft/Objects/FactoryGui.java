@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.configuration.ConfigurationSection;
@@ -191,9 +190,6 @@ public class FactoryGui
             }
             id = i.getTypeId()+((i.getDurability() > 0)?":"+i.getDurability():"");
             precio = (f.getPrice(item, acc)/f.MULTIPLIER)*f.USERMULTIPLIER;
-            if (meta == null) {
-            	meta = Bukkit.getItemFactory().getItemMeta(i.getType());
-            }
             meta.setLore(
                     Strings.getStringList("shop.userItemLore",
                     new Econ().getPrecio(precio),
