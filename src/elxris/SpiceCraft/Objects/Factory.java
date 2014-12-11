@@ -477,6 +477,10 @@ public class Factory implements Listener {
                 if(amount <= 0){
                     continue;
                 }
+                // Revisa que el jugador haya estado online.
+                if(SpiceCraft.getOfflinePlayerNamesMatch(user).size() != 1){
+                	continue;
+                }
                 vel = cache.getInt(user+".items."+item+".vel");
                 precio = (getPrice(item, vel)/MULTIPLIER)*USERMULTIPLIER;
                 for(i = 0; i < list.size(); i++){
