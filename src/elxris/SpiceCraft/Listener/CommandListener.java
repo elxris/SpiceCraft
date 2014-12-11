@@ -22,7 +22,7 @@ public class CommandListener implements Listener{
         load("commands.yml");
         init();
     }
-    // Inicia y prepara la configuración.
+    // Inicia y prepara la configuraciÃ³n.
     private void init(){
         fc = new Archivo("commands.yml").load();
         loginBooks = new ArrayList<String>();
@@ -47,7 +47,7 @@ public class CommandListener implements Listener{
     public void onNewLogin(PlayerLoginEvent event){
         Player p = event.getPlayer();
         if(!p.hasPlayedBefore()){
-            // Si jugó antes.
+            // Si jugÃ³ antes.
             for(String s : loginBooks){
                 getCommand(p, s);
             }

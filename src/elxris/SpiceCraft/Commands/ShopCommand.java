@@ -129,12 +129,12 @@ public class ShopCommand extends Comando implements TabCompleter{
         if(items.size() == 0){
             mensaje(p, "shop.notExist");
             return;
-        }else if(items.size() == 1){ // Si sólo hay un resultado.
+        }else if(items.size() == 1){ // Si sÃ³lo hay un resultado.
             item = items.get(0);
             arg4 = arg3;
             arg3 = arg2;
-        }else{ // Si hay más de un objeto en la búsqueda.
-            if(arg2 == null){ // Sólo si no especifica ni numero ni cantidad.
+        }else{ // Si hay mÃ¡s de un objeto en la bÃºsqueda.
+            if(arg2 == null){ // SÃ³lo si no especifica ni numero ni cantidad.
                 for(int i = 0; i < items.size(); i++){
                     items.set(i, String.format(Strings.getString("shop.searchItem"), i, items.get(i)));
                 }
@@ -144,8 +144,8 @@ public class ShopCommand extends Comando implements TabCompleter{
                     mensaje(p, "shop.andMore", null);
                 }
                 return;
-            }else{ // Si especifica el número.
-                // Si especifica número. Pero no es entero o se sale de rango.
+            }else{ // Si especifica el nÃºmero.
+                // Si especifica nÃºmero. Pero no es entero o se sale de rango.
                 if(!isInteger(arg2)){
                     mensaje(p, "alert.noInteger");
                     return;
@@ -157,7 +157,7 @@ public class ShopCommand extends Comando implements TabCompleter{
                 item = items.get(Integer.parseInt(arg2));
             }
         }
-        if(arg3 == null && arg4 == null){ // Si no hay otro argumento, muestra información.
+        if(arg3 == null && arg4 == null){ // Si no hay otro argumento, muestra informaciÃ³n.
             f.showItemInfo(p, item);
         }else if(isCommand("comm.shop.reset", arg3) && arg4 == null){ // Si hay reset, resetea el precio.
             if(p.hasPermission("spicecraft.shop.master")){

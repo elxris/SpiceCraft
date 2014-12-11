@@ -84,7 +84,7 @@ public class Archivo extends Savable{
         // Crea el archivo y carpetas necesarias.
         try {fc.save(file.getFile());} catch (IOException e) {e.printStackTrace();}
     }
-    public static FileConfiguration getDefaultConfig(String path){ // Carga una configuración.
+    public static FileConfiguration getDefaultConfig(String path){ // Carga una configuraciÃ³n.
         FileConfiguration fc = new YamlConfiguration();
         Archivo file = new Archivo("tmp."+path);
         blankFile("tmp."+path);

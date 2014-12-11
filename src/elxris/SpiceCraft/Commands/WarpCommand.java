@@ -103,7 +103,7 @@ public class WarpCommand extends Comando implements Listener{
                 chatInfo(jugador);
             }
         }else
-        // Si hay un argumento. Busca el warp indicado. O si llamó a destruir, destruye.
+        // Si hay un argumento. Busca el warp indicado. O si llamÃ³ a destruir, destruye.
         if(args.length == 1){
             // Si existe el warp teleporta.
             if(getCache().isSet(String.format("g.%s.set", args[0]))){
@@ -200,7 +200,7 @@ public class WarpCommand extends Comando implements Listener{
             return;
         }
         int minutos = Integer.parseInt(tiempo);
-        //Si está fuera de rango.
+        //Si estÃ¡ fuera de rango.
         if(!(minutos >= getInt("tw.minTime") && minutos <= getInt("tw.maxTime"))){
             if(!jugador.hasPermission("spicecraft.tw.noMaxTime")){
                 mensaje(jugador, "tw.timeLimit", getInt("tw.minTime"), getInt("tw.maxTime"));
@@ -211,7 +211,7 @@ public class WarpCommand extends Comando implements Listener{
         if(!getCache().isSet("user."+getPlayerName(jugador))){
             getCache().set("user."+getPlayerName(jugador), 0);
         }
-        // Si excede a los máximos por usuario.
+        // Si excede a los mÃ¡ximos por usuario.
         if(getInt("tw.maxPerUser") <= getCache().getInt("user."+getPlayerName(jugador))){
             if(!jugador.hasPermission("spicecraft.tw.noWarpLimit")){
                 mensaje(jugador, "tw.warpLimit");

@@ -124,7 +124,7 @@ public class LibCommand extends Comando{
                     mensaje(jugador, "lib.noBook");
                     return true;
                 }
-                // Autor, TÌtulo, P·ginas, Precio, Ventas
+                // Autor, T√≠tulo, P√°ginas, Precio, Ventas
                 BookMeta book = getBookMeta(args[1]);
                 mensaje(jugador, "lib.bookInfo",
                         book.getAuthor(),
@@ -160,7 +160,7 @@ public class LibCommand extends Comando{
                     mensaje(jugador, "lib.wrongAuthor");
                     return true;
                 }
-                // Est· repetido
+                // Est√° repetido
                 if(isRepeated(book)){
                     mensaje(jugador, "lib.repeated");
                     return true;

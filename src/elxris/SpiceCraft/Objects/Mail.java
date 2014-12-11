@@ -34,7 +34,7 @@ public class Mail{
             if(usuarios == 0 || 
                     System.currentTimeMillis()-Long.parseLong(k) >=
                     SpiceCraft.plugin().getConfig().getLong("mail.clearOnDays", 15)*24*60*60*1000){
-                // Los correos mayores a 15 días (15*24*60*60*1000) milisegundos, se eliminan.
+                // Los correos mayores a 15 dÃ­as (15*24*60*60*1000) milisegundos, se eliminan.
                 getConfig().set("msg."+k, null);
             }
         }

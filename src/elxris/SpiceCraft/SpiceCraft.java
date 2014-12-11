@@ -44,7 +44,7 @@ public class SpiceCraft extends JavaPlugin {
         //this.getServer().getPluginManager().registerEvents(new CompassListener(), this);
         //Comando Compass
         getCommand("upin").setExecutor(new CompassCommand());
-        //Comando Librería
+        //Comando LibrerÃ­a
         getCommand("lib").setExecutor(new LibCommand());
         //Comando Tienda
         ShopCommand shop = new ShopCommand();

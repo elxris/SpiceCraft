@@ -26,7 +26,7 @@ public class Econ {
     public String getNombre(){
         return getJugador().getName();
     }
-    //Economía.
+    //EconomÃ­a.
     private boolean setupEconomy() {
         setup = true;
         if (SpiceCraft.plugin().getServer().getPluginManager().getPlugin("Vault") == null) {

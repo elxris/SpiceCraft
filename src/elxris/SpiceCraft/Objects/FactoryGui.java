@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.configuration.ConfigurationSection;
@@ -60,14 +61,14 @@ public class FactoryGui
             inv.addItem(getReturn());
             itemsPerPage--;
         }
-        // Si hay m·s objetos de los que caben en una p·gina.
+        // Si hay m√°s objetos de los que caben en una p√°gina.
         if(itemsSize > itemsPerPage){
             itemsPerPage -= 2;
         }else if(itemsSize <= itemsPerPage){
             page = 1;
         }
         if(itemsSize > itemsPerPage){
-            // Si la p·gina es mayor a 1
+            // Si la p√°gina es mayor a 1
             if(page > 1){
                 inv.setItem((SIZE-2)-itemsPerPage, getPrev());
             }
@@ -101,7 +102,7 @@ public class FactoryGui
     public List<ItemStack> getItemList(String path, int itemsPerPage, int page){
         List<ItemStack> list = new ArrayList<ItemStack>();
         Econ econ = new Econ();
-        // Inicia algunas variables que se usar·n en el loop.
+        // Inicia algunas variables que se usar√°n en el loop.
         ItemStack i;
         ItemMeta meta;
         String id;
@@ -190,6 +191,9 @@ public class FactoryGui
             }
             id = i.getTypeId()+((i.getDurability() > 0)?":"+i.getDurability():"");
             precio = (f.getPrice(item, acc)/f.MULTIPLIER)*f.USERMULTIPLIER;
+            if (meta == null) {
+            	meta = Bukkit.getItemFactory().getItemMeta(i.getType());
+            }
             meta.setLore(
                     Strings.getStringList("shop.userItemLore",
                     new Econ().getPrecio(precio),
@@ -271,7 +275,7 @@ public class FactoryGui
     // Click en la tienda con algo en mano y algo en el slot.
     public boolean clickTopCursorSlot(InventoryView view, ClickType click, int currentItem){
         boolean cancelled = false;
-        // Si tiene el cursor est· vacio.
+        // Si tiene el cursor est√° vacio.
         if(view.getCursor().getTypeId() == 0){
             clickTopSlot(view, click, currentItem);
         // Si el cursor tiene objeto.
@@ -286,11 +290,11 @@ public class FactoryGui
     public void clickTopCursor(InventoryView view, ClickType click, int currentItem){
         // Si es una tienda de usuario.
         if(isUserShop()){
-            // Si es dueÒo
+            // Si es due√±o
             if(isOwnShop()){
                 addCursorToShop(view, click);
                 updateInventory(view.getTopInventory());
-            // Si no es dueÒo, no puede modificar tienda.
+            // Si no es due√±o, no puede modificar tienda.
             }else{
                 return;
             }
@@ -317,7 +321,7 @@ public class FactoryGui
         if(current.getTypeId() == 0){
             return;
         }
-        // Si tiene nombre seguro es un men˙.
+        // Si tiene nombre seguro es un men√∫.
         if(current.getItemMeta().hasDisplayName()){
             String itemName = current.getItemMeta().getDisplayName();
             if(itemName.contentEquals(getReturn().getItemMeta().getDisplayName())){
@@ -327,12 +331,12 @@ public class FactoryGui
             }else if(itemName.contentEquals(getPrev().getItemMeta().getDisplayName())){
                 addPage(-1);
             }else{
-                // Si es un men˙.
+                // Si es un men√∫.
                 addPath(f.getItemName(current));
                 setPage(1);
             }
             updateInventory(view.getTopInventory());
-        // Si no es un objeto-men˙, es un item de la tienda.
+        // Si no es un objeto-men√∫, es un item de la tienda.
         }else{
             String item = f.getItemName(current);
             ItemStack currentStack = f.createItem(p.getName(), item, 1);
@@ -365,10 +369,10 @@ public class FactoryGui
                         new Econ().cobrar(p, cost);
                         new Econ().getLogg().logg("Shop", p, "tax for remove items", item, amount, cost);
                         f.addItemsToInventory(p, items);
-                    // Si es izquierdo, ponlo m·s caro.
+                    // Si es izquierdo, ponlo m√°s caro.
                     }else if(click.isLeftClick()){
                         addItemVel(item, +1);
-                    // Si es derecho, ponlo m·s barato.
+                    // Si es derecho, ponlo m√°s barato.
                     }else if(click.isRightClick()){
                         addItemVel(item, -1);
                     }
@@ -390,7 +394,7 @@ public class FactoryGui
                     }else{
                         return;
                     }
-                    // Si no hay suficiente para un stack, haz un stack pequeÒo. Y elimina.
+                    // Si no hay suficiente para un stack, haz un stack peque√±o. Y elimina.
                     if(amount > stock){
                         amount = stock;
                     }
@@ -515,7 +519,7 @@ public class FactoryGui
             }else{
                 return;
             }
-        // Si existe, aÒade m·s stock.
+        // Si existe, a√±ade m√°s stock.
         }else{
             addItemStock(item, amount);
         }
@@ -585,7 +589,7 @@ public class FactoryGui
         return getPath()+s;
     }
     public void setPath(String s){
-        // Nos aseguramos que est· inicializada la tienda.
+        // Nos aseguramos que est√° inicializada la tienda.
         getPath();
         getCache().set(p.getName()+".path", s);
     }

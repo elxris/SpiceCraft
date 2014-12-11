@@ -11,7 +11,7 @@ public class CheckConfiguration {
     private boolean changed = false;
     public CheckConfiguration() {
         init();
-        // Guarda el archivo de configuraci髇.
+        // Guarda el archivo de configuraci贸n.
         isChanged();
     }
     private void init(){
@@ -33,14 +33,14 @@ public class CheckConfiguration {
                 lang.loadResourse("lang-"+langCode+".yml");
             }
         }
-        // Carga la configuraci髇 del usuario
+        // Carga la configuraci贸n del usuario
         FileConfiguration langConfig = lang.load();
         // Carga la configuracion por defecto.
         Archivo langTmp = new Archivo("lang.yml.tmp");
         langTmp.loadResourse("lang-"+langCode+".yml");
-        // Establece por defecto la configuraci髇.
+        // Establece por defecto la configuraci贸n.
         langConfig.setDefaults(langTmp.load());
-        // Borra la configuraci髇 por defecto temporal.
+        // Borra la configuraci贸n por defecto temporal.
         langTmp.getFile().delete();
         new Strings(langConfig);
     }

@@ -61,7 +61,7 @@ mbox:
   - §b[§cMBOX§b]§r §a### §cStart Inbox §a###
   readFinish:
   - §a### §cEnd Inbox §a###
-  - Escribe §e/mbox §cc§elear §r to clear your inbox.
+  - Type §e/mbox §cc§elear §r to clear your inbox.
   listEnd:
   - §b[§cMBOX§b]§r You dont have emails.
   deleted:

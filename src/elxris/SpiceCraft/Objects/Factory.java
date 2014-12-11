@@ -400,7 +400,7 @@ public class Factory implements Listener {
         addItemsToInventory(p, createItems(user, item_real, cantidad));
         return true;
     }
-    public void addItemsToInventory(Player p, List<ItemStack> items){ // Añade el item al inventario del jugador.
+    public void addItemsToInventory(Player p, List<ItemStack> items){ // AÃ±ade el item al inventario del jugador.
         for(ItemStack item: items){
             addItemToInventory(p, item);
         }
@@ -464,7 +464,7 @@ public class Factory implements Listener {
         String item = searchItem(itemName);
         List<String> list = new ArrayList<String>();
         List<Double> precios = new ArrayList<Double>();
-        // Obtiene la raíz de todas la tiendas de los usuarios.
+        // Obtiene la raÃ­z de todas la tiendas de los usuarios.
         ConfigurationSection cache = getUserCache().getConfigurationSection("userShop");
         String format = Strings.getString("shop.itemSearch");
         int vel, amount, i;
