@@ -86,13 +86,15 @@ public class ShopCommand extends Comando implements TabCompleter{
         }else if(args.length == 2){
             arg = args[1];
         }
-        String shopName;
+        String shopName = arg;
         List<String> players = SpiceCraft.getOfflinePlayerNamesMatch(arg);
         if(players.size() != 1 && !Factory.getUserCache().isSet("userShop."+arg+".items")){
             Chat.mensaje(p, "shop.userNotFound");
             return true;
         }else{
-            shopName = players.get(0);
+        	if (players.size() == 1) {
+        		shopName = players.get(0);
+        	}
             // Si existe un mensaje establecido, se muestra en su lugar.
             if(Factory.getUserCache().isSet("userShop."+shopName+".message")){
                 Chat.mensaje(p, "shop.message", shopName, Factory.getUserCache().getString("userShop."+shopName+".message"));
