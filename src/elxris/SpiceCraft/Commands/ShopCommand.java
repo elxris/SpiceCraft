@@ -88,7 +88,7 @@ public class ShopCommand extends Comando implements TabCompleter{
         }
         String shopName;
         List<String> players = SpiceCraft.getOfflinePlayerNamesMatch(arg);
-        if(players.size() != 1 && !Factory.getUserCache().isSet("userShop."+arg+".money")){
+        if(players.size() != 1 && !Factory.getUserCache().isSet("userShop."+arg+".items")){
             Chat.mensaje(p, "shop.userNotFound");
             return true;
         }else{
