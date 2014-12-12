@@ -183,7 +183,7 @@ shop:
   - §e/shop <item> [#] reset §rRestablece el valor de producción al original.
   - §e/shop <item> [#] set <price> §rCambia el precio del item.
   openInfo:
-  - Bienvenido a la tienda. Consulta §b/shop ? §rpara ayuda.
+  - '{text: "Bienvenido a la tienda. Consulta ", extra:[{text:"§b/shop ?", clickEvent:{action:"run_command",value:"/shop ?"}, hoverEvent:{action:"show_text", value:"click para mostrar la ayuda"}},{text:" §rpara ayuda."}]}'
   openUserInfo:
   - Bienvenido a la tienda de %s. Consulta §b/shop ? §rpara ayuda.
   shoped:
@@ -233,7 +233,7 @@ shop:
   negativeProduction:
   - '§c%s§r'
   itemSearch:
-  - '§c§b%s: §a%s §cx §e%s'
+  - '{text:"§c§b%s:", clickEvent:{action:"run_command", value: "/shop @ %1$s"}, hoverEvent:{action:"show_text", value:"click para abrir la tienda"}, extra:[{text:" §a%s §cx §e%s"}]}'
 cmd:
   reload:
   - Reload de comandos y configuraciones completo!
