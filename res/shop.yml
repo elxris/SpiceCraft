@@ -9,6 +9,43 @@ item:
     - Piedra
     userSell: true
     userBuy: true
+    data: 0
+  Granite:
+    id: 1
+    price: 0
+    depend:
+      Cobblestone: 2
+    data: 1
+  PolishedGranite:
+    id: 1
+    price: 0
+    depend:
+      Granite: 1
+    data: 2
+  Diorite:
+    id: 1
+    price: 0
+    depend:
+      Granite: 1
+    data: 3
+  PolishedDiorite:
+    id: 1
+    price: 0
+    depend:
+      Granite: 1
+    data: 4
+  Andesite:
+    id: 1
+    price: 0
+    depend:
+      Granite: 1
+    data: 5
+  PolishedAndesite:
+    id: 1
+    price: 0
+    depend:
+      Granite: 1
+    data: 6
   Grass:
     id: 2
     price: 0.5
@@ -22,6 +59,14 @@ item:
     price: 0.6
     alias:
     - Tierra
+    data: 0
+  CoarseDirt:
+    id: 3
+    price: 0
+    depend:
+      Dirt: 0.5
+      Gravel: 0.5
+    data: 1
   Podzol:
     id: 3
     price: 0
@@ -220,7 +265,7 @@ item:
     - HojasSelva
   Sponge:
     id: 19
-    price: 50
+    price: 100
     alias:
     - Esponja
   Glass:
@@ -530,7 +575,7 @@ item:
     id: 38
     price: 0
     depend:
-      PinkTulip: 1
+      PinkDye: 1
     data: 7
   OxeyeDaisy:
     id: 38
@@ -1024,196 +1069,6 @@ item:
     depend:
       StoneBricks: 1
     data: 3
-  HugeBrownMushroom:
-    id: 99
-    price: 0
-    depend:
-      BrownMushroom: 1
-  HugeBrownMushroom1:
-    id: 99
-    price: 0
-    depend:
-      HugeBrownMushroom: 1
-    data: 1
-  HugeBrownMushroom2:
-    id: 99
-    price: 0
-    depend:
-      HugeBrownMushroom: 1
-    data: 2
-  HugeBrownMushroom3:
-    id: 99
-    price: 0
-    depend:
-      HugeBrownMushroom: 1
-    data: 3
-  HugeBrownMushroom4:
-    id: 99
-    price: 0
-    depend:
-      HugeBrownMushroom: 1
-    data: 4
-  HugeBrownMushroom5:
-    id: 99
-    price: 0
-    depend:
-      HugeBrownMushroom: 1
-    data: 5
-  HugeBrownMushroom6:
-    id: 99
-    price: 0
-    depend:
-      HugeBrownMushroom: 1
-    data: 6
-  HugeBrownMushroom7:
-    id: 99
-    price: 0
-    depend:
-      HugeBrownMushroom: 1
-    data: 7
-  HugeBrownMushroom8:
-    id: 99
-    price: 0
-    depend:
-      HugeBrownMushroom: 1
-    data: 8
-  HugeBrownMushroom9:
-    id: 99
-    price: 0
-    depend:
-      HugeBrownMushroom: 1
-    data: 9
-  HugeBrownMushroom10:
-    id: 99
-    price: 0
-    depend:
-      HugeBrownMushroom: 1
-    data: 10
-  HugeBrownMushroom11:
-    id: 99
-    price: 0
-    depend:
-      HugeBrownMushroom: 1
-    data: 11
-  HugeBrownMushroom12:
-    id: 99
-    price: 0
-    depend:
-      HugeBrownMushroom: 1
-    data: 12
-  HugeBrownMushroom13:
-    id: 99
-    price: 0
-    depend:
-      HugeBrownMushroom: 1
-    data: 13
-  HugeBrownMushroom14:
-    id: 99
-    price: 0
-    depend:
-      HugeBrownMushroom: 1
-    data: 14
-  HugeBrownMushroom15:
-    id: 99
-    price: 0
-    depend:
-      HugeBrownMushroom: 1
-    data: 15
-  HugeRedMushroom:
-    id: 100
-    price: 0
-    depend:
-      RedMushroom: 1
-  HugeRedMushroom1:
-    id: 100
-    price: 0
-    depend:
-      HugeRedMushroom: 1
-    data: 1
-  HugeRedMushroom2:
-    id: 100
-    price: 0
-    depend:
-      HugeRedMushroom: 1
-    data: 2
-  HugeRedMushroom3:
-    id: 100
-    price: 0
-    depend:
-      HugeRedMushroom: 1
-    data: 3
-  HugeRedMushroom4:
-    id: 100
-    price: 0
-    depend:
-      HugeRedMushroom: 1
-    data: 4
-  HugeRedMushroom5:
-    id: 100
-    price: 0
-    depend:
-      HugeRedMushroom: 1
-    data: 5
-  HugeRedMushroom6:
-    id: 100
-    price: 0
-    depend:
-      HugeRedMushroom: 1
-    data: 6
-  HugeRedMushroom7:
-    id: 100
-    price: 0
-    depend:
-      HugeRedMushroom: 1
-    data: 7
-  HugeRedMushroom8:
-    id: 100
-    price: 0
-    depend:
-      HugeRedMushroom: 1
-    data: 8
-  HugeRedMushroom9:
-    id: 100
-    price: 0
-    depend:
-      HugeRedMushroom: 1
-    data: 9
-  HugeRedMushroom10:
-    id: 100
-    price: 0
-    depend:
-      HugeRedMushroom: 1
-    data: 10
-  HugeRedMushroom11:
-    id: 100
-    price: 0
-    depend:
-      HugeRedMushroom: 1
-    data: 11
-  HugeRedMushroom12:
-    id: 100
-    price: 0
-    depend:
-      HugeRedMushroom: 1
-    data: 12
-  HugeRedMushroom13:
-    id: 100
-    price: 0
-    depend:
-      HugeRedMushroom: 1
-    data: 13
-  HugeRedMushroom14:
-    id: 100
-    price: 0
-    depend:
-      HugeRedMushroom: 1
-    data: 14
-  HugeRedMushroom15:
-    id: 100
-    price: 0
-    depend:
-      HugeRedMushroom: 1
-    data: 15
   IronBars:
     id: 101
     price: 0
@@ -1801,6 +1656,41 @@ item:
     price: 0
     depend:
       OakWoodStairs: 1
+  SlimeBlock:
+    id: 165
+    price: 0
+    depend:
+      Slimeball: 9
+  IronTrapdoor:
+    id: 167
+    price: 0
+    depend:
+      Iron: 4
+  PrismarineBlock:
+    id: 168
+    price: 0
+    depend:
+      PrismarineShard: 4
+    data: 0
+  PrismarineBricks:
+    id: 168
+    price: 0
+    depend:
+      PrismarineShard: 6
+    data: 1
+  DarkPrismarine:
+    id: 168
+    price: 0
+    depend:
+      PrismarineShard: 8
+      InkSac: 1
+    data: 2
+  SeaLantern:
+    id: 169
+    price: 0
+    depend:
+      PrismarineShard: 4
+      PrismarineCrystals: 5
   HayBlock:
     id: 170
     price: 0
@@ -1955,6 +1845,84 @@ item:
     depend:
       PinkDye: 2
     data: 5
+  RedSandstone:
+    id: 179
+    price: 0
+    depend:
+      RedSand: 4
+    data: 0
+  ChilseledRedSandstone:
+    id: 179
+    price: 0
+    depend:
+      RedSand: 4
+    data: 1
+  SmoothRedSandstone:
+    id: 179
+    price: 0
+    depend:
+      RedSand: 4
+    data: 2
+  RedSandstoneStairs:
+    id: 180
+    price: 0
+    depend:
+      RedSandstone: 1.5
+  RedSandstoneSlab:
+    id: 182
+    price: 0
+    depend:
+      RedSandstone: 0.5
+  SpruceFenceGate:
+    id: 183
+    price: 0
+    depend:
+      FenceGate: 1
+  BirchFenceGate:
+    id: 184
+    price: 0
+    depend:
+      FenceGate: 1
+  JungleFenceGate:
+    id: 185
+    price: 0
+    depend:
+      FenceGate: 1
+  DarkOakFenceGate:
+    id: 186
+    price: 0
+    depend:
+      FenceGate: 1
+  AcaciaFenceGate:
+    id: 187
+    price: 0
+    depend:
+      FenceGate: 1
+  SpruceFence:
+    id: 188
+    price: 0
+    depend:
+      Fence: 1
+  BirchFence:
+    id: 189
+    price: 0
+    depend:
+      Fence: 1
+  JungleFence:
+    id: 190
+    price: 0
+    depend:
+      Fence: 1
+  DarkOakFence:
+    id: 191
+    price: 0
+    depend:
+      Fence: 1
+  AcaciaFence:
+    id: 192
+    price: 0
+    depend:
+      Fence: 1
   FlintAndSteel:
     id: 259
     price: 0
@@ -2724,6 +2692,84 @@ item:
     depend:
       Hopper: 1
       Minecart: 1
+  PrismarineShard:
+    id: 409
+    price: 300
+  PrismarineCrystals:
+    id: 410
+    price: 400
+  RawRabbit:
+    id: 411
+    price: 0
+    depend:
+      RawChicken: 1
+  CookedRabbit:
+    id: 412
+    price: 0
+    depend:
+      RawChicken: 1
+      Coal: 0.125
+  RabbitStew:
+    id: 413
+    price: 0
+    depend:
+      CookedRabbit: 1
+      BakedPotato: 1
+      Carrot: 1
+      BrownMushroom: 1
+      Bowl: 1
+  RabbitFoot:
+    id: 414
+    price: 0
+    depend:
+      Leather: 0.5
+  RabbitHide:
+    id: 415
+    price: 0
+    depend:
+      Leather: 0.25
+  ArmorStand:
+    id: 416
+    price: 0
+    depend:
+      Stick: 6
+      StoneSlab: 1
+  RawMutton:
+    id: 423
+    price: 0
+    depend:
+      RawChicken: 1
+  CookedMutton:
+    id: 424
+    price: 0
+    depend:
+      RawChicken: 1
+      Coal: 0.125
+  SpruceDoor:
+    id: 427
+    price: 0
+    depend:
+      WoodenDoor: 1
+  BirchDoor:
+    id: 428
+    price: 0
+    depend:
+      WoodenDoor: 1
+  JungleDoor:
+    id: 429
+    price: 0
+    depend:
+      WoodenDoor: 1
+  AcaciaDoor:
+    id: 430
+    price: 0
+    depend:
+      WoodenDoor: 1
+  DarkOakDoor:
+    id: 431
+    price: 0
+    depend:
+      WoodenDoor: 1
   Lead:
     id: 420
     price: 0
@@ -3295,6 +3341,54 @@ item:
       Redstone: 1
     recipieMultiplie: 3
     data: 8297
+  PotionLeaping:
+    id: 373
+    price: 0
+    depend:
+      AwkwardPotion: 3
+      RabbitFoot: 1
+    recipieMultiplie: 3
+    data: 8203
+  PotionLeapingExtended:
+    id: 373
+    price: 0
+    depend:
+      PotionLeaping: 3
+      Redstone: 1
+    recipieMultiplie: 3
+    data: 8267
+  PotionLeaping2:
+    id: 373
+    price: 0
+    depend:
+      PotionLeaping: 3
+      Redstone: 1
+    recipieMultiplie: 3
+    data: 8233
+  PotionLeaping2Extended:
+    id: 373
+    price: 0
+    depend:
+      PotionLeaping2: 3
+      Redstone: 1
+    recipieMultiplie: 3
+    data: 8299
+  PotionWaterBreathing:
+    id: 373
+    price: 0
+    depend:
+      AwkwardPotion: 3
+      Pufferfish: 1
+    recipieMultiplie: 3
+    data: 8205
+  PotionWaterBreathingExtended:
+    id: 373
+    price: 0
+    depend:
+      PotionWaterBreathing: 3
+      Redstone: 1
+    recipieMultiplie: 3
+    data: 8269
   PotionInvisibility:
     id: 373
     price: 0
@@ -3771,6 +3865,12 @@ shop:
           name: Stones
           list:
           - Stone
+          - Granite
+          - PolishedGranite
+          - Diorite
+          - PolishedDiorite
+          - Andesite
+          - PolishedAndesite
           - Cobblestone
           - Sandstone
           - SandstoneSmooth
@@ -3781,6 +3881,12 @@ shop:
           - MossyStoneBricks
           - CrackedStoneBricks
           - ChilseledStoneBricks
+          - PrismarineBlock
+          - PrismarineBricks
+          - DarkPrismarine
+          - RedSandstone
+          - ChilseledRedSandstone
+          - SmoothRedSandstone
           - NetherBrick
           - EndStone
           - Bricks
@@ -3789,6 +3895,8 @@ shop:
           list:
           - Grass
           - Dirt
+          - CoarseDirt
+          - Podzol
           - Sand
           - RedSand
           - Gravel
@@ -3829,6 +3937,7 @@ shop:
           - CobblestoneSlab
           - BrickSlab
           - StoneBrickSlab
+          - RedSandstoneSlab
           - NetherBrickSlab
           - QuartzSlab
           - OakWoodSlab
@@ -3849,9 +3958,19 @@ shop:
           - CobblestoneStairs
           - BrickStairs
           - StoneBrickStairs
+          - RedSandstoneStairs
           - NetherBrickStairs
           - SandstoneStairs
           - QuartzStairs
+        DarkOakDoor:
+          name: Doors
+          list:
+          - WoodenDoor
+          - SpruceDoor
+          - BirchDoor
+          - JungleDoor
+          - AcaciaDoor
+          - DarkOakDoor
         Sponge:
           name: Others
           list:
@@ -3864,6 +3983,7 @@ shop:
           - RedstoneOre
           - NetherQuartzOre
           - Sponge
+          - SlimeBlock
           - Glass
           - LapisBlock
           - BlockGold
@@ -3880,6 +4000,7 @@ shop:
           - GlowstoneBlock
           - Pumpkin
           - JackOLantern
+          - SeaLantern
           - Melon
           - CobblestoneMonsterEgg
           - StoneMonsterEgg
@@ -3905,11 +4026,22 @@ shop:
           - Furnace
           - Torch
           - CraftingTable
+          - ArmorStand
           - Ladder
           - JukeBox
           - Fence
-          - FenceGate
+          - SpruceFence
+          - BirchFence
+          - JungleFence
+          - DarkOakFence
+          - AcaciaFence
           - NetherFence
+          - FenceGate
+          - SpruceFenceGate
+          - BirchFenceGate
+          - JungleFenceGate
+          - DarkOakFenceGate
+          - AcaciaFenceGate
           - IronBars
           - Glasspane
           - EnchantmentTable
@@ -3962,41 +4094,6 @@ shop:
           - RedMushroom
           - Vines
           - LilyPad
-        HugeRedMushroom14:
-          name: Mushrooms
-          list:
-          - HugeRedMushroom
-          - HugeRedMushroom1
-          - HugeRedMushroom2
-          - HugeRedMushroom3
-          - HugeRedMushroom4
-          - HugeRedMushroom5
-          - HugeRedMushroom6
-          - HugeRedMushroom7
-          - HugeRedMushroom8
-          - HugeRedMushroom9
-          - HugeRedMushroom10
-          - HugeRedMushroom11
-          - HugeRedMushroom12
-          - HugeRedMushroom13
-          - HugeRedMushroom14
-          - HugeRedMushroom15
-          - HugeBrownMushroom
-          - HugeBrownMushroom1
-          - HugeBrownMushroom2
-          - HugeBrownMushroom3
-          - HugeBrownMushroom4
-          - HugeBrownMushroom5
-          - HugeBrownMushroom6
-          - HugeBrownMushroom7
-          - HugeBrownMushroom8
-          - HugeBrownMushroom9
-          - HugeBrownMushroom10
-          - HugeBrownMushroom11
-          - HugeBrownMushroom12
-          - HugeBrownMushroom13
-          - HugeBrownMushroom14
-          - HugeBrownMushroom15
         WhiteWool:
           name: Wool
           list:
@@ -4120,8 +4217,14 @@ shop:
       - BlockRedstone
       - Hopper
       - WoodenDoor
+      - SpruceDoor
+      - BirchDoor
+      - JungleDoor
+      - AcaciaDoor
+      - DarkOakDoor
       - IronDoor
       - Trapdoor
+      - IronTrapdoor
     Minecart:
       name: Transport
       list:
@@ -4166,6 +4269,8 @@ shop:
       - Gold
       - GoldNugget
       - Quartz
+      - PrismarineShard
+      - PrismarineCrystals
       - NetherStar
       - Stick
       - Bowl
@@ -4173,6 +4278,8 @@ shop:
       - Feather
       - Gunpowder
       - Leather
+      - RabbitHide
+      - RabbitFoot
       - Clay
       - GlowstoneDust
       - Seeds
@@ -4219,6 +4326,7 @@ shop:
       - IronHorseArmor
       - GoldenHorseArmor
       - DiamondHorseArmor
+      - Saddle
     13Disc:
       name: Discs
       list:
@@ -4257,6 +4365,11 @@ shop:
       - Steak
       - RawChicken
       - CookedChiken
+      - RawRabbit
+      - CookedRabbit
+      - RabbitStew
+      - RawMutton
+      - CookedMutton
       - RottenFlesh
       - SpiderEye
       - Carrot
@@ -4363,8 +4476,14 @@ shop:
       - PotionStrength2Extended
       - PotionSlowness
       - PotionSlownessExtended
+      - PotionLeaping
+      - PotionLeapingExtended
+      - PotionLeaping2
+      - PotionLeaping2Extended
       - PotionHarming
       - PotionHarming2
+      - PotionWaterBreathing
+      - PotionWaterBreathingExtended
       - PotionInvisibility
       - PotionInvisibilityExtended
     LimeDye:

@@ -192,7 +192,7 @@ public class Factory implements Listener {
         return getPrecio(item, cantidad, 0);
     }
     private int getId(String item){
-        return getCache().getInt("item."+item+".id");
+        return getCache().getInt("item."+item+".id", 1);
     }
     private int getData(String item){
         return getCache().getInt("item."+item+".data");
