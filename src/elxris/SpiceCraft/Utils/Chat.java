@@ -23,25 +23,44 @@ public class Chat {
         if(p == null){
             return;
         }
-        String m;
         try{
-            m = String.format(mensaje, i);
-            Object handle = Reflection.getHandle(p);
-			Object connection = Reflection.getField(handle.getClass(), "playerConnection").get(handle);
-			Reflection.getMethod(connection.getClass(), "sendPacket", Reflection.getNMSClass("Packet")).invoke(connection, createChatPacket(m));
+        	String m = String.format(mensaje, i);
+        	p.sendMessage(m);
         }catch(IllegalFormatException e){
             p.sendMessage(mensaje);
             SpiceCraft.log("MISSING FORMAT ARGUMENT EXCEPTION \n" +
                     "Caused by: "+mensaje);
-        } catch (IllegalAccessException e) {
+		}
+    }
+    
+    /* This part is thank to Fanciful
+     * 
+     * */
+    
+    private static void enviarJSON(Player p, String mensaje, Object... i){
+	    if(mensaje == null || mensaje == ""){
+	        return;
+	    }
+	    if(p == null){
+	        return;
+	    }
+	    try{
+	        String m = String.format(mensaje, i);
+	        Object handle = Reflection.getHandle(p);
+			Object connection = Reflection.getField(handle.getClass(), "playerConnection").get(handle);
+			Reflection.getMethod(connection.getClass(), "sendPacket", Reflection.getNMSClass("Packet")).invoke(connection, createChatPacket(m));
+	    }catch(IllegalFormatException e){
+	        p.sendMessage(mensaje);
+	        SpiceCraft.log("MISSING FORMAT ARGUMENT EXCEPTION \n" +
+	                "Caused by: "+mensaje);
+	    } catch (IllegalAccessException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IllegalArgumentException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (InvocationTargetException e) {
-			m = String.format(mensaje, i);
-			p.sendMessage(m);
+			e.printStackTrace();
 		} catch (InstantiationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -52,13 +71,9 @@ public class Chat {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    }
-    
-    /* This part is thank to Fanciful
-     * 
-     * */
-    
-    private static Constructor<?> nmsPacketPlayOutChatConstructor;
+	}
+
+	private static Constructor<?> nmsPacketPlayOutChatConstructor;
     // The ChatSerializer's instance of Gson
  	private static Object nmsChatSerializerGsonInstance;
  	private static Method fromJsonMethod;
@@ -103,6 +118,10 @@ public class Chat {
             return;
         }
         if(Strings.getStringList(path) == null){
+        	if (Strings.getJSON(path) != null){
+        		enviarJSON(p, Strings.getJSON(path), i);
+        		return;
+        	}
             enviar(p, path);
             return;
         }

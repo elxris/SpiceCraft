@@ -36,6 +36,9 @@ public class Strings{
     public static String getString(String path){
         return (String) get(path);
     }
+    public static String getJSON(String path){
+    	return getFc().getString(path+".json");
+    }
     @SuppressWarnings("unchecked")
     public static List<String> getStringList(String path){
         if(path.contentEquals("s")){

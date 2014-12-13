@@ -466,11 +466,11 @@ public class Factory implements Listener {
     }
     public void showItemInfo(Player p, String itemName){
         String item = searchItem(itemName);
-        List<String> list = new ArrayList<String>();
+        List<Integer> amountList = new ArrayList<Integer>();
+        List<String> userList = new ArrayList<String>();
         List<Double> precios = new ArrayList<Double>();
         // Obtiene la raíz de todas la tiendas de los usuarios.
         ConfigurationSection cache = getUserCache().getConfigurationSection("userShop");
-        String format = Strings.getString("shop.itemSearch");
         int vel, amount, i;
         double precio;
         Econ econ = new Econ();
@@ -483,17 +483,22 @@ public class Factory implements Listener {
                 }
                 vel = cache.getInt(user+".items."+item+".vel");
                 precio = (getPrice(item, vel)/MULTIPLIER)*USERMULTIPLIER;
-                for(i = 0; i < list.size(); i++){
+                for(i = 0; i < precios.size(); i++){
                     if(precio < precios.get(i)){
                         break;
                     }
                 }
                 precios.add(i, precio);
-                list.add(i, String.format(format, user, econ.getPrecio(precio), amount));
+                amountList.add(i, amount);
+                userList.add(i, user);
             }
         }
         Chat.mensaje(p, "shop.searchHead", item);
-        Chat.mensaje(p, list);
+        i = 0;
+        for(String user: userList){
+        	Chat.mensaje(p, "shop.itemSearch", user, econ.getPrecio(precios.get(i)), amountList.get(i));
+        	i ++;
+        }
     }
     public int getProduction(String item){
         Map<String, Double> map = getDepends(item);
