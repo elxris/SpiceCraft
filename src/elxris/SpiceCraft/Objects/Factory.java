@@ -192,7 +192,11 @@ public class Factory implements Listener {
         return getPrecio(item, cantidad, 0);
     }
     private int getId(String item){
-        return getCache().getInt("item."+item+".id", 1);
+        int id = getCache().getInt("item."+item+".id");
+        if (id == 0) {
+        	SpiceCraft.log("Item: " + item + "not found in shop.yml.");
+        }
+        return id == 0 ? 1 : id;
     }
     private int getData(String item){
         return getCache().getInt("item."+item+".data");
