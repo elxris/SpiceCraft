@@ -538,6 +538,7 @@ public class Factory implements Listener {
         if(userShop != null){
             gui.setPath("userShop."+userShop+".");
             if(gui.isOwnShop()){
+                getUserCache().set(gui.getPath("UUID"), p.getUniqueId().toString());
                 gui.pay(p);
             }
         }
