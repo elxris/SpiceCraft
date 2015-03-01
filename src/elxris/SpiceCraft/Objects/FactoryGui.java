@@ -164,7 +164,9 @@ public class FactoryGui
         ConfigurationSection config = getUserConfig().getConfigurationSection(path);
         for(String item : config.getKeys(false)){
             if(count < limitDOWN){
-                count++;
+            	if(getItemStock(item) > 0){
+            		count++;
+            	}
                 continue;
             }else if(count >= limitUP){
                 break;
