@@ -65,16 +65,26 @@ public class SpiceCraft extends JavaPlugin {
         return plugin().getServer().getPlayerExact(playerName);
     }
     public static List<String> getOfflinePlayerNamesMatch(String player){
+    	return getOfflinePlayerNamesMatch(player, 5);
+    }
+    public static List<String> getOfflinePlayerNamesMatch(String player, int limit){
+    	String playerLC = player.toLowerCase();
         String players[] = getOfflinePlayerNames();
         List<String> jugadores = new ArrayList<String>();
+        int count = 0;
         for(String p : players){
-            if(p.toLowerCase().contains(player.toLowerCase())){
-                if(p.toLowerCase().contentEquals(player.toLowerCase())){
+        	String pLC = p.toLowerCase();
+            if(pLC.contains(playerLC)){
+                if(pLC.contentEquals(playerLC)){
                     jugadores = new ArrayList<String>();
                     jugadores.add(p);
                     break;
                 }else{
-                    jugadores.add(p);
+                	jugadores.add(p);
+                	count ++;
+                	if (count >= limit) {
+                		break;
+                	}
                 }
             }
         };

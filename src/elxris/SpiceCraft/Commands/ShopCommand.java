@@ -118,9 +118,7 @@ public class ShopCommand extends Comando implements TabCompleter{
             return f.lookItems(args[0], true);
         }else if(args.length == 2){
             if(isCommand("comm.shop.userPrefix", args[0])){
-                if(SpiceCraft.getOfflinePlayerNamesMatch(args[1]).size() < 4){
-                    return SpiceCraft.getOfflinePlayerNamesMatch(args[1]);
-                }
+                return SpiceCraft.getOfflinePlayerNamesMatch(args[1], 4);
             }
         }
         return null;
