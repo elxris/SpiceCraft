@@ -519,7 +519,11 @@ public class FactoryGui
             }
         // Si existe, añade más stock.
         }else{
-            addItemStock(item, amount);
+            if (getItemUserSize() < SpiceCraft.plugin().getConfig().getInt("shop.userShopSize")) {
+                addItemStock(item, amount);
+            } else {
+                return;
+            }
         }
         cursor.setAmount(cursor.getAmount() - amount);
         view.setCursor(cursor);
