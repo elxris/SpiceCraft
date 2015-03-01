@@ -484,7 +484,7 @@ public class Factory implements Listener {
                 vel = cache.getInt(user+".items."+item+".vel");
                 precio = (getPrice(item, vel)/MULTIPLIER)*USERMULTIPLIER;
                 for(i = 0; i < precios.size(); i++){
-                    if(precio < precios.get(i)){
+                    if(precio > precios.get(i)){
                         break;
                     }
                 }
