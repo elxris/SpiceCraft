@@ -70,11 +70,13 @@ public class Archivo extends Savable{
         if(is == null){
             return false;
         }
-        Scanner s = new Scanner(is, Charsets.UTF_8.displayName()).useDelimiter("\\A");
+        Scanner scanner = new Scanner(is, Charsets.UTF_8.displayName());
+        Scanner s = scanner.useDelimiter("\\A");
         if(!exist()){
             blankFile(getName());
         }
         saveString(s.next());
+        scanner.close();
         return true;
     }
     public static void blankFile(String name){
