@@ -181,6 +181,7 @@ public class Mail{
         }
         sendMensaje(jugador, destinatarios, mensaje, true);
     }
+    @SuppressWarnings("deprecation")
     public String isDestinatario(String player){
         List<Player> l = SpiceCraft.plugin().getServer().matchPlayer(player);
         if(l.size() == 1){
