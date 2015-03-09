@@ -10,21 +10,11 @@ import net.milkbowl.vault.economy.EconomyResponse;
 public class Econ {
     private static Economy econ = null;
     private static boolean setup = false;
-    private Player jugador;
     private static EconLogger logg;
     public Econ() {
         if (!setup && !setupEconomy()) {
             SpiceCraft.log(Strings.getString("alert.noEconomy"));
         }
-    }
-    public void setJugador(Player jugador) {
-        this.jugador = jugador;
-    }
-    public Player getJugador() {
-        return jugador;
-    }
-    public String getNombre(){
-        return getJugador().getName();
     }
     //Economía.
     private boolean setupEconomy() {
@@ -40,45 +30,43 @@ public class Econ {
         return econ != null;
     }
     public boolean cobrar(Player jugador, double cantidad) {
-        setJugador(jugador);
         if(cantidad < 0){
             return false;
         }else if(cantidad == 0){
             return true;
         }
         if(econ != null){
-            if(econ.getBalance(getNombre()) >= cantidad){
-                EconomyResponse r = econ.withdrawPlayer(getNombre(), cantidad);                
+            if(econ.getBalance(jugador) >= cantidad){
+                EconomyResponse r = econ.withdrawPlayer(jugador, cantidad);                
                 if(!r.transactionSuccess()){
-                    mensaje(getJugador(), "alert.error");
+                    mensaje(jugador, "alert.error");
                     return false;
                 }
             }else{
                 return false;
             }
         }else{
-            if(!Experiencia.cobrarExperiencia(getJugador(), (int)cantidad)){
+            if(!Experiencia.cobrarExperiencia(jugador, (int)cantidad)){
                 return false;
             }
         }
-        Chat.mensaje(getJugador(), "econ.cobrar", getPrecio(cantidad));
+        Chat.mensaje(jugador, "econ.cobrar", getPrecio(cantidad));
         return true;
     }
     public boolean pagar(Player jugador, double cantidad){
-        setJugador(jugador);
         if(cantidad <= 0){
             return false;
         }
         if(econ != null){
-            EconomyResponse r = econ.depositPlayer(getNombre(), cantidad);
+            EconomyResponse r = econ.depositPlayer(jugador, cantidad);
             if(!r.transactionSuccess()){
-                mensaje(getJugador(), "alert.error");
+                mensaje(jugador, "alert.error");
                 return false;
             }
         }else{
-            Experiencia.pagarExperiencia(getJugador(), (int)cantidad);
+            Experiencia.pagarExperiencia(jugador, (int)cantidad);
         }
-        Chat.mensaje(getJugador(), "econ.pagar", getPrecio(cantidad));
+        Chat.mensaje(jugador, "econ.pagar", getPrecio(cantidad));
         return true;
     }
     public String getPrecio(double precio){
