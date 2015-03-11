@@ -343,8 +343,8 @@ public class FactoryGui
             if(isUserShop()){
                 // Si es su tienda.
                 if(isOwnShop()){
-                    // Si es con shift regresa todo al inventario.
-                    if(click.isShiftClick()){
+                    // Si es izquierdo y con shift regresa todo al inventario.
+                    if(click.isLeftClick() && click.isShiftClick()){
                         int amount = 0;
                         for(ItemStack k: view.getBottomInventory().getContents()){
                             if(k == null){
@@ -367,6 +367,9 @@ public class FactoryGui
                         new Econ().cobrar(p, cost);
                         new Econ().getLogg().logg("Shop", p, "tax for remove items", item, amount, cost);
                         f.addItemsToInventory(p, items);
+                    // Si es derecho y con shift, mueve el objeto uno a la derecha.
+                    }else if(click.isRightClick() && click.isShiftClick()){
+                        shiftItem(item);
                     // Si es izquierdo, ponlo más caro.
                     }else if(click.isLeftClick()){
                         addItemVel(item, +1);
@@ -550,6 +553,28 @@ public class FactoryGui
             setItemVel(item, limit);
         }else if(getItemVel(item) < -limit){
             setItemVel(item, -limit);
+        }
+    }
+    public void shiftItem(String item){
+        ConfigurationSection old = getUserConfig().getConfigurationSection(getPath("items"));
+        ConfigurationSection nova = getUserConfig().createSection(getPath("items"));
+        boolean next = false;
+        for( String key : old.getKeys(false)){
+            SpiceCraft.log("Shifting "+ item + " => key: " + key);
+            if (key.equals(item)) {
+                SpiceCraft.log("Shifting "+ item + " => key: " + key + " is equal");
+                next = true;
+                continue;
+            }
+            nova.createSection(key, old.getConfigurationSection(key).getValues(false));
+            if (next) {
+                SpiceCraft.log("Shifting "+ item + " => key: " + key + " next is reached");
+                nova.createSection(item, old.getConfigurationSection(item).getValues(false));
+                next = false;
+            }
+        }
+        if (next) {
+            nova.createSection(item, old.getConfigurationSection(item).getValues(false));
         }
     }
     public void setMoney(double money){
