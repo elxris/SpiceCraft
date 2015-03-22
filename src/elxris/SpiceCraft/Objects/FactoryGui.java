@@ -36,6 +36,8 @@ public class FactoryGui
     }
     public FactoryGui(Player p){
         this.p = p;
+        close();
+        p.closeInventory();
     }
     public void updateInventory(Inventory inv){
         inv.clear();

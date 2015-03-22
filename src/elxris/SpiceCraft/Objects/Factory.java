@@ -543,7 +543,6 @@ public class Factory implements Listener {
             }
         }
         gui.updateInventory(inv);
-        p.closeInventory();
         p.openInventory(inv);
     }
     public boolean sellItem(Player p, ItemStack item){
