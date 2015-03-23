@@ -535,6 +535,7 @@ public class Factory implements Listener {
         }
         Inventory inv = org.bukkit.Bukkit.createInventory(p, 27, getShopName());
         FactoryGui gui = new FactoryGui(p);
+        p.closeInventory();
         if(userShop != null){
             gui.setPath("userShop."+userShop+".");
             if(gui.isOwnShop()){

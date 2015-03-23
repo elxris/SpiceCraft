@@ -36,7 +36,6 @@ public class FactoryGui
     }
     public FactoryGui(Player p){
         this.p = p;
-        close(); // Borrar todo antecedente
     }
     public void updateInventory(Inventory inv){
         inv.clear();
