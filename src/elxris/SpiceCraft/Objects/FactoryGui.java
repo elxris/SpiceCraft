@@ -415,6 +415,9 @@ public class FactoryGui
                 if(!click.isShiftClick() && click.isLeftClick()){
                     f.shop(p, f.getItemName(current), 1);
                     // Se compra un stack.
+                }else if(!click.isShiftClick() && click.isRightClick()){
+                    p.closeInventory();
+                    p.chat("/shop "+f.getItemName(current));
                 }else if(click.isShiftClick() && click.isLeftClick()){
                     f.shop(p, f.getItemName(current), current.getMaxStackSize());
                 }
