@@ -563,15 +563,12 @@ public class FactoryGui
         ConfigurationSection nova = getUserConfig().createSection(getPath("items"));
         boolean next = false;
         for( String key : old.getKeys(false)){
-            SpiceCraft.log("Shifting "+ item + " => key: " + key);
             if (key.equals(item)) {
-                SpiceCraft.log("Shifting "+ item + " => key: " + key + " is equal");
                 next = true;
                 continue;
             }
             nova.createSection(key, old.getConfigurationSection(key).getValues(false));
             if (next && old.getInt(key+".amount") > 0) {
-                SpiceCraft.log("Shifting "+ item + " => key: " + key + " next is reached");
                 nova.createSection(item, old.getConfigurationSection(item).getValues(false));
                 next = false;
             }
