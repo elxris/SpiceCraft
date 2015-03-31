@@ -570,7 +570,7 @@ public class FactoryGui
                 continue;
             }
             nova.createSection(key, old.getConfigurationSection(key).getValues(false));
-            if (next) {
+            if (next && old.getInt(key+".amount") > 0) {
                 SpiceCraft.log("Shifting "+ item + " => key: " + key + " next is reached");
                 nova.createSection(item, old.getConfigurationSection(item).getValues(false));
                 next = false;
