@@ -392,6 +392,10 @@ public class FactoryGui
                     // Si es izquierdo, compra uno.
                     }else if(!click.isShiftClick() && click.isLeftClick()){
                         amount = 1;
+                    }else if (!click.isShiftClick() && click.isRightClick()){
+                        p.closeInventory();
+                        p.chat("/shop "+f.getItemName(current));
+                        return;
                     }else{
                         return;
                     }
