@@ -5,6 +5,8 @@
 .settings
 *sublime*
 lib/
+.idea
+*.iml
 
 # Compiled source #
 ###################

@@ -30,8 +30,6 @@ import elxris.SpiceCraft.SpiceCraft;
 import elxris.SpiceCraft.Utils.Archivo;
 import elxris.SpiceCraft.Utils.Chat;
 import elxris.SpiceCraft.Utils.Econ;
-import elxris.SpiceCraft.Utils.Strings;
-import elxris.SpiceCraft.Objects.FactoryGui;
 
 public class Factory implements Listener {
     private static Archivo file, fileUser, fileData;
@@ -350,7 +348,7 @@ public class Factory implements Listener {
         return stack;
     }
     public List<ItemStack> createItems(String p, String item, int num){
-        List<ItemStack> items = new ArrayList<ItemStack>();
+        List<ItemStack> items = new ArrayList<>();
         int maxStack = Material.getMaterial(getId(item)).getMaxStackSize();
         if(num%maxStack > 0){
             items.add(createItem(p, item, num%maxStack));
@@ -415,8 +413,8 @@ public class Factory implements Listener {
         }
     }
     public List<String> lookItems(String item, boolean all){ // Busca items.
-        List<String> items = new ArrayList<String>();
-        List<String> response = new ArrayList<String>();
+        List<String> items = new ArrayList<>();
+        List<String> response = new ArrayList<>();
         String n = "";
         for(int i = 0; i < item.length(); i++){
             n += "[";
@@ -431,7 +429,7 @@ public class Factory implements Listener {
                 if(all){
                     items.add(s);
                 }else{
-                    items = new ArrayList<String>();
+                    items = new ArrayList<>();
                     items.add(s);
                     break;
                 }
@@ -466,33 +464,35 @@ public class Factory implements Listener {
     }
     public void showItemInfo(Player p, String itemName){
         String item = searchItem(itemName);
-        List<Integer> amountList = new ArrayList<Integer>();
-        List<String> userList = new ArrayList<String>();
-        List<Double> precios = new ArrayList<Double>();
+        List<Integer> amountList = new ArrayList<>();
+        List<String> userList = new ArrayList<>();
+        List<Double> precios = new ArrayList<>();
         // Obtiene la raíz de todas la tiendas de los usuarios.
-        ConfigurationSection cache = getUserCache().getConfigurationSection("userShop");
         int vel, amount, i;
         double precio;
         Econ econ = new Econ();
-        for(String user: cache.getKeys(false)){
-            if(cache.isSet(user+".items."+item)){
-                amount = cache.getInt(user+".items."+item+".amount");
-                // Revisa que tenga stock para aparecer en la lista.
-                if(amount <= 0){
-                    continue;
-                }
-                vel = cache.getInt(user+".items."+item+".vel");
-                precio = (getPrice(item, vel)/MULTIPLIER)*USERMULTIPLIER;
-                for(i = 0; i < precios.size(); i++){
-                    if(precio > precios.get(i)){
-                        break;
+        try {
+            ConfigurationSection cache = getUserCache().getConfigurationSection("userShop");
+            for(String user: cache.getKeys(false)){
+                if(cache.isSet(user+".items."+item)){
+                    amount = cache.getInt(user+".items."+item+".amount");
+                    // Revisa que tenga stock para aparecer en la lista.
+                    if(amount <= 0){
+                        continue;
                     }
+                    vel = cache.getInt(user+".items."+item+".vel");
+                    precio = (getPrice(item, vel)/MULTIPLIER)*USERMULTIPLIER;
+                    for(i = 0; i < precios.size(); i++){
+                        if(precio > precios.get(i)){
+                            break;
+                        }
+                    }
+                    precios.add(i, precio);
+                    amountList.add(i, amount);
+                    userList.add(i, user);
                 }
-                precios.add(i, precio);
-                amountList.add(i, amount);
-                userList.add(i, user);
             }
-        }
+        } catch (NullPointerException e) { } // En caso de que no se haya inicializado una tienda de un usuario. 
         Chat.mensaje(p, "shop.searchHead", item);
         i = 0;
         for(String user: userList){
