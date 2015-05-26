@@ -7,7 +7,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
-import org.bukkit.event.player.PlayerLoginEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BookMeta;
@@ -44,7 +44,7 @@ public class CommandListener implements Listener{
         }
     }
     @EventHandler
-    public void onNewLogin(PlayerLoginEvent event){
+    public void onNewLogin(PlayerJoinEvent event){
         Player p = event.getPlayer();
         if(!p.hasPlayedBefore()){
             // Si jugó antes.
