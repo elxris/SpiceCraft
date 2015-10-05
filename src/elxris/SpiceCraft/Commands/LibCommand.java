@@ -1,6 +1,7 @@
 package elxris.SpiceCraft.Commands;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -104,8 +105,13 @@ public class LibCommand extends Comando{
                     mensaje(jugador, "lib.noBook");
                     return true;
                 }
+                if(playerHasBook(args[1], jugador)){
+                	mensaje(jugador, "lib.limitReached");
+                	return true;
+                }
                 double precio = getCache().getDouble("libro."+args[1]+".cost");
                 if(getEcon().cobrar(jugador, precio)){
+                	setPlayerHasBook(args[1], jugador);
                     getEcon().getLogg().logg("Lib", jugador, "pay for", "book"+args[1], 0, precio);
                     buyBook(jugador, Integer.parseInt(args[1]));
                     mensaje(jugador, "lib.buy");
@@ -145,6 +151,10 @@ public class LibCommand extends Comando{
                 if(Double.parseDouble(args[1]) < 0){
                     mensaje(jugador, "alert.positive");
                     return true;
+                }
+                if (Double.parseDouble(args[1]) < getDouble("lib.minPrice", 0d)) {
+                	mensaje(jugador, "lib.minPrice");
+                	return true;
                 }
                 if(jugador.getItemInHand() == null){
                     mensaje(jugador, "lib.noHand");
@@ -319,6 +329,19 @@ public class LibCommand extends Comando{
     }
     private boolean hasBook(String id){
         return hasBook(Integer.parseInt(id));
+    }
+    private boolean playerHasBook(String id, Player player) {
+    	if (getCache().isSet("libro."+id+".players")) {
+    		long lastDate = getCache().getLong("libro."+id+".players."+player.getUniqueId().toString());
+    		long waitTime = getLong("lib.waitTime");
+    		if (lastDate + (waitTime*1000) > (new Date()).getTime()) {
+    			return true;
+    		}
+    	}
+    	return false;
+    }
+    private void setPlayerHasBook(String id, Player player) {
+    	getCache().set("libro."+id+".players."+player.getUniqueId().toString(), (new Date()).getTime());
     }
     private boolean isRepeated(BookMeta book){
         if (!getCache().isSet("libro")) {

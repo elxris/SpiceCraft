@@ -60,8 +60,14 @@ public abstract class Comando implements CommandExecutor{
     public double getDouble(String path){
         return getConfig().getDouble(path);
     }
+    public double getDouble(String path, double def){
+    	return getConfig().getDouble(path, def);
+    }
     public int getInt(String path){
         return getConfig().getInt(path);
+    }
+    public long getLong(String path) {
+    	return getConfig().getLong(path);
     }
     public void setEcon(Econ econ) {
         Comando.econ = econ;

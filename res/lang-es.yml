@@ -164,7 +164,11 @@ lib:
   repeated:
   - §b[§cLIB§b]§r Está repetido. ¿Acaso quieres engañar a tus lectores?
   isNotABook:
-  - §b[§cLIB§b]§r Lo que tienes en tu mano no es un libro.
+  - '§b[§cLIB§b]§r Lo que tienes en tu mano no es un libro.'
+  limitReached:
+  - '§b[§cLIB§b]§r Por el momento no puedo venderte este libro. Regresa más tarde.'
+  minPrice:
+  - '§b[§cLIB§b]§r No puedes vender tan barato. Intenta de nuevo.'
 shop:
   info:
   - §b[§cSHOP§b]§r §aAYUDA

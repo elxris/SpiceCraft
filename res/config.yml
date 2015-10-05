@@ -21,6 +21,8 @@ upin:
 lib:
   topSize: 3
   rate: 0.6
+  waitTime: 300
+  minPrice: 5.0
 shop:
   ## Don't modify this unless you know what you are doing.
   multiplier: 4.0
