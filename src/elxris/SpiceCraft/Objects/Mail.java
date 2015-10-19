@@ -176,7 +176,7 @@ public class Mail{
             return;
         }
         List<String> destinatarios = new ArrayList<String>();
-        for(String p: SpiceCraft.getOfflinePlayerNames()){
+        for(String p: SpiceCraft.getOfflinePlayerNames().values().toArray(new String[0])){
             destinatarios.add(p);
         }
         sendMensaje(jugador, destinatarios, mensaje, true);

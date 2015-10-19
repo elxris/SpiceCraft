@@ -1,8 +1,9 @@
 package elxris.SpiceCraft;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
-
+import java.util.TreeMap;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -21,6 +22,8 @@ import elxris.SpiceCraft.Objects.Mail;
 public class SpiceCraft extends JavaPlugin {
     private Mail mail;
     private static SpiceCraft plugin;
+    private static TreeMap<String, String> offlinePlayers;
+    private static OfflinePlayer[] offlinePlayersArray;
     
     public void onEnable(){
         plugin = this;
@@ -68,35 +71,27 @@ public class SpiceCraft extends JavaPlugin {
     	return getOfflinePlayerNamesMatch(player, 5);
     }
     public static List<String> getOfflinePlayerNamesMatch(String player, int limit){
-    	String playerLC = player.toLowerCase();
-        String players[] = getOfflinePlayerNames();
-        List<String> jugadores = new ArrayList<String>();
-        int count = 0;
-        for(String p : players){
-        	String pLC = p.toLowerCase();
-            if(pLC.contains(playerLC)){
-                if(pLC.contentEquals(playerLC)){
-                    jugadores = new ArrayList<String>();
-                    jugadores.add(p);
-                    break;
-                }else{
-                	jugadores.add(p);
-                	count ++;
-                	if (count >= limit) {
-                		break;
-                	}
-                }
-            }
-        };
+        String playerLC = player.toLowerCase();
+        TreeMap<String, String> players = getOfflinePlayerNames();
+        Collection<String> busqueda;
+        busqueda = players.subMap(playerLC, true, playerLC+"z", true).values();
+        List<String> jugadores = new ArrayList<String>(busqueda.size());
+        jugadores.addAll(busqueda);
+        jugadores = jugadores.subList(0, limit);
         return jugadores;
     }
-    public static String[] getOfflinePlayerNames(){
+    public static TreeMap<String, String> getOfflinePlayerNames(){
         OfflinePlayer players[] = plugin.getServer().getOfflinePlayers();
-        String playerNames[] = new String[players.length];
-        for(int i = 0; i < players.length; i++){
-            playerNames[i] = players[i].getName();
+        if (offlinePlayersArray == null || offlinePlayersArray != players) {
+            offlinePlayersArray = players;
+            TreeMap<String, String> playerNames = new TreeMap<String, String>();
+            for(int i = 0; i < players.length; i++){
+                String name = players[i].getName();
+                playerNames.put(name.toLowerCase(), name);
+            }
+            offlinePlayers = playerNames;
         }
-        return playerNames;
+        return offlinePlayers;
     }
     public static SpiceCraft plugin(){
         return plugin;
