@@ -23,7 +23,7 @@ public class SpiceCraft extends JavaPlugin {
     private Mail mail;
     private static SpiceCraft plugin;
     private static TreeMap<String, String> offlinePlayers;
-    private static OfflinePlayer[] offlinePlayersArray;
+    private static long offlinePlayersCount;
     
     public void onEnable(){
         plugin = this;
@@ -77,13 +77,16 @@ public class SpiceCraft extends JavaPlugin {
         busqueda = players.subMap(playerLC, true, playerLC+"z", true).values();
         List<String> jugadores = new ArrayList<String>(busqueda.size());
         jugadores.addAll(busqueda);
-        jugadores = jugadores.subList(0, limit);
+        if (jugadores.size() > limit) {
+            jugadores = jugadores.subList(0, limit);
+        }
         return jugadores;
     }
     public static TreeMap<String, String> getOfflinePlayerNames(){
         OfflinePlayer players[] = plugin.getServer().getOfflinePlayers();
-        if (offlinePlayersArray == null || offlinePlayersArray != players) {
-            offlinePlayersArray = players;
+        if (offlinePlayersCount != players.length) {
+            offlinePlayersCount = players.length;
+            log("number of offline players: " + offlinePlayersCount);
             TreeMap<String, String> playerNames = new TreeMap<String, String>();
             for(int i = 0; i < players.length; i++){
                 String name = players[i].getName();

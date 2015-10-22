@@ -1,10 +1,15 @@
 package elxris.SpiceCraft.Commands;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeMap;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 
 import elxris.SpiceCraft.SpiceCraft;
@@ -14,6 +19,7 @@ import elxris.SpiceCraft.Utils.Strings;
 
 public class ShopCommand extends Comando implements TabCompleter{
     public Factory f;
+    public static TreeMap<String, String> userShops;
     public ShopCommand() {
         f = new Factory();
         // Registra los eventos de plugin.
@@ -87,7 +93,7 @@ public class ShopCommand extends Comando implements TabCompleter{
             arg = args[1];
         }
         String shopName = arg;
-        List<String> players = SpiceCraft.getOfflinePlayerNamesMatch(arg);
+        List<String> players = getPlayersMatch(arg, 5);
         if(players.size() != 1 && !Factory.getUserCache().isSet("userShop."+arg+".items")){
             Chat.mensaje(p, "shop.userNotFound");
             return true;
@@ -105,6 +111,31 @@ public class ShopCommand extends Comando implements TabCompleter{
         f.openInventory(p, shopName);
         return true;
     }
+    private List<String> getPlayersMatch(String arg) {
+        ConfigurationSection userShopConfig;
+        Set<String> userKeys;
+        
+        userShopConfig = Factory.getUserCache().getConfigurationSection("userShop");
+        userKeys = userShopConfig.getKeys(false);
+        if (userShops == null || userShops.size() < userKeys.size()) {
+            userShops = new TreeMap<>();
+            Iterator<String> iterator = userKeys.iterator();
+            while(iterator.hasNext()) {
+                String name = iterator.next();
+                userShops.put(name.toLowerCase(), name);
+            }
+        }
+        String _arg = arg.toLowerCase();
+        List<String> resultado = new ArrayList<String>();
+        resultado.addAll(userShops.subMap(_arg, true, _arg+"z", true).values());
+        return resultado;
+    }
+    private List<String> getPlayersMatch(String arg, int limit){
+        List<String> result = getPlayersMatch(arg);
+        if (result.size() < limit) limit = result.size();
+        result = result.subList(0, limit);
+        return result;
+    }
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command,
             String label, String[] args) {
@@ -118,7 +149,7 @@ public class ShopCommand extends Comando implements TabCompleter{
             return f.lookItems(args[0], true);
         }else if(args.length == 2){
             if(isCommand("comm.shop.userPrefix", args[0])){
-                return SpiceCraft.getOfflinePlayerNamesMatch(args[1], 4);
+                return getPlayersMatch(args[1], 5);
             }
         }
         return null;
