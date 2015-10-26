@@ -1,10 +1,12 @@
 package elxris.SpiceCraft.Commands;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.TreeSet;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -19,7 +21,8 @@ import elxris.SpiceCraft.Utils.Strings;
 
 public class ShopCommand extends Comando implements TabCompleter{
     public Factory f;
-    public static TreeMap<String, String> userShops;
+    public static TreeMap<String, String> usernamesCache;
+    public static int _usernamesCache = 0;
     public ShopCommand() {
         f = new Factory();
         // Registra los eventos de plugin.
@@ -114,20 +117,34 @@ public class ShopCommand extends Comando implements TabCompleter{
     private List<String> getPlayersMatch(String arg) {
         ConfigurationSection userShopConfig;
         Set<String> userKeys;
+        Object[] onlinePlayers;
+        if (Factory.getUserCache().isSet("userShop")) {
+            userShopConfig = Factory.getUserCache().getConfigurationSection("userShop");
+            userKeys = userShopConfig.getKeys(false);
+        } else {
+            userKeys = new TreeSet<>();
+        }
         
-        userShopConfig = Factory.getUserCache().getConfigurationSection("userShop");
-        userKeys = userShopConfig.getKeys(false);
-        if (userShops == null || userShops.size() < userKeys.size()) {
-            userShops = new TreeMap<>();
+        onlinePlayers = SpiceCraft.plugin().getServer().getOnlinePlayers().toArray();
+        if (usernamesCache == null || _usernamesCache < userKeys.size()) {
+            usernamesCache = new TreeMap<>();
             Iterator<String> iterator = userKeys.iterator();
             while(iterator.hasNext()) {
                 String name = iterator.next();
-                userShops.put(name.toLowerCase(), name);
+                usernamesCache.put(name.toLowerCase(), name);
+            }
+            for(int i = 0; i < onlinePlayers.length; i ++) {
+                String name = ((Player) onlinePlayers[i]).getName();
+                if (!usernamesCache.containsValue(name)) {
+                    usernamesCache.put(name.toLowerCase(), name);
+                }
             }
         }
+        _usernamesCache = userKeys.size();
+        
         String _arg = arg.toLowerCase();
         List<String> resultado = new ArrayList<String>();
-        resultado.addAll(userShops.subMap(_arg, true, _arg+"z", true).values());
+        resultado.addAll(usernamesCache.subMap(_arg, true, _arg+"z", true).values());
         return resultado;
     }
     private List<String> getPlayersMatch(String arg, int limit){
