@@ -641,7 +641,7 @@ public class FactoryGui
     }
     public void playSound(){
         Random rndm = new Random();
-        p.getWorld().playSound(p.getLocation(), Sound.CLICK, 0.2f, (rndm.nextFloat()/5f)+0.8f);
+        p.getWorld().playSound(p.getLocation(), Sound.UI_BUTTON_CLICK, 0.2f, (rndm.nextFloat()/5f)+0.8f);
     }
     public boolean isUserShop(){
         return getPath().startsWith("userShop.");

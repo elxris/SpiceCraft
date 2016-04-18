@@ -1,7 +1,6 @@
 package elxris.SpiceCraft.Commands;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -189,7 +188,7 @@ public class ShopCommand extends Comando implements TabCompleter{
                 mensaje(p, "shop.searchHead", arg1);
                 mensaje(p, items);
                 if(items.size() == 18){
-                    mensaje(p, "shop.andMore", null);
+                    mensaje(p, "shop.andMore");
                 }
                 return;
             }else{ // Si especifica el número.

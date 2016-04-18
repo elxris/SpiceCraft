@@ -52,8 +52,8 @@ public class MonsterListener implements Listener {
         }
     }
     public boolean check(Entity e, Player p){
-        if(p.getItemInHand().getTypeId() == 0){
-            String name = e.getType().getName();
+        if(p.getInventory().getItemInMainHand().getTypeId() == 0){
+            String name = e.getType().toString();
             if(!getCache().isSet("mobs."+name)){
                 return false;
             }
@@ -64,7 +64,7 @@ public class MonsterListener implements Listener {
             return false;
         }
         if(getCache().contains(getPath(e, p))){
-            if(getAmountIn(e, p) <= p.getItemInHand().getAmount()){
+            if(getAmountIn(e, p) <= p.getInventory().getItemInMainHand().getAmount()){
                 return true;
             }else{
                 // Mensaje de que no son suficientes.
@@ -98,7 +98,7 @@ public class MonsterListener implements Listener {
         return getData(e, getItemHandName(p));
     }
     public String getPath(Entity e, String item){
-        return "mobs."+e.getType().getName()+"."+item;
+        return "mobs."+e.getType().toString()+"."+item;
     }
     public String getPath(Entity e, Player p){
         return getPath(e, getItemHandName(p));
@@ -107,7 +107,7 @@ public class MonsterListener implements Listener {
         return item.getType().name();
     }
     public String getItemHandName(Player p){
-        return getItemHandName(p.getItemInHand());
+        return getItemHandName(p.getInventory().getItemInMainHand());
     }
     public String getItemName(Entity e, String item){
         return getCache().getString(getPath(e, item)+".item");
@@ -137,7 +137,7 @@ public class MonsterListener implements Listener {
             float n = rndm.nextFloat()/8f;
             for(float i = 1; i < 32; i*=2f){
                 if(rndm.nextBoolean()){
-                    p.getWorld().playSound(e.getLocation(), Sound.CHICKEN_EGG_POP, 1.0f, n*i);
+                    p.getWorld().playSound(e.getLocation(), Sound.ENTITY_CHICKEN_EGG, 1.0f, n*i);
                 }
             }
             ((LivingEntity)e).addPotionEffect(new PotionEffect(PotionEffectType.getById(data), 100, 0, true));
@@ -164,7 +164,7 @@ public class MonsterListener implements Listener {
             ((Monster) e).addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 250, 10000));
         }
         dropItem(e, p);
-        ItemStack item = p.getItemInHand();
+        ItemStack item = p.getInventory().getItemInMainHand();
         item.setAmount(item.getAmount()-getAmountIn(e, p));
         if(item.getAmount() == 0){
             item = null;

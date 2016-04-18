@@ -156,16 +156,16 @@ public class LibCommand extends Comando{
                 	mensaje(jugador, "lib.minPrice");
                 	return true;
                 }
-                if(jugador.getItemInHand() == null){
+                if(jugador.getInventory().getItemInMainHand() == null){
                     mensaje(jugador, "lib.noHand");
                     return true;
                 }
-                if(jugador.getItemInHand().getType() != Material.WRITTEN_BOOK){
+                if(jugador.getInventory().getItemInMainHand().getType() != Material.WRITTEN_BOOK){
                     mensaje(jugador, "lib.isNotABook");
                     return true;
                 }
                 // Si no es el autor del libro.
-                BookMeta book = ((BookMeta)jugador.getItemInHand().getItemMeta());
+                BookMeta book = ((BookMeta)jugador.getInventory().getItemInMainHand().getItemMeta());
                 if(!book.getAuthor().contentEquals(jugador.getName())){
                     mensaje(jugador, "lib.wrongAuthor");
                     return true;
@@ -175,7 +175,7 @@ public class LibCommand extends Comando{
                     mensaje(jugador, "lib.repeated");
                     return true;
                 }
-                sellBook((BookMeta)(jugador.getItemInHand().getItemMeta()), Double.parseDouble(args[1]));
+                sellBook((BookMeta)(jugador.getInventory().getItemInMainHand().getItemMeta()), Double.parseDouble(args[1]));
                 mensaje(jugador, "lib.send");
                 save();
             }else if(isCommand("comm.lib.del", args[0])){
